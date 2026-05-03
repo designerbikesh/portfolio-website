@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Plus2 Guru</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #66bb85
+}
+
+.main{
+    width: 100%;
+    background:ffffff;
+    background-position: center;
+    background-size: cover;
+    height: 190vh;
+}
+
+.navbar{
+    width: 1200px;
+    height: 75px;
+    margin: auto;
+}
+
+ .icon{
+        width: 200px;
+        float: left;
+        height: 70px;
+
+    }
+
+    .logo{
+        color:#ff7200;
+        font-size: 25px;
+        font-family: Arial;
+        padding-left: 0px;
+        float: left;
+        padding-top: 5px;
+        margin-left: -30px;
+
+    }
+
+  
+.menu{
+    width: 1000px;
+    float: left;
+    height: 80px;
+}
+
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+ul li{
+    list-style: none;
+    margin-left: 62px;
+    margin-top: 27px;
+    font-size: 14px;
+
+}
+ul li a{
+    text-decoration: none;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    
+    
+}
+
+ul li a:hover{
+    color: #ff7200;
+
+}
+ 
+ul li t{
+    text-decoration: none;
+    color: #ff7200;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    
+    
+}
+
+ul li t:hover{
+    color: #ff7200;
+
+}
+
+.link:hover, .active{
+    border-bottom: 2.5px solid #ff7200;
+
+}
+
+
+
+
+
+.link:hover, .active{
+    border-bottom: 2.5px solid #ff7200;
+
+}
+
+
+
+
+
+.log img{
+    float: left;
+    width: 100px;
+    height: 90px;
+    margin-left: -320px;
+  }
+
+
+
+
+
+header {
+    background: #1e3a8a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background: #2563eb;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    color: #1e3a8a;
+}
+
+.hero p {
+    font-size: 18px;
+    color: white;
+}
+
+.btn {
+    background: #f97316;
+    padding: 12px 25px;
+    color: white;
+    border: none;
+    font-size: 16px;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.section {
+    display: grid; 
+    gap: 20px;
+    padding: 40px;
+}
+
+.card {
+    background: white;
+    padding: 5px;
+    padding-left: 40px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    text-align: top;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+}
+
+.card h3{
+    padding-top: 0px;
+    text-align: 30px;
+    padding-left: 380px;
+}
+
+.card ol{
+    font-family: 'Times New Roman';
+    font-size: 20px;
+}
+
+.card ul{
+    font-family: 'Times New Roman';
+    font-size: 20px;
+}
+
+
+
+.container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+  color: #1e88e5;
+}
+.info {
+  margin: 15px 0;
+  font-size: 16px;
+}
+.highlight {
+  color: #e91e63;
+  font-weight: bold;
+}
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+input, textarea {
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+button {
+  padding: 12px;
+  background: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #1565c0;
+}
+
+
+
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.social {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.social a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+.whatsapp {
+  background: #25D366;
+}
+.facebook {
+  background: #1877F2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 340px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+            <div class="navbar">
+                <div class="icon">
+                    <h2 class="logo"> Plus 2 Guru</h2>
+                    </div>
+                    
+                    <div class="menu">
+                        <div class="log">
+                            <img src="logo.png.png">
+                        </div>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                             <li><a href="note.html">Notes</a></li>
+                              <li><a href="labclass.html">Lab File</a></li>
+                               <li><a href="modelclass.html">Model Questions</a></li>
+                               <li><a href="past1.html">Past Papers</a></li>
+                               <li><a href="blo.html">Blog</a></li>
+                               <li><a href="about.html" >About</a></li>
+                               <li><t href="contact.html"  class="link active">Contact</a></li>
+                        </ul>
+                        </div>
+
+<div class="hero">
+    <h1>Any Quaries to Contact me</h1>
+    <p>Notes • Questions • Exam Preparation for +2 Students</p>
+  
+</div>
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="card">
+    <h2>Get in Touch</h2>
+    <p class="info">📧 Email: <span class="highlight">plus2guru1@gmail.com</span></p>
+    <p class="info">📱 Phone: <span class="highlight">+977-9816523168</span></p>
+    <p class="info">📍 Location: Kathmandu,Nepal</p>
+    <p class="info">💬 We reply as fast as possible to help students with notes, exams, and study guidance.</p>
+
+    <h2>Send Message</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+       <div id="msg" class="success"></div>
+    </form>
+  </div>
+
+
+  <div class="social">
+      <a class="whatsapp" href="https://wa.me/qr/UBMUKFYBUD6YO1" target="_blank">💬 WhatsApp Chat</a>
+      <a class="facebook" href="https://www.facebook.com/share/1CfCZMFxrh/" target="_blank">📘 Facebook Page</a>
+    </div>
+      
+        
+      <script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let message = document.getElementById("message").value;
+
+  if(name && email && message) {
+    document.getElementById("msg").innerText = "✅ Thank you " + name + ", your message has been sent!";
+    document.getElementById("contactForm").reset();
+  } else {
+    document.getElementById("msg").innerText = "❌ Please fill all fields correctly.";
+  }
+});
+</script>
+
+      
+      
+      
+
+
+<footer>
+    <p>© Copyright 2026 |  Plus2 Guru | Made for Students of Nepal 🇳🇵 </p>
+</footer>
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

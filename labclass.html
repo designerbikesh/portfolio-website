@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Plus2 Guru</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f4f7ff;
+}
+
+.main{
+    width: 100%;
+    background:linear-gradient(45deg,#d2001a,#776bd3,#d40edb,#23d54b);
+    animation: color 2s ease-in-out infinite;
+   
+    background-position: center;
+    background-size: 300% 300%;
+    height: 190vh;
+
+}
+@keyframes color{
+    0%{
+        background-position: 0 50%;
+    }
+     50%{
+        background-position: 100% 50%;
+    }
+     100%{
+        background-position: 0 50%;
+    }
+}
+
+
+.navbar{
+    width: 1200px;
+    height: 75px;
+    margin: auto;
+}
+
+ .icon{
+        width: 200px;
+        float: left;
+        height: 70px;
+
+    }
+
+    .logo{
+        color:#ff7200;
+        font-size: 25px;
+        font-family: Arial;
+        padding-left: 0px;
+        float: left;
+        padding-top: 5px;
+        margin-left: -30px;
+
+    }
+
+  
+.menu{
+    width: 1000px;
+    float: left;
+    height: 80px;
+}
+
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+ul li{
+    list-style: none;
+    margin-left: 62px;
+    margin-top: 27px;
+    font-size: 14px;
+
+}
+ul li a{
+    text-decoration: none;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    
+    
+}
+
+
+ul li t{
+    text-decoration: none;
+    color: #ff7200;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+    
+    
+}
+
+ul li t:hover{
+    color: #ff7200;
+
+}
+
+.link:hover, .active{
+    border-bottom: 2.5px solid #ff7200;
+
+}
+
+
+
+
+
+
+
+ul li a:hover{
+    color: #ff7200;
+
+}
+
+.link:hover, .active{
+    border-bottom: 2.5px solid #ff7200;
+
+}
+
+
+
+
+
+.log img{
+    float: left;
+    width: 100px;
+    height: 90px;
+    margin-left: -320px;
+  }
+
+
+
+
+
+header {
+    background: #1e3a8a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background: #2563eb;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    color: #1e3a8a;
+}
+
+.hero p {
+    font-size: 18px;
+    color: white;
+}
+
+.btn {
+    background: #08dcd1 ;
+    padding: 12px 25px;
+    color: rgb(255, 255, 255);
+    border: none;
+    font-size: 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bt {
+    background: #ff7200;
+    padding: 12px 25px;
+    color: white;
+    border: none;
+    font-size: 16px;
+    margin-top: 90px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.card .bt a{
+    text-decoration: none;
+    color:white;
+    transition: .3s ease;
+}
+
+.bt:hover{
+    background-color: #11f109;
+
+}
+
+
+
+
+
+
+
+
+
+.section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,2);
+    height: 200px;
+    width: 200px;
+   
+}
+
+.card:hover {
+    background-color:skyblue;
+
+}
+
+
+
+
+
+
+
+.card h3{
+    padding-top: 0px;
+    text-align: 30px;
+    padding-left:5px;
+}
+
+.card ol{
+    font-family: 'Times New Roman';
+    font-size: 20px;
+}
+
+.card ul{
+    font-family: 'Times New Roman';
+    font-size: 20px;
+}
+
+
+footer {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 666px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="main">
+            <div class="navbar">
+                <div class="icon">
+                    <h2 class="logo"> Plus 2 Guru</h2>
+                    </div>
+                    
+                    <div class="menu">
+                        <div class="log">
+                            <img src="logo.png.png">
+                        </div>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                             <li><a href="note.html">Notes</a></li>
+                              <li><t href="labclass.html" class="link active">Lab File</a></li>
+                               <li><a href="modelclass.html">Model Questions</a></li>
+                               <li><a href="past1.html" >Past Papers</a></li>
+                               <li><a href="blo.html">Blog</a></li>
+                               <li><a href="about.html"  >About</a></li>
+                               <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                        </div>
+
+                      
+
+
+
+<div class="hero">
+    <h1>"Precision in practice,Excellence in Results"</h1>
+    <p>  Lab Practical File • Class 11 • Exam Preparation for +2 Students</p>
+    <button class="btn">Choose Your Class</button>
+</div>
+
+<div class="section">
+
+    <div class="card">
+        <h3> Class 11 </h3>
+        <button class="bt"><a href="labsubject.html">Click Here</a> </button>
+         
+            
+    
+        
+     
+    </div>
+
+    <div class="card">
+        <h3> Class 12 </h3>
+        <button class="bt">Click Here</button>
+          
+       
+    
+    </div>
+
+
+
+
+
+</div>
+   
+
+
+<footer>
+    <p>© Copyright 2026 |  Plus2 Guru | Made for Students of Nepal 🇳🇵 </p>
+</footer>
+
+</body>
+</html>
