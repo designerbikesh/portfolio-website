@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plus 2 Guru </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="theme-color" content="#ff7200">
+<title>Plus 2 Guru</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png.png">
 <link rel="apple-touch-icon" href="favicon.png.png">
@@ -29,8 +30,8 @@
     --radius-sm: 12px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -38,6 +39,8 @@ body {
     color: var(--text-dark);
     overflow-x: hidden;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Progress Bar */
@@ -64,7 +67,7 @@ body {
     height: 70px;
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; }
 .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
 
 .nav-links { display: flex; gap: 8px; list-style: none; }
@@ -76,7 +79,7 @@ body {
 .nav-links a:hover { color: var(--primary); background: rgba(255,114,0,0.1); }
 .nav-links a.active { color: var(--primary); background: rgba(255,114,0,0.15); }
 
-.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; min-width: 44px; min-height: 44px; }
 
 /* Mobile Nav */
 .mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px); }
@@ -84,9 +87,9 @@ body {
 .mobile-nav-content { position: absolute; top: 0; right: 0; width: 280px; height: 100%; background: white; padding: 80px 24px 24px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
 .mobile-nav.active .mobile-nav-content { transform: translateX(0); }
 .mobile-nav-links { list-style: none; }
-.mobile-nav-links a { display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease; }
+.mobile-nav-links a { display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease; min-height: 44px; display: flex; align-items: center; }
 .mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
-.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); }
+.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); min-width: 44px; min-height: 44px; }
 
 /* Hero */
 .hero { padding: 100px 20px 40px; text-align: center; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%); position: relative; overflow: hidden; }
@@ -95,20 +98,50 @@ body {
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     opacity: 0.5;
 }
-.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 0 10px; }
 .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 50px; color: white; font-size: 14px; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.3); animation: fadeInUp 1s ease; }
-.hero h1 { font-size: clamp(32px, 5vw, 20px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); animation: fadeInUp 1s ease 0.2s both; }
-.hero-subtitle { font-size: clamp(18px, 3vw, 24px); color: rgba(255,255,255,0.9); font-weight: 500; margin-bottom: 32px; animation: fadeInUp 1s ease 0.4s both; }
+.hero h1 { font-size: clamp(20px, 5vw, 48px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); animation: fadeInUp 1s ease 0.2s both; word-break: break-word; }
+.hero-subtitle { font-size: clamp(16px, 3vw, 24px); color: rgba(255,255,255,0.9); font-weight: 500; margin-bottom: 32px; animation: fadeInUp 1s ease 0.4s both; }
 
 /* Breadcrumb */
-.breadcrumb-section { padding: 10px; max-width: 1200px; margin: 0 auto; }
+.breadcrumb-section { padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
 .breadcrumb {
     display: flex; align-items: center; gap: 8px;
-    font-size: 0.9rem; color: var(--text-medium);
+    font-size: 0.95rem; color: var(--text-medium);
+    flex-wrap: wrap;
 }
 .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.3s; }
 .breadcrumb a:hover { color: var(--primary-dark); }
 .breadcrumb i { font-size: 0.7rem; color: var(--text-light); }
+
+/* Video Container - RESPONSIVE */
+.video-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: var(--radius-sm);
+}
 
 /* Subjects Section */
 .subjects-section { padding: 40px 20px 80px; max-width: 1200px; margin: 0 auto; }
@@ -162,6 +195,7 @@ body {
     color: white; text-decoration: none; border-radius: 50px;
     font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255,114,0,0.3); border: none; cursor: pointer;
+    min-height: 44px;
 }
 .subject-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,114,0,0.4); }
 .subject-btn i { transition: transform 0.3s ease; }
@@ -188,6 +222,123 @@ body {
 .related-card h4 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
 .related-card p { font-size: 0.85rem; color: var(--text-medium); }
 
+/* Video Sections */
+.video-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f4f7ff;
+    color: rgb(223, 19, 19);
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+}
+
+.section-badge i {
+    color: var(--accent);
+}
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.video-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.video-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.video-card:hover .play-overlay {
+    background: rgba(0,0,0,0.5);
+}
+
+.play-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.play-btn i {
+    color: var(--primary);
+    font-size: 20px;
+    margin-left: 4px;
+}
+
+.video-card:hover .play-btn {
+    transform: scale(1.1);
+    background: var(--primary);
+}
+
+.video-card:hover .play-btn i {
+    color: white;
+}
+
+.video-info {
+    padding: 20px;
+}
+
 /* Footer */
 footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
@@ -197,7 +348,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 .footer-brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
 .footer-links h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white; }
 .footer-links ul { list-style: none; }
-.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; }
+.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; display: inline-block; min-height: 30px; }
 .footer-links a:hover { color: var(--primary); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; }
 .footer-bottom .flag { font-size: 18px; margin-left: 4px; }
@@ -220,184 +371,171 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
     color: white; font-size: 20px; cursor: pointer;
     opacity: 0; visibility: hidden; transition: all 0.4s ease;
     box-shadow: 0 5px 20px rgba(255,114,0,0.3); z-index: 999; border: none;
+    min-width: 44px;
+    min-height: 44px;
 }
 .back-to-top.visible { opacity: 1; visibility: visible; }
 .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,114,0,0.4); }
 
-/* Responsive */
+/* ============================================ */
+/* RESPONSIVE DESIGN - ALL DEVICES */
+/* ============================================ */
+
+/* Large tablets and small laptops (1024px and below) */
 @media (max-width: 1024px) {
     .nav-links { gap: 4px; }
     .nav-links a { padding: 6px 12px; font-size: 13px; }
+    .videos-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .related-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 }
 
+/* Tablets (768px and below) */
 @media (max-width: 768px) {
     .nav-links { display: none; }
-    .mobile-menu-btn { display: block; }
-    .hero { padding: 120px 16px 60px; }
+    .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+    .hero { padding: 90px 16px 40px; }
+    .hero h1 { font-size: clamp(18px, 6vw, 32px); }
+    .hero-subtitle { font-size: clamp(14px, 3.5vw, 20px); }
+
     .subjects-section { padding: 30px 16px 60px; }
     .subjects-grid { grid-template-columns: 1fr; }
     .subject-card { padding: 32px 24px; }
-    .related-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .video-container { padding: 0 16px; margin: 16px auto; }
+    .video-wrapper { border-radius: 12px; }
+
+    .videos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .video-card { border-radius: 12px; }
+    .video-thumbnail { aspect-ratio: 16/9; }
+    .play-btn { width: 50px; height: 50px; }
+    .play-btn i { font-size: 16px; }
+    .video-info { padding: 16px; }
+
+    .related-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .related-section { padding: 40px 16px; }
-    .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-    .footer-brand { justify-content: center; flex-direction: column; align-items: center; }
+    .related-card { padding: 20px; }
+
+    .footer-content { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .footer-brand { justify-content: flex-start; }
+
+    .breadcrumb-section { padding: 12px 16px; }
+    .breadcrumb { font-size: 0.85rem; }
+
+    .section-badge { font-size: 16px; padding: 10px 20px; }
+    .section-header h2 { font-size: clamp(20px, 4vw, 28px); }
+
+    .back-to-top { bottom: 20px; right: 20px; width: 44px; height: 44px; font-size: 18px; }
 }
 
-@media (max-width: 480px) {
-    .logo-text { font-size: 18px; }
-    .hero h1 { font-size: 28px; }
-    .subject-icon { width: 60px; height: 60px; font-size: 28px; }
+/* Large phones (600px and below) */
+@media (max-width: 600px) {
+    .videos-grid { grid-template-columns: 1fr; }
     .related-grid { grid-template-columns: 1fr; }
-    .breadcrumb { font-size: 0.8rem; }
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+    .footer-brand { justify-content: center; flex-direction: column; align-items: center; }
+    .subject-card { padding: 28px 20px; }
+    .subject-icon { width: 64px; height: 64px; font-size: 28px; }
+    .logo img { width: 48px; height: 48px; }
+    .logo-text { font-size: 18px; }
 }
 
+/* Small phones (480px and below) */
+@media (max-width: 480px) {
+    .hero { padding: 80px 12px 32px; }
+    .hero h1 { font-size: clamp(16px, 7vw, 24px); line-height: 1.3; }
+    .hero-subtitle { font-size: 14px; margin-bottom: 20px; }
+    .hero-badge { font-size: 12px; padding: 6px 14px; }
 
- .video-container {
-            max-width: 800px;
-            margin: auto;
-        }
+    .video-container { padding: 0 12px; margin: 12px auto; }
+    .video-wrapper { border-radius: 10px; }
 
-        video {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+    .nav-container { height: 60px; padding: 0 12px; }
+    .logo img { width: 40px; height: 40px; }
+    .logo-text { font-size: 16px; }
 
+    .breadcrumb-section { padding: 10px 12px; }
+    .breadcrumb { font-size: 0.8rem; gap: 6px; }
 
+    .section-header { margin-bottom: 24px; }
+    .section-header h2 { font-size: 20px; }
+    .section-header p { font-size: 14px; }
+    .section-badge { font-size: 14px; padding: 8px 16px; margin-bottom: 20px; }
 
-        /* Video Sections */
-    .video-section {
-        padding: 60px 20px;
-        max-width: 1200px;
-        margin: 0 auto;
+    .subject-card { padding: 24px 16px; }
+    .subject-card h3 { font-size: 1.2rem; }
+    .subject-card p { font-size: 0.85rem; }
+    .subject-btn { padding: 10px 24px; font-size: 0.9rem; width: 100%; justify-content: center; }
+
+    .video-thumbnail { aspect-ratio: 16/9; }
+    .play-btn { width: 48px; height: 48px; }
+    .play-btn i { font-size: 14px; margin-left: 3px; }
+    .video-info { padding: 14px; }
+
+    .related-card { padding: 18px; }
+    .related-card i { font-size: 24px; }
+    .related-card h4 { font-size: 0.95rem; }
+    .related-card p { font-size: 0.8rem; }
+
+    .footer-content { gap: 24px; }
+    .footer-brand h3 { font-size: 20px; }
+    .footer-links h4 { font-size: 15px; }
+    .footer-links a { font-size: 13px; line-height: 2; }
+    .footer-bottom { font-size: 12px; padding-top: 16px; }
+
+    .back-to-top { bottom: 15px; right: 15px; width: 40px; height: 40px; font-size: 16px; }
+
+    .mobile-nav-content { width: 260px; padding: 70px 20px 20px; }
+    .mobile-nav-links a { font-size: 15px; padding: 12px 0; }
+}
+
+/* Extra small phones (360px and below) */
+@media (max-width: 360px) {
+    .hero h1 { font-size: 18px; }
+    .hero-subtitle { font-size: 13px; }
+    .logo-text { font-size: 14px; }
+    .section-header h2 { font-size: 18px; }
+    .subject-card h3 { font-size: 1.1rem; }
+    .subject-btn { padding: 10px 20px; font-size: 0.85rem; }
+    .play-btn { width: 44px; height: 44px; }
+    .video-info { padding: 12px; }
+    .footer-brand h3 { font-size: 18px; }
+    .footer-bottom { font-size: 11px; }
+}
+
+/* Landscape orientation on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero { padding: 70px 20px 30px; }
+    .hero h1 { font-size: 22px; }
+    .hero-subtitle { font-size: 14px; margin-bottom: 20px; }
+    .nav-container { height: 55px; }
+    .mobile-nav-content { padding-top: 60px; }
+    .mobile-nav-links a { padding: 8px 0; font-size: 14px; }
+}
+
+/* High resolution / retina displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo img, .footer-brand img { image-rendering: -webkit-optimize-contrast; }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+}
+
+/* Dark mode support (optional enhancement) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text-dark: #f1f5f9;
+        --text-medium: #cbd5e1;
+        --text-light: #94a3b8;
+        --border: #334155;
     }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .section-header h2 {
-        font-size: clamp(24px, 3vw, 32px);
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-    }
-
-    .section-header p {
-        color: var(--text-medium);
-        font-size: 16px;
-    }
-
-    .section-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: #f4f7ff;
-        color: rgb(223, 19, 19);
-        padding: 12px 28px;
-        border-radius: 50px;
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 30px;
-        box-shadow: var(--shadow);
-    }
-
-    .section-badge i {
-        color: var(--accent);
-    }
-
-    .videos-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 24px;
-    }
-
-    .video-card {
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid var(--border);
-        position: relative;
-        max-height: fit-content;
-    }
-
-    .video-card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .video-thumbnail {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16/10;
-        overflow: hidden;
-    }
-
-    .video-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .video-card:hover .video-thumbnail img {
-        transform: scale(1.05);
-    }
-
-    .play-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .video-card:hover .play-overlay {
-        background: rgba(0,0,0,0.5);
-    }
-
-    .play-btn {
-        width: 60px;
-        height: 60px;
-        background: rgba(255,255,255,0.95);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-
-    .play-btn i {
-        color: var(--primary);
-        font-size: 20px;
-        margin-left: 4px;
-    }
-
-     .video-card:hover .play-btn {
-        transform: scale(1.1);
-        background: var(--primary);
-    }
-
-    .video-card:hover .play-btn i {
-        color: white;
-    }
-
-    .video-info {
-        padding: 20px;
-    }
-
-
-
+}
 </style>
+<base target="_blank">
 </head>
 <body>
 
@@ -415,12 +553,12 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
             <li><a href="note.html">Notes</a></li>
             <li><a href="labclass.html">Lab Practical</a></li>
             <li><a href="modelclass.html">Model Questions</a></li>
-            <li><a href="past1.html" >Past Papers</a></li>
+            <li><a href="past1.html">Past Papers</a></li>
             <li><a href="blo.html">Blog</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
-        <button class="mobile-menu-btn" onclick="toggleMobileNav()">
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle menu">
             <i class="fas fa-bars"></i>
         </button>
     </div>
@@ -429,7 +567,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 <!-- Mobile Navigation -->
 <div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
     <div class="mobile-nav-content">
-        <button class="close-mobile-nav" onclick="toggleMobileNav()">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()" aria-label="Close menu">
             <i class="fas fa-times"></i>
         </button>
         <ul class="mobile-nav-links">
@@ -447,27 +585,26 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 
 <!-- Hero -->
 <section class="hero">
-    <div class="hero-content"> 
-        
-        </div>
-        <h1>योगमाया (Yogmaya)  <span style="color: #ffd700;">(जीवनी)</span></h1>
+    <div class="hero-content">
+       <h1>योगमाया (Yogmaya)  <span style="color: #ffd700;">(जीवनी)</span></h1>
     </div>
 </section>
 
 <!-- Breadcrumb -->
 <div class="breadcrumb-section">
     <div class="breadcrumb">
-        <a href="index.html"> <b>Back</b></a>
+        <a href="index.html"><b>Back</b></a>
         <i class="fas fa-chevron-right"></i>
-       
     </div>
 </div>
 
+<!-- Video Container - Responsive -->
 <div class="video-container">
-        
-            <iframe width="900" height="430"  src="https://www.youtube.com/embed/0Tjg6rYIaXE" title="Class 11 CHAPTER 4 योगमाया ( Yogmaya ) Jibani Full Explained [Summary]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-wrapper">
+           <iframe width="900" height="430"  src="https://www.youtube.com/embed/0Tjg6rYIaXE" title="Class 11 CHAPTER 4 योगमाया ( Yogmaya ) Jibani Full Explained [Summary]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     
     </div>
+</div>
 
 <!-- Related Papers Section -->
 <section class="related-section">
@@ -476,73 +613,59 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
         <p>Explore our collection of educational and engaging videos.</p>
     </div>
 
-
-     <!-- Class 11 Videos -->
-            <div class="videos-grid">
-
-                   <div class="video-card">
-                <div class="video-thumbnail">
-                    <img src="ferka.jpeg.jpg" alt="Ferka Chapter">
-                    <div class="play-overlay">
-                        <div class="play-btn">
-                            <i class="fas fa-play"></i>
-                        </div>
-                    </div>
-                </div>    
-               
-            </div>
-
-
-
-
-            <div class="video-card">
-                <div class="video-thumbnail">
-                    <img src="ayo.jpeg.jpg" alt="Ayo Chapter">
-                    <div class="play-overlay">
-                        <div class="play-btn">
-                            <a href="video2.html"><i class="fas fa-play" ></i></a>
-                            
-                        </div>
-                    </div>
+    <!-- Class 11 Videos -->
+    <div class="videos-grid">
+        <div class="video-card">
+            <div class="video-thumbnail">
+                <img src="ferka.jpeg.jpg" alt="Ayo Chapter" loading="lazy">
+                <div class="play-overlay">
+                    <a href="video1.html" class="play-btn" aria-label="Play Ayo Chapter">
+                        <i class="fas fa-play"></i>
+                    </a>
                 </div>
-              
             </div>
-
-           
-
-            <div class="video-card">
-                <div class="video-thumbnail">
-                    <img src="safal.png.jpeg" alt="Safalta Ko Katha Chapter">
-                    <div class="play-overlay">
-                        <div class="play-btn">
-                           <a href="video4.html"><i class="fas fa-play" ></i></a>
-                        </div>
-                    </div>
-                </div>
-                
         </div>
 
-          <div class="video-card">
-                <div class="video-thumbnail">
-                    <img src="class12.png" alt="Yogmaya Chapter">
-                    <div class="play-overlay">
-                        <div class="play-btn">
-                            <a href="video21.html"><i class="fas fa-play" ></i></a>
-                        </div>
-                    </div>
+        <div class="video-card">
+            <div class="video-thumbnail">
+                <img src="ayo.jpeg.jpg" alt="Yogmaya Chapter" loading="lazy">
+                <div class="play-overlay">
+                    <a href="video2.html" class="play-btn" aria-label="Play Yogmaya Chapter">
+                        <i class="fas fa-play"></i>
+                    </a>
                 </div>
-                
             </div>
-          
-            </div>
-    </section>
+        </div>
 
+        <div class="video-card">
+            <div class="video-thumbnail">
+                <img src="safal.png.jpeg" alt="Safalta Ko Katha Chapter" loading="lazy">
+                <div class="play-overlay">
+                    <a href="video4.html" class="play-btn" aria-label="Play Safalta Ko Katha Chapter">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-thumbnail">
+                <img src="class12.png" alt="Ferka Chapter" loading="lazy">
+                <div class="play-overlay">
+                    <a href="video21.html" class="play-btn" aria-label="Play Ferka Chapter">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Footer -->
 <footer>
     <div class="footer-content">
         <div class="footer-brand">
-            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo" loading="lazy">
             <div>
                 <h3>Plus 2 Guru</h3>
                 <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
@@ -576,12 +699,12 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
         </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        <p>&copy; 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">&#x1F1F3;&#x1F1F5;</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
     </div>
 </footer>
 
 <!-- Back to Top -->
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
 </button>
 
@@ -589,18 +712,26 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 // Mobile Navigation
 function toggleMobileNav() {
     const nav = document.getElementById('mobileNav');
-    nav.classList.toggle('active');
-    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    const isActive = nav.classList.toggle('active');
+    document.body.style.overflow = isActive ? 'hidden' : '';
 }
 function closeMobileNav(event) {
     if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
 }
 
+// Close mobile nav on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('mobileNav').classList.contains('active')) {
+        toggleMobileNav();
+    }
+});
+
 // Scroll Progress
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    document.getElementById('progressBar').style.width = (winScroll / height) * 100 + '%';
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+    document.getElementById('progressBar').style.width = scrolled + '%';
 });
 
 // Navbar Shadow
@@ -616,7 +747,7 @@ window.addEventListener('scroll', () => {
 });
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// Intersection Observer
+// Intersection Observer for animations
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -627,13 +758,39 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.subject-card, .related-card').forEach((el, index) => {
+document.querySelectorAll('.subject-card, .related-card, .video-card').forEach((el, index) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = `all 0.6s ease ${index * 0.1}s`;
     observer.observe(el);
 });
+
+// Handle window resize to reset mobile nav state
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 768) {
+            document.getElementById('mobileNav').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }, 250);
+});
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
