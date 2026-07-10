@@ -2,417 +2,1282 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Plus2 Guru</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Plus 2 Guru </title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-body {
+:root {
+    --primary: #ff7200;
+    --primary-dark: #e56500;
+    --secondary: #1e3a8a;
+    --secondary-light: #2563eb;
+    --accent: #08dcd1;
+    --accent-hover: #06b8b0;
+    --bg: #f4f7ff;
+    --card-bg: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-medium: #4a5568;
+    --text-light: #718096;
+    --border: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    --radius: 16px;
+    --radius-sm: 12px;
+}
+
+* {
     margin: 0;
-    font-family: Arial;
-    background: #66bb85
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.main{
-    width: 100%;
-    background:ffffff;
-    background-position: center;
-    background-size: cover;
-    height: 190vh;
+html {
+    scroll-behavior: smooth;
 }
 
-.navbar{
-    width: 1200px;
-    height: 75px;
-    margin: auto;
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
 }
 
- .icon{
-        width: 200px;
-        float: left;
-        height: 70px;
-
-    }
-
-    .logo{
-        color:#ff7200;
-        font-size: 25px;
-        font-family: Arial;
-        padding-left: 0px;
-        float: left;
-        padding-top: 5px;
-        margin-left: -30px;
-
-    }
-
-  
-.menu{
-    width: 1000px;
-    float: left;
-    height: 80px;
+/* Scroll Progress Bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    z-index: 10001;
+    width: 0%;
+    transition: width 0.1s linear;
 }
 
-ul{
-    float: left;
+/* Navigation - Exact from about.html */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: space-between;
+    height: 70px;
 }
 
-ul li{
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.logo-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
     list-style: none;
-    margin-left: 62px;
-    margin-top: 27px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-medium);
+    font-weight: 600;
     font-size: 14px;
-
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
 }
-ul li a{
-    text-decoration: none;
-    color: #000000;
-    font-family: Arial;
-    font-weight: bold;
-    transition: 0.4s ease-in-out;
+
+.nav-links a:hover {
+    color: var(--primary);
+    background: rgba(255, 114, 0, 0.1);
+}
+
+.nav-links a.active {
+    color: var(--primary);
+    background: rgba(255, 114, 0, 0.15);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-dark);
     cursor: pointer;
-    
-    
+    padding: 8px;
 }
 
-ul li a:hover{
-    color: #ff7200;
-
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    backdrop-filter: blur(4px);
 }
- 
-ul li t{
+
+.mobile-nav.active {
+    display: block;
+}
+
+.mobile-nav-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100%;
+    background: white;
+    padding: 80px 24px 24px;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav.active .mobile-nav-content {
+    transform: translateX(0);
+}
+
+.mobile-nav-links {
+    list-style: none;
+}
+
+.mobile-nav-links a {
+    display: block;
+    padding: 14px 0;
+    color: var(--text-dark);
     text-decoration: none;
-    color: #ff7200;
-    font-family: Arial;
-    font-weight: bold;
-    transition: 0.4s ease-in-out;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a.active {
+    color: var(--primary);
+}
+
+.close-mobile-nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
     cursor: pointer;
-    
-    
+    color: var(--text-dark);
 }
 
-ul li t:hover{
-    color: #ff7200;
-
-}
-
-.link:hover, .active{
-    border-bottom: 2.5px solid #ff7200;
-
-}
-
-
-
-
-
-.link:hover, .active{
-    border-bottom: 2.5px solid #ff7200;
-
-}
-
-
-
-
-
-.log img{
-    float: left;
-    width: 100px;
-    height: 90px;
-    margin-left: -320px;
-  }
-
-
-
-
-
-header {
-    background: #1e3a8a;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-nav {
-    background: #2563eb;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    margin: 15px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
+/* Hero Section */
 .hero {
+    padding: 140px 20px 80px;
     text-align: center;
-    padding: 60px 20px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.3);
+    animation: fadeInUp 1s ease;
 }
 
 .hero h1 {
-    font-size: 40px;
-    color: #1e3a8a;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    animation: fadeInUp 1s ease 0.2s both;
 }
 
-.hero p {
-    font-size: 18px;
-    color: white;
+.hero-subtitle {
+    font-size: clamp(18px, 3vw, 20px);
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    margin-bottom: 32px;
+    animation: fadeInUp 1s ease 0.4s both;
 }
 
-.btn {
-    background: #f97316;
-    padding: 12px 25px;
+/* Contact Section */
+.contact-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Contact Info Cards */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: all 0.4s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary), var(--secondary-light));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+}
+
+.info-card:hover::before {
+    transform: scaleY(1);
+}
+
+.info-card:hover {
+    transform: translateX(8px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 114, 0, 0.2);
+}
+
+.info-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
+    font-size: 20px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover .info-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.info-card p {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.info-card a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.info-card a:hover {
+    color: var(--primary-dark);
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
     border: none;
-    font-size: 16px;
-    margin-top: 15px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-.section {
-    display: grid; 
-    gap: 20px;
-    padding: 40px;
-}
-
-.card {
-    background: white;
-    padding: 5px;
-    padding-left: 40px;
-    padding-bottom: 30px;
-    border-radius: 10px;
-    text-align: top;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-
-}
-
-.card h3{
-    padding-top: 0px;
-    text-align: 30px;
-    padding-left: 380px;
-}
-
-.card ol{
-    font-family: 'Times New Roman';
-    font-size: 20px;
-}
-
-.card ul{
-    font-family: 'Times New Roman';
-    font-size: 20px;
-}
-
-
-
-.container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
-}
-.card {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-h2 {
-  color: #1e88e5;
-}
-.info {
-  margin: 15px 0;
-  font-size: 16px;
-}
-.highlight {
-  color: #e91e63;
-  font-weight: bold;
-}
-form {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-input, textarea {
-  margin-bottom: 15px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-button {
-  padding: 12px;
-  background: #1e88e5;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background: #1565c0;
-}
-
-
-
-
-.success {
-  color: green;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.social {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.social a {
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-}
-.whatsapp {
-  background: #25D366;
-}
-.facebook {
-  background: #1877F2;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-footer {
-    background: #1e3a8a;
+.social-btn.whatsapp {
+    background: #25D366;
     color: white;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.social-btn.whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.social-btn.facebook {
+    background: #1877F2;
+    color: white;
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+}
+
+.social-btn.facebook:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(24, 119, 242, 0.4);
+}
+
+/* Contact Form */
+.form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.form-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary-light));
+}
+
+.form-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.form-card .subtitle {
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-group label i {
+    color: var(--primary);
+    margin-right: 6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: var(--bg);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(255, 114, 0, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn i {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover i {
+    transform: translateX(4px);
+}
+
+/* Success Message */
+.success-msg {
+    display: none;
+    padding: 16px;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: var(--radius-sm);
+    color: #155724;
+    font-weight: 600;
+    margin-top: 16px;
     text-align: center;
-    padding: 15px;
-    margin-top: 340px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.success-msg.show {
+    display: block;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.faq-header h2 {
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.faq-header h2 .highlight {
+    color: var(--primary);
+}
+
+.faq-header p {
+    color: var(--text-medium);
+}
+
+.faq-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(255, 114, 0, 0.2);
+}
+
+.faq-question {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    color: var(--primary);
+}
+
+.faq-question i {
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 24px;
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px;
+    padding: 0 24px 20px;
+}
+
+/* Map Section */
+.map-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.map-container {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    display: block;
+}
+
+.map-info {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.map-info i {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.map-info h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.map-info p {
+    color: var(--text-medium);
+    font-size: 0.9rem;
+}
+
+/* Footer - Exact from about.html */
+footer {
+    background: var(--secondary);
+    color: white;
+    padding: 50px 20px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.footer-brand img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.footer-brand h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.footer-brand p {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-links h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 2.2;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+}
+
+.footer-bottom .flag {
+    font-size: 18px;
+    margin-left: 4px;
+}
+
+.footer-bottom .designer {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(255, 114, 0, 0.3);
+    z-index: 999;
+    border: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 114, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .nav-links {
+        gap: 4px;
+    }
+    .nav-links a {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+    .hero {
+        padding: 120px 16px 60px;
+    }
+    .contact-section {
+        padding: 60px 16px;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .form-card {
+        padding: 28px 20px;
+    }
+    .social-links {
+        flex-direction: column;
+    }
+    .social-btn {
+        justify-content: center;
+    }
+    .map-container iframe {
+        height: 280px;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    .footer-brand {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 18px;
+    }
+    .hero h1 {
+        font-size: 28px;
+    }
+    .info-card {
+        padding: 20px;
+    }
+    .faq-question {
+        padding: 16px 20px;
+        font-size: 0.9rem;
+    }
+    .faq-item.active .faq-answer {
+        padding: 0 20px 16px;
+    }
 }
 </style>
-
 </head>
-
 <body>
 
-<div class="main">
-            <div class="navbar">
-                <div class="icon">
-                    <h2 class="logo"> Plus 2 Guru</h2>
-                    </div>
-                    
-                    <div class="menu">
-                        <div class="log">
-                            <img src="logo.png.png">
-                        </div>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                             <li><a href="note.html">Notes</a></li>
-                              <li><a href="labclass.html">Lab File</a></li>
-                               <li><a href="modelclass.html">Model Questions</a></li>
-                               <li><a href="past1.html">Past Papers</a></li>
-                               <li><a href="blo.html">Blog</a></li>
-                               <li><a href="about.html" >About</a></li>
-                               <li><t href="contact.html"  class="link active">Contact</a></li>
-                        </ul>
-                        </div>
+<div class="progress-bar" id="progressBar"></div>
 
-<div class="hero">
-    <h1>Any Quaries to Contact me</h1>
-    <p>Notes • Questions • Exam Preparation for +2 Students</p>
-  
+<!-- Navigation - Exact from about.html -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab Practical</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html">Past Papers</a></li>
+            <li><a href="blo.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab Practical</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html">Past Papers</a></li>
+            <li><a href="blo.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </div>
 </div>
 
-
-
-
-
-
-
-
-<div class="container">
-  <div class="card">
-    <h2>Get in Touch</h2>
-    <p class="info">📧 Email: <span class="highlight">plus2guru1@gmail.com</span></p>
-    <p class="info">📱 Phone: <span class="highlight">+977-000000</span></p>
-    <p class="info">📍 Location: Kathmandu,Nepal</p>
-    <p class="info">💬 We reply as fast as possible to help students with notes, exams, and study guidance.</p>
-
-    <h2>Send Message</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-       <div id="msg" class="success"></div>
-    </form>
-  </div>
-
-
-  <div class="social">
-      <a class="whatsapp" href="https://wa.me/qr/UBMUKFYBUD6YO1" target="_blank">💬 WhatsApp Chat</a>
-      <a class="facebook" href="https://www.facebook.com/share/1CfCZMFxrh/" target="_blank">📘 Facebook Page</a>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-envelope"></i>
+            <span>Get in Touch</span>
+        </div>
+        <h1>Contact <span style="color: #ff7200;">Plus 2 Guru</span></h1>
+        <p class="hero-subtitle">Have questions? <br>We are here to help you with notes, exams, and study guidance.</p>
     </div>
-      
-        
-      <script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+</section>
 
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
-  let message = document.getElementById("message").value;
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="contact-grid">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p><a href="mailto:plus2guru1@gmail.com">plus2guru1@gmail.com</a></p>
+                <p style="margin-top: 4px; font-size: 0.85rem;">We reply within 24 hours</p>
+            </div>
 
-  if(name && email && message) {
-    document.getElementById("msg").innerText = "✅ Thank you " + name + ", your message has been sent!";
-    document.getElementById("contactForm").reset();
-  } else {
-    document.getElementById("msg").innerText = "❌ Please fill all fields correctly.";
-  }
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h3>Call Us</h3>
+                <p><a href="tel:+977-**********">+977-**********</a></p>
+                <p style="margin-top: 4px; font-size: 0.85rem;">Mon-Sat, 9AM - 6PM</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Visit Us</h3>
+                <p>Kathmandu, Nepal</p>
+                <p style="margin-top: 4px; font-size: 0.85rem;">Subidhanagar-32, Tinkune</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Quick Chat</h3>
+                <p>Connect with us instantly</p>
+                <div class="social-links" style="margin-top: 12px;">
+                    <a href="https://wa.me/qr/UBMUKFYBUD6YO1" target="_blank" class="social-btn whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/share/1CfCZMFxrh/" target="_blank" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="form-card">
+            <h2><i class="fas fa-paper-plane" style="color: var(--primary);"></i> Send Message</h2>
+            <p class="subtitle">Fill out the form below and we will get back to you as soon as possible.</p>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Your Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone (Optional)</label>
+                        <input type="tel" id="phone" placeholder="+977-XXXXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-book"></i> Subject</label>
+                        <select id="subject">
+                            <option value="">Select a topic</option>
+                             <option value="notes">Foreign Scholarship process</option>
+                            <option value="notes">Subject Notes</option>
+                            <option value="past-papers">Past Papers</option>
+                            <option value="lab">Lab Practical</option>
+                            <option value="model">Model Questions</option>
+                            <option value="study-tips">Study Tips</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> Your Message</label>
+                    <textarea id="message" placeholder="Tell us how we can help you..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>Send Message</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+
+                <div class="success-msg" id="successMsg">
+                    <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="faq-header">
+        <h2>Frequently Asked <span class="highlight">Questions</span></h2>
+        <p>Quick answers to common questions</p>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Are all resources on Plus 2 Guru free?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            Yes! All notes, past papers, lab files, and model questions are completely free. We believe education should be accessible to every student in Nepal.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Which subjects do you cover?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            We cover all major +2 subjects including Physics, Chemistry, Mathematics, Biology, English, and Nepali for Science, Management, and Humanities streams.
+        </div>
+    </div>
+
+   
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I request specific study materials?</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+            Absolutely! Use the contact form above or message us on WhatsApp. We regularly update our content based on student requests and feedback.
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.31606823054!2d85.28493305!3d27.70896095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="map-info">
+            <i class="fas fa-map-pin"></i>
+            <div>
+                <h3>Kathmandu, Nepal</h3>
+                <p>We are based in the heart of Nepal, serving +2 students nationwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer - Exact from about.html -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <div>
+                <h3>Plus 2 Guru</h3>
+                <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html">Model Questions</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Videos</h4>
+            <ul>
+                <li><a href="video1.html" target="_blank">Class 11 Nepali</a></li>
+                <li><a href="video21.html" target="_blank">Class 12 Nepali</a></li>
+                <li><a href="blo.html">More Content</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+// Mobile Navigation
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) {
+        toggleMobileNav();
+    }
+}
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    } else {
+        navbar.style.boxShadow = 'var(--shadow)';
+    }
+});
+
+// Back to Top Button
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// FAQ Toggle
+function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    const isActive = faqItem.classList.contains('active');
+
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // Open clicked item if it was not active
+    if (!isActive) {
+        faqItem.classList.add('active');
+    }
+}
+
+// Form Submission
+const contactForm = document.getElementById('contactForm');
+const successMsg = document.getElementById('successMsg');
+
+contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    if (name && email && message) {
+        // Show success message
+        successMsg.classList.add('show');
+
+        // Reset form
+        contactForm.reset();
+
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+            successMsg.classList.remove('show');
+        }, 5000);
+    }
+});
+
+// Intersection Observer for scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe elements
+document.querySelectorAll('.info-card, .form-card, .faq-item').forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `all 0.6s ease ${index * 0.08}s`;
+    observer.observe(el);
 });
 </script>
 
-      
-      
-      
-
-
-<footer>
-    <p>© Copyright 2026 |  Plus2 Guru | Made for Students of Nepal 🇳🇵 </p>
-</footer>
-
-
-
-
-
-
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-

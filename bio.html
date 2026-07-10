@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Plus 2 Guru</title>
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --primary: #ec4899; --primary-dark: #db2777; --secondary: #1e3a8a; --secondary-light: #2563eb;
+    --accent: #08dcd1; --bg: #f4f7ff; --card-bg: #ffffff; --text-dark: #1a1a2e;
+    --text-medium: #4a5568; --text-light: #718096; --border: #e2e8f0;
+    --success: #10b981; --success-light: #d1fae5; --danger: #ef4444; --danger-light: #fee2e2;
+    --warning: #f59e0b; --warning-light: #fef3c7; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1); --radius: 16px; --radius-sm: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.6; }
+
+/* Navbar */
+.navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); z-index: 1000; box-shadow: var(--shadow); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo-text { font-size: 22px; font-weight: 800; color: #ff7200; letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--text-medium); font-weight: 600; font-size: 14px; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; }
+.nav-links a:hover { color: #ff7200; background: rgba(255, 114, 0, 0.1); }
+.nav-links a.active { color: #ff7200; background: rgba(255, 114, 0, 0.15); }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; }
+.mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px); }
+.mobile-nav.active { display: block; }
+.mobile-nav-content { position: absolute; top: 0; right: 0; width: 280px; height: 100%; background: white; padding: 80px 24px 24px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+.mobile-nav-links { list-style: none; }
+.mobile-nav-links a { display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease; }
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); }
+
+/* Landing */
+.landing-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 20px 40px; background: linear-gradient(135deg, #831843 0%, #ec4899 50%, #f472b6 100%); position: relative; overflow: hidden; }
+.landing-page::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+.landing-content { position: relative; z-index: 1; max-width: 700px; text-align: center; }
+.landing-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 50px; color: white; font-size: 14px; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.3); }
+.landing-content h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+.landing-content p { font-size: clamp(16px, 2vw, 18px); color: rgba(255,255,255,0.9); margin-bottom: 32px; }
+.quiz-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+.quiz-feature { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm); padding: 20px 16px; text-align: center; color: white; }
+.quiz-feature i { font-size: 24px; margin-bottom: 8px; display: block; }
+.quiz-feature span { font-size: 13px; font-weight: 600; display: block; }
+.quiz-feature .feature-count { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.start-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 48px; background: #ff7200; color: white; border: none; border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(236,72,153,0.4); font-family: inherit; }
+.start-btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(236,72,153,0.5); }
+
+/* Quiz Page */
+.quiz-page { display: none; padding: 90px 20px 40px; min-height: 100vh; max-width: 900px; margin: 0 auto; }
+.quiz-page.active { display: block; }
+.timer-bar { position: fixed; top: 70px; left: 0; right: 0; background: white; z-index: 900; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 12px 20px; }
+.timer-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.timer-display { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; color: var(--text-dark); min-width: 100px; }
+.timer-display i { color: var(--primary); font-size: 18px; }
+.timer-display.warning { color: var(--danger); }
+.timer-display.warning i { color: var(--danger); animation: pulse 1s infinite; }
+.progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+.question-counter { font-weight: 600; color: var(--text-medium); font-size: 14px; min-width: 80px; text-align: right; }
+
+.question-card { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); animation: slideIn 0.4s ease; }
+.question-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.question-number { background: var(--secondary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.question-category { background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.question-text { font-size: 18px; font-weight: 600; color: var(--text-dark); line-height: 1.5; margin-bottom: 24px; }
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+.option { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--bg); border: 2px solid transparent; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: var(--text-dark); font-weight: 500; }
+.option:hover { border-color: var(--primary); background: rgba(236,72,153,0.05); transform: translateX(4px); }
+.option.selected { border-color: var(--primary); background: rgba(236,72,153,0.1); }
+.option.correct { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.option.wrong { border-color: var(--danger); background: var(--danger-light); color: var(--danger); }
+.option.disabled { pointer-events: none; opacity: 0.7; }
+.option-letter { width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; transition: all 0.3s ease; }
+.option:hover .option-letter { background: var(--primary); }
+.option.selected .option-letter { background: var(--primary); }
+.option.correct .option-letter { background: var(--success); }
+.option.wrong .option-letter { background: var(--danger); }
+
+.explanation { display: none; margin-top: 20px; padding: 20px; background: var(--success-light); border: 1px solid var(--success); border-radius: var(--radius-sm); animation: fadeIn 0.4s ease; }
+.explanation.show { display: block; }
+.explanation-header { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--success); margin-bottom: 8px; font-size: 16px; }
+.explanation-text { color: var(--text-medium); font-size: 15px; line-height: 1.6; }
+
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 24px; }
+.nav-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; }
+.nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.nav-btn-prev { background: var(--border); color: var(--text-dark); }
+.nav-btn-prev:hover:not(:disabled) { background: var(--text-light); color: white; }
+.nav-btn-next { background: var(--primary); color: white; }
+.nav-btn-next:hover:not(:disabled) { background: var(--primary-dark); transform: translateX(4px); }
+.nav-btn-submit { background: var(--success); color: white; }
+.nav-btn-submit:hover:not(:disabled) { background: #059669; transform: scale(1.05); }
+
+.question-navigator { background: var(--card-bg); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.navigator-title { font-size: 14px; font-weight: 700; color: var(--text-medium); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.navigator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; }
+.navigator-dot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; color: var(--text-medium); }
+.navigator-dot:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
+.navigator-dot.active { border-color: var(--primary); background: var(--primary); color: white; box-shadow: 0 2px 10px rgba(236,72,153,0.3); }
+.navigator-dot.answered { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.navigator-dot.current { animation: pulse 2s infinite; }
+
+/* Results */
+.results-page { display: none; padding: 100px 20px 40px; min-height: 100vh; }
+.results-page.active { display: block; }
+.results-container { max-width: 900px; margin: 0 auto; }
+.results-header { text-align: center; margin-bottom: 40px; }
+.results-header h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+.results-header p { color: var(--text-medium); font-size: 16px; }
+.score-card { background: var(--card-bg); border-radius: var(--radius); padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); text-align: center; }
+.score-circle { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--primary) 0% var(--score-percent), var(--border) var(--score-percent) 100%); margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; position: relative; }
+.score-circle::before { content: ''; position: absolute; width: 130px; height: 130px; background: white; border-radius: 50%; }
+.score-value { position: relative; z-index: 1; font-size: 36px; font-weight: 800; color: var(--primary); }
+.score-label { font-size: 14px; color: var(--text-light); font-weight: 600; }
+.score-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+.stat-box { padding: 16px; border-radius: var(--radius-sm); text-align: center; }
+.stat-box.correct-stat { background: var(--success-light); }
+.stat-box.wrong-stat { background: var(--danger-light); }
+.stat-box.skipped-stat { background: var(--warning-light); }
+.stat-box.time-stat { background: var(--bg); }
+.stat-value { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.stat-box.correct-stat .stat-value { color: var(--success); }
+.stat-box.wrong-stat .stat-value { color: var(--danger); }
+.stat-box.skipped-stat .stat-value { color: var(--warning); }
+.stat-box.time-stat .stat-value { color: var(--secondary); }
+.stat-label { font-size: 12px; font-weight: 600; color: var(--text-medium); text-transform: uppercase; letter-spacing: 0.5px; }
+.performance-msg { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.performance-msg.excellent { color: var(--success); }
+.performance-msg.good { color: var(--secondary-light); }
+.performance-msg.average { color: var(--warning); }
+.performance-msg.needs-work { color: var(--danger); }
+
+.category-breakdown { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.category-breakdown h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+.category-item { margin-bottom: 20px; }
+.category-item:last-child { margin-bottom: 0; }
+.category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.category-name { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+.category-score { font-weight: 700; font-size: 14px; color: var(--text-medium); }
+.category-bar { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+.category-fill { height: 100%; border-radius: 5px; transition: width 1s ease; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+.review-section { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.review-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+.review-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.review-filter { padding: 8px 16px; border: 2px solid var(--border); background: white; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; color: var(--text-medium); }
+.review-filter:hover { border-color: var(--primary); color: var(--primary); }
+.review-filter.active { background: var(--primary); border-color: var(--primary); color: white; }
+.review-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; transition: all 0.3s ease; }
+.review-item:hover { box-shadow: var(--shadow); }
+.review-item.wrong-review { border-left: 4px solid var(--danger); }
+.review-item.correct-review { border-left: 4px solid var(--success); }
+.review-item.skipped-review { border-left: 4px solid var(--warning); }
+.review-q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.review-status { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; flex-shrink: 0; }
+.review-status.correct { background: var(--success); }
+.review-status.wrong { background: var(--danger); }
+.review-status.skipped { background: var(--warning); }
+.review-q-text { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+.review-answer { font-size: 14px; color: var(--text-medium); margin-bottom: 8px; }
+.review-answer strong { color: var(--text-dark); }
+.review-explanation { font-size: 14px; color: var(--text-medium); background: var(--bg); padding: 12px; border-radius: 8px; margin-top: 8px; }
+
+.action-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.action-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; text-decoration: none; }
+.action-btn-primary { background: var(--primary); color: white; }
+.action-btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(236,72,153,0.3); }
+.action-btn-secondary { background: var(--secondary); color: white; }
+.action-btn-secondary:hover { background: var(--secondary-light); transform: translateY(-2px); }
+
+
+    /* Footer */
+    footer {
+        background: var(--secondary);
+        color: white;
+        padding: 50px 20px 20px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-brand img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .footer-brand h3 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #ff7200;
+        margin-bottom: 8px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-links h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: white;
+    }
+
+    .footer-links ul {
+        list-style: none;
+    }
+
+    .footer-links a {
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 2.2;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+
+    .footer-bottom .flag {
+        font-size: 18px;
+        margin-left: 4px;
+    }
+
+    .footer-bottom .designer {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes rotateIn { from { transform: rotate(-180deg); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; } .mobile-menu-btn { display: block; }
+    .quiz-features { grid-template-columns: 1fr; } .score-stats { grid-template-columns: repeat(2, 1fr); }
+    .question-card { padding: 24px 20px; } .question-text { font-size: 16px; }
+    .option { padding: 14px 16px; font-size: 15px; } .timer-container { flex-wrap: wrap; }
+    .navigator-grid { grid-template-columns: repeat(10, 1fr); } .nav-container { height: 60px; }
+    .timer-bar { top: 60px; } .quiz-page, .results-page { padding-top: 80px; }
+    .landing-page { padding-top: 80px; } .score-card { padding: 24px; }
+    .score-circle { width: 130px; height: 130px; } .score-circle::before { width: 105px; height: 105px; }
+    .score-value { font-size: 28px; } .category-breakdown, .review-section { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+    .quiz-nav { flex-direction: column; } .nav-btn { width: 100%; justify-content: center; }
+    .score-stats { grid-template-columns: 1fr 1fr; gap: 8px; } .stat-box { padding: 12px 8px; }
+    .stat-value { font-size: 22px; } .action-buttons { flex-direction: column; }
+    .action-btn { width: 100%; justify-content: center; } .review-filters { justify-content: center; }
+    .navigator-grid { grid-template-columns: repeat(8, 1fr); }
+    .navigator-dot { width: 36px; height: 36px; font-size: 12px; }
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html">Dashboard</a></li>
+            <li><a href="phy.html">Physics</a></li>
+            <li><a href="che.html">Chemistry</a></li>
+            <li><a href="mat.html">Math</a></li>
+            <li><a href="bio.html" class="active">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html">Dashboard</a></li>
+            <li><a href="phy.html">Physics</a></li>
+            <li><a href="che.html">Chemistry</a></li>
+            <li><a href="mat.html">Math</a></li>
+            <li><a href="bio.html" class="active">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="landing-page" id="landingPage">
+    <div class="landing-content">
+        <div class="landing-badge">
+            <i class="fas fa-dna"></i>
+            <span>IOE/CEE Biology Preparation</span>
+        </div>
+        <h1>100 MCQ Biology Quiz</h1>
+        <p>Zoology, Botany, Genetics, Ecology with detailed step-by-step explanations for entrance exam preparation.</p>
+        <div class="quiz-features">
+            <div class="quiz-feature">
+                <i class="fas fa-list-ol"></i>
+                <span class="feature-count">100</span>
+                <span>Questions</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-clock"></i>
+                <span class="feature-count">60</span>
+                <span>Minutes</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-chart-pie"></i>
+                <span class="feature-count">5</span>
+                <span>Categories</span>
+            </div>
+        </div>
+        <button class="start-btn" onclick="startQuiz()">
+            <i class="fas fa-play"></i> Start Quiz
+        </button>
+    </div>
+</div>
+
+<div class="quiz-page" id="quizPage">
+    <div class="timer-bar">
+        <div class="timer-container">
+            <div class="timer-display" id="timerDisplay">
+                <i class="fas fa-clock"></i>
+                <span id="timerText">60:00</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-counter" id="questionCounter">1 / 100</div>
+        </div>
+    </div>
+    <div class="question-navigator">
+        <div class="navigator-title">Question Navigator</div>
+        <div class="navigator-grid" id="navigatorGrid"></div>
+    </div>
+    <div class="question-card" id="questionCard">
+        <div class="question-header">
+            <div class="question-number" id="questionNumber">1</div>
+            <div class="question-category" id="questionCategory">Zoology</div>
+        </div>
+        <div class="question-text" id="questionText">Loading...</div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="explanation" id="explanation">
+            <div class="explanation-header">
+                <i class="fas fa-lightbulb"></i>
+                <span>Step-by-Step Solution</span>
+            </div>
+            <div class="explanation-text" id="explanationText"></div>
+        </div>
+    </div>
+    <div class="quiz-nav">
+        <button class="nav-btn nav-btn-prev" id="prevBtn" onclick="prevQuestion()" disabled>
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        <button class="nav-btn nav-btn-next" id="nextBtn" onclick="nextQuestion()">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="nav-btn nav-btn-submit" id="submitBtn" onclick="submitQuiz()" style="display:none;">
+            <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+    </div>
+</div>
+
+<div class="results-page" id="resultsPage">
+    <div class="results-container">
+        <div class="results-header">
+            <h1><i class="fas fa-trophy" style="color: var(--primary);"></i> Biology Quiz Results</h1>
+            <p>Here is how you performed on the Biology Quiz</p>
+        </div>
+        <div class="score-card">
+            <div class="score-circle" id="scoreCircle">
+                <div>
+                    <div class="score-value" id="scoreValue">0</div>
+                    <div class="score-label">/ 100</div>
+                </div>
+            </div>
+            <div class="performance-msg" id="performanceMsg">Keep practicing!</div>
+            <p style="color: var(--text-medium); font-size: 15px;" id="performanceDesc">You are on your way to mastering biology.</p>
+            <div class="score-stats">
+                <div class="stat-box correct-stat">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-box wrong-stat">
+                    <div class="stat-value" id="wrongCount">0</div>
+                    <div class="stat-label">Wrong</div>
+                </div>
+                <div class="stat-box skipped-stat">
+                    <div class="stat-value" id="skippedCount">0</div>
+                    <div class="stat-label">Skipped</div>
+                </div>
+                <div class="stat-box time-stat">
+                    <div class="stat-value" id="timeTaken">0:00</div>
+                    <div class="stat-label">Time Used</div>
+                </div>
+            </div>
+        </div>
+        <div class="category-breakdown">
+            <h2><i class="fas fa-chart-bar" style="color: var(--primary); margin-right: 8px;"></i>Category Breakdown</h2>
+            <div id="categoryBreakdown"></div>
+        </div>
+        <div class="review-section">
+            <h2><i class="fas fa-search" style="color: var(--primary); margin-right: 8px;"></i>Review Answers</h2>
+            <div class="review-filters">
+                <button class="review-filter active" onclick="filterReview('all')">All</button>
+                <button class="review-filter" onclick="filterReview('wrong')">Wrong</button>
+                <button class="review-filter" onclick="filterReview('correct')">Correct</button>
+                <button class="review-filter" onclick="filterReview('skipped')">Skipped</button>
+            </div>
+            <div id="reviewContainer"></div>
+        </div>
+        <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="restartQuiz()">
+                <i class="fas fa-redo"></i> Retake Quiz
+            </button>
+            <a href="index.html" class="action-btn action-btn-secondary">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <div>
+                    <h3>Plus 2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Videos</h4>
+                <ul>
+                    <li><a href="https://youtu.be/6KWJbHNCSGM" target="_blank">Class 11 Nepali</a></li>
+                    <li><a href="https://youtu.be/NWFa-pmpjSs" target="_blank">Class 12 Nepali</a></li>
+                    <li><a href="blo.html">More Content</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+<script>
+const questions = [
+    {id:1, category:"Zoology", question:"The largest organ in the human body is:", options:["Liver","Skin","Brain","Heart"], correct:1, explanation:"Skin is the largest organ, covering about 1.5-2 square meters and weighing 3.5-10 kg. It protects against pathogens, regulates temperature, and prevents water loss."},
+    {id:2, category:"Zoology", question:"The functional unit of the kidney is:", options:["Neuron","Nephron","Alveolus","Hepatocyte"], correct:1, explanation:"Nephron is the functional and structural unit of kidney. Each kidney has about 1-1.5 million nephrons that filter blood and produce urine."},
+    {id:3, category:"Zoology", question:"The hormone that regulates blood glucose levels is:", options:["Glucagon only","Insulin only","Both insulin and glucagon","Thyroxine"], correct:2, explanation:"Insulin (from β-cells) lowers blood glucose by promoting uptake. Glucagon (from α-cells) raises blood glucose by promoting glycogenolysis. They work antagonistically."},
+    {id:4, category:"Zoology", question:"The pacemaker of the heart is:", options:["AV node","SA node","Bundle of His","Purkinje fibers"], correct:1, explanation:"SA (Sinoatrial) node is the natural pacemaker located in the right atrium. It generates electrical impulses at 60-100 beats/minute, initiating each heartbeat."},
+    {id:5, category:"Zoology", question:"The normal pH of human blood is:", options:["7.0","7.4","6.8","8.0"], correct:1, explanation:"Normal blood pH is 7.35-7.45 (slightly alkaline). Maintained by buffer systems (bicarbonate, phosphate, proteins), lungs, and kidneys. pH < 7.35 = acidosis, pH > 7.45 = alkalosis."},
+    {id:6, category:"Zoology", question:"The enzyme that digests proteins in the stomach is:", options:["Pepsin","Trypsin","Amylase","Lipase"], correct:0, explanation:"Pepsin is secreted by chief cells as pepsinogen (inactive). Activated by HCl in stomach (pH 1.5-2.5). Optimal pH for pepsin is ~2. It breaks proteins into peptides."},
+    {id:7, category:"Zoology", question:"The oxygen-carrying protein in muscle cells is:", options:["Hemoglobin","Myoglobin","Cytochrome","Albumin"], correct:1, explanation:"Myoglobin stores oxygen in muscle tissue. It has higher affinity for O₂ than hemoglobin, releasing oxygen only when cellular O₂ is very low. Contains one heme group (vs. 4 in hemoglobin)."},
+    {id:8, category:"Zoology", question:"The site of sperm maturation and storage is:", options:["Seminiferous tubules","Epididymis","Vas deferens","Seminal vesicle"], correct:1, explanation:"Epididymis: sperm mature (gain motility and fertilizing capacity) and are stored here for 2-3 weeks. Sperm produced in seminiferous tubules are immotile and non-functional initially."},
+    {id:9, category:"Zoology", question:"The neurotransmitter released at the neuromuscular junction is:", options:["Dopamine","Acetylcholine","Serotonin","GABA"], correct:1, explanation:"Acetylcholine (ACh) is released by motor neurons at neuromuscular junctions. It binds to nicotinic receptors on muscle membrane, causing depolarization and muscle contraction."},
+    {id:10, category:"Zoology", question:"The reflex arc consists of:", options:["Receptor and effector only","Sensory neuron and motor neuron only","Receptor, sensory neuron, integration center, motor neuron, effector","Brain and spinal cord only"], correct:2, explanation:"Reflex arc: Receptor → Sensory neuron → Integration center (spinal cord) → Motor neuron → Effector (muscle/gland). Synapse in spinal cord, no brain involvement for simple reflexes."},
+    {id:11, category:"Zoology", question:"The hormone that triggers ovulation is:", options:["FSH","LH","Estrogen","Progesterone"], correct:1, explanation:"LH (Luteinizing Hormone) surge triggers ovulation around day 14 of menstrual cycle. FSH stimulates follicle growth. LH also stimulates corpus luteum to produce progesterone."},
+    {id:12, category:"Zoology", question:"The structure that connects the two cerebral hemispheres is:", options:["Corpus callosum","Pons","Medulla","Thalamus"], correct:0, explanation:"Corpus callosum is a thick band of nerve fibers (~200 million axons) connecting left and right cerebral hemispheres, enabling communication between them."},
+    {id:13, category:"Zoology", question:"The pigment responsible for skin color is:", options:["Hemoglobin","Melanin","Carotene","Bilirubin"], correct:1, explanation:"Melanin is produced by melanocytes in the basal layer of epidermis. Two types: eumelanin (brown-black) and pheomelanin (red-yellow). Protects against UV radiation damage."},
+    {id:14, category:"Zoology", question:"The antibody produced first during primary immune response is:", options:["IgG","IgM","IgA","IgE"], correct:1, explanation:"IgM is produced first in primary response. Large pentamer structure, very effective at agglutination and complement activation. IgG is produced later and provides long-term immunity."},
+    {id:15, category:"Zoology", question:"The cell responsible for cell-mediated immunity is:", options:["B cell","T cell","Macrophage","Neutrophil"], correct:1, explanation:"T cells (lymphocytes maturing in thymus) mediate cell-mediated immunity. Helper T cells (CD4+) coordinate response. Cytotoxic T cells (CD8+) kill infected/cancerous cells."},
+    {id:16, category:"Zoology", question:"The structure in the eye that changes shape to focus light is:", options:["Cornea","Lens","Retina","Iris"], correct:1, explanation:"Lens changes shape (accommodation) via ciliary muscles. For near vision: ciliary muscles contract, lens becomes more convex. For far vision: muscles relax, lens flattens."},
+    {id:17, category:"Zoology", question:"The enzyme that converts angiotensinogen to angiotensin I is:", options:["ACE","Renin","Aldosterone","Erythropoietin"], correct:1, explanation:"Renin (from juxtaglomerular cells of kidney) converts angiotensinogen → angiotensin I. ACE (angiotensin-converting enzyme) then converts angiotensin I → angiotensin II (potent vasoconstrictor)."},
+    {id:18, category:"Zoology", question:"The Bohr effect describes how:", options:["O₂ binds to hemoglobin","CO₂ affects O₂ binding to hemoglobin","pH affects O₂ binding to hemoglobin","Temperature affects respiration"], correct:2, explanation:"Bohr effect: decreased pH (increased H⁺) or increased CO₂ decreases hemoglobin's affinity for O₂, promoting O₂ release in tissues. In lungs, high pH increases O₂ binding."},
+    {id:19, category:"Zoology", question:"The structure that produces cerebrospinal fluid is:", options:["Choroid plexus","Meninges","Ventricles","Pia mater"], correct:0, explanation:"Choroid plexus (in ventricles) produces CSF from blood plasma. CSF cushions brain, removes waste, provides nutrients. Total CSF volume ~150 mL, produced at ~500 mL/day."},
+    {id:20, category:"Zoology", question:"The hormone that increases calcium levels in blood is:", options:["Calcitonin","Parathyroid hormone (PTH)","Vitamin D","Thyroxine"], correct:1, explanation:"PTH (from parathyroid glands) increases blood Ca²⁺ by: (1) bone resorption, (2) kidney reabsorption of Ca²⁺, (3) activation of vitamin D (which increases intestinal Ca²⁺ absorption). Calcitonin decreases Ca²⁺."},
+    {id:21, category:"Zoology", question:"The stage of meiosis where crossing over occurs is:", options:["Prophase I","Metaphase I","Anaphase I","Telophase I"], correct:0, explanation:"Crossing over (genetic recombination) occurs during prophase I of meiosis. Homologous chromosomes pair (synapsis) forming bivalents, and non-sister chromatids exchange segments at chiasmata."},
+    {id:22, category:"Zoology", question:"The structure that prevents backflow of blood in the heart is:", options:["Valves","Septum","Auricles","Ventricles"], correct:0, explanation:"Heart valves ensure unidirectional blood flow: Tricuspid (right AV), Bicuspid/Mitral (left AV), Pulmonary semilunar, Aortic semilunar. Closing of valves produces heart sounds (lub-dub)."},
+    {id:23, category:"Zoology", question:"The cells that produce hydrochloric acid in stomach are:", options:["Chief cells","Parietal cells","Goblet cells","Enterocytes"], correct:1, explanation:"Parietal (oxyntic) cells produce HCl and intrinsic factor. HCl activates pepsinogen → pepsin, kills bacteria, denatures proteins. Intrinsic factor is needed for vitamin B12 absorption."},
+    {id:24, category:"Zoology", question:"The enzyme that breaks down starch to maltose is:", options:["Pepsin","Amylase","Lipase","Sucrase"], correct:1, explanation:"Salivary amylase (ptyalin) begins starch digestion in mouth. Pancreatic amylase continues in small intestine. Both break α-1,4 glycosidic bonds, producing maltose, maltotriose, and limit dextrins."},
+    {id:25, category:"Zoology", question:"The structure that connects the embryo to the placenta is:", options:["Amnion","Umbilical cord","Allantois","Yolk sac"], correct:1, explanation:"Umbilical cord contains two umbilical arteries (carry deoxygenated blood to placenta) and one umbilical vein (carries oxygenated blood to fetus). Wharton's jelly provides protection."},
+    {id:26, category:"Zoology", question:"The neuroglial cells that form myelin in the CNS are:", options:["Schwann cells","Oligodendrocytes","Astrocytes","Microglia"], correct:1, explanation:"Oligodendrocytes form myelin in CNS (one cell can myelinate multiple axons). Schwann cells myelinate in PNS (one cell per axon segment). Myelin increases conduction speed via saltatory conduction."},
+    {id:27, category:"Zoology", question:"The part of the brain that controls balance and coordination is:", options:["Cerebrum","Cerebellum","Medulla","Hypothalamus"], correct:1, explanation:"Cerebellum ('little brain') coordinates voluntary movements, balance, posture, and motor learning. Damage causes ataxia (uncoordinated movements), dysmetria, and intention tremor."},
+    {id:28, category:"Zoology", question:"The hormone that stimulates milk ejection during breastfeeding is:", options:["Prolactin","Oxytocin","Estrogen","Progesterone"], correct:1, explanation:"Oxytocin (from posterior pituitary) causes milk ejection ('let-down' reflex). Prolactin stimulates milk production. Both are neuroendocrine reflexes triggered by infant suckling."},
+    {id:29, category:"Zoology", question:"The blood cells that are responsible for clotting are:", options:["Red blood cells","White blood cells","Platelets","Plasma cells"], correct:2, explanation:"Platelets (thrombocytes) are cell fragments from megakaryocytes. They aggregate at injury sites, release clotting factors, and form platelet plug. Normal count: 150,000-400,000/μL."},
+    {id:30, category:"Zoology", question:"The structure where gas exchange occurs in lungs is:", options:["Bronchi","Bronchioles","Alveoli","Trachea"], correct:2, explanation:"Alveoli are thin-walled air sacs (~300 million per lung, total surface area ~70 m²). Surrounded by capillaries. Type I pneumocytes form gas exchange surface; Type II produce surfactant."},
+    {id:31, category:"Zoology", question:"The vitamin that is essential for blood clotting is:", options:["Vitamin A","Vitamin C","Vitamin K","Vitamin D"], correct:2, explanation:"Vitamin K is required for synthesis of clotting factors II, VII, IX, X in liver. Deficiency causes bleeding. Newborns receive vitamin K injection to prevent hemorrhagic disease."},
+    {id:32, category:"Zoology", question:"The process by which macrophages engulf bacteria is called:", options:["Phagocytosis","Pinocytosis","Exocytosis","Endocytosis"], correct:0, explanation:"Phagocytosis ('cell eating'): macrophages and neutrophils engulf and digest pathogens. Form phagosome → fuses with lysosome → phagolysosome → digestion. Important innate immune mechanism."},
+    {id:33, category:"Zoology", question:"The structure that separates the thoracic and abdominal cavities is:", options:["Pleura","Pericardium","Diaphragm","Peritoneum"], correct:2, explanation:"Diaphragm is a dome-shaped muscle separating thoracic and abdominal cavities. Primary muscle of respiration: contracts during inspiration (flattens, increases thoracic volume), relaxes during expiration."},
+    {id:34, category:"Zoology", question:"The cells that produce antibodies are:", options:["T cells","B cells","Plasma cells","Macrophages"], correct:2, explanation:"Plasma cells are differentiated B cells that produce and secrete antibodies (~2000 molecules/second). Memory B cells remain for faster secondary response. Each plasma cell produces one antibody specificity."},
+    {id:35, category:"Zoology", question:"The enzyme that converts fibrinogen to fibrin is:", options:["Thrombin","Plasmin","Prothrombin","Heparin"], correct:0, explanation:"Thrombin (activated from prothrombin by prothrombinase complex) converts soluble fibrinogen → insoluble fibrin strands. Fibrin forms mesh that traps blood cells, forming clot."},
+    {id:36, category:"Botany", question:"The powerhouse of the cell is:", options:["Nucleus","Mitochondria","Ribosome","Golgi body"], correct:1, explanation:"Mitochondria produce ATP via cellular respiration (Krebs cycle + ETC). Have their own DNA (maternal inheritance). Number varies by cell type: liver cells have ~2000, erythrocytes have none."},
+    {id:37, category:"Botany", question:"The site of photosynthesis in plant cells is:", options:["Mitochondria","Chloroplast","Nucleus","Ribosome"], correct:1, explanation:"Chloroplasts contain chlorophyll and thylakoid membranes where light reactions occur. Stroma contains enzymes for Calvin cycle (dark reactions). Like mitochondria, they have their own DNA."},
+    {id:38, category:"Botany", question:"The pigment that absorbs light for photosynthesis is:", options:["Carotene only","Xanthophyll only","Chlorophyll","Anthocyanin"], correct:2, explanation:"Chlorophyll a (primary pigment) and chlorophyll b (accessory) absorb red and blue light, reflecting green. Carotenes and xanthophylls are accessory pigments that broaden absorption spectrum."},
+    {id:39, category:"Botany", question:"The light-independent reactions of photosynthesis occur in the:", options:["Thylakoid membrane","Stroma","Grana","Lumen"], correct:1, explanation:"Calvin cycle (dark reactions) occurs in stroma. Uses ATP and NADPH from light reactions to fix CO₂ into glucose. Key enzyme: RuBisCO (most abundant protein on Earth)."},
+    {id:40, category:"Botany", question:"The process by which water moves through a semipermeable membrane is:", options:["Diffusion","Osmosis","Active transport","Facilitated diffusion"], correct:1, explanation:"Osmosis: movement of water from low solute concentration to high solute concentration across semipermeable membrane. Passive process, no energy required. Important for plant turgor pressure."},
+    {id:41, category:"Botany", question:"The tissue that transports water in plants is:", options:["Phloem","Xylem","Cambium","Pith"], correct:1, explanation:"Xylem transports water and minerals from roots to shoots. Contains tracheids and vessel elements. Movement is passive (transpiration pull, root pressure, capillary action). Dead at maturity."},
+    {id:42, category:"Botany", question:"The tissue that transports food in plants is:", options:["Xylem","Phloem","Cortex","Epidermis"], correct:1, explanation:"Phloem transports sugars (photosynthates) from source to sink. Contains sieve tube elements and companion cells. Movement is active (requires ATP). Follows pressure-flow hypothesis."},
+    {id:43, category:"Botany", question:"The opening in leaves for gas exchange is called:", options:["Lenticel","Stomata","Hydathode","Pore"], correct:1, explanation:"Stomata (singular: stoma) are pores on leaf epidermis surrounded by guard cells. Regulate CO₂ uptake and water vapor loss (transpiration). Open when guard cells are turgid (K⁺ influx)."},
+    {id:44, category:"Botany", question:"The growth response of plants to light is called:", options:["Geotropism","Phototropism","Hydrotropism","Thigmotropism"], correct:1, explanation:"Phototropism: growth toward light. Mediated by auxin (IAA) redistribution. Shade side has more auxin → more cell elongation → bending toward light. First described by Charles Darwin."},
+    {id:45, category:"Botany", question:"The plant hormone that promotes cell elongation is:", options:["Gibberellin","Auxin","Cytokinin","Ethylene"], correct:1, explanation:"Auxin (IAA - Indole-3-acetic acid) promotes cell elongation by loosening cell walls (acid growth hypothesis). Also involved in apical dominance, root initiation, and fruit development."},
+    {id:46, category:"Botany", question:"The process of seed germination is triggered by:", options:["Light only","Water only","Water, oxygen, and suitable temperature","Gravity only"], correct:2, explanation:"Seed germination requires: (1) Water - activates enzymes, breaks dormancy, (2) Oxygen - for aerobic respiration, (3) Suitable temperature - for enzyme activity. Some seeds also need light or scarification."},
+    {id:47, category:"Botany", question:"The male gametophyte in flowering plants is:", options:["Ovule","Pollen grain","Embryo sac","Endosperm"], correct:1, explanation:"Pollen grain is the male gametophyte (n). Contains vegetative cell and generative cell (divides to form two sperm cells). Produced in anthers. Pollination transfers pollen to stigma."},
+    {id:48, category:"Botany", question:"The female gametophyte in flowering plants is:", options:["Pollen grain","Embryo sac","Ovule","Carpel"], correct:1, explanation:"Embryo sac (7-celled, 8-nucleate) is the female gametophyte. Contains: 1 egg cell, 2 synergids, 3 antipodal cells, 1 central cell with 2 polar nuclei. Formed inside ovule."},
+    {id:49, category:"Botany", question:"Double fertilization in angiosperms results in:", options:["Zygote only","Zygote and endosperm","Endosperm only","Two zygotes"], correct:1, explanation:"Double fertilization: (1) One sperm + egg → zygote (2n) → embryo, (2) One sperm + two polar nuclei → triploid endosperm (3n) → nutritive tissue. Unique to angiosperms."},
+    {id:50, category:"Botany", question:"The process of asexual reproduction in plants using vegetative parts is:", options:["Gametogenesis","Vegetative propagation","Sporulation","Fertilization"], correct:1, explanation:"Vegetative propagation: new plants from vegetative parts (stem, root, leaf). Natural: runners, suckers, bulbs. Artificial: cutting, grafting, layering, tissue culture. Produces genetically identical clones."},
+    {id:51, category:"Botany", question:"The cell wall of plants is primarily composed of:", options:["Chitin","Cellulose","Peptidoglycan","Lignin"], correct:1, explanation:"Cellulose (β-1,4 linked glucose polymers) is the main structural component. Provides rigidity and strength. Other components: hemicellulose, pectin, lignin (in secondary walls)."},
+    {id:52, category:"Botany", question:"The process by which plants lose water vapor through leaves is:", options:["Transpiration","Guttation","Evaporation","Condensation"], correct:0, explanation:"Transpiration: water loss through stomata (90%), lenticels, and cuticle. Drives water uptake (transpiration pull). Cools plants. Rate affected by light, temperature, humidity, wind."},
+    {id:53, category:"Botany", question:"The nitrogen-fixing bacteria in legume root nodules is:", options:["E. coli","Rhizobium","Azotobacter","Nitrosomonas"], correct:1, explanation:"Rhizobium forms symbiotic relationship with legumes. Converts atmospheric N₂ to ammonia (nitrogen fixation). Plant provides carbohydrates; bacteria provide fixed nitrogen. Enzyme: nitrogenase."},
+    {id:54, category:"Botany", question:"The stage of mitosis where chromosomes align at the equator is:", options:["Prophase","Metaphase","Anaphase","Telophase"], correct:1, explanation:"Metaphase: chromosomes align at metaphase plate (equator). Spindle fibers attach to kinetochores. This is the best stage for chromosome counting and karyotyping."},
+    {id:55, category:"Botany", question:"The end product of glycolysis is:", options:["Glucose","Pyruvate","CO₂","Acetyl-CoA"], correct:1, explanation:"Glycolysis: Glucose → 2 Pyruvate + 2 ATP + 2 NADH. Occurs in cytoplasm. Anaerobic process. Pyruvate then enters mitochondria for Krebs cycle or is converted to lactate/ethanol."},
+    {id:56, category:"Botany", question:"The pigment responsible for fall colors in leaves is:", options:["Chlorophyll","Carotenoid","Anthocyanin","Both B and C"], correct:3, explanation:"In autumn, chlorophyll breaks down revealing yellow/orange carotenoids (always present). Some trees produce anthocyanins (red/purple) from sugars trapped in leaves."},
+    {id:57, category:"Botany", question:"The tissue that increases girth in woody plants is:", options:["Apical meristem","Lateral meristem (cambium)","Intercalary meristem","Primary meristem"], correct:1, explanation:"Vascular cambium produces secondary xylem (wood) inward and secondary phloem outward. Cork cambium produces periderm (bark). Together cause secondary growth (increase in girth)."},
+    {id:58, category:"Botany", question:"The process of water uptake by roots against gravity is:", options:["Root pressure","Capillary action","Transpiration pull","All of the above"], correct:3, explanation:"Water moves up xylem via: (1) Root pressure (active secretion into xylem), (2) Transpiration pull (cohesion-tension theory), (3) Capillary action (adhesion to xylem walls)."},
+    {id:59, category:"Botany", question:"The plant hormone that induces seed dormancy is:", options:["Gibberellin","Abscisic acid (ABA)","Cytokinin","Auxin"], correct:1, explanation:"ABA induces and maintains seed dormancy, closes stomata during water stress, and inhibits growth. Antagonist to gibberellins. Levels decrease to break dormancy."},
+    {id:60, category:"Botany", question:"The process of converting atmospheric nitrogen to ammonia is:", options:["Nitrification","Nitrogen fixation","Denitrification","Ammonification"], correct:1, explanation:"Nitrogen fixation: N₂ → NH₃. Biological: nitrogenase enzyme in bacteria (Rhizobium, Azotobacter, cyanobacteria). Industrial: Haber process. Lightning also fixes nitrogen."},
+    {id:61, category:"Botany", question:"The part of the flower that develops into fruit is:", options:["Ovary","Ovule","Stigma","Style"], correct:0, explanation:"After fertilization, ovary develops into fruit. Ovules develop into seeds. Pericarp (ovary wall) becomes fruit wall. Other floral parts wither away."},
+    {id:62, category:"Botany", question:"The part of the seed that develops into shoot is:", options:["Radicle","Plumule","Cotyledon","Hypocotyl"], correct:1, explanation:"Plumule develops into shoot system (stem and leaves). Radicle develops into root. Cotyledons store or absorb food. Hypocotyl connects radicle and plumule."},
+    {id:63, category:"Botany", question:"The process of converting glucose to ethanol in yeast is:", options:["Lactic acid fermentation","Alcoholic fermentation","Aerobic respiration","Photosynthesis"], correct:1, explanation:"Alcoholic fermentation: Glucose → 2 Ethanol + 2 CO₂ + 2 ATP. Occurs in yeast and some bacteria. Anaerobic process. Used in brewing, winemaking, and baking (CO₂ makes bread rise)."},
+    {id:64, category:"Botany", question:"The enzyme that fixes CO₂ in C3 plants is:", options:["PEP carboxylase","RuBisCO","Carbonic anhydrase","Nitrogenase"], correct:1, explanation:"RuBisCO (Ribulose-1,5-bisphosphate carboxylase/oxygenase) fixes CO₂ in Calvin cycle. Most abundant enzyme. Can also fix O₂ (photorespiration), which is wasteful."},
+    {id:65, category:"Botany", question:"The C4 plants are adapted to:", options:["Cold climates","Hot and dry climates","Wet climates","Shady environments"], correct:1, explanation:"C4 plants (maize, sugarcane, sorghum) minimize photorespiration by fixing CO₂ in mesophyll (as 4-carbon malate) then releasing it in bundle sheath cells where RuBisCO is concentrated. Efficient in hot, bright conditions."},
+    {id:66, category:"Genetics", question:"The unit of heredity is:", options:["Chromosome","Gene","DNA","Protein"], correct:1, explanation:"Gene is a segment of DNA that codes for a functional product (protein or RNA). Located at specific locus on chromosome. Humans have ~20,000-25,000 genes."},
+    {id:67, category:"Genetics", question:"The structure of DNA was discovered by:", options:["Mendel","Watson and Crick","Darwin","Morgan"], correct:1, explanation:"Watson and Crick (1953) proposed double helix model using X-ray diffraction data from Rosalind Franklin and Maurice Wilkins. Nobel Prize 1962."},
+    {id:68, category:"Genetics", question:"The base pairing in DNA follows:", options:["A-T and G-C","A-C and G-T","A-G and T-C","Any combination"], correct:0, explanation:"Chargaff's rules: A = T, G = C (complementary base pairing). A-T: 2 hydrogen bonds. G-C: 3 hydrogen bonds. This explains semiconservative replication."},
+    {id:69, category:"Genetics", question:"The process of DNA replication is:", options:["Conservative","Semiconservative","Dispersive","Random"], correct:1, explanation:"Semiconservative: each new DNA molecule has one parental strand and one new strand. Proven by Meselson-Stahl experiment (1958) using N15 isotope labeling."},
+    {id:70, category:"Genetics", question:"The enzyme that unwinds DNA during replication is:", options:["DNA polymerase","Helicase","Ligase","Primase"], correct:1, explanation:"Helicase breaks hydrogen bonds between base pairs, unwinding DNA at replication fork. Requires ATP. Other key enzymes: primase (RNA primer), DNA polymerase (synthesis), ligase (joins Okazaki fragments)."},
+    {id:71, category:"Genetics", question:"The process of making RNA from DNA is called:", options:["Replication","Transcription","Translation","Transformation"], correct:1, explanation:"Transcription: DNA → RNA (mRNA, tRNA, rRNA). Catalyzed by RNA polymerase. Occurs in nucleus (eukaryotes). Template strand is read 3'→5', RNA synthesized 5'→3'."},
+    {id:72, category:"Genetics", question:"The process of making protein from mRNA is called:", options:["Transcription","Translation","Replication","Splicing"], correct:1, explanation:"Translation: mRNA → Protein. Occurs on ribosomes. tRNA brings amino acids based on codons. mRNA read 5'→3', protein synthesized N-terminus → C-terminus."},
+    {id:73, category:"Genetics", question:"The start codon for protein synthesis is:", options:["AUG","UAA","UAG","UGA"], correct:0, explanation:"AUG codes for methionine (start codon). Also codes for methionine internally. Stop codons: UAA (ochre), UAG (amber), UGA (opal/opal). 61 sense codons for 20 amino acids."},
+    {id:74, category:"Genetics", question:"A mutation that changes one amino acid to another is:", options:["Silent mutation","Missense mutation","Nonsense mutation","Frameshift mutation"], correct:1, explanation:"Missense: one amino acid changed to another (e.g., sickle cell: Glu→Val at position 6 of β-globin). Silent: no amino acid change. Nonsense: premature stop codon. Frameshift: insertion/deletion not in multiple of 3."},
+    {id:75, category:"Genetics", question:"Mendel's law of segregation states that:", options:["Alleles separate during gamete formation","Dominant alleles always mask recessive","Genes assort independently","Traits blend in offspring"], correct:0, explanation:"Law of segregation: paired alleles separate during gamete formation, each gamete receives one allele. Basis of Punnett squares and monohybrid crosses."},
+    {id:76, category:"Genetics", question:"Mendel's law of independent assortment applies to:", options:["Genes on same chromosome","Genes on different chromosomes","Alleles of same gene","Mitochondrial genes"], correct:1, explanation:"Independent assortment: genes on different chromosomes segregate independently during meiosis. Genes on same chromosome may be linked (unless far apart or crossing over occurs)."},
+    {id:77, category:"Genetics", question:"A diploid organism with genotype AaBb produces how many gamete types?", options:["2","4","6","8"], correct:1, explanation:"Independent assortment: 2ⁿ gamete types where n = number of heterozygous gene pairs. Here n=2, so 2² = 4 gamete types: AB, Ab, aB, ab."},
+    {id:78, category:"Genetics", question:"The phenotypic ratio in dihybrid cross (AaBb × AaBb) is:", options:["3:1","9:3:3:1","1:1:1:1","1:2:1"], correct:1, explanation:"Dihybrid cross phenotypic ratio: 9 (A_B_) : 3 (A_bb) : 3 (aaB_) : 1 (aabb). Genotypic ratio is more complex: 1:2:1:2:4:2:1:2:1 for nine genotypes."},
+    {id:79, category:"Genetics", question:"The inheritance pattern where both alleles are expressed in heterozygote is:", options:["Complete dominance","Incomplete dominance","Codominance","Both B and C"], correct:3, explanation:"Incomplete dominance: heterozygote shows intermediate phenotype (e.g., pink flowers from red × white). Codominance: both alleles fully expressed (e.g., AB blood type, roan cattle)."},
+    {id:80, category:"Genetics", question:"The blood group with no antigens on RBCs is:", options:["A","B","AB","O"], correct:3, explanation:"Type O: no A or B antigens on RBCs, but has both anti-A and anti-B antibodies in plasma. Universal donor (for RBC transfusions). Type AB: universal recipient."},
+    {id:81, category:"Genetics", question:"A sex-linked recessive trait is more common in:", options:["Males","Females","Equal in both","Cannot determine"], correct:0, explanation:"Males (XY) need only one recessive allele on X to express trait. Females (XX) need two recessive alleles. Examples: hemophilia, color blindness, Duchenne muscular dystrophy."},
+    {id:82, category:"Genetics", question:"The process of producing identical copies of DNA is:", options:["Transcription","PCR","Translation","Gel electrophoresis"], correct:1, explanation:"PCR (Polymerase Chain Reaction): amplifies DNA in vitro. Steps: denaturation (95°C), annealing (50-65°C), extension (72°C). Invented by Kary Mullis (Nobel 1993)."},
+    {id:83, category:"Genetics", question:"The technique used to separate DNA fragments by size is:", options:["PCR","Gel electrophoresis","Chromatography","Centrifugation"], correct:1, explanation:"Gel electrophoresis: DNA fragments separated by size in agarose gel matrix under electric field. Smaller fragments move faster. Stained with ethidium bromide or SYBR Green."},
+    {id:84, category:"Genetics", question:"The enzyme that cuts DNA at specific sequences is:", options:["DNA polymerase","Restriction enzyme","Ligase","Helicase"], correct:1, explanation:"Restriction enzymes (endonucleases) recognize specific DNA sequences (restriction sites) and cut DNA. Used in recombinant DNA technology. Examples: EcoRI, HindIII, BamHI."},
+    {id:85, category:"Genetics", question:"The first genetically modified organism approved for human consumption was:", options:["Bt cotton","Flavr Savr tomato","Golden rice","Bt brinjal"], correct:1, explanation:"Flavr Savr tomato (1994): delayed ripening by antisense RNA technology. Bt cotton has bacterial toxin gene for pest resistance. Golden rice has genes for β-carotene (vitamin A precursor)."},
+    {id:86, category:"Ecology", question:"The study of interactions between organisms and their environment is:", options:["Genetics","Ecology","Evolution","Physiology"], correct:1, explanation:"Ecology: study of organisms in relation to each other and their physical environment. Levels: organism, population, community, ecosystem, biome, biosphere."},
+    {id:87, category:"Ecology", question:"A group of individuals of the same species living in an area is:", options:["Community","Population","Ecosystem","Biome"], correct:1, explanation:"Population: group of same species in defined area at same time. Community: all populations (different species) in an area. Ecosystem: community + abiotic factors."},
+    {id:88, category:"Ecology", question:"The primary producers in an ecosystem are:", options:["Herbivores","Carnivores","Plants and algae","Decomposers"], correct:2, explanation:"Primary producers (autotrophs) convert solar/chemical energy into organic compounds via photosynthesis or chemosynthesis. Form base of food chain. Include plants, algae, cyanobacteria, some bacteria."},
+    {id:89, category:"Ecology", question:"The sequential stages of ecological succession are:", options:["Pioneer → Climax","Climax → Pioneer","Pioneer → Intermediate → Climax","Only climax community"], correct:2, explanation:"Primary succession: bare substrate → pioneer species (lichens/mosses) → grasses/shrubs → intermediate forest → climax community (stable, self-perpetuating)."},
+    {id:90, category:"Ecology", question:"The pyramid that is always upright is:", options:["Pyramid of numbers","Pyramid of biomass","Pyramid of energy","All of the above"], correct:2, explanation:"Pyramid of energy is always upright (10% law: only ~10% energy transferred between trophic levels). Numbers and biomass pyramids can be inverted (e.g., tree → insects, or ocean ecosystems)."},
+    {id:91, category:"Ecology", question:"The maximum number of individuals an environment can support is:", options:["Biotic potential","Carrying capacity (K)","Population density","Growth rate"], correct:1, explanation:"Carrying capacity (K): maximum population size environment can sustain indefinitely. Limited by food, water, space, predation, disease. Logistic growth: dN/dt = rN(1-N/K)."},
+    {id:92, category:"Ecology", question:"The symbiotic relationship where both species benefit is:", options:["Parasitism","Commensalism","Mutualism","Predation"], correct:2, explanation:"Mutualism: both species benefit (+/+). Examples: lichen (fungi + algae), mycorrhizae (fungi + plant roots), gut bacteria + humans, pollination (bee + flower)."},
+    {id:93, category:"Ecology", question:"The process of converting atmospheric nitrogen to usable forms by bacteria is:", options:["Nitrification","Nitrogen fixation","Denitrification","Ammonification"], correct:1, explanation:"Nitrogen fixation: N₂ → NH₃ by nitrogenase enzyme. Biological: Rhizobium, Azotobacter, cyanobacteria. Industrial: Haber process. Essential because N₂ is inert and unusable by most organisms."},
+    {id:94, category:"Ecology", question:"The major reservoir of carbon in the carbon cycle is:", options:["Atmosphere","Ocean","Fossil fuels","Living organisms"], correct:1, explanation:"Oceans are the largest carbon reservoir (~38,000 GtC), storing CO₂ as bicarbonate and carbonate. Atmosphere has ~800 GtC. Sedimentary rocks and fossil fuels also store large amounts."},
+    {id:95, category:"Ecology", question:"The process by which bacteria convert ammonia to nitrate is:", options:["Nitrogen fixation","Nitrification","Denitrification","Ammonification"], correct:1, explanation:"Nitrification: NH₃ → NO₂⁻ → NO₃⁻. Step 1: Nitrosomonas oxidizes NH₃ to NO₂⁻. Step 2: Nitrobacter oxidizes NO₂⁻ to NO₃⁻. Plants absorb nitrate."},
+    {id:96, category:"Ecology", question:"The biodiversity hotspot in Nepal is:", options:["Chitwan National Park","Sagarmatha National Park","Annapurna Conservation Area","All of the above"], correct:3, explanation:"Nepal has diverse ecosystems from tropical (67m) to alpine (8848m). Key protected areas: Chitwan (terai), Sagarmatha (Himalayan), Annapurna (trans-Himalayan). Part of Eastern Himalaya biodiversity hotspot."},
+    {id:97, category:"Ecology", question:"The IUCN Red List categorizes species at highest risk as:", options:["Vulnerable","Endangered","Critically Endangered","Extinct in Wild"], correct:2, explanation:"IUCN categories (increasing risk): Least Concern → Near Threatened → Vulnerable → Endangered → Critically Endangered → Extinct in Wild → Extinct. Critically Endangered faces extremely high risk of extinction."},
+    {id:98, category:"Ecology", question:"The main cause of ozone layer depletion is:", options:["CO₂","CFCs","CH₄","N₂O"], correct:1, explanation:"CFCs (chlorofluorocarbons) release chlorine atoms in stratosphere that catalytically destroy O₃. One Cl atom can destroy ~100,000 O₃ molecules. Montreal Protocol (1987) phased out CFCs."},
+    {id:99, category:"Ecology", question:"The greenhouse gas with highest global warming potential is:", options:["CO₂","CH₄","N₂O","SF₆"], correct:3, explanation:"SF₆ (sulfur hexafluoride) has GWP of 23,900 (over 100 years). CO₂ = 1 (reference). CH₄ = 28-36. N₂O = 265-298. However, CO₂ contributes most to warming due to large atmospheric concentration."},
+    {id:100, category:"Ecology", question:"The sustainable development goal related to life on land is:", options:["SDG 13","SDG 14","SDG 15","SDG 16"], correct:2, explanation:"SDG 15: Life on Land - protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, halt and reverse land degradation, halt biodiversity loss."}
+];
+
+
+let currentQuestion = 0;
+let answers = new Array(100).fill(null);
+let timeRemaining = 3600;
+let timerInterval = null;
+let startTime = null;
+let quizSubmitted = false;
+
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+function startQuiz() {
+    document.getElementById('landingPage').style.display = 'none';
+    document.getElementById('quizPage').classList.add('active');
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    renderNavigator();
+    renderQuestion();
+}
+
+function updateTimer() {
+    timeRemaining--;
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById('timerText').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const timerDisplay = document.getElementById('timerDisplay');
+    if (timeRemaining <= 300) timerDisplay.classList.add('warning');
+    if (timeRemaining <= 0) { clearInterval(timerInterval); submitQuiz(); }
+}
+
+function renderNavigator() {
+    const grid = document.getElementById('navigatorGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'navigator-dot';
+        dot.textContent = i + 1;
+        if (i === currentQuestion) dot.classList.add('active', 'current');
+        if (answers[i] !== null) dot.classList.add('answered');
+        dot.onclick = () => goToQuestion(i);
+        grid.appendChild(dot);
+    }
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById('questionNumber').textContent = q.id;
+    document.getElementById('questionCategory').textContent = q.category;
+    document.getElementById('questionText').textContent = q.question;
+    document.getElementById('questionCounter').textContent = `${q.id} / 100`;
+    const progress = ((currentQuestion + 1) / 100) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+
+    const optionsGrid = document.getElementById('optionsGrid');
+    optionsGrid.innerHTML = '';
+    const letters = ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, idx) => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        if (answers[currentQuestion] === idx) option.classList.add('selected');
+        if (quizSubmitted) {
+            option.classList.add('disabled');
+            if (idx === q.correct) option.classList.add('correct');
+            else if (answers[currentQuestion] === idx && idx !== q.correct) option.classList.add('wrong');
+        }
+        option.innerHTML = `<div class="option-letter">${letters[idx]}</div><div>${opt}</div>`;
+        option.onclick = () => selectOption(idx);
+        optionsGrid.appendChild(option);
+    });
+
+    const explanation = document.getElementById('explanation');
+    if (quizSubmitted) {
+        explanation.classList.add('show');
+        document.getElementById('explanationText').textContent = q.explanation;
+    } else {
+        explanation.classList.remove('show');
+    }
+
+    document.getElementById('prevBtn').disabled = currentQuestion === 0;
+    if (currentQuestion === 99) {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'inline-flex';
+    } else {
+        document.getElementById('nextBtn').style.display = 'inline-flex';
+        document.getElementById('submitBtn').style.display = 'none';
+    }
+    renderNavigator();
+}
+
+function selectOption(index) {
+    if (quizSubmitted) return;
+    answers[currentQuestion] = index;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (currentQuestion < 99) { currentQuestion++; renderQuestion(); }
+}
+function prevQuestion() {
+    if (currentQuestion > 0) { currentQuestion--; renderQuestion(); }
+}
+function goToQuestion(index) {
+    currentQuestion = index;
+    renderQuestion();
+}
+
+function submitQuiz() {
+    if (quizSubmitted) return;
+    const unanswered = answers.filter(a => a === null).length;
+    if (unanswered > 0) {
+        if (!confirm(`You have ${unanswered} unanswered questions. Submit anyway?`)) return;
+    }
+    quizSubmitted = true;
+    clearInterval(timerInterval);
+    document.getElementById('quizPage').classList.remove('active');
+    document.getElementById('resultsPage').classList.add('active');
+    renderResults();
+}
+
+function renderResults() {
+    let correct = 0, wrong = 0, skipped = 0;
+    const categoryStats = {};
+    questions.forEach((q, i) => {
+        if (!categoryStats[q.category]) categoryStats[q.category] = { total: 0, correct: 0 };
+        categoryStats[q.category].total++;
+        if (answers[i] === null) skipped++;
+        else if (answers[i] === q.correct) { correct++; categoryStats[q.category].correct++; }
+        else wrong++;
+    });
+
+    const scorePercent = (correct / 100) * 100;
+    document.getElementById('scoreCircle').style.setProperty('--score-percent', `${scorePercent}%`);
+    document.getElementById('scoreValue').textContent = correct;
+
+    const msgEl = document.getElementById('performanceMsg');
+    const descEl = document.getElementById('performanceDesc');
+    if (correct >= 90) {
+        msgEl.textContent = 'Outstanding! 🎉'; msgEl.className = 'performance-msg excellent';
+        descEl.textContent = 'You have mastered biology at an exceptional level!';
+    } else if (correct >= 75) {
+        msgEl.textContent = 'Great job! 👏'; msgEl.className = 'performance-msg good';
+        descEl.textContent = 'You have a strong grasp of biology concepts.';
+    } else if (correct >= 50) {
+        msgEl.textContent = 'Good effort! 💪'; msgEl.className = 'performance-msg average';
+        descEl.textContent = 'Keep practicing to strengthen your understanding.';
+    } else {
+        msgEl.textContent = 'Keep practicing! 📚'; msgEl.className = 'performance-msg needs-work';
+        descEl.textContent = 'Review the concepts and try again to improve your score.';
+    }
+
+    document.getElementById('correctCount').textContent = correct;
+    document.getElementById('wrongCount').textContent = wrong;
+    document.getElementById('skippedCount').textContent = skipped;
+
+    const timeUsed = 3600 - timeRemaining;
+    const mins = Math.floor(timeUsed / 60);
+    const secs = timeUsed % 60;
+    document.getElementById('timeTaken').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    const catContainer = document.getElementById('categoryBreakdown');
+    catContainer.innerHTML = '';
+    Object.entries(categoryStats).forEach(([cat, stats]) => {
+        const pct = (stats.correct / stats.total) * 100;
+        const item = document.createElement('div');
+        item.className = 'category-item';
+        item.innerHTML = `
+            <div class="category-header">
+                <span class="category-name">${cat}</span>
+                <span class="category-score">${stats.correct}/${stats.total} (${Math.round(pct)}%)</span>
+            </div>
+            <div class="category-bar">
+                <div class="category-fill" style="width: ${pct}%"></div>
+            </div>`;
+        catContainer.appendChild(item);
+    });
+    renderReview('all');
+}
+
+function filterReview(type) {
+    document.querySelectorAll('.review-filter').forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+    renderReview(type);
+}
+
+function renderReview(filter) {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+    questions.forEach((q, i) => {
+        let status = '';
+        if (answers[i] === null) status = 'skipped';
+        else if (answers[i] === q.correct) status = 'correct';
+        else status = 'wrong';
+        if (filter !== 'all' && filter !== status) return;
+
+        const item = document.createElement('div');
+        item.className = `review-item ${status}-review`;
+        const icon = status === 'correct' ? 'fa-check' : status === 'wrong' ? 'fa-times' : 'fa-minus';
+        const yourAnswer = answers[i] !== null ? q.options[answers[i]] : 'Skipped';
+        const correctAnswer = q.options[q.correct];
+
+        item.innerHTML = `
+            <div class="review-q-header">
+                <div class="review-status ${status}"><i class="fas ${icon}"></i></div>
+                <div class="review-q-text">Q${q.id}: ${q.question}</div>
+            </div>
+            <div class="review-answer">
+                <strong>Your answer:</strong> ${yourAnswer}<br>
+                <strong>Correct answer:</strong> ${correctAnswer}
+            </div>
+            <div class="review-explanation">${q.explanation}</div>`;
+        container.appendChild(item);
+    });
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    answers = new Array(100).fill(null);
+    timeRemaining = 3600;
+    quizSubmitted = false;
+    startTime = null;
+    document.getElementById('resultsPage').classList.remove('active');
+    document.getElementById('landingPage').style.display = 'flex';
+    document.getElementById('timerDisplay').classList.remove('warning');
+    document.getElementById('timerText').textContent = '60:00';
+}
+
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    else navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+});
+</script>
+</body>
+</html>

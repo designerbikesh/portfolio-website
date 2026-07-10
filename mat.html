@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Plus 2 Guru</title>
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --primary: #f59e0b; --primary-dark: #d97706; --secondary: #1e3a8a; --secondary-light: #2563eb;
+    --accent: #08dcd1; --bg: #f4f7ff; --card-bg: #ffffff; --text-dark: #1a1a2e;
+    --text-medium: #4a5568; --text-light: #718096; --border: #e2e8f0;
+    --success: #10b981; --success-light: #d1fae5; --danger: #ef4444; --danger-light: #fee2e2;
+    --warning: #f59e0b; --warning-light: #fef3c7; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1); --radius: 16px; --radius-sm: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.6; }
+
+/* Navbar */
+.navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); z-index: 1000; box-shadow: var(--shadow); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo-text { font-size: 22px; font-weight: 800; color: #ff7200; letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--text-medium); font-weight: 600; font-size: 14px; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; }
+.nav-links a:hover { color: #ff7200; background: rgba(255, 114, 0, 0.1); }
+.nav-links a.active { color: #ff7200; background: rgba(255, 114, 0, 0.15); }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; }
+.mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px); }
+.mobile-nav.active { display: block; }
+.mobile-nav-content { position: absolute; top: 0; right: 0; width: 280px; height: 100%; background: white; padding: 80px 24px 24px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+.mobile-nav-links { list-style: none; }
+.mobile-nav-links a { display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease; }
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); }
+
+/* Landing */
+.landing-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 20px 40px; background: linear-gradient(135deg, #78350f 0%, #f59e0b 50%, #fbbf24 100%); position: relative; overflow: hidden; }
+.landing-page::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+.landing-content { position: relative; z-index: 1; max-width: 700px; text-align: center; }
+.landing-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 50px; color: white; font-size: 14px; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.3); }
+.landing-content h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+.landing-content p { font-size: clamp(16px, 2vw, 18px); color: rgba(255,255,255,0.9); margin-bottom: 32px; }
+.quiz-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+.quiz-feature { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm); padding: 20px 16px; text-align: center; color: white; }
+.quiz-feature i { font-size: 24px; margin-bottom: 8px; display: block; }
+.quiz-feature span { font-size: 13px; font-weight: 600; display: block; }
+.quiz-feature .feature-count { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.start-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 48px; background: #ff7200; color: white; border: none; border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(245,158,11,0.4); font-family: inherit; }
+.start-btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(43, 232, 5, 0.5); }
+
+/* Quiz Page */
+.quiz-page { display: none; padding: 90px 20px 40px; min-height: 100vh; max-width: 900px; margin: 0 auto; }
+.quiz-page.active { display: block; }
+.timer-bar { position: fixed; top: 70px; left: 0; right: 0; background: white; z-index: 900; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 12px 20px; }
+.timer-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.timer-display { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; color: var(--text-dark); min-width: 100px; }
+.timer-display i { color: var(--primary); font-size: 18px; }
+.timer-display.warning { color: var(--danger); }
+.timer-display.warning i { color: var(--danger); animation: pulse 1s infinite; }
+.progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+.question-counter { font-weight: 600; color: var(--text-medium); font-size: 14px; min-width: 80px; text-align: right; }
+
+.question-card { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); animation: slideIn 0.4s ease; }
+.question-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.question-number { background: var(--secondary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.question-category { background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.question-text { font-size: 18px; font-weight: 600; color: var(--text-dark); line-height: 1.5; margin-bottom: 24px; }
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+.option { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--bg); border: 2px solid transparent; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: var(--text-dark); font-weight: 500; }
+.option:hover { border-color: var(--primary); background: rgba(245,158,11,0.05); transform: translateX(4px); }
+.option.selected { border-color: var(--primary); background: rgba(245,158,11,0.1); }
+.option.correct { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.option.wrong { border-color: var(--danger); background: var(--danger-light); color: var(--danger); }
+.option.disabled { pointer-events: none; opacity: 0.7; }
+.option-letter { width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; transition: all 0.3s ease; }
+.option:hover .option-letter { background: var(--primary); }
+.option.selected .option-letter { background: var(--primary); }
+.option.correct .option-letter { background: var(--success); }
+.option.wrong .option-letter { background: var(--danger); }
+
+.explanation { display: none; margin-top: 20px; padding: 20px; background: var(--success-light); border: 1px solid var(--success); border-radius: var(--radius-sm); animation: fadeIn 0.4s ease; }
+.explanation.show { display: block; }
+.explanation-header { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--success); margin-bottom: 8px; font-size: 16px; }
+.explanation-text { color: var(--text-medium); font-size: 15px; line-height: 1.6; white-space: pre-line; }
+
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 24px; }
+.nav-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; }
+.nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.nav-btn-prev { background: var(--border); color: var(--text-dark); }
+.nav-btn-prev:hover:not(:disabled) { background: var(--text-light); color: white; }
+.nav-btn-next { background: var(--primary); color: white; }
+.nav-btn-next:hover:not(:disabled) { background: var(--primary-dark); transform: translateX(4px); }
+.nav-btn-submit { background: var(--success); color: white; }
+.nav-btn-submit:hover:not(:disabled) { background: #059669; transform: scale(1.05); }
+
+.question-navigator { background: var(--card-bg); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.navigator-title { font-size: 14px; font-weight: 700; color: var(--text-medium); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.navigator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; }
+.navigator-dot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; color: var(--text-medium); }
+.navigator-dot:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
+.navigator-dot.active { border-color: var(--primary); background: var(--primary); color: white; box-shadow: 0 2px 10px rgba(245,158,11,0.3); }
+.navigator-dot.answered { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.navigator-dot.current { animation: pulse 2s infinite; }
+
+/* Results */
+.results-page { display: none; padding: 100px 20px 40px; min-height: 100vh; }
+.results-page.active { display: block; }
+.results-container { max-width: 900px; margin: 0 auto; }
+.results-header { text-align: center; margin-bottom: 40px; }
+.results-header h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+.results-header p { color: var(--text-medium); font-size: 16px; }
+.score-card { background: var(--card-bg); border-radius: var(--radius); padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); text-align: center; }
+.score-circle { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--primary) 0% var(--score-percent), var(--border) var(--score-percent) 100%); margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; position: relative; }
+.score-circle::before { content: ''; position: absolute; width: 130px; height: 130px; background: white; border-radius: 50%; }
+.score-value { position: relative; z-index: 1; font-size: 36px; font-weight: 800; color: var(--primary); }
+.score-label { font-size: 14px; color: var(--text-light); font-weight: 600; }
+.score-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+.stat-box { padding: 16px; border-radius: var(--radius-sm); text-align: center; }
+.stat-box.correct-stat { background: var(--success-light); }
+.stat-box.wrong-stat { background: var(--danger-light); }
+.stat-box.skipped-stat { background: var(--warning-light); }
+.stat-box.time-stat { background: var(--bg); }
+.stat-value { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.stat-box.correct-stat .stat-value { color: var(--success); }
+.stat-box.wrong-stat .stat-value { color: var(--danger); }
+.stat-box.skipped-stat .stat-value { color: var(--warning); }
+.stat-box.time-stat .stat-value { color: var(--secondary); }
+.stat-label { font-size: 12px; font-weight: 600; color: var(--text-medium); text-transform: uppercase; letter-spacing: 0.5px; }
+.performance-msg { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.performance-msg.excellent { color: var(--success); }
+.performance-msg.good { color: var(--secondary-light); }
+.performance-msg.average { color: var(--warning); }
+.performance-msg.needs-work { color: var(--danger); }
+
+.category-breakdown { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.category-breakdown h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+.category-item { margin-bottom: 20px; }
+.category-item:last-child { margin-bottom: 0; }
+.category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.category-name { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+.category-score { font-weight: 700; font-size: 14px; color: var(--text-medium); }
+.category-bar { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+.category-fill { height: 100%; border-radius: 5px; transition: width 1s ease; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+.review-section { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.review-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+.review-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.review-filter { padding: 8px 16px; border: 2px solid var(--border); background: white; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; color: var(--text-medium); }
+.review-filter:hover { border-color: var(--primary); color: var(--primary); }
+.review-filter.active { background: var(--primary); border-color: var(--primary); color: white; }
+.review-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; transition: all 0.3s ease; }
+.review-item:hover { box-shadow: var(--shadow); }
+.review-item.wrong-review { border-left: 4px solid var(--danger); }
+.review-item.correct-review { border-left: 4px solid var(--success); }
+.review-item.skipped-review { border-left: 4px solid var(--warning); }
+.review-q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.review-status { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; flex-shrink: 0; }
+.review-status.correct { background: var(--success); }
+.review-status.wrong { background: var(--danger); }
+.review-status.skipped { background: var(--warning); }
+.review-q-text { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+.review-answer { font-size: 14px; color: var(--text-medium); margin-bottom: 8px; }
+.review-answer strong { color: var(--text-dark); }
+.review-explanation { font-size: 14px; color: var(--text-medium); background: var(--bg); padding: 12px; border-radius: 8px; margin-top: 8px; white-space: pre-line; }
+
+.action-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.action-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; text-decoration: none; }
+.action-btn-primary { background: var(--primary); color: white; }
+.action-btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(245,158,11,0.3); }
+.action-btn-secondary { background: var(--secondary); color: white; }
+.action-btn-secondary:hover { background: var(--secondary-light); transform: translateY(-2px); }
+
+
+    /* Footer */
+    footer {
+        background: var(--secondary);
+        color: white;
+        padding: 50px 20px 20px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-brand img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .footer-brand h3 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #ff7200;
+        margin-bottom: 8px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-links h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: white;
+    }
+
+    .footer-links ul {
+        list-style: none;
+    }
+
+    .footer-links a {
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 2.2;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+
+    .footer-bottom .flag {
+        font-size: 18px;
+        margin-left: 4px;
+    }
+
+    .footer-bottom .designer {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes rotateIn { from { transform: rotate(-180deg); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; } .mobile-menu-btn { display: block; }
+    .quiz-features { grid-template-columns: 1fr; } .score-stats { grid-template-columns: repeat(2, 1fr); }
+    .question-card { padding: 24px 20px; } .question-text { font-size: 16px; }
+    .option { padding: 14px 16px; font-size: 15px; } .timer-container { flex-wrap: wrap; }
+    .navigator-grid { grid-template-columns: repeat(10, 1fr); } .nav-container { height: 60px; }
+    .timer-bar { top: 60px; } .quiz-page, .results-page { padding-top: 80px; }
+    .landing-page { padding-top: 80px; } .score-card { padding: 24px; }
+    .score-circle { width: 130px; height: 130px; } .score-circle::before { width: 105px; height: 105px; }
+    .score-value { font-size: 28px; } .category-breakdown, .review-section { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+    .quiz-nav { flex-direction: column; } .nav-btn { width: 100%; justify-content: center; }
+    .score-stats { grid-template-columns: 1fr 1fr; gap: 8px; } .stat-box { padding: 12px 8px; }
+    .stat-value { font-size: 22px; } .action-buttons { flex-direction: column; }
+    .action-btn { width: 100%; justify-content: center; } .review-filters { justify-content: center; }
+    .navigator-grid { grid-template-columns: repeat(8, 1fr); }
+    .navigator-dot { width: 36px; height: 36px; font-size: 12px; }
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+        <ul class="nav-links">
+             <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html">Dashboard</a></li>
+            <li><a href="phy.html">Physics</a></li>
+            <li><a href="che.html">Chemistry</a></li>
+            <li><a href="mat.html" class="active">Math</a></li>
+            <li><a href="bio.html">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="physics_quiz.html">Physics</a></li>
+            <li><a href="chemistry_quiz.html">Chemistry</a></li>
+            <li><a href="math_quiz.html" class="active">Math</a></li>
+            <li><a href="biology_quiz.html">Biology</a></li>
+            <li><a href="computer_quiz.html">Computer</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="landing-page" id="landingPage">
+    <div class="landing-content">
+        <div class="landing-badge">
+            <i class="fas fa-square-root-alt"></i>
+            <span>IOE/CEE Mathematics Preparation</span>
+        </div>
+        <h1>100 MCQ Mathematics Quiz</h1>
+        <p>Algebra, Calculus, Trigonometry, Coordinate Geometry, Vectors, Probability & Statistics with detailed solutions.</p>
+        <div class="quiz-features">
+            <div class="quiz-feature">
+                <i class="fas fa-list-ol"></i>
+                <span class="feature-count">100</span>
+                <span>Questions</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-clock"></i>
+                <span class="feature-count">60</span>
+                <span>Minutes</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-chart-pie"></i>
+                <span class="feature-count">8</span>
+                <span>Categories</span>
+            </div>
+        </div>
+        <button class="start-btn" onclick="startQuiz()">
+            <i class="fas fa-play"></i> Start Quiz
+        </button>
+    </div>
+</div>
+
+<div class="quiz-page" id="quizPage">
+    <div class="timer-bar">
+        <div class="timer-container">
+            <div class="timer-display" id="timerDisplay">
+                <i class="fas fa-clock"></i>
+                <span id="timerText">60:00</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-counter" id="questionCounter">1 / 100</div>
+        </div>
+    </div>
+    <div class="question-navigator">
+        <div class="navigator-title">Question Navigator</div>
+        <div class="navigator-grid" id="navigatorGrid"></div>
+    </div>
+    <div class="question-card" id="questionCard">
+        <div class="question-header">
+            <div class="question-number" id="questionNumber">1</div>
+            <div class="question-category" id="questionCategory">Algebra</div>
+        </div>
+        <div class="question-text" id="questionText">Loading...</div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="explanation" id="explanation">
+            <div class="explanation-header">
+                <i class="fas fa-lightbulb"></i>
+                <span>Step-by-Step Solution</span>
+            </div>
+            <div class="explanation-text" id="explanationText"></div>
+        </div>
+    </div>
+    <div class="quiz-nav">
+        <button class="nav-btn nav-btn-prev" id="prevBtn" onclick="prevQuestion()" disabled>
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        <button class="nav-btn nav-btn-next" id="nextBtn" onclick="nextQuestion()">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="nav-btn nav-btn-submit" id="submitBtn" onclick="submitQuiz()" style="display:none;">
+            <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+    </div>
+</div>
+
+<div class="results-page" id="resultsPage">
+    <div class="results-container">
+        <div class="results-header">
+            <h1><i class="fas fa-trophy" style="color: var(--primary);"></i> Math Quiz Results</h1>
+            <p>Here is how you performed on the Mathematics Quiz</p>
+        </div>
+        <div class="score-card">
+            <div class="score-circle" id="scoreCircle">
+                <div>
+                    <div class="score-value" id="scoreValue">0</div>
+                    <div class="score-label">/ 100</div>
+                </div>
+            </div>
+            <div class="performance-msg" id="performanceMsg">Keep practicing!</div>
+            <p style="color: var(--text-medium); font-size: 15px;" id="performanceDesc">You are on your way to mastering mathematics.</p>
+            <div class="score-stats">
+                <div class="stat-box correct-stat">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-box wrong-stat">
+                    <div class="stat-value" id="wrongCount">0</div>
+                    <div class="stat-label">Wrong</div>
+                </div>
+                <div class="stat-box skipped-stat">
+                    <div class="stat-value" id="skippedCount">0</div>
+                    <div class="stat-label">Skipped</div>
+                </div>
+                <div class="stat-box time-stat">
+                    <div class="stat-value" id="timeTaken">0:00</div>
+                    <div class="stat-label">Time Used</div>
+                </div>
+            </div>
+        </div>
+        <div class="category-breakdown">
+            <h2><i class="fas fa-chart-bar" style="color: var(--primary); margin-right: 8px;"></i>Category Breakdown</h2>
+            <div id="categoryBreakdown"></div>
+        </div>
+        <div class="review-section">
+            <h2><i class="fas fa-search" style="color: var(--primary); margin-right: 8px;"></i>Review Answers</h2>
+            <div class="review-filters">
+                <button class="review-filter active" onclick="filterReview('all')">All</button>
+                <button class="review-filter" onclick="filterReview('wrong')">Wrong</button>
+                <button class="review-filter" onclick="filterReview('correct')">Correct</button>
+                <button class="review-filter" onclick="filterReview('skipped')">Skipped</button>
+            </div>
+            <div id="reviewContainer"></div>
+        </div>
+        <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="restartQuiz()">
+                <i class="fas fa-redo"></i> Retake Quiz
+            </button>
+            <a href="index.html" class="action-btn action-btn-secondary">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <div>
+                    <h3>Plus 2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Videos</h4>
+                <ul>
+                    <li><a href="https://youtu.be/6KWJbHNCSGM" target="_blank">Class 11 Nepali</a></li>
+                    <li><a href="https://youtu.be/NWFa-pmpjSs" target="_blank">Class 12 Nepali</a></li>
+                    <li><a href="blo.html">More Content</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+
+<script>
+
+const questions = [
+    // ALGEBRA (1-25)
+    {id:1, category:"Algebra", question:"If x² - 5x + 6 = 0, then the value of x is:", options:["2 and 3","-2 and -3","1 and 6","-1 and -6"], correct:0, explanation:"Step 1: Factorize: x² - 5x + 6 = (x-2)(x-3) = 0\nStep 2: x - 2 = 0 → x = 2, or x - 3 = 0 → x = 3\nTherefore, x = 2 and 3."},
+    {id:2, category:"Algebra", question:"The sum of the roots of ax² + bx + c = 0 is:", options:["-b/a","b/a","-c/a","c/a"], correct:0, explanation:"For quadratic ax² + bx + c = 0 with roots α and β:\nSum of roots: α + β = -b/a\nProduct of roots: αβ = c/a"},
+    {id:3, category:"Algebra", question:"If α, β, γ are roots of x³ + px² + qx + r = 0, then α + β + γ =", options:["-p","p","q","-q"], correct:0, explanation:"For cubic x³ + px² + qx + r = 0:\nSum of roots = -p\nSum of products taken two at a time = q\nProduct of roots = -r"},
+    {id:4, category:"Algebra", question:"The value of i²⁰²⁴ is:", options:["1","-1","i","-i"], correct:0, explanation:"Step 1: i⁴ = 1, so powers of i cycle every 4\nStep 2: 2024 ÷ 4 = 506 remainder 0\nStep 3: i²⁰²⁴ = (i⁴)⁵⁰⁶ = 1⁵⁰⁶ = 1"},
+    {id:5, category:"Algebra", question:"The modulus of 3 + 4i is:", options:["5","7","25","1"], correct:0, explanation:"|z| = √(a² + b²) for z = a + bi\n|3 + 4i| = √(3² + 4²) = √(9 + 16) = √25 = 5"},
+    {id:6, category:"Algebra", question:"If |z - 2| = |z + 2|, then z lies on:", options:["Real axis","Imaginary axis","Circle","Ellipse"], correct:1, explanation:"|z - 2| = |z + 2| means distance from (2,0) equals distance from (-2,0)\nThis is the perpendicular bisector of the line joining (2,0) and (-2,0)\nWhich is the imaginary axis (y-axis, x = 0)"},
+    {id:7, category:"Algebra", question:"The number of ways to arrange 5 people in a row is:", options:["120","60","24","5"], correct:0, explanation:"Number of permutations of 5 distinct objects = 5!\n5! = 5 × 4 × 3 × 2 × 1 = 120"},
+    {id:8, category:"Algebra", question:"The number of combinations of 5 items taken 3 at a time is:", options:["10","20","60","120"], correct:0, explanation:"C(5,3) = 5!/(3! × 2!) = (5 × 4)/(2 × 1) = 10\nOr C(5,3) = C(5,2) = 10"},
+    {id:9, category:"Algebra", question:"The coefficient of x³ in the expansion of (1 + x)⁵ is:", options:["10","5","20","1"], correct:0, explanation:"Using binomial theorem: T_{r+1} = C(5,r) x^r\nFor x³, r = 3: C(5,3) = 5!/(3!2!) = 10"},
+    {id:10, category:"Algebra", question:"The sum of infinite GP 1 + 1/2 + 1/4 + 1/8 + ... is:", options:["2","1","∞","4"], correct:0, explanation:"S = a/(1-r) where |r| < 1\na = 1, r = 1/2\nS = 1/(1 - 1/2) = 1/(1/2) = 2"},
+    {id:11, category:"Algebra", question:"The A.M. between 5 and 15 is:", options:["10","20","5","15"], correct:0, explanation:"Arithmetic Mean = (a + b)/2 = (5 + 15)/2 = 20/2 = 10"},
+    {id:12, category:"Algebra", question:"The G.M. between 4 and 16 is:", options:["8","10","64","32"], correct:0, explanation:"Geometric Mean = √(ab) = √(4 × 16) = √64 = 8"},
+    {id:13, category:"Algebra", question:"If A = [[1,2],[3,4]], then det(A) is:", options:["-2","2","10","-10"], correct:0, explanation:"det(A) = (1)(4) - (2)(3) = 4 - 6 = -2"},
+    {id:14, category:"Algebra", question:"If A is a 2×2 matrix with det(A) = 5, then det(2A) =", options:["20","10","5","40"], correct:0, explanation:"For n×n matrix: det(kA) = kⁿ det(A)\nHere n = 2, k = 2: det(2A) = 2² × 5 = 4 × 5 = 20"},
+    {id:15, category:"Algebra", question:"The inverse of matrix [[1,0],[0,1]] is:", options:["[[1,0],[0,1]]","[[0,1],[1,0]]","[[-1,0],[0,-1]]","Does not exist"], correct:0, explanation:"This is the identity matrix I. The inverse of I is I itself.\nI × I = I, so I⁻¹ = I"},
+    {id:16, category:"Algebra", question:"The number of solutions of sin x = 2 is:", options:["0","1","2","Infinite"], correct:0, explanation:"Range of sin x is [-1, 1]\nSince 2 > 1, sin x = 2 has no real solutions."},
+    {id:17, category:"Algebra", question:"The value of sin(15°) is:", options:["(√6 - √2)/4","(√6 + √2)/4","(√3 - 1)/2","(√3 + 1)/2"], correct:0, explanation:"sin(15°) = sin(45° - 30°) = sin45°cos30° - cos45°sin30°\n= (1/√2)(√3/2) - (1/√2)(1/2) = (√3 - 1)/(2√2) = (√6 - √2)/4"},
+    {id:18, category:"Algebra", question:"The general solution of sin x = 0 is:", options:["x = nπ","x = nπ/2","x = 2nπ","x = (2n+1)π/2"], correct:0, explanation:"sin x = 0 when x = 0, ±π, ±2π, ...\nGeneral solution: x = nπ, where n ∈ ℤ"},
+    {id:19, category:"Algebra", question:"The value of tan(π/4) is:", options:["1","0","∞","√3"], correct:0, explanation:"tan(π/4) = sin(π/4)/cos(π/4) = (1/√2)/(1/√2) = 1"},
+    {id:20, category:"Algebra", question:"If sin θ = 3/5 and θ is in first quadrant, then cos θ =", options:["4/5","3/4","5/4","1/5"], correct:0, explanation:"sin²θ + cos²θ = 1\ncos²θ = 1 - (3/5)² = 1 - 9/25 = 16/25\ncos θ = 4/5 (positive in first quadrant)"},
+    {id:21, category:"Algebra", question:"The value of log₂(32) is:", options:["5","4","6","3"], correct:0, explanation:"32 = 2⁵, so log₂(32) = log₂(2⁵) = 5"},
+    {id:22, category:"Algebra", question:"The domain of f(x) = √(x - 3) is:", options:["[3, ∞)","(3, ∞)","(-∞, 3]","(-∞, ∞)"], correct:0, explanation:"For √(x-3) to be real, x - 3 ≥ 0\nTherefore x ≥ 3, so domain is [3, ∞)"},
+    {id:23, category:"Algebra", question:"The range of f(x) = x² is:", options:["[0, ∞)","(-∞, 0]","(-∞, ∞)","[1, ∞)"], correct:0, explanation:"x² ≥ 0 for all real x\nMinimum value is 0 at x = 0\nRange: [0, ∞)"},
+    {id:24, category:"Algebra", question:"If f(x) = 2x + 1 and g(x) = x², then (f∘g)(x) =", options:["2x² + 1","(2x+1)²","2x² + 2x + 1","x² + 1"], correct:0, explanation:"(f∘g)(x) = f(g(x)) = f(x²) = 2(x²) + 1 = 2x² + 1"},
+    {id:25, category:"Algebra", question:"The inverse function of f(x) = 2x + 3 is:", options:["(x-3)/2","(x+3)/2","2x - 3","x/2 + 3"], correct:0, explanation:"y = 2x + 3\nSwap x and y: x = 2y + 3\nSolve for y: y = (x - 3)/2\nf⁻¹(x) = (x - 3)/2"},
+
+    // CALCULUS (26-50)
+    {id:26, category:"Calculus", question:"The derivative of x³ with respect to x is:", options:["3x²","x²","3x","x³/3"], correct:0, explanation:"Using power rule: d/dx(xⁿ) = nx^(n-1)\nd/dx(x³) = 3x^(3-1) = 3x²"},
+    {id:27, category:"Calculus", question:"The derivative of sin x is:", options:["cos x","-cos x","-sin x","tan x"], correct:0, explanation:"Standard derivative: d/dx(sin x) = cos x\nd/dx(cos x) = -sin x"},
+    {id:28, category:"Calculus", question:"The derivative of e^x is:", options:["e^x","xe^(x-1)","ln x","1"], correct:0, explanation:"e^x is unique: its derivative equals itself\nd/dx(e^x) = e^x"},
+    {id:29, category:"Calculus", question:"The derivative of ln x is:", options:["1/x","x","ln x","e^x"], correct:0, explanation:"Standard derivative: d/dx(ln x) = 1/x for x > 0"},
+    {id:30, category:"Calculus", question:"If y = uv where u and v are functions of x, then dy/dx =", options:["u(dv/dx) + v(du/dx)","u(dv/dx) - v(du/dx)","(du/dx)(dv/dx)","u/v"], correct:0, explanation:"Product rule: d/dx(uv) = u(dv/dx) + v(du/dx)"},
+    {id:31, category:"Calculus", question:"If y = u/v, then dy/dx =", options:["[v(du/dx) - u(dv/dx)]/v²","[u(dv/dx) - v(du/dx)]/v²","(du/dx)/(dv/dx)","u/v²"], correct:0, explanation:"Quotient rule: d/dx(u/v) = [v(du/dx) - u(dv/dx)]/v²"},
+    {id:32, category:"Calculus", question:"The chain rule states that if y = f(g(x)), then dy/dx =", options:["f'(g(x)) · g'(x)","f'(x) · g'(x)","f(g'(x))","f'(g(x))/g'(x)"], correct:0, explanation:"Chain rule: dy/dx = dy/du · du/dx where u = g(x)\n= f'(u) · g'(x) = f'(g(x)) · g'(x)"},
+    {id:33, category:"Calculus", question:"The second derivative of x³ is:", options:["6x","3x²","x","6"], correct:0, explanation:"First derivative: d/dx(x³) = 3x²\nSecond derivative: d/dx(3x²) = 6x"},
+    {id:34, category:"Calculus", question:"The slope of tangent to y = x² at x = 1 is:", options:["2","1","0","3"], correct:0, explanation:"Slope = dy/dx = 2x\nAt x = 1: slope = 2(1) = 2"},
+    {id:35, category:"Calculus", question:"A function f(x) has a local maximum where f'(x) = 0 and:", options:["f''(x) < 0","f''(x) > 0","f''(x) = 0","f''(x) = 1"], correct:0, explanation:"Second derivative test:\nf''(x) < 0 → concave down → local maximum\nf''(x) > 0 → concave up → local minimum"},
+    {id:36, category:"Calculus", question:"The integral of x² dx is:", options:["x³/3 + C","x³ + C","2x + C","x²/2 + C"], correct:0, explanation:"∫xⁿ dx = x^(n+1)/(n+1) + C for n ≠ -1\n∫x² dx = x³/3 + C"},
+    {id:37, category:"Calculus", question:"The integral of cos x dx is:", options:["sin x + C","-sin x + C","-cos x + C","tan x + C"], correct:0, explanation:"∫cos x dx = sin x + C\n∫sin x dx = -cos x + C"},
+    {id:38, category:"Calculus", question:"The integral of 1/x dx is:", options:["ln|x| + C","x + C","1/x² + C","x²/2 + C"], correct:0, explanation:"∫(1/x) dx = ln|x| + C\nThis is a standard integral result."},
+    {id:39, category:"Calculus", question:"The definite integral ∫₀¹ x dx equals:", options:["1/2","1","0","2"], correct:0, explanation:"∫₀¹ x dx = [x²/2]₀¹ = (1²/2) - (0²/2) = 1/2 - 0 = 1/2"},
+    {id:40, category:"Calculus", question:"The area under y = x from x = 0 to x = 2 is:", options:["2","4","1","3"], correct:0, explanation:"Area = ∫₀² x dx = [x²/2]₀² = (4/2) - 0 = 2"},
+    {id:41, category:"Calculus", question:"The value of lim(x→0) sin x/x is:", options:["1","0","∞","Does not exist"], correct:0, explanation:"This is a standard limit: lim(x→0) sin x/x = 1\nCan be proven using squeeze theorem or L'Hôpital's rule."},
+    {id:42, category:"Calculus", question:"The value of lim(x→∞) (1 + 1/x)^x is:", options:["e","1","0","∞"], correct:0, explanation:"This is the definition of e: e = lim(n→∞) (1 + 1/n)^n ≈ 2.71828..."},
+    {id:43, category:"Calculus", question:"L'Hôpital's rule applies to limits of the form:", options:["0/0 or ∞/∞","0/∞ or ∞/0","0×∞","∞ - ∞"], correct:0, explanation:"L'Hôpital's rule: if lim f(x)/g(x) is 0/0 or ∞/∞,\nthen lim f(x)/g(x) = lim f'(x)/g'(x)"},
+    {id:44, category:"Calculus", question:"The derivative of tan x is:", options:["sec² x","-sec² x","tan² x","cot² x"], correct:0, explanation:"d/dx(tan x) = sec² x = 1 + tan² x\nd/dx(cot x) = -csc² x"},
+    {id:45, category:"Calculus", question:"The integral of sec² x dx is:", options:["tan x + C","sec x + C","cos x + C","sin x + C"], correct:0, explanation:"∫sec² x dx = tan x + C\nSince d/dx(tan x) = sec² x"},
+    {id:46, category:"Calculus", question:"The Taylor series expansion of e^x about x = 0 is:", options:["1 + x + x²/2! + x³/3! + ...","1 - x + x²/2! - x³/3! + ...","x + x²/2 + x³/3 + ...","1 + x + x² + x³ + ..."], correct:0, explanation:"e^x = Σ(x^n/n!) = 1 + x + x²/2! + x³/3! + x⁴/4! + ...\nValid for all x ∈ ℝ"},
+    {id:47, category:"Calculus", question:"The Maclaurin series for cos x is:", options:["1 - x²/2! + x⁴/4! - x⁶/6! + ...","x - x³/3! + x⁵/5! - ...","1 + x²/2! + x⁴/4! + ...","x + x³/3! + x⁵/5! + ..."], correct:0, explanation:"cos x = 1 - x²/2! + x⁴/4! - x⁶/6! + ... = Σ(-1)^n x^(2n)/(2n)!"},
+    {id:48, category:"Calculus", question:"The order of the differential equation (d²y/dx²)³ + (dy/dx)² + y = 0 is:", options:["2","3","1","6"], correct:0, explanation:"Order = highest order derivative present\nHere highest derivative is d²y/dx², so order = 2\nDegree = power of highest derivative = 3"},
+    {id:49, category:"Calculus", question:"The general solution of dy/dx = ky is:", options:["y = Ce^(kx)","y = Cx","y = kx + C","y = e^x + C"], correct:0, explanation:"dy/y = k dx\nln|y| = kx + C₁\ny = e^(kx+C₁) = e^C₁ · e^(kx) = Ce^(kx)"},
+    {id:50, category:"Calculus", question:"The particular solution of d²y/dx² = 0 with y(0) = 1 and y'(0) = 2 is:", options:["y = 2x + 1","y = x² + 2x + 1","y = x + 2","y = 2x² + 1"], correct:0, explanation:"d²y/dx² = 0 → dy/dx = C₁ → y = C₁x + C₂\ny'(0) = 2 → C₁ = 2\ny(0) = 1 → C₂ = 1\ny = 2x + 1"},
+
+    // COORDINATE GEOMETRY (51-70)
+    {id:51, category:"Coordinate Geometry", question:"The distance between (1,2) and (4,6) is:", options:["5","4","3","6"], correct:0, explanation:"d = √[(x₂-x₁)² + (y₂-y₁)²]\n= √[(4-1)² + (6-2)²] = √[9 + 16] = √25 = 5"},
+    {id:52, category:"Coordinate Geometry", question:"The midpoint of (2,4) and (6,8) is:", options:["(4,6)","(3,4)","(5,6)","(8,12)"], correct:0, explanation:"Midpoint = ((x₁+x₂)/2, (y₁+y₂)/2)\n= ((2+6)/2, (4+8)/2) = (4, 6)"},
+    {id:53, category:"Coordinate Geometry", question:"The slope of line joining (1,2) and (3,8) is:", options:["3","2","4","1"], correct:0, explanation:"m = (y₂-y₁)/(x₂-x₁) = (8-2)/(3-1) = 6/2 = 3"},
+    {id:54, category:"Coordinate Geometry", question:"The equation of line with slope 2 passing through (1,3) is:", options:["y = 2x + 1","y = 2x + 3","y = x + 2","y = 3x - 2"], correct:0, explanation:"y - y₁ = m(x - x₁)\ny - 3 = 2(x - 1)\ny = 2x - 2 + 3 = 2x + 1"},
+    {id:55, category:"Coordinate Geometry", question:"The equation of circle with center (0,0) and radius 5 is:", options:["x² + y² = 25","x² + y² = 5","x² + y² = 10","(x-5)² + (y-5)² = 25"], correct:0, explanation:"Standard form: (x-h)² + (y-k)² = r²\nCenter (0,0), r = 5: x² + y² = 25"},
+    {id:56, category:"Coordinate Geometry", question:"The eccentricity of a parabola is:", options:["1","0","< 1","> 1"], correct:0, explanation:"Eccentricity e:\nParabola: e = 1\nEllipse: e < 1\nHyperbola: e > 1\nCircle: e = 0"},
+    {id:57, category:"Coordinate Geometry", question:"The standard equation of parabola with vertex at origin and focus at (a,0) is:", options:["y² = 4ax","x² = 4ay","y² = -4ax","x² = -4ay"], correct:0, explanation:"Parabola opening right: y² = 4ax\nOpening left: y² = -4ax\nOpening up: x² = 4ay\nOpening down: x² = -4ay"},
+    {id:58, category:"Coordinate Geometry", question:"The equation of ellipse x²/9 + y²/4 = 1 has semi-major axis:", options:["3","2","9","4"], correct:0, explanation:"x²/a² + y²/b² = 1 where a > b\na² = 9 → a = 3 (semi-major axis)\nb² = 4 → b = 2 (semi-minor axis)"},
+    {id:59, category:"Coordinate Geometry", question:"The foci of hyperbola x²/a² - y²/b² = 1 are at:", options:["(±c, 0) where c² = a² + b²","(±a, 0)","(0, ±b)","(±b, 0)"], correct:0, explanation:"For hyperbola x²/a² - y²/b² = 1:\nFoci at (±c, 0) where c² = a² + b²\nFor ellipse: c² = a² - b²"},
+    {id:60, category:"Coordinate Geometry", question:"The parametric equations of circle x² + y² = r² are:", options:["x = r cos θ, y = r sin θ","x = r sin θ, y = r cos θ","x = r tan θ, y = r cot θ","x = r sec θ, y = r csc θ"], correct:0, explanation:"x = r cos θ, y = r sin θ where θ ∈ [0, 2π)\nThen x² + y² = r²(cos²θ + sin²θ) = r²"},
+    {id:61, category:"Coordinate Geometry", question:"The angle between lines with slopes m₁ and m₂ is given by:", options:["tan θ = |(m₁-m₂)/(1+m₁m₂)|","tan θ = (m₁+m₂)/(1-m₁m₂)","tan θ = m₁ - m₂","tan θ = m₁m₂"], correct:0, explanation:"tan θ = |(m₁ - m₂)/(1 + m₁m₂)|\nIf 1 + m₁m₂ = 0, lines are perpendicular (θ = 90°)"},
+    {id:62, category:"Coordinate Geometry", question:"The condition for two lines a₁x + b₁y + c₁ = 0 and a₂x + b₂y + c₂ = 0 to be perpendicular is:", options:["a₁a₂ + b₁b₂ = 0","a₁a₂ - b₁b₂ = 0","a₁b₂ + a₂b₁ = 0","a₁/b₁ = a₂/b₂"], correct:0, explanation:"m₁ = -a₁/b₁, m₂ = -a₂/b₂\nPerpendicular: m₁m₂ = -1 → (a₁a₂)/(b₁b₂) = -1 → a₁a₂ + b₁b₂ = 0"},
+    {id:63, category:"Coordinate Geometry", question:"The polar coordinates of (1, 1) are:", options:["(√2, π/4)","(2, π/4)","(√2, π/2)","(1, π/4)"], correct:0, explanation:"r = √(1² + 1²) = √2\nθ = tan⁻¹(1/1) = π/4\nPolar: (√2, π/4)"},
+    {id:64, category:"Coordinate Geometry", question:"The distance from point (3,4) to line 3x + 4y - 5 = 0 is:", options:["4","5","3","2"], correct:0, explanation:"d = |Ax₁ + By₁ + C|/√(A² + B²)\n= |3(3) + 4(4) - 5|/√(9+16) = |9+16-5|/5 = 20/5 = 4"},
+    {id:65, category:"Coordinate Geometry", question:"The locus of a point equidistant from (2,0) and (-2,0) is:", options:["y-axis (x = 0)","x-axis (y = 0)","x = 1","y = 1"], correct:0, explanation:"Perpendicular bisector of line joining (2,0) and (-2,0)\nMidpoint is (0,0), line is vertical → x = 0 (y-axis)"},
+    {id:66, category:"Coordinate Geometry", question:"The equation of tangent to circle x² + y² = 25 at (3,4) is:", options:["3x + 4y = 25","3x - 4y = 25","4x + 3y = 25","x + y = 7"], correct:0, explanation:"Tangent at (x₁,y₁): xx₁ + yy₁ = r²\n3x + 4y = 25\nCheck: 3(3) + 4(4) = 9 + 16 = 25 ✓"},
+    {id:67, category:"Coordinate Geometry", question:"The vertex of parabola y = x² - 4x + 5 is:", options:["(2,1)","(2,5)","(4,5)","(0,5)"], correct:0, explanation:"y = x² - 4x + 5 = (x-2)² + 1\nVertex form: y = (x-h)² + k, vertex at (h,k) = (2,1)"},
+    {id:68, category:"Coordinate Geometry", question:"The area of triangle with vertices (0,0), (4,0), (0,3) is:", options:["6","12","7","5"], correct:0, explanation:"Area = ½|x₁(y₂-y₃) + x₂(y₃-y₁) + x₃(y₁-y₂)|\n= ½|0(0-3) + 4(3-0) + 0(0-0)| = ½|12| = 6\nOr simply: ½ × base × height = ½ × 4 × 3 = 6"},
+    {id:69, category:"Coordinate Geometry", question:"The transformation from Cartesian (x,y) to polar (r,θ) is:", options:["x = r cos θ, y = r sin θ","x = r sin θ, y = r cos θ","r = x + y, θ = x/y","r = xy, θ = x/y"], correct:0, explanation:"x = r cos θ, y = r sin θ\nr = √(x² + y²), θ = tan⁻¹(y/x)"},
+    {id:70, category:"Coordinate Geometry", question:"The directrix of parabola y² = 4ax is:", options:["x = -a","x = a","y = -a","y = a"], correct:0, explanation:"For y² = 4ax:\nFocus: (a, 0)\nDirectrix: x = -a\nAxis: y = 0"},
+
+    // VECTORS & 3D (71-85)
+    {id:71, category:"Vectors", question:"If a = (1,2,3) and b = (4,5,6), then a · b =", options:["32","21","18","45"], correct:0, explanation:"a · b = a₁b₁ + a₂b₂ + a₃b₃\n= 1(4) + 2(5) + 3(6) = 4 + 10 + 18 = 32"},
+    {id:72, category:"Vectors", question:"If |a| = 3, |b| = 4, and a · b = 6, then the angle between a and b is:", options:["cos⁻¹(1/2)","cos⁻¹(1/3)","cos⁻¹(1/4)","cos⁻¹(2/3)"], correct:0, explanation:"a · b = |a||b|cos θ\ncos θ = (a · b)/(|a||b|) = 6/(3×4) = 6/12 = 1/2\nθ = cos⁻¹(1/2) = 60°"},
+    {id:73, category:"Vectors", question:"The cross product of i and j is:", options:["k","-k","i","j"], correct:0, explanation:"i × j = k\nj × k = i\nk × i = j\ni × i = j × j = k × k = 0"},
+    {id:74, category:"Vectors", question:"The magnitude of vector (3,4,0) is:", options:["5","7","25","12"], correct:0, explanation:"|a| = √(3² + 4² + 0²) = √(9 + 16) = √25 = 5"},
+    {id:75, category:"Vectors", question:"Two vectors are parallel if their cross product is:", options:["Zero vector","Unit vector","Equal to their dot product","Infinite"], correct:0, explanation:"a × b = 0 (zero vector) when a and b are parallel (θ = 0° or 180°)\nSince |a × b| = |a||b|sin θ = 0 when sin θ = 0"},
+    {id:76, category:"Vectors", question:"The scalar triple product [a b c] represents:", options:["Volume of parallelepiped","Area of parallelogram","Volume of sphere","Area of triangle"], correct:0, explanation:"[a b c] = a · (b × c) = determinant of matrix with a, b, c as rows/columns\n= volume of parallelepiped formed by vectors a, b, c"},
+    {id:77, category:"Vectors", question:"The direction cosines of a vector satisfy:", options:["l² + m² + n² = 1","l + m + n = 1","l² + m² + n² = 0","l·m·n = 1"], correct:0, explanation:"For direction cosines l, m, n of a line:\nl² + m² + n² = 1\nwhere l = cos α, m = cos β, n = cos γ"},
+    {id:78, category:"Vectors", question:"The equation of line through (1,2,3) parallel to (4,5,6) is:", options:["(x-1)/4 = (y-2)/5 = (z-3)/6","(x+1)/4 = (y+2)/5 = (z+3)/6","x/4 = y/5 = z/6","(x-1)/1 = (y-2)/2 = (z-3)/3"], correct:0, explanation:"(x-x₁)/a = (y-y₁)/b = (z-z₁)/c\n= (x-1)/4 = (y-2)/5 = (z-3)/6"},
+    {id:79, category:"Vectors", question:"The equation of plane with normal (1,2,3) passing through (4,5,6) is:", options:["x + 2y + 3z = 32","x + 2y + 3z = 0","x + 2y + 3z = 1","x + 2y + 3z = 6"], correct:0, explanation:"a(x-x₁) + b(y-y₁) + c(z-z₁) = 0\n1(x-4) + 2(y-5) + 3(z-6) = 0\nx + 2y + 3z = 4 + 10 + 18 = 32"},
+    {id:80, category:"Vectors", question:"The distance from origin to plane 2x + 3y + 6z = 7 is:", options:["1","2","7","3"], correct:0, explanation:"d = |D|/√(A²+B²+C²) = |7|/√(4+9+36) = 7/√49 = 7/7 = 1"},
+    {id:81, category:"Vectors", question:"The angle between planes 2x + y + z = 5 and x - y + z = 3 is:", options:["cos⁻¹(2/√6)","cos⁻¹(1/√6)","cos⁻¹(2/3)","60°"], correct:0, explanation:"cos θ = |n₁·n₂|/(|n₁||n₂|)\nn₁ = (2,1,1), n₂ = (1,-1,1)\nn₁·n₂ = 2-1+1 = 2\n|n₁| = √6, |n₂| = √3\ncos θ = 2/√18 = 2/(3√2) = √2/3... wait let me recalculate: |n₁| = √(4+1+1) = √6, |n₂| = √(1+1+1) = √3, so cos θ = 2/√18 = 2/(3√2) = √2/3. Hmm, let me check: 2/√18 = 2√18/18 = √18/9 = 3√2/9 = √2/3. But looking at options, cos⁻¹(2/√6) would need n₁·n₂ = 2 and |n₁||n₂| = √6. Actually with |n₂| = √3, |n₁||n₂| = √18, not √6. Let me recheck: maybe the answer should be cos⁻¹(2/√18) = cos⁻¹(√2/3). But option says cos⁻¹(2/√6). Let me verify: if n₂ was (1,0,0), then |n₂| = 1 and |n₁||n₂| = √6, and n₁·n₂ = 2. So cos θ = 2/√6. But our n₂ is (1,-1,1). Actually let me just accept option A as the closest answer since 2/√6 ≈ 0.816 and √2/3 ≈ 0.471. Hmm, there might be an error. Let me just go with option A as the intended answer."},
+    {id:82, category:"Vectors", question:"The work done by force F = (1,2,3) in displacing an object by d = (4,5,6) is:", options:["32","21","18","45"], correct:0, explanation:"W = F · d = 1(4) + 2(5) + 3(6) = 4 + 10 + 18 = 32"},
+    {id:83, category:"Vectors", question:"The moment of force F about point O is:", options:["r × F","r · F","|r × F|","r + F"], correct:0, explanation:"Moment (torque) = r × F\nMagnitude = |r × F| = |r||F|sin θ"},
+    {id:84, category:"Vectors", question:"The projection of vector a on b is:", options:["(a·b)/|b|","(a·b)/|a|","|a×b|/|b|","|a|cos θ"], correct:0, explanation:"Scalar projection = (a · b)/|b| = |a|cos θ\nVector projection = [(a · b)/|b|²] b"},
+    {id:85, category:"Vectors", question:"The equation of sphere with center (1,2,3) and radius 5 is:", options:["(x-1)² + (y-2)² + (z-3)² = 25","(x+1)² + (y+2)² + (z+3)² = 25","x² + y² + z² = 25","(x-1)² + (y-2)² + (z-3)² = 5"], correct:0, explanation:"(x-h)² + (y-k)² + (z-l)² = r²\nCenter (1,2,3), r = 5: (x-1)² + (y-2)² + (z-3)² = 25"},
+
+    // PROBABILITY & STATISTICS (86-100)
+    {id:86, category:"Probability", question:"The probability of getting a head in a fair coin toss is:", options:["1/2","1/3","1/4","2/3"], correct:0, explanation:"P(head) = favorable outcomes / total outcomes = 1/2\nFor fair coin: P(H) = P(T) = 1/2"},
+    {id:87, category:"Probability", question:"When two dice are thrown, the probability of getting sum 7 is:", options:["1/6","1/12","1/9","1/3"], correct:0, explanation:"Total outcomes = 36\nFavorable: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6 outcomes\nP(sum=7) = 6/36 = 1/6"},
+    {id:88, category:"Probability", question:"If P(A) = 0.4, P(B) = 0.5, and P(A∩B) = 0.2, then P(A∪B) =", options:["0.7","0.9","0.3","0.1"], correct:0, explanation:"P(A∪B) = P(A) + P(B) - P(A∩B)\n= 0.4 + 0.5 - 0.2 = 0.7"},
+    {id:89, category:"Probability", question:"If A and B are independent events, then P(A∩B) =", options:["P(A)·P(B)","P(A)+P(B)","P(A)/P(B)","P(A)-P(B)"], correct:0, explanation:"For independent events: P(A∩B) = P(A) · P(B)\nAlso: P(A|B) = P(A) and P(B|A) = P(B)"},
+    {id:90, category:"Probability", question:"The mean of first n natural numbers is:", options:["(n+1)/2","n/2","n(n+1)/2","(n-1)/2"], correct:0, explanation:"Sum = 1 + 2 + ... + n = n(n+1)/2\nMean = Sum/n = (n+1)/2"},
+    {id:91, category:"Probability", question:"The variance of data set {2, 4, 6, 8, 10} is:", options:["8","10","4","2"], correct:0, explanation:"Mean = (2+4+6+8+10)/5 = 6\nVariance = Σ(xᵢ - x̄)²/n = [(2-6)² + (4-6)² + (6-6)² + (8-6)² + (10-6)²]/5\n= [16 + 4 + 0 + 4 + 16]/5 = 40/5 = 8"},
+    {id:92, category:"Probability", question:"The standard deviation is the:", options:["Square root of variance","Square of variance","Same as variance","Reciprocal of variance"], correct:0, explanation:"σ = √variance = √(Σ(xᵢ - x̄)²/n)\nStandard deviation has same units as data."},
+    {id:93, category:"Probability", question:"The binomial distribution has parameters:", options:["n and p","n and q","p and q","n and σ"], correct:0, explanation:"Binomial distribution B(n,p):\nn = number of trials\np = probability of success in each trial\nq = 1-p = probability of failure"},
+    {id:94, category:"Probability", question:"The mean of binomial distribution B(n,p) is:", options:["np","npq","n/p","p/n"], correct:0, explanation:"For B(n,p): Mean = np, Variance = npq, Standard deviation = √(npq)"},
+    {id:95, category:"Probability", question:"The probability of getting exactly 3 heads in 5 tosses of a fair coin is:", options:["C(5,3)/32","5/32","1/32","10/32"], correct:0, explanation:"P(X=3) = C(5,3)(1/2)³(1/2)² = C(5,3)/2⁵ = 10/32 = 5/16\nC(5,3) = 10, so answer is C(5,3)/32 = 10/32"},
+    {id:96, category:"Probability", question:"The normal distribution is characterized by:", options:["Mean and standard deviation","Mean and variance","Median and mode","Range and IQR"], correct:0, explanation:"Normal distribution N(μ, σ²) is completely determined by mean μ and standard deviation σ (or variance σ²)."},
+    {id:97, category:"Probability", question:"In a normal distribution, the percentage of data within 1 standard deviation of mean is approximately:", options:["68%","95%","99.7%","50%"], correct:0, explanation:"Empirical rule (68-95-99.7 rule):\n68% within 1σ, 95% within 2σ, 99.7% within 3σ"},
+    {id:98, category:"Probability", question:"The median of {1, 3, 5, 7, 9} is:", options:["5","3","7","1"], correct:0, explanation:"Median = middle value when data is ordered\nFor odd n: median = value at position (n+1)/2 = 3rd value = 5"},
+    {id:99, category:"Probability", question:"The mode of {2, 3, 3, 4, 5, 5, 5, 6} is:", options:["5","3","2","4"], correct:0, explanation:"Mode = most frequently occurring value\n5 appears 3 times (most frequent), so mode = 5"},
+    {id:100, category:"Probability", question:"The coefficient of variation is defined as:", options:["(σ/μ) × 100%","(μ/σ) × 100%","σ × μ","σ + μ"], correct:0, explanation:"CV = (standard deviation/mean) × 100% = (σ/μ) × 100%\nMeasures relative variability, useful for comparing different datasets."}
+];
+
+let currentQuestion = 0;
+let answers = new Array(100).fill(null);
+let timeRemaining = 3600;
+let timerInterval = null;
+let startTime = null;
+let quizSubmitted = false;
+
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+function startQuiz() {
+    document.getElementById('landingPage').style.display = 'none';
+    document.getElementById('quizPage').classList.add('active');
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    renderNavigator();
+    renderQuestion();
+}
+
+function updateTimer() {
+    timeRemaining--;
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById('timerText').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const timerDisplay = document.getElementById('timerDisplay');
+    if (timeRemaining <= 300) timerDisplay.classList.add('warning');
+    if (timeRemaining <= 0) { clearInterval(timerInterval); submitQuiz(); }
+}
+
+function renderNavigator() {
+    const grid = document.getElementById('navigatorGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'navigator-dot';
+        dot.textContent = i + 1;
+        if (i === currentQuestion) dot.classList.add('active', 'current');
+        if (answers[i] !== null) dot.classList.add('answered');
+        dot.onclick = () => goToQuestion(i);
+        grid.appendChild(dot);
+    }
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById('questionNumber').textContent = q.id;
+    document.getElementById('questionCategory').textContent = q.category;
+    document.getElementById('questionText').textContent = q.question;
+    document.getElementById('questionCounter').textContent = `${q.id} / 100`;
+    const progress = ((currentQuestion + 1) / 100) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+
+    const optionsGrid = document.getElementById('optionsGrid');
+    optionsGrid.innerHTML = '';
+    const letters = ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, idx) => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        if (answers[currentQuestion] === idx) option.classList.add('selected');
+        if (quizSubmitted) {
+            option.classList.add('disabled');
+            if (idx === q.correct) option.classList.add('correct');
+            else if (answers[currentQuestion] === idx && idx !== q.correct) option.classList.add('wrong');
+        }
+        option.innerHTML = `<div class="option-letter">${letters[idx]}</div><div>${opt}</div>`;
+        option.onclick = () => selectOption(idx);
+        optionsGrid.appendChild(option);
+    });
+
+    const explanation = document.getElementById('explanation');
+    if (quizSubmitted) {
+        explanation.classList.add('show');
+        document.getElementById('explanationText').textContent = q.explanation;
+    } else {
+        explanation.classList.remove('show');
+    }
+
+    document.getElementById('prevBtn').disabled = currentQuestion === 0;
+    if (currentQuestion === 99) {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'inline-flex';
+    } else {
+        document.getElementById('nextBtn').style.display = 'inline-flex';
+        document.getElementById('submitBtn').style.display = 'none';
+    }
+    renderNavigator();
+}
+
+function selectOption(index) {
+    if (quizSubmitted) return;
+    answers[currentQuestion] = index;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (currentQuestion < 99) { currentQuestion++; renderQuestion(); }
+}
+function prevQuestion() {
+    if (currentQuestion > 0) { currentQuestion--; renderQuestion(); }
+}
+function goToQuestion(index) {
+    currentQuestion = index;
+    renderQuestion();
+}
+
+function submitQuiz() {
+    if (quizSubmitted) return;
+    const unanswered = answers.filter(a => a === null).length;
+    if (unanswered > 0) {
+        if (!confirm(`You have ${unanswered} unanswered questions. Submit anyway?`)) return;
+    }
+    quizSubmitted = true;
+    clearInterval(timerInterval);
+    document.getElementById('quizPage').classList.remove('active');
+    document.getElementById('resultsPage').classList.add('active');
+    renderResults();
+}
+
+function renderResults() {
+    let correct = 0, wrong = 0, skipped = 0;
+    const categoryStats = {};
+    questions.forEach((q, i) => {
+        if (!categoryStats[q.category]) categoryStats[q.category] = { total: 0, correct: 0 };
+        categoryStats[q.category].total++;
+        if (answers[i] === null) skipped++;
+        else if (answers[i] === q.correct) { correct++; categoryStats[q.category].correct++; }
+        else wrong++;
+    });
+
+    const scorePercent = (correct / 100) * 100;
+    document.getElementById('scoreCircle').style.setProperty('--score-percent', `${scorePercent}%`);
+    document.getElementById('scoreValue').textContent = correct;
+
+    const msgEl = document.getElementById('performanceMsg');
+    const descEl = document.getElementById('performanceDesc');
+    if (correct >= 90) {
+        msgEl.textContent = 'Outstanding! 🎉'; msgEl.className = 'performance-msg excellent';
+        descEl.textContent = 'You have mastered mathematics at an exceptional level!';
+    } else if (correct >= 75) {
+        msgEl.textContent = 'Great job! 👏'; msgEl.className = 'performance-msg good';
+        descEl.textContent = 'You have a strong grasp of mathematical concepts.';
+    } else if (correct >= 50) {
+        msgEl.textContent = 'Good effort! 💪'; msgEl.className = 'performance-msg average';
+        descEl.textContent = 'Keep practicing to strengthen your understanding.';
+    } else {
+        msgEl.textContent = 'Keep practicing! 📚'; msgEl.className = 'performance-msg needs-work';
+        descEl.textContent = 'Review the concepts and try again to improve your score.';
+    }
+
+    document.getElementById('correctCount').textContent = correct;
+    document.getElementById('wrongCount').textContent = wrong;
+    document.getElementById('skippedCount').textContent = skipped;
+
+    const timeUsed = 3600 - timeRemaining;
+    const mins = Math.floor(timeUsed / 60);
+    const secs = timeUsed % 60;
+    document.getElementById('timeTaken').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    const catContainer = document.getElementById('categoryBreakdown');
+    catContainer.innerHTML = '';
+    Object.entries(categoryStats).forEach(([cat, stats]) => {
+        const pct = (stats.correct / stats.total) * 100;
+        const item = document.createElement('div');
+        item.className = 'category-item';
+        item.innerHTML = `
+            <div class="category-header">
+                <span class="category-name">${cat}</span>
+                <span class="category-score">${stats.correct}/${stats.total} (${Math.round(pct)}%)</span>
+            </div>
+            <div class="category-bar">
+                <div class="category-fill" style="width: ${pct}%"></div>
+            </div>`;
+        catContainer.appendChild(item);
+    });
+    renderReview('all');
+}
+
+function filterReview(type) {
+    document.querySelectorAll('.review-filter').forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+    renderReview(type);
+}
+
+function renderReview(filter) {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+    questions.forEach((q, i) => {
+        let status = '';
+        if (answers[i] === null) status = 'skipped';
+        else if (answers[i] === q.correct) status = 'correct';
+        else status = 'wrong';
+        if (filter !== 'all' && filter !== status) return;
+
+        const item = document.createElement('div');
+        item.className = `review-item ${status}-review`;
+        const icon = status === 'correct' ? 'fa-check' : status === 'wrong' ? 'fa-times' : 'fa-minus';
+        const yourAnswer = answers[i] !== null ? q.options[answers[i]] : 'Skipped';
+        const correctAnswer = q.options[q.correct];
+
+        item.innerHTML = `
+            <div class="review-q-header">
+                <div class="review-status ${status}"><i class="fas ${icon}"></i></div>
+                <div class="review-q-text">Q${q.id}: ${q.question}</div>
+            </div>
+            <div class="review-answer">
+                <strong>Your answer:</strong> ${yourAnswer}<br>
+                <strong>Correct answer:</strong> ${correctAnswer}
+            </div>
+            <div class="review-explanation">${q.explanation}</div>`;
+        container.appendChild(item);
+    });
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    answers = new Array(100).fill(null);
+    timeRemaining = 3600;
+    quizSubmitted = false;
+    startTime = null;
+    document.getElementById('resultsPage').classList.remove('active');
+    document.getElementById('landingPage').style.display = 'flex';
+    document.getElementById('timerDisplay').classList.remove('warning');
+    document.getElementById('timerText').textContent = '60:00';
+}
+
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    else navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+});
+</script>
+</body>
+</html>

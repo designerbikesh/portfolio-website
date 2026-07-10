@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus 2 Guru</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #ff7200;
+        --primary-dark: #e56500;
+        --secondary: #1e3a8a;
+        --secondary-light: #2563eb;
+        --accent: #08dcd1;
+        --accent-hover: #06b8b0;
+        --bg: #f4f7ff;
+        --card-bg: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-medium: #4a5568;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        --radius: 16px;
+        --radius-sm: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+    }
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+    .logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+    .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-medium);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--primary); background: rgba(255, 114, 0, 0.1); }
+    .nav-links a.active { color: var(--primary); background: rgba(255, 114, 0, 0.15); }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-dark);
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 140px 20px 80px;
+        text-align: center;
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 50px;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero h1 {
+        font-size: clamp(28px, 5vw, 35px);
+        font-weight: 800;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .hero p {
+        font-size: clamp(16px, 2vw, 18px);
+        color: rgba(255,255,255,0.9);
+        max-width: 600px;
+        margin: 0 auto 32px;
+    }
+
+    /* Subject Cards Section */
+    .section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .section-header h2 {
+        font-size: clamp(24px, 3vw, 32px);
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+    .section-header p {
+        color: var(--text-medium);
+        font-size: 16px;
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+    }
+    .subject-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 32px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+    }
+    .subject-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--primary);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+    .subject-card:hover::before { transform: scaleX(1); }
+    .subject-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+    .subject-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 28px;
+        transition: transform 0.3s ease;
+    }
+    .subject-card:hover .subject-icon { transform: scale(1.1) rotate(5deg); }
+    .physics .subject-icon { background: #fef3c7; color: #d97706; }
+    .chemistry .subject-icon { background: #dbeafe; color: #2563eb; }
+    .math .subject-icon { background: #fce7f3; color: #db2777; }
+    .biology .subject-icon { background: #d1fae5; color: #059669; }
+    .subject-card h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--text-dark);
+    }
+    .subject-card p {
+        color: var(--text-light);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .subject-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 24px;
+        background: var(--bg);
+        color: var(--primary);
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: 1px solid var(--border);
+    }
+    .subject-btn:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        transform: translateX(4px);
+    }
+
+    /* Features Section */
+    .features {
+        background: white;
+        padding: 80px 20px;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .feature-card {
+        padding: 30px;
+        border-radius: var(--radius-sm);
+        background: var(--bg);
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .feature-icon {
+        width: 60px; height: 60px;
+        border-radius: 16px;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 16px;
+    }
+    .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-medium); font-size: 15px; line-height: 1.6; }
+
+    /* Footer */
+    footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    .footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+    .footer-brand img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; }
+    .footer-brand h3 { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .footer-brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
+    .footer-links h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white; }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+    .footer-bottom .flag { font-size: 18px; margin-left: 4px; }
+    .footer-bottom .designer { color: var(--accent); font-weight: 600; }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        backdrop-filter: blur(4px);
+    }
+    .mobile-nav.active { display: block; }
+    .mobile-nav-content {
+        position: absolute;
+        top: 0; right: 0;
+        width: 280px;
+        height: 100%;
+        background: white;
+        padding: 80px 24px 24px;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    .mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links a {
+        display: block;
+        padding: 14px 0;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        border-bottom: 1px solid var(--border);
+        transition: color 0.3s ease;
+    }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+    .close-mobile-nav {
+        position: absolute;
+        top: 20px; right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-dark);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .mobile-menu-btn { display: block; }
+        .hero { padding: 120px 16px 60px; }
+        .section { padding: 40px 16px; }
+        .cards-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .features { padding: 60px 16px; }
+        .features-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+        .hero h1 { font-size: 26px; }
+        .cards-grid { grid-template-columns: 1fr; }
+        .subject-card { padding: 24px; }
+        .subject-icon { width: 60px; height: 60px; font-size: 24px; }
+        .subject-card h3 { font-size: 20px; }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <span class="logo-text">Plus 2 Guru</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html"  class="active">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html">Model Questions</a></li>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+        <div class="mobile-nav-content">
+            <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html" class="active">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html" >Model Questions</a></li>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Class 11 Subject Notes</span>
+            </div>
+           <h1>"Notes That Make  <span style="color: #ffd700;">Learning Easy"</span></h1>
+             <p>Subject Notes • Exam Preparation for +2 Students</p>
+        </div>
+    </section>
+
+    <!-- Subject Cards -->
+    <section class="section">
+        <div class="section-header">
+            <h2>Choose Your Subject</h2>
+            <p>Select a subject to access Subject Notes</p>
+        </div>
+        <div class="cards-grid">
+            <div class="subject-card physics">
+                <div class="subject-icon"><i class="fas fa-atom"></i></div>
+                <h3>Physics</h3>
+                <p>Model questions with solutions for Physics</p>
+                <a href="notephysics.html" class="subject-btn">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="subject-card chemistry">
+                <div class="subject-icon"><i class="fas fa-flask"></i></div>
+                <h3>Chemistry</h3>
+                <p>Model questions with solutions for Chemistry</p>
+                <a href="notechemistry.html" class="subject-btn">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="subject-card math">
+                <div class="subject-icon"><i class="fas fa-square-root-alt"></i></div>
+                <h3>Mathematics</h3>
+                <p>Model questions with solutions for Mathematics</p>
+                <a href="modelmath.html" class="subject-btn">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="subject-card biology">
+                <div class="subject-icon"><i class="fas fa-dna"></i></div>
+                <h3>Biology</h3>
+                <p>Model questions with solutions for Biology</p>
+                <a href="modelbiology.html" class="subject-btn">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <h2>Why writing Subject notes?</h2>
+            <x>Everything you need to excel in your examinations</x>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                <h3>Better Understanding</h3>
+                <p>Notes help students understand important concepts in a simple way.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+                <h3>Easy Revision</h3>
+                <p>Short notes make exam preparation faster and more effective.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>Improves Memory</h3>
+                <p>Writing notes helps retain information for a longer time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Highlights Key Points</h3>
+                <p>Important formulas, definitions, and facts can be quickly identified.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                <h3>Saves Time</h3>
+                <p>Students do not need to read the entire textbook again before exams.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Increases Academic Performance</h3>
+                <p>Well-organized notes help students answer questions more accurately and confidently.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <div>
+                    <h3>Plus 2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Subjects</h4>
+                <ul>
+                    <li><a href="modelphysics.html">Physics</a></li>
+                    <li><a href="modelchemistry.html">Chemistry</a></li>
+                    <li><a href="modelmath.html">Mathematics</a></li>
+                    <li><a href="modelbiology.html">Biology</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        }
+        function closeMobileNav(event) {
+            if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+            }
+        });
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.subject-card, .feature-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

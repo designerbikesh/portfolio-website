@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Plus 2 Guru</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #ff7200;
+        --primary-dark: #e56500;
+        --secondary: #1e3a8a;
+        --secondary-light: #2563eb;
+        --accent: #08dcd1;
+        --accent-hover: #06b8b0;
+        --bg: #f4f7ff;
+        --card-bg: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-medium: #4a5568;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        --radius: 16px;
+        --radius-sm: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+    }
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+    .logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+    .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-medium);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--primary); background: rgba(255, 114, 0, 0.1); }
+    .nav-links a.active { color: var(--primary); background: rgba(255, 114, 0, 0.15); }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-dark);
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 140px 20px 60px;
+        text-align: center;
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 50px;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero h1 {
+        font-size: clamp(28px, 5vw, 35px);
+        font-weight: 800;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .hero p {
+        font-size: clamp(16px, 2vw, 18px);
+        color: rgba(255,255,255,0.9);
+        max-width: 600px;
+        margin: 0 auto 24px;
+    }
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 10px 24px;
+        border-radius: 50px;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero-tag i { color: #fbbf24; margin-right: 4px; }
+
+    /* PDF Section */
+    .content-section {
+        padding: 60px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .paper-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 40px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+    }
+    .paper-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--border);
+    }
+    .paper-header h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+    .paper-header p {
+        color: var(--text-light);
+        font-size: 14px;
+    }
+    .paper-header .subject-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #fef3c7;
+        color: #d97706;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 12px;
+    }
+
+    /* PDF Viewer */
+    .pdf-container {
+        position: relative;
+        width: 100%;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        background: #f8fafc;
+        border: 2px solid var(--border);
+    }
+    .pdf-container iframe {
+        width: 100%;
+        height: 800px;
+        border: none;
+        display: block;
+    }
+    .pdf-fallback {
+        display: none;
+        padding: 60px 20px;
+        text-align: center;
+        background: #f8fafc;
+    }
+    .pdf-fallback i {
+        font-size: 48px;
+        color: var(--primary);
+        margin-bottom: 16px;
+    }
+    .pdf-fallback h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--text-dark);
+    }
+    .pdf-fallback p {
+        color: var(--text-medium);
+        margin-bottom: 24px;
+        font-size: 15px;
+    }
+    .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        background: var(--primary);
+        color: white;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
+    }
+    .btn-download:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
+    }
+
+    /* Related Section */
+    .related-section {
+        padding: 40px 20px 80px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .related-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .related-header h3 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+    }
+    .related-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+    }
+    .related-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary);
+    }
+    .related-card .subject-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    .related-card.chemistry .subject-icon { background: #dbeafe; color: #2563eb; }
+    .related-card.math .subject-icon { background: #fce7f3; color: #db2777; }
+    .related-card.biology .subject-icon { background: #d1fae5; color: #059669; }
+    .related-card h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 4px;
+    }
+    .related-card p {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+    .related-card .arrow {
+        float: right;
+        color: var(--primary);
+        margin-top: -30px;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+    }
+    .related-card:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    /* Footer */
+    footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    .footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+    .footer-brand img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; }
+    .footer-brand h3 { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .footer-brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
+    .footer-links h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white; }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+    .footer-bottom .flag { font-size: 18px; margin-left: 4px; }
+    .footer-bottom .designer { color: var(--accent); font-weight: 600; }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        backdrop-filter: blur(4px);
+    }
+    .mobile-nav.active { display: block; }
+    .mobile-nav-content {
+        position: absolute;
+        top: 0; right: 0;
+        width: 280px;
+        height: 100%;
+        background: white;
+        padding: 80px 24px 24px;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    .mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links a {
+        display: block;
+        padding: 14px 0;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        border-bottom: 1px solid var(--border);
+        transition: color 0.3s ease;
+    }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+    .close-mobile-nav {
+        position: absolute;
+        top: 20px; right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-dark);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .mobile-menu-btn { display: block; }
+        .hero { padding: 120px 16px 40px; }
+        .paper-card { padding: 24px; }
+        .pdf-container iframe { height: 500px; }
+        .related-grid { grid-template-columns: 1fr; }
+        .content-section { padding: 40px 16px; }
+        .related-section { padding: 30px 16px 60px; }
+    }
+    @media (max-width: 480px) {
+        .hero h1 { font-size: 26px; }
+        .pdf-container iframe { height: 400px; }
+        .paper-header h2 { font-size: 20px; }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <span class="logo-text">Plus 2 Guru</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html" class="active">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html" >Model Questions</a></li>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+        <div class="mobile-nav-content">
+            <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html" class="active">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html" >Model Questions</a></li>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Class 11 &middot; Notes</span>
+            </div>
+            <h1>"Notes That Make  <span style="color: #ffd700;">Learning Easy"</span></h1>
+            <p>Physics Notes • Exam Preparation for +2 Students</p>
+            <div class="hero-tag">
+                <i class="fas fa-atom"></i>
+              13.Ideal Gas
+            </div>
+        </div>
+    </section>
+
+    <!-- PDF Section -->
+    <section class="content-section">           
+        <div class="paper-card">           
+            <div class="paper-header">
+                <h2>13.Ideal Gas</h2>
+                <p>Class 11 &middot; Notes</p>
+                <span class="subject-tag">
+                    <i class="fas fa-atom"></i> 13.Ideal Gas
+                </span>
+            </div>
+            <div class="pdf-container">
+                <iframe 
+                    src="  https://drive.google.com/file/d/1TiHDLZvFACS1sJix3NEkBFSaSc5ktsev/preview" 
+                    allow="autoplay"
+                    title="Physics Model Questions">
+                </iframe>
+                <div class="pdf-fallback" id="pdfFallback">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>Unable to Load PDF</h3>
+                    <p>The PDF viewer may not be available on your device. You can download the file directly.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=14JS5xaUjtjvz9apWgf2syoJjOxkCGFxu" class="btn-download" target="_blank">
+                        <i class="fas fa-download"></i>
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Model Questions -->
+    <section class="related-section">
+        <div class="related-header">
+            <h3>More Notes</h3>
+        </div>
+        <div class="related-grid">
+            <a href="notechemistry.html" class="related-card chemistry">
+                <div class="subject-icon"><i class="fas fa-vial"></i></div>
+                <h4>Chemistry</h4>
+                <p>Class 11 &middot; Notes</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
+            <a href="notecomputer.html" class="related-card math">
+                <div class="subject-icon"><i class="fas fa-computer"></i></div>
+                <h4>Computer</h4>
+                <p>Class 11 &middot; Notes</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
+            <a href="notebiology.html" class="related-card biology">
+                <div class="subject-icon"><i class="fas fa-dna"></i></div>
+                <h4>Biology</h4>
+                <p>Class 11 &middot; Notes</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <div>
+                    <h3>Plus  2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Subjects</h4>
+                <ul>
+                    <li><a href="modelphysics.html">Physics</a></li>
+                    <li><a href="modelchemistry.html">Chemistry</a></li>
+                    <li><a href="modelmath.html">Mathematics</a></li>
+                    <li><a href="modelbiology.html">Biology</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        }
+        function closeMobileNav(event) {
+            if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+            }
+        });
+
+        document.querySelector('.pdf-container iframe').addEventListener('error', function() {
+            document.getElementById('pdfFallback').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

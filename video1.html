@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus 2 Guru </title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary: #ff7200;
+    --primary-dark: #e56500;
+    --secondary: #1e3a8a;
+    --secondary-light: #2563eb;
+    --accent: #08dcd1;
+    --accent-hover: #06b8b0;
+    --bg: #f4f7ff;
+    --card-bg: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-medium: #4a5568;
+    --text-light: #718096;
+    --border: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    --radius: 16px;
+    --radius-sm: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Progress Bar */
+.progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    z-index: 10001; width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+.nav-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+
+.nav-links { display: flex; gap: 8px; list-style: none; }
+.nav-links a {
+    text-decoration: none; color: var(--text-medium); font-weight: 600;
+    font-size: 14px; padding: 8px 16px; border-radius: 8px;
+    transition: all 0.3s ease; position: relative;
+}
+.nav-links a:hover { color: var(--primary); background: rgba(255,114,0,0.1); }
+.nav-links a.active { color: var(--primary); background: rgba(255,114,0,0.15); }
+
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; }
+
+/* Mobile Nav */
+.mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px); }
+.mobile-nav.active { display: block; }
+.mobile-nav-content { position: absolute; top: 0; right: 0; width: 280px; height: 100%; background: white; padding: 80px 24px 24px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+.mobile-nav-links { list-style: none; }
+.mobile-nav-links a { display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease; }
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); }
+
+/* Hero */
+.hero { padding: 100px 20px 40px; text-align: center; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%); position: relative; overflow: hidden; }
+.hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 50px; color: white; font-size: 14px; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.3); animation: fadeInUp 1s ease; }
+.hero h1 { font-size: clamp(32px, 5vw, 20px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); animation: fadeInUp 1s ease 0.2s both; }
+.hero-subtitle { font-size: clamp(18px, 3vw, 24px); color: rgba(255,255,255,0.9); font-weight: 500; margin-bottom: 32px; animation: fadeInUp 1s ease 0.4s both; }
+
+/* Breadcrumb */
+.breadcrumb-section { padding: 10px; max-width: 1200px; margin: 0 auto; }
+.breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.9rem; color: var(--text-medium);
+}
+.breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+.breadcrumb a:hover { color: var(--primary-dark); }
+.breadcrumb i { font-size: 0.7rem; color: var(--text-light); }
+
+/* Subjects Section */
+.subjects-section { padding: 40px 20px 80px; max-width: 1200px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-header h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; margin-bottom: 12px; }
+.section-header h2 .highlight { color: var(--primary); }
+.section-header p { color: var(--text-medium); font-size: 1rem; }
+
+.subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+
+.subject-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 40px 28px; text-align: center; transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: var(--shadow); position: relative; overflow: hidden;
+}
+.subject-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary-light));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+}
+.subject-card:hover::before { transform: scaleX(1); }
+.subject-card:hover {
+    transform: translateY(-8px); box-shadow: var(--shadow-lg);
+    border-color: rgba(255,114,0,0.2);
+}
+
+.subject-icon {
+    width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; margin: 0 auto 20px;
+    transition: all 0.3s ease;
+}
+.subject-card:hover .subject-icon { transform: scale(1.1) rotate(-5deg); }
+
+.physics-icon { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+.chemistry-icon { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+.math-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); color: white; }
+.biology-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); color: white; }
+
+.subject-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
+.subject-card p { color: var(--text-medium); font-size: 0.9rem; margin-bottom: 8px; line-height: 1.6; }
+.subject-card .papers-count {
+    display: inline-block; padding: 4px 12px; background: var(--bg);
+    border-radius: 50px; font-size: 0.8rem; color: var(--text-light);
+    margin-bottom: 20px; font-weight: 600;
+}
+
+.subject-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; text-decoration: none; border-radius: 50px;
+    font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,114,0,0.3); border: none; cursor: pointer;
+}
+.subject-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,114,0,0.4); }
+.subject-btn i { transition: transform 0.3s ease; }
+.subject-btn:hover i { transform: translateX(4px); }
+
+/* Related Section */
+.related-section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+.related-header { text-align: center; margin-bottom: 40px; }
+.related-header h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 800; margin-bottom: 10px; }
+.related-header h2 .highlight { color: var(--primary); }
+.related-header p { color: var(--text-medium); }
+
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.related-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 24px; text-align: center; transition: all 0.3s ease;
+    box-shadow: var(--shadow); text-decoration: none;
+}
+.related-card:hover {
+    transform: translateY(-5px); box-shadow: var(--shadow-lg);
+    border-color: rgba(255,114,0,0.2);
+}
+.related-card i { font-size: 28px; color: var(--primary); margin-bottom: 12px; display: block; }
+.related-card h4 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+.related-card p { font-size: 0.85rem; color: var(--text-medium); }
+
+/* Footer */
+footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
+.footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+.footer-brand img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; }
+.footer-brand h3 { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+.footer-brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
+.footer-links h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white; }
+.footer-links ul { list-style: none; }
+.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; }
+.footer-links a:hover { color: var(--primary); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; }
+.footer-bottom .flag { font-size: 18px; margin-left: 4px; }
+.footer-bottom .designer { color: var(--accent); font-weight: 600; }
+
+/* Animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+/* Back to Top */
+.back-to-top {
+    position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+    background: var(--primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 20px; cursor: pointer;
+    opacity: 0; visibility: hidden; transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(255,114,0,0.3); z-index: 999; border: none;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,114,0,0.4); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .nav-links { gap: 4px; }
+    .nav-links a { padding: 6px 12px; font-size: 13px; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .hero { padding: 120px 16px 60px; }
+    .subjects-section { padding: 30px 16px 60px; }
+    .subjects-grid { grid-template-columns: 1fr; }
+    .subject-card { padding: 32px 24px; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+    .related-section { padding: 40px 16px; }
+    .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .footer-brand { justify-content: center; flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 480px) {
+    .logo-text { font-size: 18px; }
+    .hero h1 { font-size: 28px; }
+    .subject-icon { width: 60px; height: 60px; font-size: 28px; }
+    .related-grid { grid-template-columns: 1fr; }
+    .breadcrumb { font-size: 0.8rem; }
+}
+
+
+ .video-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+
+
+        /* Video Sections */
+    .video-section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+        font-size: clamp(24px, 3vw, 32px);
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+
+    .section-header p {
+        color: var(--text-medium);
+        font-size: 16px;
+    }
+
+    .section-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #f4f7ff;
+        color: rgb(223, 19, 19);
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        box-shadow: var(--shadow);
+    }
+
+    .section-badge i {
+        color: var(--accent);
+    }
+
+    .videos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+    }
+
+    .video-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid var(--border);
+        position: relative;
+        max-height: fit-content;
+    }
+
+    .video-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .video-thumbnail {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/10;
+        overflow: hidden;
+    }
+
+    .video-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .video-card:hover .video-thumbnail img {
+        transform: scale(1.05);
+    }
+
+    .play-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .video-card:hover .play-overlay {
+        background: rgba(0,0,0,0.5);
+    }
+
+    .play-btn {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.95);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .play-btn i {
+        color: var(--primary);
+        font-size: 20px;
+        margin-left: 4px;
+    }
+
+     .video-card:hover .play-btn {
+        transform: scale(1.1);
+        background: var(--primary);
+    }
+
+    .video-card:hover .play-btn i {
+        color: white;
+    }
+
+    .video-info {
+        padding: 20px;
+    }
+
+
+
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab Practical</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html" >Past Papers</a></li>
+            <li><a href="blo.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab Practical</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html" class="active">Past Papers</a></li>
+            <li><a href="blo.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        
+        </div>
+        <h1>त्यो फेरि फर्कला ?  <span style="color: #ffd700;">(मनोवैज्ञानिक कथा)</span></h1>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-section">
+    <div class="breadcrumb">
+        <a href="index.html"> <b>Back</b></a>
+        <i class="fas fa-chevron-right"></i>
+       
+    </div>
+</div>
+
+<div class="video-container">
+        
+            
+            <iframe width="900" height="430" src="https://www.youtube.com/embed/6KWJbHNCSGM" title="त्यो फेरि फर्कला ?(Tyo Feri Farkala)Nepali • Class 11| @Trollsvines #Bikesh Kumar Yadav " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
+    
+    </div>
+
+<!-- Related Papers Section -->
+<section class="related-section">
+    <div class="related-header">
+        <h2>Explore More <span class="highlight">Videos</span></h2>
+        <p>Explore our collection of educational and engaging videos.</p>
+    </div>
+
+
+     <!-- Class 11 Videos -->
+            <div class="videos-grid">
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="ayo.jpeg.jpg" alt="Ayo Chapter">
+                    <div class="play-overlay">
+                        <div class="play-btn">
+                            <a href="video2.html"><i class="fas fa-play" ></i></a>
+                            
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="00.png.png" alt="Yogmaya Chapter">
+                    <div class="play-overlay">
+                        <div class="play-btn">
+                            <a href="video3.html"><i class="fas fa-play" ></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="safal.png.jpeg" alt="Safalta Ko Katha Chapter">
+                    <div class="play-overlay">
+                        <div class="play-btn">
+                           <a href="video4.html"><i class="fas fa-play" ></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+
+         
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="class12.png" alt="Ferka Chapter">
+                    <div class="play-overlay">
+                        <div class="play-btn">
+                             <a href="video21.html"><i class="fas fa-play" ></i></a>
+                        </div>
+                    </div>
+                </div>    
+               
+            </div>
+            </div>
+    </section>
+
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <div>
+                <h3>Plus 2 Guru</h3>
+                <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html">Model Questions</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Videos</h4>
+            <ul>
+                <li><a href="https://youtu.be/6KWJbHNCSGM" target="_blank">Class 11 Nepali</a></li>
+                <li><a href="https://youtu.be/NWFa-pmpjSs" target="_blank">Class 12 Nepali</a></li>
+                <li><a href="blo.html">More Content</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+// Mobile Navigation
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+// Scroll Progress
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progressBar').style.width = (winScroll / height) * 100 + '%';
+});
+
+// Navbar Shadow
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    navbar.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : 'var(--shadow)';
+});
+
+// Back to Top
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+});
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+// Intersection Observer
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.subject-card, .related-card').forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus 2 Guru</title>
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #ff7200;
+        --primary-dark: #e56500;
+        --secondary: #1e3a8a;
+        --secondary-light: #2563eb;
+        --accent: #08dcd1;
+        --accent-hover: #06b8b0;
+        --bg: #f4f7ff;
+        --card-bg: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-medium: #4a5568;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        --radius: 16px;
+        --radius-sm: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    
+    /* Scroll Progress Bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    z-index: 10001;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+
+    /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+    }
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+    .logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+    .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-medium);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--primary); background: rgba(255, 114, 0, 0.1); }
+    .nav-links a.active { color: var(--primary); background: rgba(255, 114, 0, 0.15); }
+
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-dark);
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 140px 20px 80px;
+        text-align: center;
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hero h1 {
+        font-size: clamp(18px, 4vw, 10px);
+        font-weight: 700;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 16px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .hero p {
+        font-size: clamp(16px, 2vw, 18px);
+        color: rgba(255,255,255,0.9);
+        max-width: 600px;
+        margin: 0 auto 32px;
+    }
+
+
+    /* Breadcrumb */
+.breadcrumb-section { padding: 20px; max-width: 1200px; margin: 0 auto; }
+.breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.9rem; color: var(--text-medium);
+}
+.breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+.breadcrumb a:hover { color: var(--primary-dark); }
+.breadcrumb i { font-size: 0.7rem; color: var(--text-light); }
+
+
+    /* Class Cards Section */
+    .section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .section-header h2 {
+        font-size: clamp(24px, 3vw, 32px);
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+    .section-header p {
+        color: var(--text-medium);
+        font-size: 16px;
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .class-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 40px 32px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+    }
+    .class-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--primary);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+    .class-card:hover::before { transform: scaleX(1); }
+    .class-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+    .class-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 28px;
+        transition: transform 0.3s ease;
+    }
+    .class-card:hover .class-icon { transform: scale(1.1) rotate(5deg); }
+    .class-11 .class-icon { background: #dbeafe; color: #2563eb; }
+    .class-12 .class-icon { background: #fce7f3; color: #db2777; }
+    .class-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--text-dark);
+    }
+    .class-card p {
+        color: var(--text-light);
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+    .class-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 32px;
+        background: var(--primary);
+        color: white;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+    .class-btn:hover {
+        background: var(--primary-dark);
+        transform: translateX(4px);
+        box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
+    }
+    .class-btn i { font-size: 14px; }
+
+    /* Features Section */
+    .features {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+        
+        padding: 80px 20px;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .feature-card {
+        padding: 30px;
+        border-radius: var(--radius-sm);
+        background: var(--bg);
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+.section-header x {
+        color: rgb(3, 253, 174);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .section-header h2 {
+        color: whitesmoke;
+
+    }
+
+
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .feature-icon {
+        width: 60px; height: 60px;
+        border-radius: 16px;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 16px;
+    }
+    .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-medium); font-size: 15px; line-height: 1.6; }
+
+    /* Footer */
+    footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    .footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+    .footer-brand img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; }
+    .footer-brand h3 { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .footer-brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
+    .footer-links h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white; }
+    .footer-links ul { list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+    .footer-bottom .flag { font-size: 18px; margin-left: 4px; }
+    .footer-bottom .designer { color: var(--accent); font-weight: 600; }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        backdrop-filter: blur(4px);
+    }
+    .mobile-nav.active { display: block; }
+    .mobile-nav-content {
+        position: absolute;
+        top: 0; right: 0;
+        width: 280px;
+        height: 100%;
+        background: white;
+        padding: 80px 24px 24px;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    .mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links a {
+        display: block;
+        padding: 14px 0;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        border-bottom: 1px solid var(--border);
+        transition: color 0.3s ease;
+    }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+    .close-mobile-nav {
+        position: absolute;
+        top: 20px; right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-dark);
+    }
+
+    /* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(255, 114, 0, 0.3);
+    z-index: 999;
+    border: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 114, 0, 0.4);
+}
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .mobile-menu-btn { display: block; }
+        .hero { padding: 120px 16px 60px; }
+        .section { padding: 40px 16px; }
+        .cards-grid { grid-template-columns: 1fr; }
+        .features { padding: 60px 16px; }
+        .features-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+        .hero h1 { font-size: 26px; }
+        .class-card { padding: 28px 20px; }
+        .class-icon { width: 60px; height: 60px; font-size: 24px; }
+        .class-card h3 { font-size: 20px; }
+    }
+  
+       /* table section */
+
+.container{
+    width:70%;
+    max-width:1200px;
+    margin:40px auto;
+}
+
+h1{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:10px;
+    font-weight:500;
+}
+h5{
+    text-align:center;
+    font-size:22px;
+    margin-bottom:50px;
+    font-weight:500;
+}
+
+h2{
+    font-size:24px;
+    margin-bottom:45px;
+    font-weight:700;
+}
+
+h3{
+    font-size:20px;
+    margin-bottom:35px;
+    font-weight:700;
+}
+
+.question{
+    margin-bottom:60px;
+}
+
+.question h4{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:18px;
+    line-height:1;
+}
+
+.question p{
+    font-size:20px;
+    color:#5a6485;
+    margin-bottom:12px;
+    text-align:justify;
+}
+
+/* Mobile Responsive */
+
+@media (max-width:768px){
+
+    .container{
+        width:94%;
+        margin:25px auto;
+    }
+
+    h1{
+        font-size:32px;
+        margin-bottom:30px;
+    }
+
+    h2{
+        font-size:26px;
+        margin-bottom:25px;
+    }
+
+    h3{
+        font-size:22px;
+        margin-bottom:20px;
+    }
+
+    .question{
+        margin-bottom:35px;
+    }
+
+    .question h4{
+        font-size:20px;
+    }
+
+    .question p{
+        font-size:17px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+     <div class="progress-bar" id="progressBar"></div>
+
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <span class="logo-text">Plus 2 Guru</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="note.html">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html" >Model Questions</a></li>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+        <div class="mobile-nav-content">
+            <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="note.html">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html" >Model Questions</a></li>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Full exercise of Neighbours | Literature | Class 12 English Notes NEB | Summary | Guide
+
+ <span style="color: #ffd700;"></span></h1>
+           
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+<div class="breadcrumb-section">
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="englishclass.html"> Class 12 English Notes </a>
+         <i class="fas fa-chevron-right"></i>
+        <a href="nepaliclass.html"><span style="color: blue; font-weight: bold;">Class 12 Nepali Notes</span></a>
+        <i class="fas fa-chevron-right"></i>
+        <span style="color: var(--text-light);">Neighbours</span>
+    </div>
+</div>
+
+<!-- Table section -->
+
+ <div class="container">
+
+    <h1>Neighbours</h1>
+
+    <h2>Understanding the text</h2>
+
+    <h3>Answer the following questions.</h3>
+
+    <div class="question">
+        <h4>a. Describe how the young couple's house looked like.</h4>
+        <p>
+            The young couple's house was small, but it's high ceiling and paned windows gave it the feel of an elegant cottage. From his study window the young man could see out over the rooftops and used car yards the Moreton Bay figs in the park where they walked their dog.
+
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>b. How did the young couple identify their neighbours in the beginning of their arrival?</h4>
+
+        <p>
+            The young couple identified their neighbours in the beginning of
+            their arrival by the sound of spitting, washing and day break
+            watering.
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>c. How did the neighbours help the young couple in the kitchen garden?</h4>
+
+        <p>
+            The neighbours helped the young couple in the kitchen garden by
+            advising them about spacing, hilling, mulching and providing a bag
+            full of garlic cloves for planting.
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>d. Why were the people in the neighbourhood surprised at the role of the young man and his wife in their family?</h4>
+
+        <p>
+            The people in the neighborhood were surprised at the role of the young man and his wife because his wife used to do work in hospital while he used to live in the house working on his thesis and cook for his wife when she return back home.
+        </p>
+    </div>
+
+     <div class="question">
+        <h4>e. How did the neighbours respond to the woman’s pregnancy?</h4>
+
+        <p>
+           The neighbours responded to the woman’s pregnancy by smiling tirelessly. The man in the deli gave her small presents of chocolates and him packets of cigarettes. In the summer, Italian women began to offer names. Greek women stopped the young woman in the street, pulled her skirt up and felt her belly, telling her it was bound to be a boy. By late summer the woman next door had knitted the baby a suit, complete with booties and beanie and the Polish widower next door had almost finished his two-car garage.
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>f.  Why did the young man begin to weep at the end of the story?</h4>
+
+        <p>
+            The young man began to weep at the end of the story because he was greatly touched by the help of neighbours which wasn't expected by him due to the human feelings of neighbours towards them.
+
+        </p>
+    </div>
+    <div class="question">
+        <h4>g. Why do you think the author did not characterize the persons in the story with proper names?</h4>
+
+        <p>
+            I think the author didn't characterize the persons in the stroy with proper names because he wants to generalize the case not to specific person but also for the every person who are culturally and linguistically from different society. So the writer make the couple for the universal character and he tries to share his idea that in neighbourhood, humanity remains even after having different languages and cultural norms.
+        </p>
+    </div>
+
+    <h2>Reference to the context
+</h2><br>
+
+    <div class="question">
+        <h4>a.The story shows that linguistic and cultural barriers do not create any obstacle in human relationship. Cite some examples from the story where the neighbours have transcended such barriers.</h4>
+
+        <p>
+           The story shows that linguistic and cultural barriers do not create any obstacle in human relationship. Humanity and love is one of the such feelings that links the persons. It doesn't look race, caste, language, nationality, culture or language. The love, respect and kindness of a person towards othe beautify the person or shows a real person. In this story also, due to different languages there was some misunderstandings on newly couples towards their neighbours. But when they were in problems the neighbours helped them alot. Some examples where the neighbours have transcended such barriers are as follows:
+        <br>
+
+<br><br>1. In spite of the different languages and cultures, the neighbours gave advice to the young couple about spacing, hilling and mulching the vegetables in the kitchen garden.
+
+<br><br>2. The polish widower rebuilt the falling henhouse of the young couple although they didn’t understand his words.
+
+<br><br>3. The young couple offered heads of cabbage and took gifts of grapes and firewood from neighbours.
+
+<br><br>4. The neighbours gifted chocolates, knitted the baby a suit when the couples were going to be parents.
+
+
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>b. The last sentence of the story reads “The twentieth-century novel had not prepared him for this.” In your view, what differences did the young man find between twentieth-century novels and human relations?</h4>
+
+        <p>
+           In my view, the young man as the writer used to think that the people in twentieth were selfish and helpless and his thought become true for sometimes when he had just shifted to the new community. The people of the community are noisy and annoying. They used to make noises and shout each others. Even the small kids also have poor sanitation. But when he and his wife need small help too, all the neighbours helped them without saying a word. Yeh way of counselling each othes in nedd and sharing happiness with each othe touches his heart and proved him wrong. He found the huge difference between his thinking and reality. His thinking changed and he said that the novel for which he was researching had not prepared for him.
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>c.  A Nepali proverb says “Neighbors are companions for wedding procession as well as for funeral procession.” Does this proverb apply in the story? Justify.</h4>
+
+        <p>
+            Yes, this proverb applies in the story. Neighbours are the real companions of life who keep on passing their lives with us in various situations. Neighbours are need in every step of life no matter joy or sorrow. They are the companions for wedding procession as well as a funeral procession. Here in the story, we find the nieghbours involvement in various events. The story has mainly focused on three close neighbours who are seen living their lives sharing and caring for eachother. We find the concept of share, care and help among the neighbours in the story. During the pregnancy, the young woman was cared, assured, presented gifts by people of her neighbourhood. These neighbours are seen passing time teaching each other, enjoying and shouting, living in a neighborhood. Thus neighbours in the story are seen as the best companions as mentioned in the proverb.
+        </p>
+    </div>
+
+    <div class="question">
+        <h4>d. The author has dealt with an issue of multiculturalism in the story. Why do you think multiculturalism has become a major issue in the present world?</h4>
+
+        <p>
+            Multiculturalism is the way in which a society deals with cultural diversity, both at the national and at the community level. Multiculturalism can take place on a nationwide scale or within a nation's communities. It may occur either naturally through immigration, or artificially when jurisdictions of different cultures are combined.
+<br><br>
+I think multiculturalism has become a major issue in the present world because along with making people of different ethnic and cultural backgrounds together, it invites various social problems such as failure to assimilate, ethnic segregation, and adaptation issues such as school dropout, unemployment, and high crime rates etc. Also, migration is another reason for multiculturalism. People travel across different places of different countries and they settle in any place where they get proper facilities and job due to which multicultural peoples are found in same city or region. Due to this many peoples in neighbourhood don’t know each other and the relation, love, compassion between the neighbours found in the past days are not found in the present days. In this way, multiculturalism has become a major issue in the present world.
+
+        </p>
+    </div>
+
+     <h2>Reference beyond the text
+
+</h2><br>
+
+    <div class="question">
+        <h4>a. Write an essay on Celebration of Childbirth in my Community.</h4>
+        <h5>Celebration of Childbirth in my Community</h5>
+
+        <p>
+            Childbirth celebration is the ceremony or ritual to celebrate the birth of a child with joy and happiness. My community is a hindu majority community with the majority of castes like Brahmin, Chhetris, Newar, Magar etc. Due to the majority of Hindu my community people worship child as the image of god. Specially girls are considered as goddess, laxmi and sarswati in my community. Every good works are started with worshipping the girls.
+        <br><br>
+    When a baby get birth in my community, people congratulate the parents and celebrate it as a ceremony. When the child become of 6 days, there is a ritual known as chhaiti. In this day it is believed the god comes to write the future of that baby. So, the lamp is burn all over the night and a paper and pen is kept below the childs pillow so that God will come and write the child's future. After that at the 11th day of child birth there is naming ceremony called 'Nwaran'. At this the day the child is give a name. When the child is of 5-6 months, there is weaning ceremony in which the child is feded with different kinds of foods especially rice. This day is also known as rice fedding day.
+
+    <br><br>This is how the people celebrate in my community at the birth of a child.
+
+</p>
+    </div>
+
+    <div class="question">
+        <h4>b. Do the people in your community respond with similar reactions upon the pregnancy and childbirth as depicted in the story? Give a couple of examples.</h4>
+
+        <p>
+           Yes, the people in my community also respond with similar reactions upon the pregnancy and childbirth as depicted in the story. As in the story our culture also includes child birth and pregnancy. In our community, a pregnant woman is blessed by all her relatives. She is given alot of advice and cares. Pregnant womes are helped in each and every aspects regarding food and nutrition. After knowing about a woman's pregnancy in the community, community members (especially women) will visit her at her home and spend time discussing the mother's condition. They celebrate child birth by providing shower gifts, chocolates, and clothing on the families of pregnant women. They also come up with a lot of names for the unborn child, both male and female. In this way the peoples express their love and affection upon the pregnancy and celebrate the child birth in my community.
+
+        </p>
+    </div>
+
+   
+
+</div>
+
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <h2>Why Practice Model Questions?</h2>
+            <x>Everything you need to excel in your examinations</x>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Exam Pattern</h3>
+                <p>Model questions follow the exact exam pattern and marking scheme of +2 board exams.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                <h3>Time Management</h3>
+                <p>Practice solving questions within the time limit to improve your speed and accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>Self Assessment</h3>
+                <p>Evaluate your preparation level and identify weak areas before the actual exam.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-brain"></i></div>
+                <h3>Concept Clarity</h3>
+                <p>Revised model questions help reinforce concepts and improve problem-solving skills.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+                <h3>Answer Formatting</h3>
+                <p>Learn proper answer formatting and presentation for maximum marks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Progress Tracking</h3>
+                <p>Track your improvement over time with regular practice and revision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <div>
+                    <h3>Plus 2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Classes</h4>
+                <ul>
+                    <li><a href="modelsubject.html">Class 11 Model</a></li>
+                    <li><a href="#">Class 12 Model</a></li>
+                    <li><a href="past1.html">Past Papers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+     <!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+    <script>
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        }
+        function closeMobileNav(event) {
+            if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+        }
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+            }
+        });
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.class-card, .feature-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+});
+
+ // Back to Top Button
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+    </script>
+</body>
+</html>

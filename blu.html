@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus 2 Guru </title>
+<style>
+
+    :root {
+        --primary: #ff7200;
+        --primary-dark: #e56500;
+        --secondary: #1e3a8a;
+        --secondary-light: #2563eb;
+        --accent: #08dcd1;
+        --accent-hover: #06b8b0;
+        --bg: #f4f7ff;
+        --card-bg: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-medium: #4a5568;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        --radius: 16px;
+        --radius-sm: 12px;
+    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    overflow-x: hidden;
+}
+
+
+ .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .logo-text {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+    }
+
+/* Animated Gradient Background */
+.gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating Orbs */
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    z-index: -1;
+    animation: float 20s infinite ease-in-out;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: #ff7200;
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: #776bd3;
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 250px;
+    height: 250px;
+    background: #23d54b;
+    top: 50%;
+    left: 50%;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 1000;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+}
+
+.nav-container {
+     max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff7200;
+    text-decoration: none;
+}
+
+
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+   text-decoration: none;
+        color: var(--text-medium);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+}
+
+ .nav-links a:hover {
+        color: var(--primary);
+        background: rgba(255, 114, 0, 0.1);
+    }
+
+    .nav-links a.active {
+        color: var(--primary);
+        background: rgba(255, 114, 0, 0.15);
+    }
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #ff7200;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px 60px;
+    position: relative;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(255, 114, 0, 0.15);
+    border: 1px solid rgba(255, 114, 0, 0.3);
+    border-radius: 50px;
+    color: #ff7200;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    animation: fadeInUp 1s ease;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero h1 .highlight {
+    background: linear-gradient(135deg, #ff7200, #ff9a44);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: wheat;
+    max-width: 600px;
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid #ff7200;
+    border-bottom: 2px solid #ff7200;
+    transform: rotate(45deg);
+    animation: scrollArrow 2s infinite;
+}
+
+@keyframes scrollArrow {
+    0% { opacity: 1; transform: rotate(45deg) translate(0, 0); }
+    50% { opacity: 0.5; transform: rotate(45deg) translate(10px, 10px); }
+    100% { opacity: 1; transform: rotate(45deg) translate(0, 0); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Section Styles */
+.section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.section-header h2 .highlight {
+    color: #ff7200;
+}
+
+.section-header p {
+    color: whitesmoke;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Study Tips Cards */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.tip-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 35px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff7200, #ff9a44);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.tip-card:hover::before {
+    transform: scaleX(1);
+}
+
+.tip-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 114, 0, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255, 114, 0, 0.1);
+}
+
+.tip-number {
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(255, 114, 0, 0.2);
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.tip-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.tip-card p {
+    color: #e16363;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.tip-card .tips-list {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.tip-card .tips-list li {
+    padding: 5px 0;
+    color: #c0c0c0;
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 20px;
+}
+
+.tip-card .tips-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #ff7200;
+}
+
+/* Subject Guides */
+.guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.guide-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.guide-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 114, 0, 0.3);
+}
+
+.guide-image {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.guide-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.8) 100%);
+}
+
+.guide-content {
+    padding: 30px;
+}
+
+.guide-content h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.guide-content h3 .icon {
+    margin-right: 10px;
+}
+
+.guide-content p {
+    color: #a0a0a0;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.guide-content .nepali {
+    color: #c0c0c0;
+    font-style: italic;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 114, 0, 0.05);
+    border-left: 3px solid #ff7200;
+    border-radius: 0 8px 8px 0;
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, rgba(255, 114, 0, 0.1), rgba(119, 107, 211, 0.1));
+    border-radius: 30px;
+    margin: 40px auto;
+    max-width: 1000px;
+    border: 1px solid rgba(255, 114, 0, 0.2);
+}
+
+.cta-section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cta-section p {
+    color: #02ff3d;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto 30px;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #ff7200, #ff9a44);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 114, 0, 0.3);
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 114, 0, 0.4);
+}
+
+ /* Footer */
+    footer {
+        background: var(--secondary);
+        color: white;
+        padding: 50px 20px 20px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-brand img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .footer-brand h3 {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 8px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-links h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: white;
+    }
+
+    .footer-links ul {
+        list-style: none;
+    }
+
+    .footer-links a {
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 2.2;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+
+    .footer-bottom .flag {
+        font-size: 18px;
+        margin-left: 4px;
+    }
+
+    .footer-bottom .designer {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 114, 0, 0.2);
+}
+
+.mobile-menu.active {
+    display: block;
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 15px;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: color 0.3s;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a.active {
+    color: #ff7200;
+}
+
+/* Scroll Progress Bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff7200, #ff9a44);
+    z-index: 1001;
+    transition: width 0.1s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .hero {
+        padding: 120px 20px 80px;
+    }
+
+    .section {
+        padding: 60px 20px;
+    }
+
+    .guides-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guide-image {
+        height: 180px;
+    }
+
+    .cta-section {
+        margin: 20px;
+        padding: 60px 20px;
+    }
+
+    .footer-links {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tip-card {
+        padding: 25px;
+    }
+
+    .tip-number {
+        font-size: 36px;
+    }
+
+    .guide-content {
+        padding: 20px;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff7200;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff9a44;
+}
+
+/* Selection */
+::selection {
+    background: rgba(255, 114, 0, 0.3);
+    color: #fff;
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="gradient-bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <span class="logo-text">Plus 2 Guru</span>
+            </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab File</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html">Past Papers</a></li>
+            <li><a href="blo.html" class="active">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="note.html">Notes</a>
+    <a href="labclass.html">Lab File</a>
+    <a href="modelclass.html">Model Questions</a>
+    <a href="past1.html">Past Papers</a>
+    <a href="blo.html" class="active">Blog</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</div>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-badge">📚 Study Blog</div>
+    <h1>Master Your <span class="highlight">+2 Journey</span></h1>
+    <p>Expert study tips, subject guides, and exam strategies for Nepali +2 students</p>
+    <div class="scroll-indicator">
+        <span></span>
+    </div>
+</section>
+
+<!-- Study Tips Section -->
+<section class="section">
+    <div class="section-header">
+        <h2>Study Tips & <span class="highlight">Tricks</span></h2>
+        <p>Smart strategies to boost your +2 exam performance</p>
+    </div>
+
+    <div class="tips-grid">
+        <div class="tip-card">
+            <div class="tip-number">01</div>
+            <h3>How to Score High in +2 Exams</h3>
+            <p>Scoring high in +2 exams is not just about studying more — it's about studying <strong style="color: #ff7200;">smartly and consistently.</strong></p>
+            <p style="margin-top: 10px;">First, understand your syllabus and exam pattern clearly. Divide subjects into easy, moderate, and difficult categories. Start with difficult subjects when your mind is fresh, usually in the morning.</p>
+            <p style="margin-top: 10px;">Make a habit of <strong style="color: #ff7200;">daily revision.</strong> Whatever you study today should be revised within 24 hours. This helps transfer information from short-term to long-term memory.</p>
+            <p style="margin-top: 10px;"><strong style="color: #ff7200;">Presentation matters</strong> — write neat, use headings, underline important points, and draw diagrams where necessary. Stay healthy with proper sleep and a balanced diet.</p>
+        </div>
+
+        <div class="tip-card">
+            <div class="tip-number">02</div>
+            <h3>Time Management for Students</h3>
+            <p>Time management is one of the most important skills for +2 students. Without proper planning, even talented students struggle to complete their syllabus on time.</p>
+            <p style="margin-top: 10px;">Start by creating a <strong style="color: #ff7200;">daily study schedule</strong> with specific time slots for each subject. Make sure you include time for revision, practice, and breaks.</p>
+            <p style="margin-top: 10px;">Use the <strong style="color: #ff7200;">Pomodoro method</strong> (25 minutes study + 5 minutes break). This keeps your mind fresh and improves focus. Avoid distractions like mobile phones and social media while studying.</p>
+            <p style="margin-top: 10px;">Set <strong style="color: #ff7200;">weekly and monthly goals.</strong> Track your progress regularly. Time management is about using your time efficiently and wisely.</p>
+        </div>
+
+        <div class="tip-card">
+            <div class="tip-number">03</div>
+            <h3>Smart Study vs Hard Study</h3>
+            <p>Many students believe studying for long hours guarantees success, but that's not always true. The difference between <strong style="color: #ff7200;">smart study and hard study</strong> is very important.</p>
+            <p style="margin-top: 10px;">Hard study means spending many hours reading books without proper understanding. Smart study focuses on <strong style="color: #ff7200;">quality over quantity.</strong></p>
+            <ul class="tips-list">
+                <li>Understanding concepts instead of memorizing</li>
+                <li>Using diagrams, charts, and mind maps</li>
+                <li>Practicing questions regularly</li>
+                <li>Revising frequently</li>
+            </ul>
+            <p style="margin-top: 10px;">Use <strong style="color: #ff7200;">active learning techniques</strong> like teaching others, self-testing, and summarizing topics in your own words. Hard work is important, but smart work makes hard work more effective.</p>
+        </div>
+
+        <div class="tip-card">
+            <div class="tip-number">04</div>
+            <h3>Exam Preparation Strategy</h3>
+            <p>A proper exam strategy can make a huge difference in your results. Preparation should be done in stages.</p>
+            <p style="margin-top: 10px; color: #ff7200; font-weight: 600;">Before Exams:</p>
+            <ul class="tips-list">
+                <li>Complete syllabus 1-2 months before exams</li>
+                <li>Start full revision</li>
+                <li>Practice model questions and past papers</li>
+                <li>Focus more on weak areas</li>
+            </ul>
+            <p style="margin-top: 10px; color: #ff7200; font-weight: 600;">During Exams:</p>
+            <ul class="tips-list">
+                <li>Read questions carefully</li>
+                <li>Attempt easy questions first</li>
+                <li>Manage time for each section</li>
+                <li>Leave time for revision at the end</li>
+            </ul>
+            <p style="margin-top: 10px;">In the final days, don't start new topics. Focus only on revision and important questions. Keep your mind calm and confident.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Subject Guides Section -->
+<section class="section">
+    <div class="section-header">
+        <h2>Subject-wise <span class="highlight">Guides</span></h2>
+        <p>Master Physics and Chemistry with these expert tips</p>
+    </div>
+
+    <div class="guides-grid">
+        <div class="guide-card">
+            <div class="guide-image">⚡</div>
+            <div class="guide-content">
+                <h3><span class="icon">⚡</span>Physics Numericals Tips</h3>
+                <p>Physics is not just theory — it is <strong style="color: #ff7200;">concept + application.</strong> The main reason many students struggle is weak numerical solving skills.</p>
+                <p style="margin-top: 10px;">First, <strong style="color: #ff7200;">understand formulas</strong> rather than just memorizing them. When you understand why a formula is used, numericals become easier. Write important formulas of each chapter in a separate copy and revise them daily.</p>
+                <p style="margin-top: 10px;">When solving numericals:</p>
+                <ul class="tips-list">
+                    <li>Read the question carefully</li>
+                    <li>Identify given and required values clearly</li>
+                    <li>Select the correct formula</li>
+                    <li>Check unit conversions (very important!)</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong style="color: #ff7200;">Practice is the key to success.</strong> Solve at least 10-15 numericals daily. Start with easy ones and gradually move to difficult problems. Make a habit of drawing diagrams — especially in mechanics and optics chapters.</p>
+                <div class="nepali">
+                    Physics मा धेरै students लाई problem हुने मुख्य कारण हो numerical solving skill कमजोर हुनु। Daily कम्तिमा 10-15 numericals solve गर्नुहोस्।
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-card">
+            <div class="guide-image">🧪</div>
+            <div class="guide-content">
+                <h3><span class="icon">🧪</span>Chemistry Reaction Tricks</h3>
+                <p>Remembering chemistry reactions is difficult for many students. But with the right method, it becomes easy. First, try to <strong style="color: #ff7200;">understand patterns</strong> rather than memorizing reactions. Similar types of reactions follow the same logic.</p>
+                <p style="margin-top: 10px;">For organic reactions, understand them through <strong style="color: #ff7200;">flowcharts or mechanisms.</strong> For inorganic reactions, categorize them group-wise. Remember visual clues like color changes and gas formation.</p>
+                <p style="margin-top: 10px;">Tips for Chemistry:</p>
+                <ul class="tips-list">
+                    <li>Create a separate notebook for important reactions</li>
+                    <li>Revise them daily</li>
+                    <li>Practice writing reactions from both sides</li>
+                    <li>Use mnemonics and memory aids</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong style="color: #ff7200;">Regular revision is essential</strong> — chemistry reactions need frequent practice to stay in long-term memory. Create a separate notebook for important reactions and revise them daily.</p>
+                <div class="nepali">
+                    Chemistry मा reaction याद राख्नु धेरै students का लागि difficult हुन्छ। Organic reactions लाई flowchart वा mechanism मा बुझ्नुहोस्। Inorganic reactions लाई group-wise categorize गर्नुहोस्।
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2>Ready to Excel in Your +2 Exams?</h2>
+    <p>Explore our complete collection of notes, lab files, model questions, and past papers</p>
+    <a href="index.html" class="cta-btn">Explore Resources →</a>
+</section>
+
+ <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <div>
+                    <h3>Plus2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Videos</h4>
+                <ul>
+                    <li><a href="https://youtu.be/6KWJbHNCSGM" target="_blank">Class 11 Nepali</a></li>
+                    <li><a href="https://youtu.be/NWFa-pmpjSs" target="_blank">Class 12 Nepali</a></li>
+                    <li><a href="blo.html">More Content</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+<script>
+// Mobile Menu Toggle
+function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('active');
+}
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+    });
+});
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+});
+
+// Smooth Scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe all cards
+document.querySelectorAll('.tip-card, .guide-card').forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(card);
+});
+
+// Observe section headers
+document.querySelectorAll('.section-header').forEach(header => {
+    header.style.opacity = '0';
+    header.style.transform = 'translateY(20px)';
+    header.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(header);
+});
+
+// Observe CTA section
+const ctaSection = document.querySelector('.cta-section');
+if (ctaSection) {
+    ctaSection.style.opacity = '0';
+    ctaSection.style.transform = 'translateY(30px)';
+    ctaSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(ctaSection);
+}
+</script>
+
+</body>
+</html>

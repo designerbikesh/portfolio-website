@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus2 Guru - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #ff7200;
+        --primary-dark: #e56500;
+        --secondary: #1e3a8a;
+        --secondary-light: #2563eb;
+        --accent: #08dcd1;
+        --bg: #f4f7ff;
+        --card-bg: #ffffff;
+        --text-dark: #1a1a2e;
+        --text-medium: #4a5568;
+        --text-light: #718096;
+        --border: #e2e8f0;
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        --radius: 16px;
+        --radius-sm: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+    }
+
+    .auth-container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .auth-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 40px 32px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .auth-header img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin-bottom: 16px;
+    }
+
+    .auth-header h1 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 8px;
+    }
+
+    .auth-header p {
+        color: var(--text-light);
+        font-size: 14px;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 24px;
+        background: var(--bg);
+        padding: 4px;
+        border-radius: 10px;
+    }
+
+    .tab-btn {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        background: transparent;
+        color: var(--text-medium);
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    .tab-btn.active {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 2px 8px rgba(255, 114, 0, 0.3);
+    }
+
+    .tab-btn:hover:not(.active) {
+        color: var(--primary);
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .input-wrapper i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+        font-size: 16px;
+    }
+
+    .input-wrapper input {
+        width: 100%;
+        padding: 12px 14px 12px 42px;
+        border: 2px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 15px;
+        font-family: inherit;
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+        background: var(--bg);
+    }
+
+    .input-wrapper input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(255, 114, 0, 0.1);
+    }
+
+    .input-wrapper input::placeholder {
+        color: var(--text-light);
+    }
+
+    .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 13px;
+    }
+
+    .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-medium);
+        cursor: pointer;
+    }
+
+    .remember-me input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--primary);
+        cursor: pointer;
+    }
+
+    .forgot-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-link:hover {
+        color: var(--primary-dark);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .submit-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 24px 0;
+        color: var(--text-light);
+        font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+    }
+
+    .social-login {
+        display: flex;
+        gap: 12px;
+    }
+
+    .social-btn {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid var(--border);
+        background: white;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        font-family: inherit;
+    }
+
+    .social-btn:hover {
+        border-color: var(--primary);
+        background: var(--bg);
+    }
+
+    .social-btn i {
+        font-size: 18px;
+    }
+
+    .google-btn i { color: #ea4335; }
+    .facebook-btn i { color: #1877f2; }
+
+    .form-section {
+        display: none;
+    }
+
+    .form-section.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .terms-text {
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-light);
+        margin-top: 16px;
+        line-height: 1.5;
+    }
+
+    .terms-text a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .terms-text a:hover {
+        text-decoration: underline;
+    }
+
+    .footer-text {
+        text-align: center;
+        margin-top: 24px;
+        color: rgba(255,255,255,0.8);
+        font-size: 13px;
+    }
+
+    .footer-text .flag {
+        font-size: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+        .auth-card {
+            padding: 28px 20px;
+        }
+        .auth-header h1 {
+            font-size: 24px;
+        }
+        .social-login {
+            flex-direction: column;
+        }
+    }
+
+    /* Error/Success messages */
+    .message {
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: none;
+    }
+    .message.error {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+        display: block;
+    }
+    .message.success {
+        background: #f0fdf4;
+        color: #16a34a;
+        border: 1px solid #bbf7d0;
+        display: block;
+    }
+
+    /* Password strength */
+    .password-strength {
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        margin-top: 6px;
+        overflow: hidden;
+        display: none;
+    }
+    .password-strength.show { display: block; }
+    .password-strength-bar {
+        height: 100%;
+        width: 0;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    .strength-weak { background: #ef4444; width: 33%; }
+    .strength-medium { background: #f59e0b; width: 66%; }
+    .strength-strong { background: #10b981; width: 100%; }
+
+    .strength-text {
+        font-size: 11px;
+        margin-top: 4px;
+        font-weight: 600;
+        display: none;
+    }
+    .strength-text.show { display: block; }
+    .text-weak { color: #ef4444; }
+    .text-medium { color: #f59e0b; }
+    .text-strong { color: #10b981; }
+</style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <h1>Plus2 Guru</h1>
+                <p>Learn | Practice | Succeed</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('login')" id="loginTab">Login</button>
+                <button class="tab-btn" onclick="switchTab('signup')" id="signupTab">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <div class="form-section active" id="loginForm">
+                <div class="message" id="loginMessage"></div>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email or Phone</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="text" id="loginEmail" placeholder="Enter your email or phone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+
+                <div class="divider">or continue with</div>
+
+                <div class="social-login">
+                    <button class="social-btn google-btn" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i>
+                        Google
+                    </button>
+                    <button class="social-btn facebook-btn" onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="form-section" id="signupForm">
+                <div class="message" id="signupMessage"></div>
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="signupName" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="signupPhone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="signupPassword" placeholder="Create a password" required oninput="checkStrength(this.value)">
+                        </div>
+                        <div class="password-strength" id="strengthBar">
+                            <div class="password-strength-bar" id="strengthBarInner"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="signupConfirm" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+                <p class="terms-text">
+                    By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="footer-text">
+            © 2026 Plus2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span>
+        </p>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(form => form.classList.remove('active'));
+
+            if (tab === 'login') {
+                document.getElementById('loginTab').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.getElementById('signupTab').classList.add('active');
+                document.getElementById('signupForm').classList.add('active');
+            }
+        }
+
+        // Password strength checker
+        function checkStrength(password) {
+            const bar = document.getElementById('strengthBar');
+            const barInner = document.getElementById('strengthBarInner');
+            const text = document.getElementById('strengthText');
+
+            if (password.length === 0) {
+                bar.classList.remove('show');
+                text.classList.remove('show');
+                return;
+            }
+
+            bar.classList.add('show');
+            text.classList.add('show');
+
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            barInner.className = 'password-strength-bar';
+            text.className = 'strength-text show';
+
+            if (strength <= 2) {
+                barInner.classList.add('strength-weak');
+                text.classList.add('text-weak');
+                text.textContent = 'Weak password';
+            } else if (strength <= 4) {
+                barInner.classList.add('strength-medium');
+                text.classList.add('text-medium');
+                text.textContent = 'Medium strength';
+            } else {
+                barInner.classList.add('strength-strong');
+                text.classList.add('text-strong');
+                text.textContent = 'Strong password';
+            }
+        }
+
+        // Show message
+        function showMessage(id, text, type) {
+            const msg = document.getElementById(id);
+            msg.textContent = text;
+            msg.className = 'message ' + type;
+            setTimeout(() => {
+                msg.className = 'message';
+            }, 4000);
+        }
+
+        // Handle Login
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('rememberMe').checked;
+
+            if (!email || !password) {
+                showMessage('loginMessage', 'Please fill in all fields', 'error');
+                return;
+            }
+
+            // Demo validation - accept any non-empty credentials
+            // In production, this would validate against a backend
+
+            // Store login state
+            const userData = {
+                email: email,
+                name: email.split('@')[0],
+                loggedIn: true,
+                timestamp: new Date().toISOString()
+            };
+
+            if (remember) {
+                localStorage.setItem('plus2guru_user', JSON.stringify(userData));
+            } else {
+                sessionStorage.setItem('plus2guru_user', JSON.stringify(userData));
+            }
+
+            showMessage('loginMessage', 'Login successful! Redirecting...', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1200);
+        }
+
+        // Handle Signup
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+
+            if (!name || !email || !phone || !password || !confirm) {
+                showMessage('signupMessage', 'Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password !== confirm) {
+                showMessage('signupMessage', 'Passwords do not match', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('signupMessage', 'Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            // Store user data (demo - in production, send to backend)
+            const userData = {
+                name: name,
+                email: email,
+                phone: phone,
+                loggedIn: true,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('plus2guru_user', JSON.stringify(userData));
+
+            showMessage('signupMessage', 'Account created! Redirecting...', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1500);
+        }
+
+        // Social login (demo)
+        function socialLogin(provider) {
+            const userData = {
+                name: provider + ' User',
+                email: 'user@' + provider + '.com',
+                loggedIn: true,
+                provider: provider,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('plus2guru_user', JSON.stringify(userData));
+
+            showMessage('loginMessage', 'Login with ' + provider + ' successful! Redirecting...', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1500);
+        }
+
+        // Check if already logged in
+        window.addEventListener('load', function() {
+            const user = localStorage.getItem('plus2guru_user') || sessionStorage.getItem('plus2guru_user');
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    if (userData.loggedIn) {
+                        window.location.href = 'home.html';
+                    }
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus 2 Guru </title>
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --primary: #ff7200;
+    --primary-dark: #e56500;
+    --secondary: #1e3a8a;
+    --secondary-light: #2563eb;
+    --accent: #08dcd1;
+    --accent-hover: #06b8b0;
+    --bg: #f4f7ff;
+    --card-bg: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-medium: #4a5568;
+    --text-light: #718096;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --danger: #ef4444;
+    --danger-light: #fee2e2;
+    --warning: #f59e0b;
+    --warning-light: #fef3c7;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    --radius: 16px;
+    --radius-sm: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-medium);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.nav-links a:hover { color: var(--primary); background: rgba(255, 114, 0, 0.1); }
+.nav-links a.active { color: var(--primary); background: rgba(255, 114, 0, 0.15); }
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 8px;
+}
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    backdrop-filter: blur(4px);
+}
+.mobile-nav.active { display: block; }
+.mobile-nav-content {
+    position: absolute;
+    top: 0; right: 0;
+    width: 280px;
+    height: 100%;
+    background: white;
+    padding: 80px 24px 24px;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+.mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+.mobile-nav-links { list-style: none; }
+.mobile-nav-links a {
+    display: block;
+    padding: 14px 0;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.3s ease;
+}
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+.close-mobile-nav {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+.landing-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 40px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+    position: relative;
+    overflow: hidden;
+    
+}
+.landing-page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+.landing-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    text-align: center;
+}
+.landing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+.landing-content h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.landing-content p {
+    font-size: clamp(16px, 2vw, 18px);
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 32px;
+}
+.quiz-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+}
+.quiz-feature {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius-sm);
+    padding: 20px 16px;
+    text-align: center;
+    color: white;
+}
+.quiz-feature i {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+}
+.quiz-feature span {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+}
+.quiz-feature .feature-count {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+.start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 48px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 114, 0, 0.4);
+    font-family: inherit;
+}
+.start-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 114, 0, 0.5);
+}
+.start-btn i { font-size: 20px; }
+.quiz-page {
+    display: none;
+    padding: 90px 20px 40px;
+    min-height: 100vh;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.quiz-page.active { display: block; }
+.timer-bar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 900;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 12px 20px;
+}
+.timer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.timer-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-dark);
+    min-width: 100px;
+}
+.timer-display i { color: var(--primary); font-size: 18px; }
+.timer-display.warning { color: var(--danger); }
+.timer-display.warning i { color: var(--danger); animation: pulse 1s infinite; }
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+.question-counter {
+    font-weight: 600;
+    color: var(--text-medium);
+    font-size: 14px;
+    min-width: 80px;
+    text-align: right;
+}
+.question-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    animation: slideIn 0.4s ease;
+}
+.question-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.question-number {
+    background: var(--secondary);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.question-category {
+    background: var(--accent);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.question-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+.option:hover {
+    border-color: var(--primary);
+    background: rgba(255, 114, 0, 0.05);
+    transform: translateX(4px);
+}
+.option.selected {
+    border-color: var(--primary);
+    background: rgba(255, 114, 0, 0.1);
+}
+.option.correct {
+    border-color: var(--success);
+    background: var(--success-light);
+    color: var(--success);
+}
+.option.wrong {
+    border-color: var(--danger);
+    background: var(--danger-light);
+    color: var(--danger);
+}
+.option.disabled {
+    pointer-events: none;
+    opacity: 0.7;
+}
+.option-letter {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--secondary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+.option:hover .option-letter { background: var(--primary); }
+.option.selected .option-letter { background: var(--primary); }
+.option.correct .option-letter { background: var(--success); }
+.option.wrong .option-letter { background: var(--danger); }
+.explanation {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--success-light);
+    border: 1px solid var(--success);
+    border-radius: var(--radius-sm);
+    animation: fadeIn 0.4s ease;
+}
+.explanation.show { display: block; }
+.explanation-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--success);
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+.explanation-text {
+    color: var(--text-medium);
+    font-size: 15px;
+    line-height: 1.6;
+}
+.quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+.nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.nav-btn-prev {
+    background: var(--border);
+    color: var(--text-dark);
+}
+.nav-btn-prev:hover:not(:disabled) {
+    background: var(--text-light);
+    color: white;
+}
+.nav-btn-next {
+    background: var(--primary);
+    color: white;
+}
+.nav-btn-next:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateX(4px);
+}
+.nav-btn-submit {
+    background: var(--success);
+    color: white;
+}
+.nav-btn-submit:hover:not(:disabled) {
+    background: #059669;
+    transform: scale(1.05);
+}
+.question-navigator {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+.navigator-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-medium);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.navigator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 8px;
+}
+.navigator-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-medium);
+}
+.navigator-dot:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(1.1);
+}
+.navigator-dot.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 10px rgba(255, 114, 0, 0.3);
+}
+.navigator-dot.answered {
+    border-color: var(--success);
+    background: var(--success-light);
+    color: var(--success);
+}
+.navigator-dot.current {
+    animation: pulse 2s infinite;
+}
+.results-page {
+    display: none;
+    padding: 100px 20px 40px;
+    min-height: 100vh;
+}
+.results-page.active { display: block; }
+.results-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.results-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.results-header h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+.results-header p {
+    color: var(--text-medium);
+    font-size: 16px;
+}
+.score-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 40px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+.score-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: conic-gradient(var(--primary) 0% var(--score-percent), var(--border) var(--score-percent) 100%);
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.score-circle::before {
+    content: '';
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: white;
+    border-radius: 50%;
+}
+.score-value {
+    position: relative;
+    z-index: 1;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary);
+}
+.score-label {
+    font-size: 14px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+.score-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+.stat-box {
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+}
+.stat-box.correct-stat { background: var(--success-light); }
+.stat-box.wrong-stat { background: var(--danger-light); }
+.stat-box.skipped-stat { background: var(--warning-light); }
+.stat-box.time-stat { background: var(--bg); }
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+.stat-box.correct-stat .stat-value { color: var(--success); }
+.stat-box.wrong-stat .stat-value { color: var(--danger); }
+.stat-box.skipped-stat .stat-value { color: var(--warning); }
+.stat-box.time-stat .stat-value { color: var(--secondary); }
+.stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.performance-msg {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.performance-msg.excellent { color: var(--success); }
+.performance-msg.good { color: var(--secondary-light); }
+.performance-msg.average { color: var(--warning); }
+.performance-msg.needs-work { color: var(--danger); }
+.category-breakdown {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+.category-breakdown h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-dark);
+}
+.category-item {
+    margin-bottom: 20px;
+}
+.category-item:last-child { margin-bottom: 0; }
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.category-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+.category-score {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-medium);
+}
+.category-bar {
+    height: 10px;
+    background: var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.category-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1s ease;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.review-section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+.review-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-dark);
+}
+.review-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.review-filter {
+    padding: 8px 16px;
+    border: 2px solid var(--border);
+    background: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    color: var(--text-medium);
+}
+.review-filter:hover { border-color: var(--primary); color: var(--primary); }
+.review-filter.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+.review-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+.review-item:hover { box-shadow: var(--shadow); }
+.review-item.wrong-review { border-left: 4px solid var(--danger); }
+.review-item.correct-review { border-left: 4px solid var(--success); }
+.review-item.skipped-review { border-left: 4px solid var(--warning); }
+.review-q-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.review-status {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    flex-shrink: 0;
+}
+.review-status.correct { background: var(--success); }
+.review-status.wrong { background: var(--danger); }
+.review-status.skipped { background: var(--warning); }
+.review-q-text {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+.review-answer {
+    font-size: 14px;
+    color: var(--text-medium);
+    margin-bottom: 8px;
+}
+.review-answer strong { color: var(--text-dark); }
+.review-explanation {
+    font-size: 14px;
+    color: var(--text-medium);
+    background: var(--bg);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+.action-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    text-decoration: none;
+}
+.action-btn-primary {
+    background: var(--primary);
+    color: white;
+}
+.action-btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
+}
+.action-btn-secondary {
+    background: var(--secondary);
+    color: white;
+}
+.action-btn-secondary:hover {
+    background: var(--secondary-light);
+    transform: translateY(-2px);
+}
+
+    /* Footer */
+    footer {
+        background: var(--secondary);
+        color: white;
+        padding: 50px 20px 20px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-brand img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .footer-brand h3 {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 8px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-links h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: white;
+    }
+
+    .footer-links ul {
+        list-style: none;
+    }
+
+    .footer-links a {
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 2.2;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+
+    .footer-bottom .flag {
+        font-size: 18px;
+        margin-left: 4px;
+    }
+
+    .footer-bottom .designer {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes rotateIn {
+    from { transform: rotate(-180deg); opacity: 0; }
+    to { transform: rotate(0); opacity: 1; }
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .quiz-features { grid-template-columns: 1fr; }
+    .score-stats { grid-template-columns: repeat(2, 1fr); }
+    .question-card { padding: 24px 20px; }
+    .question-text { font-size: 16px; }
+    .option { padding: 14px 16px; font-size: 15px; }
+    .timer-container { flex-wrap: wrap; }
+    .navigator-grid { grid-template-columns: repeat(10, 1fr); }
+    .nav-container { height: 60px; }
+    .timer-bar { top: 60px; }
+    .quiz-page, .results-page { padding-top: 80px; }
+    .landing-page { padding-top: 80px; }
+    .score-card { padding: 24px; }
+    .score-circle { width: 130px; height: 130px; }
+    .score-circle::before { width: 105px; height: 105px; }
+    .score-value { font-size: 28px; }
+    .category-breakdown, .review-section { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+    .quiz-nav { flex-direction: column; }
+    .nav-btn { width: 100%; justify-content: center; }
+    .score-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-box { padding: 12px 8px; }
+    .stat-value { font-size: 22px; }
+    .action-buttons { flex-direction: column; }
+    .action-btn { width: 100%; justify-content: center; }
+    .review-filters { justify-content: center; }
+    .navigator-grid { grid-template-columns: repeat(8, 1fr); }
+    .navigator-dot { width: 36px; height: 36px; font-size: 12px; }
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+        <ul class="nav-links">
+            <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html" >Dashboard</a></li>
+            <li><a href="phy.html" class="active">Physics</a></li>
+            <li><a href="che.html">Chemistry</a></li>
+            <li><a href="mat.html">Math</a></li>
+            <li><a href="bio.html">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+        
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html" >Dashboard</a></li>
+            <li><a href="phy.html" class="active">Physics</a></li>
+            <li><a href="che.html">Chemistry</a></li>
+            <li><a href="mat.html">Math</a></li>
+            <li><a href="bio.html">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- LANDING PAGE -->
+<div class="landing-page" id="landingPage">
+    <div class="landing-content">
+        <div class="landing-badge">
+            <i class="fas fa-atom"></i>
+            <span>Advanced Physics Assessment</span>
+        </div>
+        <h1>100 MCQ Physics Quiz</h1>
+        <p>Test your knowledge with comprehensive questions covering all major physics topics. Perfect for +2 exam preparation.</p>
+        <div class="quiz-features">
+            <div class="quiz-feature">
+                <i class="fas fa-list-ol"></i>
+                <span class="feature-count">100</span>
+                <span>Questions</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-clock"></i>
+                <span class="feature-count">60</span>
+                <span>Minutes</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-chart-pie"></i>
+                <span class="feature-count">10</span>
+                <span>Categories</span>
+            </div>
+        </div>
+        <button class="start-btn" onclick="startQuiz()">
+            <i class="fas fa-play"></i>
+            Start Quiz
+        </button>
+    </div>
+</div>
+
+<!-- QUIZ PAGE -->
+<div class="quiz-page" id="quizPage">
+    <div class="timer-bar">
+        <div class="timer-container">
+            <div class="timer-display" id="timerDisplay">
+                <i class="fas fa-clock"></i>
+                <span id="timerText">60:00</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-counter" id="questionCounter">1 / 100</div>
+        </div>
+    </div>
+
+    <div class="question-navigator">
+        <div class="navigator-title">Question Navigator</div>
+        <div class="navigator-grid" id="navigatorGrid"></div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+        <div class="question-header">
+            <div class="question-number" id="questionNumber">1</div>
+            <div class="question-category" id="questionCategory">Mechanics</div>
+        </div>
+        <div class="question-text" id="questionText">Loading question...</div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="explanation" id="explanation">
+            <div class="explanation-header">
+                <i class="fas fa-lightbulb"></i>
+                <span>Explanation</span>
+            </div>
+            <div class="explanation-text" id="explanationText"></div>
+        </div>
+    </div>
+
+    <div class="quiz-nav">
+        <button class="nav-btn nav-btn-prev" id="prevBtn" onclick="prevQuestion()" disabled>
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        <button class="nav-btn nav-btn-next" id="nextBtn" onclick="nextQuestion()">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="nav-btn nav-btn-submit" id="submitBtn" onclick="submitQuiz()" style="display:none;">
+            <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+    </div>
+</div>
+
+<!-- RESULTS PAGE -->
+<div class="results-page" id="resultsPage">
+    <div class="results-container">
+        <div class="results-header">
+            <h1><i class="fas fa-trophy" style="color: var(--primary);"></i> Quiz Results</h1>
+            <p>Here is how you performed on the Physics Quiz</p>
+        </div>
+
+        <div class="score-card">
+            <div class="score-circle" id="scoreCircle">
+                <div>
+                    <div class="score-value" id="scoreValue">0</div>
+                    <div class="score-label">/ 100</div>
+                </div>
+            </div>
+            <div class="performance-msg" id="performanceMsg">Keep practicing!</div>
+            <p style="color: var(--text-medium); font-size: 15px;" id="performanceDesc">You are on your way to mastering physics.</p>
+            <div class="score-stats">
+                <div class="stat-box correct-stat">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-box wrong-stat">
+                    <div class="stat-value" id="wrongCount">0</div>
+                    <div class="stat-label">Wrong</div>
+                </div>
+                <div class="stat-box skipped-stat">
+                    <div class="stat-value" id="skippedCount">0</div>
+                    <div class="stat-label">Skipped</div>
+                </div>
+                <div class="stat-box time-stat">
+                    <div class="stat-value" id="timeTaken">0:00</div>
+                    <div class="stat-label">Time Used</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-breakdown">
+            <h2><i class="fas fa-chart-bar" style="color: var(--primary); margin-right: 8px;"></i>Category Breakdown</h2>
+            <div id="categoryBreakdown"></div>
+        </div>
+
+        <div class="review-section">
+            <h2><i class="fas fa-search" style="color: var(--primary); margin-right: 8px;"></i>Review Answers</h2>
+            <div class="review-filters">
+                <button class="review-filter active" onclick="filterReview('all')">All</button>
+                <button class="review-filter" onclick="filterReview('wrong')">Wrong</button>
+                <button class="review-filter" onclick="filterReview('correct')">Correct</button>
+                <button class="review-filter" onclick="filterReview('skipped')">Skipped</button>
+            </div>
+            <div id="reviewContainer"></div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="restartQuiz()">
+                <i class="fas fa-redo"></i> Retake Quiz
+            </button>
+            <a href="index.html" class="action-btn action-btn-secondary">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <div>
+                    <h3>Plus 2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Videos</h4>
+                <ul>
+                    <li><a href="https://youtu.be/6KWJbHNCSGM" target="_blank">Class 11 Nepali</a></li>
+                    <li><a href="https://youtu.be/NWFa-pmpjSs" target="_blank">Class 12 Nepali</a></li>
+                    <li><a href="blo.html">More Content</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+<script>
+
+// ==================== 100 QUESTIONS DATA ====================
+const questions = [
+    // MECHANICS (1-15)
+    {id:1, category:"Mechanics", question:"A body moving with uniform velocity has:", options:["Constant acceleration","Zero acceleration","Variable acceleration","Increasing acceleration"], correct:1, explanation:"Uniform velocity means equal displacement in equal time intervals, so acceleration (rate of change of velocity) is zero."},
+    {id:2, category:"Mechanics", question:"The SI unit of momentum is:", options:["kg·m/s²","N·s","kg·m/s","J/s"], correct:2, explanation:"Momentum p = mv, so unit is kg·m/s (or equivalently N·s)."},
+    {id:3, category:"Mechanics", question:"Newton's third law of motion describes:", options:["Law of inertia","Law of force","Law of action-reaction","Law of gravitation"], correct:2, explanation:"Newton's third law states: For every action, there is an equal and opposite reaction."},
+    {id:4, category:"Mechanics", question:"The work done by a force is maximum when the angle between force and displacement is:", options:["0°","45°","90°","180°"], correct:0, explanation:"W = F·d·cosθ. Maximum when cosθ = 1, i.e., θ = 0° (force and displacement in same direction)."},
+    {id:5, category:"Mechanics", question:"Kinetic energy of a body of mass m moving with velocity v is:", options:["mv","½mv²","mgh","2mv²"], correct:1, explanation:"Kinetic energy KE = ½mv², derived from work-energy theorem."},
+    {id:6, category:"Mechanics", question:"Potential energy per unit mass at a point in gravitational field is called:", options:["Gravitational potential","Gravitational intensity","Gravitational force","Gravitational constant"], correct:0, explanation:"Gravitational potential V = -GM/r, defined as potential energy per unit mass."},
+    {id:7, category:"Mechanics", question:"For a projectile launched at angle θ, the maximum height is proportional to:", options:["sin θ","sin² θ","cos θ","tan θ"], correct:1, explanation:"H_max = (u²sin²θ)/(2g), so maximum height is proportional to sin²θ."},
+    {id:8, category:"Mechanics", question:"The time period of a simple pendulum depends on:", options:["Mass of bob","Amplitude of swing","Length of string","Color of bob"], correct:2, explanation:"T = 2π√(L/g). Time period depends only on length L and g, not on mass or amplitude (for small angles)."},
+    {id:9, category:"Mechanics", question:"Centripetal force on a body of mass m moving in a circle of radius r with speed v is:", options:["mv/r","mv²/r","m²v/r","mv/r²"], correct:1, explanation:"F_c = mv²/r = mω²r, directed towards the center of the circular path."},
+    {id:10, category:"Mechanics", question:"If the radius of Earth shrinks by 1% without change in mass, the acceleration due to gravity at the surface would:", options:["Decrease by 1%","Increase by 2%","Increase by 1%","Remain same"], correct:1, explanation:"g = GM/R². If R decreases by 1%, g increases by approximately 2% (using binomial approximation)."},
+    {id:11, category:"Mechanics", question:"The escape velocity from Earth's surface is approximately:", options:["7.9 km/s","11.2 km/s","3 km/s","15 km/s"], correct:1, explanation:"Escape velocity v_e = √(2GM/R) ≈ 11.2 km/s for Earth."},
+    {id:12, category:"Mechanics", question:"Angular momentum is conserved when:", options:["Net force is zero","Net torque is zero","Net work is zero","Net power is zero"], correct:1, explanation:"From τ = dL/dt, if net torque τ = 0, then angular momentum L is conserved."},
+    {id:13, category:"Mechanics", question:"The moment of inertia of a solid sphere about its diameter is:", options:["⅖MR²","⅗MR²","½MR²","⅔MR²"], correct:0, explanation:"For a solid sphere, I = (2/5)MR² about any diameter."},
+    {id:14, category:"Mechanics", question:"Rolling friction is __________ sliding friction.", options:["Greater than","Equal to","Less than","Unrelated to"], correct:2, explanation:"Rolling friction is much less than sliding friction because the contact area and deformation are minimal in rolling."},
+    {id:15, category:"Mechanics", question:"A satellite orbiting close to Earth's surface has a period of approximately:", options:["24 hours","12 hours","84 minutes","48 minutes"], correct:2, explanation:"For a satellite near Earth's surface, T ≈ 2π√(R/g) ≈ 84 minutes (about 1.4 hours)."},
+
+    // THERMODYNAMICS (16-30)
+    {id:16, category:"Thermodynamics", question:"The first law of thermodynamics is a statement of:", options:["Conservation of momentum","Conservation of energy","Conservation of mass","Conservation of charge"], correct:1, explanation:"First law: ΔU = Q - W, which is essentially conservation of energy for thermodynamic systems."},
+    {id:17, category:"Thermodynamics", question:"For an ideal gas, internal energy depends only on:", options:["Pressure","Volume","Temperature","Density"], correct:2, explanation:"For an ideal gas, U = (f/2)nRT, so internal energy depends only on temperature."},
+    {id:18, category:"Thermodynamics", question:"In an adiabatic process:", options:["Q = 0","W = 0","ΔU = 0","T = constant"], correct:0, explanation:"Adiabatic process: no heat exchange with surroundings, so Q = 0."},
+    {id:19, category:"Thermodynamics", question:"The efficiency of a Carnot engine depends on:", options:["Working substance","Temperatures of source and sink","Friction","Size of engine"], correct:1, explanation:"η = 1 - T₂/T₁, efficiency depends only on temperatures of source and sink, not on working substance."},
+    {id:20, category:"Thermodynamics", question:"The specific heat capacity at constant pressure (C_p) is __________ at constant volume (C_v).", options:["Less than","Equal to","Greater than","Unrelated to"], correct:2, explanation:"C_p > C_v because at constant pressure, some heat goes into doing work during expansion."},
+    {id:21, category:"Thermodynamics", question:"The ratio C_p/C_v for a monatomic ideal gas is:", options:["1.4","1.67","1.33","2.0"], correct:1, explanation:"For monatomic gas, γ = C_p/C_v = (5/2)R / (3/2)R = 5/3 ≈ 1.67."},
+    {id:22, category:"Thermodynamics", question:"Entropy of a system in a reversible process:", options:["Always increases","Always decreases","Remains constant","May increase or decrease"], correct:2, explanation:"In a reversible process, total entropy change of universe is zero; for system alone it may change but returns to original."},
+    {id:23, category:"Thermodynamics", question:"The zeroth law of thermodynamics defines:", options:["Heat","Work","Temperature","Energy"], correct:2, explanation:"Zeroth law establishes thermal equilibrium and defines temperature as a property."},
+    {id:24, category:"Thermodynamics", question:"During free expansion of an ideal gas:", options:["Temperature increases","Temperature decreases","Temperature remains constant","Pressure remains constant"], correct:2, explanation:"Free expansion is adiabatic (Q=0) and no work is done (W=0), so ΔU=0 and T remains constant for ideal gas."},
+    {id:25, category:"Thermodynamics", question:"The triple point of water is:", options:["0°C","100°C","273.16 K","373.15 K"], correct:2, explanation:"Triple point of water is defined as exactly 273.16 K (0.01°C), used to define the Kelvin scale."},
+    {id:26, category:"Thermodynamics", question:"Which process has the maximum work done for the same change in volume?", options:["Isobaric","Isothermal","Adiabatic","Isochoric"], correct:0, explanation:"Isobaric process (constant pressure) produces maximum work as W = PΔV and pressure is maintained throughout."},
+    {id:27, category:"Thermodynamics", question:"The mean free path of gas molecules is inversely proportional to:", options:["Pressure","Temperature","Volume","Density"], correct:0, explanation:"λ = kT/(√2πd²P), so mean free path is inversely proportional to pressure."},
+    {id:28, category:"Thermodynamics", question:"In a cyclic process, the net change in internal energy is:", options:["Positive","Negative","Zero","Depends on path"], correct:2, explanation:"Internal energy is a state function. In a cyclic process, system returns to initial state, so ΔU = 0."},
+    {id:29, category:"Thermodynamics", question:"The coefficient of performance (COP) of a refrigerator is:", options:["Q₁/W","Q₂/W","W/Q₁","W/Q₂"], correct:1, explanation:"COP = Q₂/W = heat extracted from cold reservoir / work input."},
+    {id:30, category:"Thermodynamics", question:"Black body radiation spectrum depends on:", options:["Material of body","Shape of body","Temperature only","Size of body"], correct:2, explanation:"By definition, black body radiation is independent of material, shape, or size; depends only on temperature (Planck's law)."},
+
+    // ELECTROMAGNETISM (31-50)
+    {id:31, category:"Electromagnetism", question:"Coulomb's law force between two charges is inversely proportional to:", options:["r","r²","r³","√r"], correct:1, explanation:"F = kq₁q₂/r², so electrostatic force follows inverse square law."},
+    {id:32, category:"Electromagnetism", question:"The electric field inside a uniformly charged spherical shell is:", options:["kQ/r²","Zero","kQ/r","Infinite"], correct:1, explanation:"By Gauss's law, enclosed charge is zero inside a shell, so E = 0."},
+    {id:33, category:"Electromagnetism", question:"The potential at a point due to a point charge q at distance r is:", options:["kq/r²","kq/r","kq·r","kq/r³"], correct:1, explanation:"V = kq/r, scalar quantity (positive for positive charge, negative for negative charge)."},
+    {id:34, category:"Electromagnetism", question:"Capacitance of a parallel plate capacitor with dielectric (K) is:", options:["ε₀A/d","Kε₀A/d","ε₀A/(Kd)","K²ε₀A/d"], correct:1, explanation:"C = Kε₀A/d, capacitance increases by factor K when dielectric is inserted."},
+    {id:35, category:"Electromagnetism", question:"The energy stored in a capacitor is:", options:["½CV","½CV²","CV²","½C²V"], correct:1, explanation:"U = ½CV² = ½Q²/C = ½QV, energy stored in the electric field between plates."},
+    {id:36, category:"Electromagnetism", question:"Ohm's law states that current is directly proportional to:", options:["Resistance","Voltage","Temperature","Length"], correct:1, explanation:"V = IR, so I ∝ V (at constant temperature and physical conditions)."},
+    {id:37, category:"Electromagnetism", question:"The resistivity of a conductor depends on:", options:["Length","Cross-sectional area","Material and temperature","Voltage applied"], correct:2, explanation:"Resistivity ρ is an intrinsic property depending on material and temperature, not on dimensions."},
+    {id:38, category:"Electromagnetism", question:"Kirchhoff's current law is based on:", options:["Conservation of energy","Conservation of charge","Conservation of momentum","Ohm's law"], correct:1, explanation:"KCL: ΣI = 0 at a junction, based on conservation of charge (no accumulation at junction)."},
+    {id:39, category:"Electromagnetism", question:"The magnetic field at the center of a circular coil of radius R carrying current I is:", options:["μ₀I/2R","μ₀I/4R","μ₀I/R","μ₀I/2πR"], correct:0, explanation:"B = μ₀I/2R at center, direction given by right-hand rule."},
+    {id:40, category:"Electromagnetism", question:"Ampere's circuital law relates:", options:["E and q","B and I","V and R","F and a"], correct:1, explanation:"∮B·dl = μ₀I_enc, relates magnetic field around a closed loop to current passing through it."},
+    {id:41, category:"Electromagnetism", question:"A charged particle moving perpendicular to a uniform magnetic field follows:", options:["Straight line","Parabola","Circle","Ellipse"], correct:2, explanation:"F = qvB provides centripetal force, so particle moves in circular path with r = mv/qB."},
+    {id:42, category:"Electromagnetism", question:"The force on a current-carrying conductor in a magnetic field is:", options:["F = ILB","F = ILB sinθ","F = I²LB","F = LB/I"], correct:1, explanation:"F = ILB sinθ, maximum when θ = 90° (conductor perpendicular to field)."},
+    {id:43, category:"Electromagnetism", question:"Faraday's law of electromagnetic induction states:", options:["E = -dΦ/dt","E = dΦ/dt","E = Φ/t","E = -Φ/t"], correct:0, explanation:"ε = -dΦ/dt (Lenz's law included with negative sign indicating induced emf opposes change)."},
+    {id:44, category:"Electromagnetism", question:"The self-inductance of a solenoid depends on:", options:["Current only","Number of turns, area, length","Voltage only","Resistance only"], correct:1, explanation:"L = μ₀N²A/l, depends on geometry (turns, area, length) and core material."},
+    {id:45, category:"Electromagnetism", question:"In an AC circuit with only inductor, current __________ voltage by 90°.", options:["Leads","Lags","Is in phase with","Is opposite to"], correct:1, explanation:"In pure inductor, I lags V by 90° (or π/2 radians) because inductor opposes change in current."},
+    {id:46, category:"Electromagnetism", question:"The resonant frequency of an LCR circuit is:", options:["1/√(LC)","1/(2π√LC)","√(LC)","2π√(LC)"], correct:1, explanation:"f₀ = 1/(2π√LC), where impedance is minimum (Z = R) and current is maximum."},
+    {id:47, category:"Electromagnetism", question:"Transformer works on the principle of:", options:["Ohm's law","Faraday's law","Ampere's law","Coulomb's law"], correct:1, explanation:"Transformer uses mutual induction based on Faraday's law of electromagnetic induction."},
+    {id:48, category:"Electromagnetism", question:"The power factor of a pure resistive AC circuit is:", options:["0","0.5","1","Infinity"], correct:2, explanation:"For pure resistance, voltage and current are in phase, so cosφ = 1 (maximum power transfer)."},
+    {id:49, category:"Electromagnetism", question:"Electromagnetic waves are:", options:["Longitudinal","Transverse","Stationary","Mechanical"], correct:1, explanation:"EM waves are transverse waves with E and B fields perpendicular to each other and to propagation direction."},
+    {id:50, category:"Electromagnetism", question:"The speed of electromagnetic waves in vacuum is:", options:["3 × 10⁸ m/s","3 × 10⁶ m/s","3 × 10¹⁰ m/s","3 × 10⁴ m/s"], correct:0, explanation:"c = 1/√(μ₀ε₀) ≈ 3 × 10⁸ m/s, same for all EM waves in vacuum."},
+
+    // OPTICS (51-65)
+    {id:51, category:"Optics", question:"The refractive index of a medium is defined as:", options:["c/v","v/c","c²/v","v²/c"], correct:0, explanation:"n = c/v, ratio of speed of light in vacuum to speed in medium (always ≥ 1)."},
+    {id:52, category:"Optics", question:"Snell's law states:", options:["n₁sinθ₁ = n₂sinθ₂","n₁cosθ₁ = n₂cosθ₂","n₁/n₂ = sinθ₁/sinθ₂","n₁ + n₂ = sinθ₁ + sinθ₂"], correct:0, explanation:"n₁sinθ₁ = n₂sinθ₂, relates angles of incidence and refraction to refractive indices."},
+    {id:53, category:"Optics", question:"Critical angle occurs when light travels from:", options:["Rarer to denser medium","Denser to rarer medium","Same medium","Any medium to vacuum"], correct:1, explanation:"Critical angle is defined for light going from denser to rarer medium; at this angle, refraction angle = 90°."},
+    {id:54, category:"Optics", question:"The focal length of a convex lens is:", options:["Positive","Negative","Zero","Infinite"], correct:0, explanation:"Convex (converging) lens has positive focal length by convention."},
+    {id:55, category:"Optics", question:"Lens maker's formula is:", options:["1/f = (μ-1)(1/R₁ - 1/R₂)","1/f = (μ-1)(1/R₁ + 1/R₂)","1/f = μ(1/R₁ + 1/R₂)","f = (μ-1)(R₁ + R₂)"], correct:1, explanation:"1/f = (μ-1)(1/R₁ + 1/R₂), relates focal length to refractive index and radii of curvature."},
+    {id:56, category:"Optics", question:"The power of a lens is measured in:", options:["Watts","Diopters","Joules","Amperes"], correct:1, explanation:"P = 1/f (in meters), unit is diopter (D). Convex: +ve, Concave: -ve."},
+    {id:57, category:"Optics", question:"Magnification of a simple microscope is:", options:["1 + D/f","D/f","f/D","1 - D/f"], correct:1, explanation:"For simple microscope with image at near point: M = 1 + D/f; for relaxed eye: M = D/f."},
+    {id:58, category:"Optics", question:"In a compound microscope, the final image is:", options:["Real and erect","Virtual and inverted","Real and inverted","Virtual and erect"], correct:1, explanation:"Objective forms real, inverted image; eyepiece acts as magnifier producing virtual, inverted final image."},
+    {id:59, category:"Optics", question:"The resolving power of a telescope depends on:", options:["Focal length of objective","Diameter of objective","Focal length of eyepiece","Length of telescope"], correct:1, explanation:"Resolving power ∝ D (aperture diameter), larger aperture gives better resolution (Rayleigh criterion)."},
+    {id:60, category:"Optics", question:"Interference pattern in Young's double slit experiment shows:", options:["Equal intensity fringes","Varying intensity fringes","Single bright fringe","No pattern"], correct:0, explanation:"Young's experiment produces equally spaced fringes of equal intensity (for monochromatic light)."},
+    {id:61, category:"Optics", question:"The condition for constructive interference is path difference =:", options:["(2n+1)λ/2","nλ","(2n+1)λ","nλ/2"], correct:1, explanation:"Constructive: Δ = nλ; Destructive: Δ = (2n+1)λ/2, where n = 0, 1, 2, ..."},
+    {id:62, category:"Optics", question:"Diffraction occurs when light passes through:", options:["Wide aperture","Narrow aperture comparable to λ","Mirror","Lens"], correct:1, explanation:"Diffraction is significant when obstacle/aperture size is comparable to wavelength of light."},
+    {id:63, category:"Optics", question:"Polarization of light proves that light is:", options:["Longitudinal wave","Transverse wave","Particle","Stationary wave"], correct:1, explanation:"Only transverse waves can be polarized; polarization is proof of transverse nature of light."},
+    {id:64, category:"Optics", question:"Brewster's angle is the angle of incidence where:", options:["Reflected ray is perpendicular to refracted ray","Reflected and refracted rays are parallel","No reflection occurs","Total internal reflection occurs"], correct:0, explanation:"At Brewster's angle, reflected and refracted rays are perpendicular; reflected light is completely polarized."},
+    {id:65, category:"Optics", question:"The phenomenon of scattering of light is responsible for:", options:["Blue color of sky","Red color of sunset","Both A and B","None"], correct:2, explanation:"Rayleigh scattering (λ⁻⁴ dependence) causes blue sky (shorter λ scattered more) and red sunset (longer path through atmosphere)."},
+
+    // MODERN PHYSICS (66-80)
+    {id:66, category:"Modern Physics", question:"Photoelectric effect proves light has:", options:["Wave nature","Particle nature","Both equally","Neither"], correct:1, explanation:"Photoelectric effect (Einstein's explanation) demonstrates particle nature of light (photons)."},
+    {id:67, category:"Modern Physics", question:"The work function of a metal is:", options:["Energy to emit electron","Minimum energy to emit electron","Maximum energy of emitted electron","Kinetic energy of electron"], correct:1, explanation:"Work function φ is the minimum energy needed to eject an electron from the metal surface."},
+    {id:68, category:"Modern Physics", question:"Einstein's photoelectric equation is:", options:["hν = φ + KE_max","hν = φ - KE_max","hν = KE_max","hν = 2φ + KE_max"], correct:0, explanation:"hν = φ + KE_max: photon energy = work function + maximum kinetic energy of emitted electron."},
+    {id:69, category:"Modern Physics", question:"The de Broglie wavelength of a particle is:", options:["h/mv","mv/h","h²/mv","h/m²v"], correct:0, explanation:"λ = h/p = h/mv, where p is momentum. All matter has wave-like properties."},
+    {id:70, category:"Modern Physics", question:"Bohr's model of hydrogen atom assumes:", options:["Electrons move in any orbit","Electrons move in quantized orbits","Electrons are stationary","Electrons are waves only"], correct:1, explanation:"Bohr postulated electrons orbit in discrete, quantized energy levels with angular momentum nh/2π."},
+    {id:71, category:"Modern Physics", question:"The energy of an electron in nth orbit of hydrogen is proportional to:", options:["n","n²","1/n","1/n²"], correct:3, explanation:"E_n = -13.6/n² eV, energy is inversely proportional to square of principal quantum number."},
+    {id:72, category:"Modern Physics", question:"Heisenberg's uncertainty principle states:", options:["Δx·Δp ≥ h/4π","Δx·Δp = 0","Δx·Δp ≤ h/4π","Δx·Δp = h/2π"], correct:0, explanation:"Δx·Δp ≥ ħ/2 = h/4π, fundamental limit on precision of simultaneous position and momentum measurements."},
+    {id:73, category:"Modern Physics", question:"The ground state energy of hydrogen atom is:", options:["0 eV","-13.6 eV","13.6 eV","-6.8 eV"], correct:1, explanation:"Ground state (n=1) energy of hydrogen is -13.6 eV, the binding energy of the electron."},
+    {id:74, category:"Modern Physics", question:"X-rays are produced when:", options:["High speed electrons strike a metal target","Protons strike a target","Neutrons strike a target","Photons strike a target"], correct:0, explanation:"X-rays are produced when high-energy electrons decelerate upon hitting a heavy metal target (bremsstrahlung)."},
+    {id:75, category:"Modern Physics", question:"The half-life of a radioactive substance is the time in which:", options:["All atoms decay","Half of the atoms decay","Quarter of atoms decay","Activity becomes zero"], correct:1, explanation:"Half-life T½ is the time required for half of the radioactive nuclei to decay."},
+    {id:76, category:"Modern Physics", question:"Alpha particles are:", options:["Helium nuclei","Hydrogen nuclei","Electrons","Photons"], correct:0, explanation:"Alpha particles are helium nuclei (₂He⁴), consisting of 2 protons and 2 neutrons."},
+    {id:77, category:"Modern Physics", question:"In nuclear fission, the mass defect is converted to:", options:["Heat","Kinetic energy","Energy according to E=mc²","Momentum"], correct:2, explanation:"The lost mass (mass defect) is converted to energy according to Einstein's E = mc²."},
+    {id:78, category:"Modern Physics", question:"The binding energy per nucleon is maximum for:", options:["Hydrogen","Iron-56","Uranium-235","Helium-4"], correct:1, explanation:"Binding energy per nucleon peaks at Fe-56 (~8.8 MeV), making it the most stable nucleus."},
+    {id:79, category:"Modern Physics", question:"A nuclear reactor uses __________ as moderator.", options:["Heavy water","Light water","Graphite","All of the above"], correct:3, explanation:"Moderators (heavy water, light water, graphite) slow down fast neutrons to sustain chain reaction."},
+    {id:80, category:"Modern Physics", question:"The unit of radioactivity is:", options:["Joule","Watt","Becquerel","Newton"], correct:2, explanation:"Becquerel (Bq) = 1 decay per second. Curie (Ci) is also used: 1 Ci = 3.7 × 10¹⁰ Bq."},
+
+    // WAVES & OSCILLATIONS (81-90)
+    {id:81, category:"Waves", question:"The speed of a transverse wave on a string depends on:", options:["Tension and linear density","Amplitude only","Frequency only","Wavelength only"], correct:0, explanation:"v = √(T/μ), where T is tension and μ is linear mass density."},
+    {id:82, category:"Waves", question:"Standing waves are formed by:", options:["Superposition of two waves traveling in same direction","Superposition of two waves traveling in opposite directions","Single wave","No wave"], correct:1, explanation:"Standing waves result from interference of two identical waves traveling in opposite directions."},
+    {id:83, category:"Waves", question:"The fundamental frequency of a stretched string is:", options:["v/2L","v/L","2v/L","v/4L"], correct:0, explanation:"f₁ = v/2L, where v is wave speed and L is string length."},
+    {id:84, category:"Waves", question:"Beats are produced when two waves of slightly different __________ interfere.", options:["Amplitude","Frequency","Phase","Velocity"], correct:1, explanation:"Beats occur when two waves with slightly different frequencies interfere, producing periodic amplitude variation."},
+    {id:85, category:"Waves", question:"Doppler's effect is observed when:", options:["Source and observer are at rest","Source and observer are in relative motion","Medium is at rest","Temperature changes"], correct:1, explanation:"Doppler effect: apparent change in frequency due to relative motion between source and observer."},
+    {id:86, category:"Waves", question:"The quality (timbre) of a musical note depends on:", options:["Fundamental frequency only","Number and intensity of overtones","Amplitude only","Speed of sound only"], correct:1, explanation:"Timbre (quality) depends on the number and relative intensities of harmonics/overtones present."},
+    {id:87, category:"Waves", question:"Sound waves in air are:", options:["Transverse","Longitudinal","Electromagnetic","Stationary"], correct:1, explanation:"Sound waves in air are longitudinal: particles vibrate parallel to the direction of wave propagation."},
+    {id:88, category:"Waves", question:"The intensity of a wave is proportional to:", options:["Amplitude","Amplitude²","Frequency","Wavelength"], correct:1, explanation:"I ∝ A², intensity is proportional to the square of amplitude."},
+    {id:89, category:"Waves", question:"In an open organ pipe, the fundamental frequency is:", options:["v/2L","v/4L","v/L","2v/L"], correct:0, explanation:"For open pipe: f₁ = v/2L, with antinodes at both ends."},
+    {id:90, category:"Waves", question:"The phenomenon of echo is due to:", options:["Refraction","Reflection","Diffraction","Interference"], correct:1, explanation:"Echo is the reflection of sound waves from a distant surface back to the listener."},
+
+    // SOLID STATE & ELECTRONICS (91-100)
+    {id:91, category:"Solid State", question:"In a semiconductor, the energy gap between valence and conduction band is about:", options:["0 eV","1 eV","5 eV","10 eV"], correct:1, explanation:"Semiconductors have band gap ~1 eV (Si: 1.1 eV, Ge: 0.7 eV), smaller than insulators but larger than conductors."},
+    {id:92, category:"Solid State", question:"Doping of silicon with phosphorus produces:", options:["p-type semiconductor","n-type semiconductor","Insulator","Conductor"], correct:1, explanation:"Phosphorus (group V) has 5 valence electrons; it donates extra electrons, creating n-type semiconductor."},
+    {id:93, category:"Solid State", question:"A p-n junction diode conducts when:", options:["Reverse biased","Forward biased","Unbiased","Both forward and reverse"], correct:1, explanation:"Diode conducts easily in forward bias (p-side positive, n-side negative) when V > barrier potential."},
+    {id:94, category:"Solid State", question:"The depletion region in a p-n junction is formed due to:", options:["Diffusion of charge carriers","Drift of charge carriers","Both diffusion and drift","External voltage"], correct:2, explanation:"Depletion region forms due to diffusion of majority carriers and drift of minority carriers, creating equilibrium."},
+    {id:95, category:"Solid State", question:"A transistor can be used as:", options:["Amplifier only","Switch only","Both amplifier and switch","Neither"], correct:2, explanation:"Transistor acts as amplifier in active region and as switch in cutoff/saturation regions."},
+    {id:96, category:"Solid State", question:"In a common-emitter transistor amplifier, the phase difference between input and output is:", options:["0°","90°","180°","270°"], correct:2, explanation:"CE amplifier produces 180° phase shift between input and output voltages."},
+    {id:97, category:"Solid State", question:"The current gain β of a transistor is:", options:["I_C/I_B","I_B/I_C","I_E/I_B","I_C/I_E"], correct:0, explanation:"β = I_C/I_B (current gain in common-emitter configuration), typically ranges from 20 to 200."},
+    {id:98, category:"Solid State", question:"Logic gates are the building blocks of:", options:["Analog circuits","Digital circuits","Power circuits","AC circuits"], correct:1, explanation:"Logic gates (AND, OR, NOT, etc.) are fundamental building blocks of digital circuits and computers."},
+    {id:99, category:"Solid State", question:"The Boolean expression for AND gate is:", options:["Y = A + B","Y = A · B","Y = Ā","Y = A ⊕ B"], correct:1, explanation:"AND gate: Y = A·B, output is HIGH only when all inputs are HIGH."},
+    {id:100, category:"Solid State", question:"A Zener diode is used as a:", options:["Amplifier","Voltage regulator","Rectifier","Oscillator"], correct:1, explanation:"Zener diode operates in reverse breakdown region and maintains constant voltage, used as voltage regulator."}
+];
+
+// ==================== QUIZ STATE ====================
+let currentQuestion = 0;
+let answers = new Array(100).fill(null);
+let timeRemaining = 3600; // 60 minutes in seconds
+let timerInterval = null;
+let startTime = null;
+let quizSubmitted = false;
+
+// ==================== MOBILE NAV ====================
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+// ==================== START QUIZ ====================
+function startQuiz() {
+    document.getElementById('landingPage').style.display = 'none';
+    document.getElementById('quizPage').classList.add('active');
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    renderNavigator();
+    renderQuestion();
+}
+
+// ==================== TIMER ====================
+function updateTimer() {
+    timeRemaining--;
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById('timerText').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    const timerDisplay = document.getElementById('timerDisplay');
+    if (timeRemaining <= 300) { // 5 minutes warning
+        timerDisplay.classList.add('warning');
+    }
+
+    if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+        submitQuiz();
+    }
+}
+
+// ==================== NAVIGATOR ====================
+function renderNavigator() {
+    const grid = document.getElementById('navigatorGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'navigator-dot';
+        dot.textContent = i + 1;
+        if (i === currentQuestion) dot.classList.add('active', 'current');
+        if (answers[i] !== null) dot.classList.add('answered');
+        dot.onclick = () => goToQuestion(i);
+        grid.appendChild(dot);
+    }
+}
+
+// ==================== RENDER QUESTION ====================
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById('questionNumber').textContent = q.id;
+    document.getElementById('questionCategory').textContent = q.category;
+    document.getElementById('questionText').textContent = q.question;
+    document.getElementById('questionCounter').textContent = `${q.id} / 100`;
+
+    // Progress bar
+    const progress = ((currentQuestion + 1) / 100) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+
+    // Options
+    const optionsGrid = document.getElementById('optionsGrid');
+    optionsGrid.innerHTML = '';
+    const letters = ['A', 'B', 'C', 'D'];
+
+    q.options.forEach((opt, idx) => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        if (answers[currentQuestion] === idx) option.classList.add('selected');
+        if (quizSubmitted) {
+            option.classList.add('disabled');
+            if (idx === q.correct) option.classList.add('correct');
+            else if (answers[currentQuestion] === idx && idx !== q.correct) option.classList.add('wrong');
+        }
+        option.innerHTML = `<div class="option-letter">${letters[idx]}</div><div>${opt}</div>`;
+        option.onclick = () => selectOption(idx);
+        optionsGrid.appendChild(option);
+    });
+
+    // Explanation
+    const explanation = document.getElementById('explanation');
+    if (quizSubmitted) {
+        explanation.classList.add('show');
+        document.getElementById('explanationText').textContent = q.explanation;
+    } else {
+        explanation.classList.remove('show');
+    }
+
+    // Navigation buttons
+    document.getElementById('prevBtn').disabled = currentQuestion === 0;
+    if (currentQuestion === 99) {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'inline-flex';
+    } else {
+        document.getElementById('nextBtn').style.display = 'inline-flex';
+        document.getElementById('submitBtn').style.display = 'none';
+    }
+
+    renderNavigator();
+}
+
+function selectOption(index) {
+    if (quizSubmitted) return;
+    answers[currentQuestion] = index;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (currentQuestion < 99) {
+        currentQuestion++;
+        renderQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+    }
+}
+
+function goToQuestion(index) {
+    currentQuestion = index;
+    renderQuestion();
+}
+
+// ==================== SUBMIT QUIZ ====================
+function submitQuiz() {
+    if (quizSubmitted) return;
+    const unanswered = answers.filter(a => a === null).length;
+    if (unanswered > 0) {
+        if (!confirm(`You have ${unanswered} unanswered questions. Are you sure you want to submit?`)) return;
+    }
+
+    quizSubmitted = true;
+    clearInterval(timerInterval);
+
+    document.getElementById('quizPage').classList.remove('active');
+    document.getElementById('resultsPage').classList.add('active');
+
+    renderResults();
+}
+
+// ==================== RESULTS ====================
+function renderResults() {
+    let correct = 0, wrong = 0, skipped = 0;
+    const categoryStats = {};
+
+    questions.forEach((q, i) => {
+        if (!categoryStats[q.category]) categoryStats[q.category] = { total: 0, correct: 0 };
+        categoryStats[q.category].total++;
+
+        if (answers[i] === null) {
+            skipped++;
+        } else if (answers[i] === q.correct) {
+            correct++;
+            categoryStats[q.category].correct++;
+        } else {
+            wrong++;
+        }
+    });
+
+    // Score circle
+    const scorePercent = (correct / 100) * 100;
+    document.getElementById('scoreCircle').style.setProperty('--score-percent', `${scorePercent}%`);
+    document.getElementById('scoreValue').textContent = correct;
+
+    // Performance message
+    const msgEl = document.getElementById('performanceMsg');
+    const descEl = document.getElementById('performanceDesc');
+    if (correct >= 90) {
+        msgEl.textContent = 'Outstanding! 🎉';
+        msgEl.className = 'performance-msg excellent';
+        descEl.textContent = 'You have mastered physics at an exceptional level!';
+    } else if (correct >= 75) {
+        msgEl.textContent = 'Great job! 👏';
+        msgEl.className = 'performance-msg good';
+        descEl.textContent = 'You have a strong grasp of physics concepts.';
+    } else if (correct >= 50) {
+        msgEl.textContent = 'Good effort! 💪';
+        msgEl.className = 'performance-msg average';
+        descEl.textContent = 'Keep practicing to strengthen your understanding.';
+    } else {
+        msgEl.textContent = 'Keep practicing! 📚';
+        msgEl.className = 'performance-msg needs-work';
+        descEl.textContent = 'Review the concepts and try again to improve your score.';
+    }
+
+    // Stats
+    document.getElementById('correctCount').textContent = correct;
+    document.getElementById('wrongCount').textContent = wrong;
+    document.getElementById('skippedCount').textContent = skipped;
+
+    const timeUsed = 3600 - timeRemaining;
+    const mins = Math.floor(timeUsed / 60);
+    const secs = timeUsed % 60;
+    document.getElementById('timeTaken').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    // Category breakdown
+    const catContainer = document.getElementById('categoryBreakdown');
+    catContainer.innerHTML = '';
+    Object.entries(categoryStats).forEach(([cat, stats]) => {
+        const pct = (stats.correct / stats.total) * 100;
+        const item = document.createElement('div');
+        item.className = 'category-item';
+        item.innerHTML = `
+            <div class="category-header">
+                <span class="category-name">${cat}</span>
+                <span class="category-score">${stats.correct}/${stats.total} (${Math.round(pct)}%)</span>
+            </div>
+            <div class="category-bar">
+                <div class="category-fill" style="width: ${pct}%"></div>
+            </div>
+        `;
+        catContainer.appendChild(item);
+    });
+
+    // Review
+    renderReview('all');
+}
+
+// ==================== REVIEW ====================
+function filterReview(type) {
+    document.querySelectorAll('.review-filter').forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+    renderReview(type);
+}
+
+function renderReview(filter) {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+
+    questions.forEach((q, i) => {
+        let status = '';
+        if (answers[i] === null) status = 'skipped';
+        else if (answers[i] === q.correct) status = 'correct';
+        else status = 'wrong';
+
+        if (filter !== 'all' && filter !== status) return;
+
+        const item = document.createElement('div');
+        item.className = `review-item ${status}-review`;
+
+        const icon = status === 'correct' ? 'fa-check' : status === 'wrong' ? 'fa-times' : 'fa-minus';
+        const yourAnswer = answers[i] !== null ? q.options[answers[i]] : 'Skipped';
+        const correctAnswer = q.options[q.correct];
+
+        item.innerHTML = `
+            <div class="review-q-header">
+                <div class="review-status ${status}"><i class="fas ${icon}"></i></div>
+                <div class="review-q-text">Q${q.id}: ${q.question}</div>
+            </div>
+            <div class="review-answer">
+                <strong>Your answer:</strong> ${yourAnswer}<br>
+                <strong>Correct answer:</strong> ${correctAnswer}
+            </div>
+            <div class="review-explanation">${q.explanation}</div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+// ==================== RESTART ====================
+function restartQuiz() {
+    currentQuestion = 0;
+    answers = new Array(100).fill(null);
+    timeRemaining = 3600;
+    quizSubmitted = false;
+    startTime = null;
+
+    document.getElementById('resultsPage').classList.remove('active');
+    document.getElementById('landingPage').style.display = 'flex';
+    document.getElementById('timerDisplay').classList.remove('warning');
+    document.getElementById('timerText').textContent = '60:00';
+}
+
+// ==================== SCROLL EFFECT ====================
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    } else {
+        navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+    }
+});
+</script>
+</body>
+</html>

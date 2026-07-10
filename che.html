@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Plus 2 Guru</title>
+<link rel="icon" type="image/png" href="favicon.png.png">
+<link rel="apple-touch-icon" href="favicon.png.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+    --primary: #10b981; --primary-dark: #059669; --secondary: #1e3a8a; --secondary-light: #2563eb;
+    --accent: #08dcd1; --bg: #f4f7ff; --card-bg: #ffffff; --text-dark: #1a1a2e;
+    --text-medium: #4a5568; --text-light: #718096; --border: #e2e8f0;
+    --success: #10b981; --success-light: #d1fae5; --danger: #ef4444; --danger-light: #fee2e2;
+    --warning: #f59e0b; --warning-light: #fef3c7; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1); --radius: 16px; --radius-sm: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.6; }
+
+/* Navbar */
+.navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); z-index: 1000; box-shadow: var(--shadow); }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo-text { font-size: 22px; font-weight: 800; color: #ff7200; letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--text-medium); font-weight: 600; font-size: 14px; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; }
+.nav-links a:hover { color: #ff7200; background: rgba(255, 114, 0, 0.1); }
+.nav-links a.active { color: #ff7200; background: rgba(255, 114, 0, 0.15); }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; }
+.mobile-nav { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px); }
+.mobile-nav.active { display: block; }
+.mobile-nav-content { position: absolute; top: 0; right: 0; width: 280px; height: 100%; background: white; padding: 80px 24px 24px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease; }
+.mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+.mobile-nav-links { list-style: none; }
+.mobile-nav-links a { display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none; font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease; }
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); }
+
+/* Landing */
+.landing-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 20px 40px; background: linear-gradient(135deg, #064e3b 0%, #10b981 50%, #34d399 100%); position: relative; overflow: hidden; }
+.landing-page::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+.landing-content { position: relative; z-index: 1; max-width: 700px; text-align: center; }
+.landing-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 50px; color: white; font-size: 14px; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.3); }
+.landing-content h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+.landing-content p { font-size: clamp(16px, 2vw, 18px); color: rgba(255,255,255,0.9); margin-bottom: 32px; }
+.quiz-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+.quiz-feature { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-sm); padding: 20px 16px; text-align: center; color: white; }
+.quiz-feature i { font-size: 24px; margin-bottom: 8px; display: block; }
+.quiz-feature span { font-size: 13px; font-weight: 600; display: block; }
+.quiz-feature .feature-count { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.start-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 48px; background: #ff7200; color: white; border: none; border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(16,185,129,0.4); font-family: inherit; }
+.start-btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(16,185,129,0.5); }
+
+/* Quiz Page */
+.quiz-page { display: none; padding: 90px 20px 40px; min-height: 100vh; max-width: 900px; margin: 0 auto; }
+.quiz-page.active { display: block; }
+.timer-bar { position: fixed; top: 70px; left: 0; right: 0; background: white; z-index: 900; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 12px 20px; }
+.timer-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.timer-display { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; color: var(--text-dark); min-width: 100px; }
+.timer-display i { color: var(--primary); font-size: 18px; }
+.timer-display.warning { color: var(--danger); }
+.timer-display.warning i { color: var(--danger); animation: pulse 1s infinite; }
+.progress-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+.question-counter { font-weight: 600; color: var(--text-medium); font-size: 14px; min-width: 80px; text-align: right; }
+
+.question-card { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); animation: slideIn 0.4s ease; }
+.question-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.question-number { background: var(--secondary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.question-category { background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.question-text { font-size: 18px; font-weight: 600; color: var(--text-dark); line-height: 1.5; margin-bottom: 24px; }
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+.option { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--bg); border: 2px solid transparent; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.3s ease; font-size: 16px; color: var(--text-dark); font-weight: 500; }
+.option:hover { border-color: var(--primary); background: rgba(16,185,129,0.05); transform: translateX(4px); }
+.option.selected { border-color: var(--primary); background: rgba(16,185,129,0.1); }
+.option.correct { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.option.wrong { border-color: var(--danger); background: var(--danger-light); color: var(--danger); }
+.option.disabled { pointer-events: none; opacity: 0.7; }
+.option-letter { width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; transition: all 0.3s ease; }
+.option:hover .option-letter { background: var(--primary); }
+.option.selected .option-letter { background: var(--primary); }
+.option.correct .option-letter { background: var(--success); }
+.option.wrong .option-letter { background: var(--danger); }
+
+.explanation { display: none; margin-top: 20px; padding: 20px; background: var(--success-light); border: 1px solid var(--success); border-radius: var(--radius-sm); animation: fadeIn 0.4s ease; }
+.explanation.show { display: block; }
+.explanation-header { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--success); margin-bottom: 8px; font-size: 16px; }
+.explanation-text { color: var(--text-medium); font-size: 15px; line-height: 1.6; }
+
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 24px; }
+.nav-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; }
+.nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.nav-btn-prev { background: var(--border); color: var(--text-dark); }
+.nav-btn-prev:hover:not(:disabled) { background: var(--text-light); color: white; }
+.nav-btn-next { background: var(--primary); color: white; }
+.nav-btn-next:hover:not(:disabled) { background: var(--primary-dark); transform: translateX(4px); }
+.nav-btn-submit { background: var(--success); color: white; }
+.nav-btn-submit:hover:not(:disabled) { background: #059669; transform: scale(1.05); }
+
+.question-navigator { background: var(--card-bg); border-radius: var(--radius); padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.navigator-title { font-size: 14px; font-weight: 700; color: var(--text-medium); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.navigator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 8px; }
+.navigator-dot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; color: var(--text-medium); }
+.navigator-dot:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
+.navigator-dot.active { border-color: var(--primary); background: var(--primary); color: white; box-shadow: 0 2px 10px rgba(16,185,129,0.3); }
+.navigator-dot.answered { border-color: var(--success); background: var(--success-light); color: var(--success); }
+.navigator-dot.current { animation: pulse 2s infinite; }
+
+/* Results */
+.results-page { display: none; padding: 100px 20px 40px; min-height: 100vh; }
+.results-page.active { display: block; }
+.results-container { max-width: 900px; margin: 0 auto; }
+.results-header { text-align: center; margin-bottom: 40px; }
+.results-header h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: var(--text-dark); margin-bottom: 8px; }
+.results-header p { color: var(--text-medium); font-size: 16px; }
+.score-card { background: var(--card-bg); border-radius: var(--radius); padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); text-align: center; }
+.score-circle { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(var(--primary) 0% var(--score-percent), var(--border) var(--score-percent) 100%); margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; position: relative; }
+.score-circle::before { content: ''; position: absolute; width: 130px; height: 130px; background: white; border-radius: 50%; }
+.score-value { position: relative; z-index: 1; font-size: 36px; font-weight: 800; color: var(--primary); }
+.score-label { font-size: 14px; color: var(--text-light); font-weight: 600; }
+.score-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
+.stat-box { padding: 16px; border-radius: var(--radius-sm); text-align: center; }
+.stat-box.correct-stat { background: var(--success-light); }
+.stat-box.wrong-stat { background: var(--danger-light); }
+.stat-box.skipped-stat { background: var(--warning-light); }
+.stat-box.time-stat { background: var(--bg); }
+.stat-value { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.stat-box.correct-stat .stat-value { color: var(--success); }
+.stat-box.wrong-stat .stat-value { color: var(--danger); }
+.stat-box.skipped-stat .stat-value { color: var(--warning); }
+.stat-box.time-stat .stat-value { color: var(--secondary); }
+.stat-label { font-size: 12px; font-weight: 600; color: var(--text-medium); text-transform: uppercase; letter-spacing: 0.5px; }
+.performance-msg { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.performance-msg.excellent { color: var(--success); }
+.performance-msg.good { color: var(--secondary-light); }
+.performance-msg.average { color: var(--warning); }
+.performance-msg.needs-work { color: var(--danger); }
+
+.category-breakdown { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.category-breakdown h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+.category-item { margin-bottom: 20px; }
+.category-item:last-child { margin-bottom: 0; }
+.category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.category-name { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+.category-score { font-weight: 700; font-size: 14px; color: var(--text-medium); }
+.category-bar { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+.category-fill { height: 100%; border-radius: 5px; transition: width 1s ease; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+.review-section { background: var(--card-bg); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.review-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; color: var(--text-dark); }
+.review-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.review-filter { padding: 8px 16px; border: 2px solid var(--border); background: white; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; color: var(--text-medium); }
+.review-filter:hover { border-color: var(--primary); color: var(--primary); }
+.review-filter.active { background: var(--primary); border-color: var(--primary); color: white; }
+.review-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; transition: all 0.3s ease; }
+.review-item:hover { box-shadow: var(--shadow); }
+.review-item.wrong-review { border-left: 4px solid var(--danger); }
+.review-item.correct-review { border-left: 4px solid var(--success); }
+.review-item.skipped-review { border-left: 4px solid var(--warning); }
+.review-q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.review-status { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; flex-shrink: 0; }
+.review-status.correct { background: var(--success); }
+.review-status.wrong { background: var(--danger); }
+.review-status.skipped { background: var(--warning); }
+.review-q-text { font-weight: 600; font-size: 15px; color: var(--text-dark); }
+.review-answer { font-size: 14px; color: var(--text-medium); margin-bottom: 8px; }
+.review-answer strong { color: var(--text-dark); }
+.review-explanation { font-size: 14px; color: var(--text-medium); background: var(--bg); padding: 12px; border-radius: 8px; margin-top: 8px; }
+
+.action-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.action-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit; text-decoration: none; }
+.action-btn-primary { background: var(--primary); color: white; }
+.action-btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
+.action-btn-secondary { background: var(--secondary); color: white; }
+.action-btn-secondary:hover { background: var(--secondary-light); transform: translateY(-2px); }
+
+
+    /* Footer */
+    footer {
+        background: var(--secondary);
+        color: white;
+        padding: 50px 20px 20px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-brand img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .footer-brand h3 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #ff7200;
+        margin-bottom: 8px;
+    }
+
+    .footer-brand p {
+        color: rgba(255,255,255,0.7);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-links h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: white;
+    }
+
+    .footer-links ul {
+        list-style: none;
+    }
+
+    .footer-links a {
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 2.2;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+        text-align: center;
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+    }
+
+    .footer-bottom .flag {
+        font-size: 18px;
+        margin-left: 4px;
+    }
+
+    .footer-bottom .designer {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes rotateIn { from { transform: rotate(-180deg); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; } .mobile-menu-btn { display: block; }
+    .quiz-features { grid-template-columns: 1fr; } .score-stats { grid-template-columns: repeat(2, 1fr); }
+    .question-card { padding: 24px 20px; } .question-text { font-size: 16px; }
+    .option { padding: 14px 16px; font-size: 15px; } .timer-container { flex-wrap: wrap; }
+    .navigator-grid { grid-template-columns: repeat(10, 1fr); } .nav-container { height: 60px; }
+    .timer-bar { top: 60px; } .quiz-page, .results-page { padding-top: 80px; }
+    .landing-page { padding-top: 80px; } .score-card { padding: 24px; }
+    .score-circle { width: 130px; height: 130px; } .score-circle::before { width: 105px; height: 105px; }
+    .score-value { font-size: 28px; } .category-breakdown, .review-section { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+    .quiz-nav { flex-direction: column; } .nav-btn { width: 100%; justify-content: center; }
+    .score-stats { grid-template-columns: 1fr 1fr; gap: 8px; } .stat-box { padding: 12px 8px; }
+    .stat-value { font-size: 22px; } .action-buttons { flex-direction: column; }
+    .action-btn { width: 100%; justify-content: center; } .review-filters { justify-content: center; }
+    .navigator-grid { grid-template-columns: repeat(8, 1fr); }
+    .navigator-dot { width: 36px; height: 36px; font-size: 12px; }
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+        <ul class="nav-links">
+             <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html">Dashboard</a></li>
+            <li><a href="phy.html">Physics</a></li>
+            <li><a href="che.html" class="active">Chemistry</a></li>
+            <li><a href="mat.html">Math</a></li>
+            <li><a href="bio.html">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+        <ul class="mobile-nav-links">
+             <li><a href="index.html">Home</a></li>
+            <li><a href="dash.html">Dashboard</a></li>
+            <li><a href="phy.html">Physics</a></li>
+            <li><a href="che.html" class="active">Chemistry</a></li>
+            <li><a href="mat.html">Math</a></li>
+            <li><a href="bio.html">Biology</a></li>
+            <li><a href="com.html">Computer</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="landing-page" id="landingPage">
+    <div class="landing-content">
+        <div class="landing-badge">
+            <i class="fas fa-flask"></i>
+            <span>IOE/CEE Chemistry Preparation</span>
+        </div>
+        <h1>100 MCQ Chemistry Quiz</h1>
+        <p>Physical, Organic, Inorganic Chemistry with detailed step-by-step solutions for entrance exam preparation.</p>
+        <div class="quiz-features">
+            <div class="quiz-feature">
+                <i class="fas fa-list-ol"></i>
+                <span class="feature-count">100</span>
+                <span>Questions</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-clock"></i>
+                <span class="feature-count">60</span>
+                <span>Minutes</span>
+            </div>
+            <div class="quiz-feature">
+                <i class="fas fa-chart-pie"></i>
+                <span class="feature-count">8</span>
+                <span>Categories</span>
+            </div>
+        </div>
+        <button class="start-btn" onclick="startQuiz()">
+            <i class="fas fa-play"></i> Start Quiz
+        </button>
+    </div>
+</div>
+
+<div class="quiz-page" id="quizPage">
+    <div class="timer-bar">
+        <div class="timer-container">
+            <div class="timer-display" id="timerDisplay">
+                <i class="fas fa-clock"></i>
+                <span id="timerText">60:00</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-counter" id="questionCounter">1 / 100</div>
+        </div>
+    </div>
+    <div class="question-navigator">
+        <div class="navigator-title">Question Navigator</div>
+        <div class="navigator-grid" id="navigatorGrid"></div>
+    </div>
+    <div class="question-card" id="questionCard">
+        <div class="question-header">
+            <div class="question-number" id="questionNumber">1</div>
+            <div class="question-category" id="questionCategory">Physical Chemistry</div>
+        </div>
+        <div class="question-text" id="questionText">Loading...</div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="explanation" id="explanation">
+            <div class="explanation-header">
+                <i class="fas fa-lightbulb"></i>
+                <span>Step-by-Step Solution</span>
+            </div>
+            <div class="explanation-text" id="explanationText"></div>
+        </div>
+    </div>
+    <div class="quiz-nav">
+        <button class="nav-btn nav-btn-prev" id="prevBtn" onclick="prevQuestion()" disabled>
+            <i class="fas fa-arrow-left"></i> Previous
+        </button>
+        <button class="nav-btn nav-btn-next" id="nextBtn" onclick="nextQuestion()">
+            Next <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="nav-btn nav-btn-submit" id="submitBtn" onclick="submitQuiz()" style="display:none;">
+            <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+    </div>
+</div>
+
+<div class="results-page" id="resultsPage">
+    <div class="results-container">
+        <div class="results-header">
+            <h1><i class="fas fa-trophy" style="color: var(--primary);"></i> Chemistry Quiz Results</h1>
+            <p>Here is how you performed on the Chemistry Quiz</p>
+        </div>
+        <div class="score-card">
+            <div class="score-circle" id="scoreCircle">
+                <div>
+                    <div class="score-value" id="scoreValue">0</div>
+                    <div class="score-label">/ 100</div>
+                </div>
+            </div>
+            <div class="performance-msg" id="performanceMsg">Keep practicing!</div>
+            <p style="color: var(--text-medium); font-size: 15px;" id="performanceDesc">You are on your way to mastering chemistry.</p>
+            <div class="score-stats">
+                <div class="stat-box correct-stat">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-box wrong-stat">
+                    <div class="stat-value" id="wrongCount">0</div>
+                    <div class="stat-label">Wrong</div>
+                </div>
+                <div class="stat-box skipped-stat">
+                    <div class="stat-value" id="skippedCount">0</div>
+                    <div class="stat-label">Skipped</div>
+                </div>
+                <div class="stat-box time-stat">
+                    <div class="stat-value" id="timeTaken">0:00</div>
+                    <div class="stat-label">Time Used</div>
+                </div>
+            </div>
+        </div>
+        <div class="category-breakdown">
+            <h2><i class="fas fa-chart-bar" style="color: var(--primary); margin-right: 8px;"></i>Category Breakdown</h2>
+            <div id="categoryBreakdown"></div>
+        </div>
+        <div class="review-section">
+            <h2><i class="fas fa-search" style="color: var(--primary); margin-right: 8px;"></i>Review Answers</h2>
+            <div class="review-filters">
+                <button class="review-filter active" onclick="filterReview('all')">All</button>
+                <button class="review-filter" onclick="filterReview('wrong')">Wrong</button>
+                <button class="review-filter" onclick="filterReview('correct')">Correct</button>
+                <button class="review-filter" onclick="filterReview('skipped')">Skipped</button>
+            </div>
+            <div id="reviewContainer"></div>
+        </div>
+        <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="restartQuiz()">
+                <i class="fas fa-redo"></i> Retake Quiz
+            </button>
+            <a href="index.html" class="action-btn action-btn-secondary">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
+                <div>
+                    <h3>Plus 2 Guru</h3>
+                    <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="note.html">Notes</a></li>
+                    <li><a href="labclass.html">Lab Practical</a></li>
+                    <li><a href="modelclass.html">Model Questions</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="blo.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Videos</h4>
+                <ul>
+                    <li><a href="https://youtu.be/6KWJbHNCSGM" target="_blank">Class 11 Nepali</a></li>
+                    <li><a href="https://youtu.be/NWFa-pmpjSs" target="_blank">Class 12 Nepali</a></li>
+                    <li><a href="blo.html">More Content</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        </div>
+    </footer>
+
+<script>
+
+const questions = [
+    // PHYSICAL CHEMISTRY (1-30)
+    {id:1, category:"Physical Chemistry", question:"The number of moles in 22g of CO₂ is:", options:["0.5 mol","0.25 mol","1 mol","2 mol"], correct:0, explanation:"Step 1: Molar mass of CO₂ = 12 + 2(16) = 44 g/mol. Step 2: n = mass/molar mass = 22/44 = 0.5 mol."},
+    {id:2, category:"Physical Chemistry", question:"At STP, 1 mole of any gas occupies:", options:["22.4 L","2.24 L","224 L","11.2 L"], correct:0, explanation:"At Standard Temperature (273K) and Pressure (1 atm), 1 mole of any ideal gas occupies 22.4 L (molar volume)."},
+    {id:3, category:"Physical Chemistry", question:"The gas constant R in SI units is:", options:["8.314 J/(mol·K)","0.0821 L·atm/(mol·K)","1.987 cal/(mol·K)","All of the above"], correct:3, explanation:"R = 8.314 J/(mol·K) = 0.0821 L·atm/(mol·K) = 1.987 cal/(mol·K). All are equivalent values in different units."},
+    {id:4, category:"Physical Chemistry", question:"For an ideal gas, PV = nRT is called:", options:["Boyle's law","Charles's law","Ideal gas equation","Dalton's law"], correct:2, explanation:"PV = nRT is the ideal gas equation combining Boyle's law, Charles's law, and Avogadro's law."},
+    {id:5, category:"Physical Chemistry", question:"The partial pressure of a gas in a mixture is proportional to its:", options:["Molar mass","Mole fraction","Volume","Density"], correct:1, explanation:"Dalton's law: P_i = x_i × P_total, where x_i is the mole fraction of gas i."},
+    {id:6, category:"Physical Chemistry", question:"The van der Waals equation for real gases is:", options:["(P+a/V²)(V-b)=RT","(P+a/V²)(V+b)=RT","PV=nRT","(P-a/V²)(V-b)=RT"], correct:0, explanation:"(P + an²/V²)(V - nb) = nRT. 'a' accounts for intermolecular forces, 'b' for finite molecular volume."},
+    {id:7, category:"Physical Chemistry", question:"The critical temperature is the temperature above which a gas:", options:["Cannot be liquefied","Can be easily liquefied","Behaves ideally","Has zero volume"], correct:0, explanation:"Above critical temperature, a gas cannot be liquefied regardless of pressure applied."},
+    {id:8, category:"Physical Chemistry", question:"The unit of rate constant for a first-order reaction is:", options:["s⁻¹","mol·L⁻¹·s⁻¹","L·mol⁻¹·s⁻¹","mol²·L⁻²·s⁻¹"], correct:0, explanation:"For first-order: k = rate/[A], so units = (mol·L⁻¹·s⁻¹)/(mol·L⁻¹) = s⁻¹."},
+    {id:9, category:"Physical Chemistry", question:"The half-life of a first-order reaction is:", options:["Independent of initial concentration","Proportional to initial concentration","Inversely proportional to initial concentration","Equal to rate constant"], correct:0, explanation:"t½ = ln(2)/k for first-order. It depends only on k, not on initial concentration [A]₀."},
+    {id:10, category:"Physical Chemistry", question:"Activation energy is the minimum energy required for:", options:["Products to form","Reactants to collide","Reactants to form activated complex","Catalyst to work"], correct:2, explanation:"Activation energy (Ea) is the energy barrier that reactants must overcome to form the activated complex (transition state)."},
+    {id:11, category:"Physical Chemistry", question:"A catalyst increases the rate of reaction by:", options:["Increasing activation energy","Decreasing activation energy","Increasing temperature","Changing equilibrium constant"], correct:1, explanation:"Catalyst provides an alternative pathway with lower activation energy, increasing reaction rate without being consumed."},
+    {id:12, category:"Physical Chemistry", question:"For the reaction N₂ + 3H₂ ⇌ 2NH₃, the equilibrium constant Kp is related to Kc by:", options:["Kp = Kc(RT)^Δn","Kp = Kc(RT)^2","Kp = Kc","Kp = Kc/(RT)^2"], correct:0, explanation:"Kp = Kc(RT)^Δn where Δn = moles of gaseous products - moles of gaseous reactants = 2 - 4 = -2. So Kp = Kc(RT)⁻²."},
+    {id:13, category:"Physical Chemistry", question:"Le Chatelier's principle states that if a system at equilibrium is disturbed, the system will:", options:["Move to destroy the disturbance","Move to counteract the disturbance","Remain unchanged","Move to enhance the disturbance"], correct:1, explanation:"The system shifts to counteract (oppose) the disturbance and re-establish equilibrium."},
+    {id:14, category:"Physical Chemistry", question:"The pH of a 0.001 M HCl solution is:", options:["3","2","11","12"], correct:0, explanation:"HCl is strong acid, completely dissociates. [H⁺] = 0.001 = 10⁻³ M. pH = -log[H⁺] = -log(10⁻³) = 3."},
+    {id:15, category:"Physical Chemistry", question:"The pH of pure water at 25°C is:", options:["7","6","8","0"], correct:0, explanation:"At 25°C, Kw = [H⁺][OH⁻] = 10⁻¹⁴. In pure water, [H⁺] = [OH⁻] = 10⁻⁷ M, so pH = 7."},
+    {id:16, category:"Physical Chemistry", question:"A buffer solution resists change in pH upon addition of:", options:["Acid only","Base only","Small amounts of acid or base","Large amounts of acid or base"], correct:2, explanation:"Buffer contains weak acid + its conjugate base (or weak base + its conjugate acid), resisting pH change from small additions of acid or base."},
+    {id:17, category:"Physical Chemistry", question:"The Henderson-Hasselbalch equation is:", options:["pH = pKa + log([A⁻]/[HA])","pH = pKa - log([A⁻]/[HA])","pH = pKa + log([HA]/[A⁻])","pH = pKa + [A⁻]/[HA]"], correct:0, explanation:"pH = pKa + log([base]/[acid]) = pKa + log([A⁻]/[HA]). Used to calculate buffer pH."},
+    {id:18, category:"Physical Chemistry", question:"The solubility product (Ksp) of AgCl is 1.8 × 10⁻¹⁰. Its solubility in mol/L is:", options:["1.34 × 10⁻⁵","1.8 × 10⁻¹⁰","3.6 × 10⁻⁵","√(1.8 × 10⁻¹⁰)"], correct:0, explanation:"For AgCl ⇌ Ag⁺ + Cl⁻, Ksp = s². s = √(1.8 × 10⁻¹⁰) = 1.34 × 10⁻⁵ mol/L."},
+    {id:19, category:"Physical Chemistry", question:"The standard electrode potential of hydrogen electrode is defined as:", options:["0.0 V","1.0 V","-1.0 V","Variable"], correct:0, explanation:"Standard hydrogen electrode (SHE) is the reference electrode with E° = 0.0 V by convention."},
+    {id:20, category:"Physical Chemistry", question:"In an electrochemical cell, oxidation occurs at the:", options:["Cathode","Anode","Salt bridge","External circuit"], correct:1, explanation:"Anode = oxidation (loss of electrons). Cathode = reduction (gain of electrons). Remember: AN OX (Anode Oxidation), RED CAT (Reduction Cathode)."},
+    {id:21, category:"Physical Chemistry", question:"Faraday's first law of electrolysis states that the mass deposited is proportional to:", options:["Current only","Time only","Current × time (charge)","Voltage"], correct:2, explanation:"m = ZIt = ZQ, where Z is electrochemical equivalent, Q is charge passed (current × time)."},
+    {id:22, category:"Physical Chemistry", question:"The unit of molar conductivity is:", options:["S·cm²·mol⁻¹","S·cm·mol⁻¹","Ω·cm²·mol⁻¹","S·m²·mol⁻¹"], correct:0, explanation:"Λm = κ × 1000/M, where κ is conductivity in S·cm⁻¹ and M is molarity. Units: S·cm²·mol⁻¹."},
+    {id:23, category:"Physical Chemistry", question:"Colloidal particles can be separated from crystalloids by:", options:["Filtration","Dialysis","Centrifugation","Distillation"], correct:1, explanation:"Dialysis uses a semipermeable membrane that allows crystalloids to pass but retains colloidal particles."},
+    {id:24, category:"Physical Chemistry", question:"The Tyndall effect is observed in:", options:["True solutions","Colloidal solutions","Suspensions","All of the above"], correct:1, explanation:"Tyndall effect (scattering of light) is characteristic of colloids where particle size is comparable to wavelength of light."},
+    {id:25, category:"Physical Chemistry", question:"Adsorption isotherm for gases on solids at constant temperature is given by:", options:["Freundlich equation","Arrhenius equation","Nernst equation","Bohr equation"], correct:0, explanation:"Freundlich adsorption isotherm: x/m = kp^(1/n), where x/m is mass of gas adsorbed per unit mass of adsorbent."},
+    {id:26, category:"Physical Chemistry", question:"The enthalpy change (ΔH) for an exothermic reaction is:", options:["Positive","Negative","Zero","Infinite"], correct:1, explanation:"Exothermic: heat is released, products have lower enthalpy than reactants, so ΔH < 0 (negative)."},
+    {id:27, category:"Physical Chemistry", question:"For a spontaneous process at constant T and P, ΔG must be:", options:["Positive","Negative","Zero","Any value"], correct:1, explanation:"Spontaneous: ΔG < 0. At equilibrium: ΔG = 0. Non-spontaneous: ΔG > 0."},
+    {id:28, category:"Physical Chemistry", question:"The relation ΔG = ΔH - TΔS was given by:", options:["Boyle","Gibbs","Helmholtz","Arrhenius"], correct:1, explanation:"Gibbs free energy equation: ΔG = ΔH - TΔS. Determines spontaneity at constant T and P."},
+    {id:29, category:"Physical Chemistry", question:"The entropy of a perfect crystal at absolute zero is:", options:["Zero","Positive","Negative","Infinite"], correct:0, explanation:"Third law of thermodynamics: entropy of a perfect crystal at 0 K is zero (perfect order)."},
+    {id:30, category:"Physical Chemistry", question:"The heat of neutralization of a strong acid by a strong base is approximately:", options:["-57.3 kJ/mol","+57.3 kJ/mol","-13.7 kJ/mol","0 kJ/mol"], correct:0, explanation:"H⁺ + OH⁻ → H₂O, ΔH = -57.3 kJ/mol (constant for strong acid-strong base neutralization)."},
+
+    // INORGANIC CHEMISTRY (31-55)
+    {id:31, category:"Inorganic Chemistry", question:"The element with highest electronegativity is:", options:["Oxygen","Fluorine","Nitrogen","Chlorine"], correct:1, explanation:"Fluorine has the highest electronegativity (4.0 on Pauling scale) due to its small size and high effective nuclear charge."},
+    {id:32, category:"Inorganic Chemistry", question:"The most abundant element in Earth's crust is:", options:["Silicon","Oxygen","Aluminum","Iron"], correct:1, explanation:"Oxygen is the most abundant element (~46.6%) in Earth's crust, followed by silicon (~27.7%)."},
+    {id:33, category:"Inorganic Chemistry", question:"The shape of NH₃ molecule is:", options:["Tetrahedral","Trigonal pyramidal","Trigonal planar","Linear"], correct:1, explanation:"NH₃ has 3 bond pairs + 1 lone pair. VSEPR: tetrahedral electron geometry, trigonal pyramidal molecular shape. Bond angle ≈ 107°."},
+    {id:34, category:"Inorganic Chemistry", question:"The hybridization of carbon in CH₄ is:", options:["sp","sp²","sp³","dsp²"], correct:2, explanation:"CH₄ has 4 sigma bonds, no lone pairs. Steric number = 4, so sp³ hybridization with tetrahedral geometry."},
+    {id:35, category:"Inorganic Chemistry", question:"The bond angle in H₂O is approximately:", options:["109.5°","104.5°","120°","180°"], correct:1, explanation:"H₂O has 2 bond pairs + 2 lone pairs. Lone pair-bond pair repulsion > bond pair-bond pair repulsion, compressing angle from 109.5° to ~104.5°."},
+    {id:36, category:"Inorganic Chemistry", question:"The IUPAC name of K₄[Fe(CN)₆] is:", options:["Potassium hexacyanoferrate(II)","Potassium hexacyanoferrate(III)","Potassium ferrocyanide","Both A and C"], correct:3, explanation:"Common name: potassium ferrocyanide. IUPAC: potassium hexacyanoferrate(II). CN⁻ is -1 ligand, 6 × (-1) = -6, so Fe must be +2 to balance with 4K⁺."},
+    {id:37, category:"Inorganic Chemistry", question:"The coordination number of [Co(NH₃)₆]³⁺ is:", options:["3","6","9","12"], correct:1, explanation:"Coordination number = number of donor atoms bonded to central metal ion. 6 NH₃ ligands → coordination number = 6."},
+    {id:38, category:"Inorganic Chemistry", question:"Which of the following is a bidentate ligand?", options:["Cl⁻","NH₃","en (ethylenediamine)","H₂O"], correct:2, explanation:"en (H₂N-CH₂-CH₂-NH₂) has two nitrogen donor atoms, making it a bidentate ligand."},
+    {id:39, category:"Inorganic Chemistry", question:"The color of [Cu(H₂O)₆]²⁺ solution is:", options:["Green","Blue","Red","Colorless"], correct:1, explanation:"[Cu(H₂O)₆]²⁺ appears blue due to d-d transitions. Cu²⁺ has d⁹ configuration with one unpaired electron."},
+    {id:40, category:"Inorganic Chemistry", question:"The oxidation state of Cr in K₂Cr₂O₇ is:", options:["+3","+6","+4","+2"], correct:1, explanation:"2(+1) + 2x + 7(-2) = 0 → 2 + 2x - 14 = 0 → x = +6. Each Cr has oxidation state +6."},
+    {id:41, category:"Inorganic Chemistry", question:"Which group contains only metalloids?", options:["B, Si, Ge, As, Sb","Na, Mg, Al, Si, P","C, N, O, F, Ne","Fe, Co, Ni, Cu, Zn"], correct:0, explanation:"Boron (B), Silicon (Si), Germanium (Ge), Arsenic (As), Antimony (Sb) are all metalloids (properties intermediate between metals and non-metals)."},
+    {id:42, category:"Inorganic Chemistry", question:"The inert pair effect is most prominent in:", options:["Group 13","Group 14","Group 15","Group 16"], correct:0, explanation:"Inert pair effect: reluctance of s-electrons to participate in bonding. Most prominent in Group 13 (Tl⁺ more stable than Tl³⁺)."},
+    {id:43, category:"Inorganic Chemistry", question:"Bleaching powder is prepared by passing chlorine gas over:", options:["Dry slaked lime","Wet slaked lime","Quicklime","Sodium hydroxide"], correct:0, explanation:"Ca(OH)₂ + Cl₂ → CaOCl₂ + H₂O. Dry slaked lime (Ca(OH)₂) is used to prepare bleaching powder (CaOCl₂)."},
+    {id:44, category:"Inorganic Chemistry", question:"The gas liberated when dilute HCl is added to iron sulfide is:", options:["H₂S","SO₂","Cl₂","H₂"], correct:0, explanation:"FeS + 2HCl → FeCl₂ + H₂S↑. Hydrogen sulfide (H₂S) gas with rotten egg smell is liberated."},
+    {id:45, category:"Inorganic Chemistry", question:"Ammonia is manufactured industrially by:", options:["Haber process","Contact process","Solvay process","Ostwald process"], correct:0, explanation:"Haber process: N₂ + 3H₂ ⇌ 2NH₃ at 400-500°C, 200-300 atm with Fe catalyst."},
+    {id:46, category:"Inorganic Chemistry", question:"The noble gas used in MRI scans is:", options:["Helium","Neon","Argon","Xenon"], correct:0, explanation:"Helium is used to cool MRI magnets (superconducting coils). Xenon is used in anesthesia and imaging."},
+    {id:47, category:"Inorganic Chemistry", question:"The strongest acid among the following is:", options:["HClO","HClO₂","HClO₃","HClO₄"], correct:3, explanation:"Acid strength increases with oxidation state of central atom. HClO₄ (perchloric acid, Cl +7) is the strongest common acid."},
+    {id:48, category:"Inorganic Chemistry", question:"The brown ring test is used to detect:", options:["NO₃⁻","NO₂⁻","NH₄⁺","SO₄²⁻"], correct:0, explanation:"Brown ring test: FeSO₄ + conc. H₂SO₄ + NO₃⁻ → brown ring [Fe(H₂O)₅NO]²⁺ at junction, confirming nitrate."},
+    {id:49, category:"Inorganic Chemistry", question:"The lanthanide contraction is caused by:", options:["Poor shielding by 4f electrons","Good shielding by 4f electrons","Increase in atomic number","Decrease in nuclear charge"], correct:0, explanation:"4f electrons shield poorly, causing effective nuclear charge to increase and atomic/ionic radii to decrease across lanthanide series."},
+    {id:50, category:"Inorganic Chemistry", question:"The transition metal ion with maximum unpaired electrons is:", options:["Fe²⁺","Mn²⁺","Cr³⁺","Cu²⁺"], correct:1, explanation:"Mn²⁺: [Ar] 3d⁵ has 5 unpaired electrons (maximum for first transition series). Fe²⁺: 4, Cr³⁺: 3, Cu²⁺: 1."},
+    {id:51, category:"Inorganic Chemistry", question:"The alloy duralumin contains:", options:["Al, Cu, Mg, Mn","Al, Zn, Mg, Cu","Cu, Zn, Sn","Fe, C, Ni, Cr"], correct:0, explanation:"Duralumin = Al (95%) + Cu (4%) + Mg (0.5%) + Mn (0.5%). Used in aircraft due to high strength-to-weight ratio."},
+    {id:52, category:"Inorganic Chemistry", question:"The main ore of aluminum is:", options:["Bauxite","Haematite","Magnetite","Malachite"], correct:0, explanation:"Bauxite (Al₂O₃·2H₂O) is the main ore of aluminum. Haematite = Fe, Malachite = Cu."},
+    {id:53, category:"Inorganic Chemistry", question:"The process of heating ore in absence of air is called:", options:["Roasting","Calcination","Smelting","Bessemerization"], correct:1, explanation:"Calcination: heating ore in limited/no air to remove volatile impurities and convert carbonates/oxides to oxides."},
+    {id:54, category:"Inorganic Chemistry", question:"The flux used in extraction of iron is:", options:["SiO₂","CaCO₃","Al₂O₃","MgO"], correct:1, explanation:"Limestone (CaCO₃) acts as flux in blast furnace. It decomposes to CaO which combines with SiO₂ impurity to form slag (CaSiO₃)."},
+    {id:55, category:"Inorganic Chemistry", question:"The purity of gold is measured in:", options:["Carats","Moles","Grams","Liters"], correct:0, explanation:"24 carat = pure gold (99.9%). 22 carat = 22/24 pure = 91.6% gold. Lower carat = more alloy metals added."},
+
+    // ORGANIC CHEMISTRY (56-80)
+    {id:56, category:"Organic Chemistry", question:"The IUPAC name of CH₃-CH=CH-CH₃ is:", options:["1-butene","2-butene","Butane","Butyne"], correct:1, explanation:"CH₃-CH=CH-CH₃ has 4 carbons with double bond at C-2. Name: but-2-ene or 2-butene."},
+    {id:57, category:"Organic Chemistry", question:"The product of addition of HBr to propene in presence of peroxide follows:", options:["Markovnikov's rule","Anti-Markovnikov's rule","Zaitsev's rule","Hofmann's rule"], correct:1, explanation:"Peroxide effect (Kharasch effect): HBr adds to alkene with anti-Markovnikov orientation in presence of peroxide."},
+    {id:58, category:"Organic Chemistry", question:"The reagent used to distinguish between aldehydes and ketones is:", options:["Tollens' reagent","Fehling's solution","Both A and B","Benedict's solution"], correct:2, explanation:"Aldehydes reduce Tollens' reagent (silver mirror) and Fehling's solution (red Cu₂O). Ketones do not (except α-hydroxy ketones)."},
+    {id:59, category:"Organic Chemistry", question:"The functional group of carboxylic acids is:", options:["-OH","-CHO","-COOH","-COOR"], correct:2, explanation:"-COOH is the carboxyl group, characteristic of carboxylic acids. It contains both carbonyl (C=O) and hydroxyl (-OH) groups."},
+    {id:60, category:"Organic Chemistry", question:"The compound CH₃-CH₂-OH is classified as:", options:["Primary alcohol","Secondary alcohol","Tertiary alcohol","Phenol"], correct:0, explanation:"The carbon bearing -OH is attached to only 1 other carbon (CH₃-). Primary alcohol: -OH on carbon attached to 1 other carbon."},
+    {id:61, category:"Organic Chemistry", question:"The product of dehydration of ethanol with conc. H₂SO₄ at 170°C is:", options:["Ethoxyethane","Ethene","Ethanal","Ethanoic acid"], correct:1, explanation:"CH₃CH₂OH →(conc. H₂SO₄, 170°C)→ CH₂=CH₂ + H₂O. Intramolecular dehydration produces ethene."},
+    {id:62, category:"Organic Chemistry", question:"The Grignard reagent is represented as:", options:["R-Mg-X","R₂Mg","R-Mg-R","MgX₂"], correct:0, explanation:"Grignard reagent: R-Mg-X, where R = alkyl/aryl group, X = halogen. Highly nucleophilic and basic."},
+    {id:63, category:"Organic Chemistry", question:"The reaction of alkyl halide with aqueous KOH gives:", options:["Alkene","Alcohol","Ether","Alkane"], correct:1, explanation:"R-X + KOH(aq) → R-OH + KX. Aqueous KOH causes substitution (hydrolysis), alcoholic KOH causes elimination."},
+    {id:64, category:"Organic Chemistry", question:"The test for unsaturation uses:", options:["Bromine water","Baeyer's reagent","Both A and B","Fehling's solution"], correct:2, explanation:"Both bromine water (decolorization) and Baeyer's reagent (KMnO₄, purple to brown) test for C=C and C≡C bonds."},
+    {id:65, category:"Organic Chemistry", question:"The compound that gives iodoform test is:", options:["CH₃CHO","CH₃CH₂OH","CH₃COCH₃","All of the above"], correct:3, explanation:"Iodoform test: compounds with CH₃-CO- or CH₃-CH(OH)- group. Acetaldehyde, ethanol, and acetone all give positive iodoform test."},
+    {id:66, category:"Organic Chemistry", question:"The electrophile in nitration of benzene is:", options:["NO₂⁺","NO₃⁻","NO₂","NO⁺"], correct:0, explanation:"NO₂⁺ (nitronium ion) is the electrophile generated from HNO₃ + H₂SO₄. It attacks the electron-rich benzene ring."},
+    {id:67, category:"Organic Chemistry", question:"The directing effect of -NH₂ group in electrophilic aromatic substitution is:", options:["Ortho-para directing, activating","Meta directing, activating","Ortho-para directing, deactivating","Meta directing, deactivating"], correct:0, explanation:"-NH₂ is strongly activating (donates electron density) and ortho-para directing via resonance (+R effect)."},
+    {id:68, category:"Organic Chemistry", question:"The Diels-Alder reaction is a:", options:["Addition reaction","Substitution reaction","Elimination reaction","Rearrangement reaction"], correct:0, explanation:"Diels-Alder: [4+2] cycloaddition between a conjugated diene and a dienophile to form a six-membered ring."},
+    {id:69, category:"Organic Chemistry", question:"The most stable carbocation is:", options:["Methyl","Primary","Secondary","Tertiary"], correct:3, explanation:"Tertiary carbocation is most stable due to +I effect and hyperconjugation from three alkyl groups stabilizing the positive charge."},
+    {id:70, category:"Organic Chemistry", question:"The SN1 reaction rate depends on:", options:["Concentration of substrate only","Concentration of nucleophile only","Both substrate and nucleophile","Temperature only"], correct:0, explanation:"SN1: unimolecular nucleophilic substitution. Rate = k[substrate]. Forms carbocation intermediate."},
+    {id:71, category:"Organic Chemistry", question:"The product of hydroboration-oxidation of 1-butene is:", options:["1-butanol","2-butanol","Butanal","Butanoic acid"], correct:0, explanation:"Hydroboration-oxidation: anti-Markovnikov addition of H₂O. 1-butene → 1-butanol (OH adds to less substituted carbon)."},
+    {id:72, category:"Organic Chemistry", question:"The polymer obtained from caprolactam is:", options:["Nylon-6","Nylon-6,6","Terylene","Teflon"], correct:0, explanation:"Caprolactam undergoes ring-opening polymerization to form Nylon-6. Nylon-6,6 comes from adipic acid + hexamethylenediamine."},
+    {id:73, category:"Organic Chemistry", question:"The monomer of natural rubber is:", options:["Isoprene","Chloroprene","Styrene","Vinyl chloride"], correct:0, explanation:"Natural rubber is polyisoprene (2-methyl-1,3-butadiene). cis-1,4-polyisoprene configuration."},
+    {id:74, category:"Organic Chemistry", question:"The peptide bond is formed between:", options:["Two amino acids","Amino acid and sugar","Two nucleotides","Fatty acid and glycerol"], correct:0, explanation:"Peptide bond: -CO-NH- linkage formed by condensation between carboxyl group of one amino acid and amino group of another."},
+    {id:75, category:"Organic Chemistry", question:"The vitamin that prevents scurvy is:", options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], correct:2, explanation:"Vitamin C (ascorbic acid) prevents scurvy. Deficiency causes bleeding gums, poor wound healing."},
+    {id:76, category:"Organic Chemistry", question:"The hormone insulin is a:", options:["Protein","Steroid","Carbohydrate","Lipid"], correct:0, explanation:"Insulin is a peptide hormone (protein) produced by β-cells of pancreas. Regulates blood glucose levels."},
+    {id:77, category:"Organic Chemistry", question:"The enzyme that digests starch is:", options:["Pepsin","Amylase","Lipase","Trypsin"], correct:1, explanation:"Amylase (salivary and pancreatic) hydrolyzes starch to maltose. Pepsin digests proteins, lipase digests fats."},
+    {id:78, category:"Organic Chemistry", question:"The base present in RNA but not in DNA is:", options:["Adenine","Guanine","Uracil","Cytosine"], correct:2, explanation:"RNA contains Uracil (U) instead of Thymine (T). Both have A, G, C. DNA: A, T, G, C. RNA: A, U, G, C."},
+    {id:79, category:"Organic Chemistry", question:"The sugar present in DNA is:", options:["Ribose","Deoxyribose","Glucose","Fructose"], correct:1, explanation:"DNA contains deoxyribose (2'-deoxyribose, lacking OH at C-2). RNA contains ribose."},
+    {id:80, category:"Organic Chemistry", question:"The linkage between nucleotides in DNA is:", options:["Phosphodiester bond","Peptide bond","Glycosidic bond","Hydrogen bond"], correct:0, explanation:"Phosphodiester bond: phosphate group links 3' carbon of one sugar to 5' carbon of next sugar in the backbone."},
+
+    // ENVIRONMENTAL & APPLIED CHEMISTRY (81-100)
+    {id:81, category:"Environmental Chemistry", question:"The pH of acid rain is:", options:["Less than 5.6","Less than 7","Exactly 7","Greater than 7"], correct:0, explanation:"Normal rain pH ≈ 5.6 (due to dissolved CO₂). Acid rain has pH < 5.6, caused by SO₂ and NOx pollution."},
+    {id:82, category:"Environmental Chemistry", question:"The main greenhouse gas responsible for global warming is:", options:["CO₂","CH₄","N₂O","All of the above"], correct:3, explanation:"CO₂ is the main contributor (~76%), but CH₄ (20× more potent) and N₂O (300× more potent) also contribute significantly."},
+    {id:83, category:"Environmental Chemistry", question:"The BOD value of clean water is:", options:["Less than 5 ppm","More than 17 ppm","Between 10-15 ppm","Zero"], correct:0, explanation:"BOD (Biochemical Oxygen Demand): clean water < 5 ppm, polluted water > 17 ppm. Measures organic pollution."},
+    {id:84, category:"Environmental Chemistry", question:"The process of removing hardness by adding lime is:", options:["Clark's process","Permutit process","Calgon process","Ion exchange"], correct:0, explanation:"Clark's process: Ca(OH)₂ removes temporary hardness by precipitating CaCO₃. Ca(HCO₃)₂ + Ca(OH)₂ → 2CaCO₃ + 2H₂O."},
+    {id:85, category:"Environmental Chemistry", question:"The chemical formula of bleaching powder is:", options:["CaOCl₂","CaCl₂","Ca(OCl)₂","Ca(OH)₂"], correct:0, explanation:"Bleaching powder = CaOCl₂ (calcium oxychloride). Contains active chlorine responsible for bleaching and disinfecting action."},
+    {id:86, category:"Environmental Chemistry", question:"The gas responsible for ozone layer depletion is:", options:["CO₂","CFCs","CH₄","N₂"], correct:1, explanation:"CFCs (chlorofluorocarbons) release chlorine atoms in stratosphere that catalytically destroy O₃. Montreal Protocol banned CFCs."},
+    {id:87, category:"Environmental Chemistry", question:"The chemical name of vitamin B₁ is:", options:["Thiamine","Riboflavin","Niacin","Pyridoxine"], correct:0, explanation:"Vitamin B₁ = Thiamine. Deficiency causes beriberi. B₂ = Riboflavin, B₃ = Niacin, B₆ = Pyridoxine."},
+    {id:88, category:"Environmental Chemistry", question:"The antacid used to neutralize stomach acid is:", options:["Mg(OH)₂","NaOH","KOH","CaO"], correct:0, explanation:"Mg(OH)₂ (milk of magnesia) is a mild base used as antacid. Strong bases like NaOH/KOH would damage stomach lining."},
+    {id:89, category:"Environmental Chemistry", question:"The explosive TNT stands for:", options:["Trinitrotoluene","Tetranitrotoluene","Trinitrophenol","Tetranitrophenol"], correct:0, explanation:"TNT = 2,4,6-trinitrotoluene. Widely used explosive. Relatively stable, can be melted and cast safely."},
+    {id:90, category:"Environmental Chemistry", question:"The dye used in titration with KMnO₄ is:", options:["Phenolphthalein","Methyl orange","No external indicator needed","Starch"], correct:2, explanation:"KMnO₄ acts as self-indicator. In acidic medium, it is purple; at endpoint, excess drop gives pale pink color persisting for 30 seconds."},
+    {id:91, category:"Environmental Chemistry", question:"The chemical used in cloud seeding is:", options:["AgI","NaCl","KCl","CaCl₂"], correct:0, explanation:"Silver iodide (AgI) has crystal structure similar to ice, used in cloud seeding to induce precipitation."},
+    {id:92, category:"Environmental Chemistry", question:"The process of coating iron with zinc is called:", options:["Galvanization","Electroplating","Anodizing","Painting"], correct:0, explanation:"Galvanization: dipping iron in molten zinc or electroplating with zinc. Zinc sacrificially protects iron from rusting."},
+    {id:93, category:"Environmental Chemistry", question:"The noble gas used in filling balloons is:", options:["Helium","Neon","Argon","Krypton"], correct:0, explanation:"Helium is used in balloons (non-flammable, lighter than air). Hydrogen is lighter but dangerously flammable."},
+    {id:94, category:"Environmental Chemistry", question:"The chemical formula of plaster of Paris is:", options:["CaSO₄·½H₂O","CaSO₄·2H₂O","CaSO₄","Ca(OH)₂"], correct:0, explanation:"Plaster of Paris = CaSO₄·½H₂O (calcium sulfate hemihydrate). Sets hard when mixed with water: CaSO₄·½H₂O + 1½H₂O → CaSO₄·2H₂O."},
+    {id:95, category:"Environmental Chemistry", question:"The reagent used to test for chloride ions is:", options:["AgNO₃","BaCl₂","NaOH","HCl"], correct:0, explanation:"AgNO₃ + Cl⁻ → AgCl↓ (white precipitate). AgCl is insoluble in dilute HNO₃ but soluble in NH₃."},
+    {id:96, category:"Environmental Chemistry", question:"The chemical name of aspirin is:", options:["Acetylsalicylic acid","Methyl salicylate","Salicylic acid","Benzoic acid"], correct:0, explanation:"Aspirin = acetylsalicylic acid. Formed by acetylation of salicylic acid. Used as analgesic, antipyretic, anti-inflammatory."},
+    {id:97, category:"Environmental Chemistry", question:"The polymer used in making non-stick cookware is:", options:["Teflon","PVC","Bakelite","Nylon"], correct:0, explanation:"Teflon = polytetrafluoroethylene (PTFE). Highly resistant to heat and chemicals, low friction coefficient."},
+    {id:98, category:"Environmental Chemistry", question:"The compound responsible for the green color of leaves is:", options:["Chlorophyll","Carotene","Xanthophyll","Anthocyanin"], correct:0, explanation:"Chlorophyll (Mg-porphyrin complex) absorbs red and blue light, reflecting green. Essential for photosynthesis."},
+    {id:99, category:"Environmental Chemistry", question:"The process of converting vegetable oil to soap is:", options:["Saponification","Esterification","Fermentation","Hydrogenation"], correct:0, explanation:"Saponification: alkaline hydrolysis of fats/oils (triglycerides) with NaOH/KOH to produce soap (fatty acid salts) and glycerol."},
+    {id:100, category:"Environmental Chemistry", question:"The chemical formula of washing soda is:", options:["Na₂CO₃·10H₂O","NaHCO₃","Na₂CO₃","NaOH"], correct:0, explanation:"Washing soda = Na₂CO₃·10H₂O (sodium carbonate decahydrate). Used in laundry, glass manufacturing, water softening."}
+];
+
+let currentQuestion = 0;
+let answers = new Array(100).fill(null);
+let timeRemaining = 3600;
+let timerInterval = null;
+let startTime = null;
+let quizSubmitted = false;
+
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+function startQuiz() {
+    document.getElementById('landingPage').style.display = 'none';
+    document.getElementById('quizPage').classList.add('active');
+    startTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+    renderNavigator();
+    renderQuestion();
+}
+
+function updateTimer() {
+    timeRemaining--;
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+    document.getElementById('timerText').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const timerDisplay = document.getElementById('timerDisplay');
+    if (timeRemaining <= 300) timerDisplay.classList.add('warning');
+    if (timeRemaining <= 0) { clearInterval(timerInterval); submitQuiz(); }
+}
+
+function renderNavigator() {
+    const grid = document.getElementById('navigatorGrid');
+    grid.innerHTML = '';
+    for (let i = 0; i < 100; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'navigator-dot';
+        dot.textContent = i + 1;
+        if (i === currentQuestion) dot.classList.add('active', 'current');
+        if (answers[i] !== null) dot.classList.add('answered');
+        dot.onclick = () => goToQuestion(i);
+        grid.appendChild(dot);
+    }
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById('questionNumber').textContent = q.id;
+    document.getElementById('questionCategory').textContent = q.category;
+    document.getElementById('questionText').textContent = q.question;
+    document.getElementById('questionCounter').textContent = `${q.id} / 100`;
+    const progress = ((currentQuestion + 1) / 100) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+
+    const optionsGrid = document.getElementById('optionsGrid');
+    optionsGrid.innerHTML = '';
+    const letters = ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, idx) => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        if (answers[currentQuestion] === idx) option.classList.add('selected');
+        if (quizSubmitted) {
+            option.classList.add('disabled');
+            if (idx === q.correct) option.classList.add('correct');
+            else if (answers[currentQuestion] === idx && idx !== q.correct) option.classList.add('wrong');
+        }
+        option.innerHTML = `<div class="option-letter">${letters[idx]}</div><div>${opt}</div>`;
+        option.onclick = () => selectOption(idx);
+        optionsGrid.appendChild(option);
+    });
+
+    const explanation = document.getElementById('explanation');
+    if (quizSubmitted) {
+        explanation.classList.add('show');
+        document.getElementById('explanationText').textContent = q.explanation;
+    } else {
+        explanation.classList.remove('show');
+    }
+
+    document.getElementById('prevBtn').disabled = currentQuestion === 0;
+    if (currentQuestion === 99) {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'inline-flex';
+    } else {
+        document.getElementById('nextBtn').style.display = 'inline-flex';
+        document.getElementById('submitBtn').style.display = 'none';
+    }
+    renderNavigator();
+}
+
+function selectOption(index) {
+    if (quizSubmitted) return;
+    answers[currentQuestion] = index;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (currentQuestion < 99) { currentQuestion++; renderQuestion(); }
+}
+function prevQuestion() {
+    if (currentQuestion > 0) { currentQuestion--; renderQuestion(); }
+}
+function goToQuestion(index) {
+    currentQuestion = index;
+    renderQuestion();
+}
+
+function submitQuiz() {
+    if (quizSubmitted) return;
+    const unanswered = answers.filter(a => a === null).length;
+    if (unanswered > 0) {
+        if (!confirm(`You have ${unanswered} unanswered questions. Submit anyway?`)) return;
+    }
+    quizSubmitted = true;
+    clearInterval(timerInterval);
+    document.getElementById('quizPage').classList.remove('active');
+    document.getElementById('resultsPage').classList.add('active');
+    renderResults();
+}
+
+function renderResults() {
+    let correct = 0, wrong = 0, skipped = 0;
+    const categoryStats = {};
+    questions.forEach((q, i) => {
+        if (!categoryStats[q.category]) categoryStats[q.category] = { total: 0, correct: 0 };
+        categoryStats[q.category].total++;
+        if (answers[i] === null) skipped++;
+        else if (answers[i] === q.correct) { correct++; categoryStats[q.category].correct++; }
+        else wrong++;
+    });
+
+    const scorePercent = (correct / 100) * 100;
+    document.getElementById('scoreCircle').style.setProperty('--score-percent', `${scorePercent}%`);
+    document.getElementById('scoreValue').textContent = correct;
+
+    const msgEl = document.getElementById('performanceMsg');
+    const descEl = document.getElementById('performanceDesc');
+    if (correct >= 90) {
+        msgEl.textContent = 'Outstanding! 🎉'; msgEl.className = 'performance-msg excellent';
+        descEl.textContent = 'You have mastered chemistry at an exceptional level!';
+    } else if (correct >= 75) {
+        msgEl.textContent = 'Great job! 👏'; msgEl.className = 'performance-msg good';
+        descEl.textContent = 'You have a strong grasp of chemistry concepts.';
+    } else if (correct >= 50) {
+        msgEl.textContent = 'Good effort! 💪'; msgEl.className = 'performance-msg average';
+        descEl.textContent = 'Keep practicing to strengthen your understanding.';
+    } else {
+        msgEl.textContent = 'Keep practicing! 📚'; msgEl.className = 'performance-msg needs-work';
+        descEl.textContent = 'Review the concepts and try again to improve your score.';
+    }
+
+    document.getElementById('correctCount').textContent = correct;
+    document.getElementById('wrongCount').textContent = wrong;
+    document.getElementById('skippedCount').textContent = skipped;
+
+    const timeUsed = 3600 - timeRemaining;
+    const mins = Math.floor(timeUsed / 60);
+    const secs = timeUsed % 60;
+    document.getElementById('timeTaken').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    const catContainer = document.getElementById('categoryBreakdown');
+    catContainer.innerHTML = '';
+    Object.entries(categoryStats).forEach(([cat, stats]) => {
+        const pct = (stats.correct / stats.total) * 100;
+        const item = document.createElement('div');
+        item.className = 'category-item';
+        item.innerHTML = `
+            <div class="category-header">
+                <span class="category-name">${cat}</span>
+                <span class="category-score">${stats.correct}/${stats.total} (${Math.round(pct)}%)</span>
+            </div>
+            <div class="category-bar">
+                <div class="category-fill" style="width: ${pct}%"></div>
+            </div>`;
+        catContainer.appendChild(item);
+    });
+    renderReview('all');
+}
+
+function filterReview(type) {
+    document.querySelectorAll('.review-filter').forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+    renderReview(type);
+}
+
+function renderReview(filter) {
+    const container = document.getElementById('reviewContainer');
+    container.innerHTML = '';
+    questions.forEach((q, i) => {
+        let status = '';
+        if (answers[i] === null) status = 'skipped';
+        else if (answers[i] === q.correct) status = 'correct';
+        else status = 'wrong';
+        if (filter !== 'all' && filter !== status) return;
+
+        const item = document.createElement('div');
+        item.className = `review-item ${status}-review`;
+        const icon = status === 'correct' ? 'fa-check' : status === 'wrong' ? 'fa-times' : 'fa-minus';
+        const yourAnswer = answers[i] !== null ? q.options[answers[i]] : 'Skipped';
+        const correctAnswer = q.options[q.correct];
+
+        item.innerHTML = `
+            <div class="review-q-header">
+                <div class="review-status ${status}"><i class="fas ${icon}"></i></div>
+                <div class="review-q-text">Q${q.id}: ${q.question}</div>
+            </div>
+            <div class="review-answer">
+                <strong>Your answer:</strong> ${yourAnswer}<br>
+                <strong>Correct answer:</strong> ${correctAnswer}
+            </div>
+            <div class="review-explanation">${q.explanation}</div>`;
+        container.appendChild(item);
+    });
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    answers = new Array(100).fill(null);
+    timeRemaining = 3600;
+    quizSubmitted = false;
+    startTime = null;
+    document.getElementById('resultsPage').classList.remove('active');
+    document.getElementById('landingPage').style.display = 'flex';
+    document.getElementById('timerDisplay').classList.remove('warning');
+    document.getElementById('timerText').textContent = '60:00';
+}
+
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+    else navbar.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.1)';
+});
+</script>
+</body>
+</html>
