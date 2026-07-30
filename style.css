@@ -789,17 +789,9 @@
     transition: opacity 0.5s ease;
 }
 
-.mouse {
-    width: 24px;
-    height: 44px;
-    border: 2px solid #00ff2f;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    padding-top: 6px;
-}
 
-.wheel {
+
+.scroll {
     width: 6px;
     height: 10px;
     background: orange;
@@ -842,13 +834,6 @@
     }
 }
     
-
-
-
-
-
-
-
 
 
 /* Bottom Banner */
@@ -904,3 +889,35 @@
 
 
 
+
+
+    .text-3d{
+    font-size:70px;
+    font-weight:900;
+    color:#00ffff;
+    text-shadow:
+        0 0 5px #00ffff,
+        0 0 15px #00ffff,
+        0 0 30px #00ffff,
+        2px 2px 5px #0066ff,
+        4px 4px 12px rgba(0,0,0,.5);
+}
+
+
+.rainbow3d{
+    font-size:70px;
+    font-weight:900;
+    color:#fff;
+    text-shadow:
+        2px 2px #999,
+        4px 4px #666,
+        6px 6px #333,
+        8px 8px 15px rgba(0,0,0,.5);
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-15px);
+    }
+}
