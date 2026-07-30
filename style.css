@@ -173,7 +173,7 @@
     }
 
     .hero h1 {
-        font-size: clamp(32px, 5vw, 56px);
+        font-size: clamp(32px, 5vw, 40px);
         font-weight: 800;
         color: white;
         line-height: 1.2;
