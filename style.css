@@ -173,7 +173,7 @@
     }
 
     .hero h1 {
-        font-size: clamp(32px, 5vw, 40px);
+        font-size: clamp(32px, 5vw, 56px);
         font-weight: 800;
         color: white;
         line-height: 1.2;
@@ -733,6 +733,41 @@
             aspect-ratio: 16/9;
         }
     }
+
+
+ @media (max-width: 412px) {
+        .hero h1 {
+            font-size: 18px;
+        }
+        .hero-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        .videos-grid {
+            grid-template-columns: 1fr;
+        }
+        .section-badge {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+        .video-thumbnail {
+            aspect-ratio: 16/9;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
