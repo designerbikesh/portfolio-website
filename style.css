@@ -173,7 +173,7 @@
     }
 
     .hero h1 {
-        font-size: clamp(32px, 5vw, 48px);
+        font-size: clamp(32px, 5vw, 56px);
         font-weight: 800;
         color: white;
         line-height: 1.2;
@@ -712,7 +712,7 @@
 
     @media (max-width: 480px) {
         .hero h1 {
-            font-size: 28px;
+            font-size: 24px;
         }
         .hero-buttons {
             flex-direction: column;
