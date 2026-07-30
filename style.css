@@ -737,7 +737,7 @@
 
  @media (max-width: 412px) {
         .hero h1 {
-            font-size: 18px;
+            font-size: 12px;
         }
         .hero-buttons {
             flex-direction: column;
