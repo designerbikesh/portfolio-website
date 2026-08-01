@@ -396,6 +396,43 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
     }
 
 
+/* Video Container - RESPONSIVE */
+.video-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: var(--radius-sm);
+}
+
+
+
+
+
+
+
+
+
 
 </style>
 </head>
@@ -466,7 +503,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 <!-- Video Container - Responsive -->
 <div class="video-container">
     <div class="video-wrapper">
-      <iframe width="1012" height="569" src="https://www.youtube.com/embed/WlijKur2nHI" title="Class-12 Gorkhe(Story)| Summary |Nepali|" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe  src="https://www.youtube.com/embed/WlijKur2nHI" title="Class-12 Gorkhe(Story)| Summary |Nepali|" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </div>
 
