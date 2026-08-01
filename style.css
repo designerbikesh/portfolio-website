@@ -712,7 +712,7 @@
 
     @media (max-width: 480px) {
         .hero h1 {
-            font-size: 26px;
+            font-size: 24px;
         }
         .hero-buttons {
             flex-direction: column;
@@ -737,7 +737,7 @@
 
  @media (max-width: 412px) {
         .hero h1 {
-            font-size: 26px;
+            font-size: 24px;
         }
         .hero-buttons {
             flex-direction: column;
