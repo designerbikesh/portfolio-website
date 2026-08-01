@@ -288,6 +288,53 @@ body {
     gap: 20px;
 }
 
+.bikesh-card {
+  background-image:url("bikesh1.png.jpeg"); /* Your image path */
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: all 0.4s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+      background-size:cover;
+       object-fit: cover;  /* Crop to fill without distortion */
+    display: block;
+      width: 100%;
+    height: 220px;  
+  
+}
+   /* bikesh hover effect */
+
+
+
+
+.bikesh-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary), var(--secondary-light));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+}
+
+.bikesh-card:hover::before {
+    transform: scaleY(1);
+}
+
+.bikesh-card:hover {
+    transform: translateX(8px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 114, 0, 0.2);
+}
+
+
+
+
 .info-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -968,6 +1015,17 @@ footer {
     <div class="contact-grid">
         <!-- Contact Info -->
         <div class="contact-info">
+
+ <div class="bikesh-card">
+                <div class="">
+                    <i class=""></i>
+                </div>
+                <h3></h3>
+                <p><a href="mailto:plus2guru1@gmail.com"></a></p>
+                <p style="margin-top: 4px; font-size: 0.85rem;"></p>
+            </div>
+
+
             <div class="info-card">
                 <div class="info-icon">
                     <i class="fas fa-envelope"></i>
