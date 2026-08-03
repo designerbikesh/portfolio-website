@@ -40,20 +40,6 @@
         overflow-x: hidden;
     }
 
-    
-    /* Scroll Progress Bar */
-.progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-    z-index: 10001;
-    width: 0%;
-    transition: width 0.1s linear;
-}
-
-
     /* Navigation */
     .navbar {
         position: fixed;
@@ -155,7 +141,7 @@
         margin: 0 auto 32px;
     }
 
-    /* Class Cards Section */
+    /* Subject Cards Section */
     .section {
         padding: 60px 20px;
         max-width: 1200px;
@@ -176,18 +162,15 @@
         font-size: 16px;
     }
 
-
     .cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 24px;
-        max-width: 800px;
-        margin: 0 auto;
     }
-    .class-card {
+    .subject-card {
         background: var(--card-bg);
         border-radius: var(--radius);
-        padding: 40px 32px;
+        padding: 32px;
         text-align: center;
         box-shadow: var(--shadow);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -195,7 +178,7 @@
         position: relative;
         overflow: hidden;
     }
-    .class-card::before {
+    .subject-card::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
@@ -204,12 +187,12 @@
         transform: scaleX(0);
         transition: transform 0.4s ease;
     }
-    .class-card:hover::before { transform: scaleX(1); }
-    .class-card:hover {
+    .subject-card:hover::before { transform: scaleX(1); }
+    .subject-card:hover {
         transform: translateY(-8px);
         box-shadow: var(--shadow-lg);
     }
-    .class-icon {
+    .subject-icon {
         width: 70px;
         height: 70px;
         border-radius: 18px;
@@ -220,52 +203,46 @@
         font-size: 28px;
         transition: transform 0.3s ease;
     }
-    .class-card:hover .class-icon { transform: scale(1.1) rotate(5deg); }
-    .class-11 .class-icon { background: #dbeafe; color: #2563eb; }
-    .class-12 .class-icon { background: #fce7f3; color: #db2777; }
-    .class-card h3 {
-        font-size: 24px;
+    .subject-card:hover .subject-icon { transform: scale(1.1) rotate(5deg); }
+    .physics .subject-icon { background: #fef3c7; color: #d97706; }
+    .chemistry .subject-icon { background: #dbeafe; color: #2563eb; }
+    .math .subject-icon { background: #fce7f3; color: #db2777; }
+    .biology .subject-icon { background: #d1fae5; color: #059669; }
+    .subject-card h3 {
+        font-size: 22px;
         font-weight: 700;
         margin-bottom: 8px;
         color: var(--text-dark);
     }
-    .class-card p {
+    .subject-card p {
         color: var(--text-light);
         font-size: 14px;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
-    .class-btn {
+    .subject-btn {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 12px 32px;
-        background: var(--primary);
-        color: white;
-        border-radius: var(--radius-sm);
+        gap: 6px;
+        padding: 10px 24px;
+        background: var(--bg);
+        color: var(--primary);
+        border-radius: 8px;
         text-decoration: none;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 14px;
         transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        font-family: inherit;
+        border: 1px solid var(--border);
     }
-    .class-btn:hover {
-        background: var(--primary-dark);
+    .subject-btn:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
         transform: translateX(4px);
-        box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
     }
-    .class-btn i { font-size: 14px; }
 
     /* Features Section */
     .features {
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-        
+        background: white;
         padding: 80px 20px;
     }
     .features-grid {
@@ -282,18 +259,6 @@
         transition: all 0.3s ease;
         text-align: center;
     }
-
-.section-header x {
-        color: rgb(3, 253, 174);
-        font-size: 15px;
-        line-height: 1.6;
-    }
-    .section-header h2 {
-        color: whitesmoke;
-
-    }
-
-
     .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
     .feature-icon {
         width: 60px; height: 60px;
@@ -381,39 +346,6 @@
         color: var(--text-dark);
     }
 
-    /* Back to Top Button */
-.back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: var(--primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    box-shadow: 0 5px 20px rgba(255, 114, 0, 0.3);
-    z-index: 999;
-    border: none;
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-to-top:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 114, 0, 0.4);
-}
-
     /* Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -426,22 +358,20 @@
         .mobile-menu-btn { display: block; }
         .hero { padding: 120px 16px 60px; }
         .section { padding: 40px 16px; }
-        .cards-grid { grid-template-columns: 1fr; }
+        .cards-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
         .features { padding: 60px 16px; }
         .features-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
         .hero h1 { font-size: 26px; }
-        .class-card { padding: 28px 20px; }
-        .class-icon { width: 60px; height: 60px; font-size: 24px; }
-        .class-card h3 { font-size: 20px; }
+        .cards-grid { grid-template-columns: 1fr; }
+        .subject-card { padding: 24px; }
+        .subject-icon { width: 60px; height: 60px; font-size: 24px; }
+        .subject-card h3 { font-size: 20px; }
     }
-    
 </style>
 </head>
 <body>
-     <div class="progress-bar" id="progressBar"></div>
-
 
     <!-- Navigation -->
     <nav class="navbar">
@@ -452,9 +382,9 @@
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="note.html" class="active">Notes</a></li>
+                <li><a href="note.html"  class="active">Notes</a></li>
                 <li><a href="labclass.html">Lab Practical</a></li>
-                <li><a href="modelclass.html" >Model Questions</a></li>
+                <li><a href="modelclass.html">Model Questions</a></li>
                 <li><a href="past1.html">Past Papers</a></li>
                 <li><a href="blo.html">Blog</a></li>
                 <li><a href="about.html">About</a></li>
@@ -486,32 +416,43 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-clipboard-list"></i>
-                <span>Subjective Note</span>
+                <span>Class 12 Subject Notes</span>
             </div>
-            <h1>"Notes That Make  <span style="color: #ffd700;">Learning Easy"</span></h1>
-            <p>Subject Notes • Exam Preparation for +2 Students</p>
+           <h1>"Notes That Make  <span style="color: #ffd700;">Learning Easy"</span></h1>
+             <p>Subject Notes • Exam Preparation for +2 Students</p>
         </div>
     </section>
 
-    <!-- Class Selection -->
+    <!-- Subject Cards -->
     <section class="section">
         <div class="section-header">
-            <h1>Choose Your Class</h1>
-            <p>Select your class to access Subjective Notes</p>
+            <h2>Choose Your Subject</h2>
+            <p>Select a subject to access Subject Notes</p>
         </div>
         <div class="cards-grid">
-            <div class="class-card class-11">
-                <div class="class-icon"><i class="fas fa-book"></i></div>
-                <h3>Class 11</h3>
-                <p>Simplifying learning with smart notes and quality education resources.</p>
-                <a href="notesubject.html" class="class-btn"><i class="fas fa-arrow-right"></i> Click Here</a>
+            <div class="subject-card physics">
+                <div class="subject-icon"><i class="fas fa-atom"></i></div>
+                <h3>Physics</h3>
+                <p>Notes with solutions for Physics</p>
+                <a href="notephysics12.html" class="subject-btn">Start Learning <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="class-card class-12">
-                <div class="class-icon"><i class="fas fa-graduation-cap"></i></div>
-                <h3>Class 12</h3>
-                <p>Your trusted source for quality notes, study materials, and board exam preparation.</p>
-                <a href="notesubject12.html" class="class-btn"><i class="fas fa-arrow-right"></i> Click Here</a>
-               
+            <div class="subject-card chemistry">
+                <div class="subject-icon"><i class="fas fa-flask"></i></div>
+                <h3>Chemistry</h3>
+                <p>Notes with solutions for Chemistry</p>
+                <a href="" class="subject-btn" onclick="alert('Comming Soon !')">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="subject-card math">
+                <div class="subject-icon"><i class="fas fa-square-root-alt"></i></div>
+                <h3>Mathematics</h3>
+                <p>Notes with solutions for Mathematics</p>
+                <a href="" class="subject-btn" onclick="alert('Comming Soon !')">Start Learning <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="subject-card biology">
+                <div class="subject-icon"><i class="fas fa-dna"></i></div>
+                <h3>Biology</h3>
+                <p>Notes with solutions for Biology</p>
+                <a href="" class="subject-btn" onclick="alert('Comming Soon !')">Start Learning <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -585,11 +526,12 @@
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Classes</h4>
+                <h4>Subjects</h4>
                 <ul>
-                    <li><a href="notesubject.html">Class 11 Notes</a></li>
-                    <li><a href="#">Class 12 Notes</a></li>
-                    <li><a href="past1.html">Past Papers</a></li>
+                    <li><a href="modelphysics.html">Physics</a></li>
+                    <li><a href="modelchemistry.html">Chemistry</a></li>
+                    <li><a href="modelmath.html">Mathematics</a></li>
+                    <li><a href="modelbiology.html">Biology</a></li>
                 </ul>
             </div>
         </div>
@@ -597,11 +539,6 @@
             <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
         </div>
     </footer>
-
-     <!-- Back to Top Button -->
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
-</button>
 
     <script>
         function toggleMobileNav() {
@@ -632,35 +569,12 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.class-card, .feature-card').forEach((el, index) => {
+        document.querySelectorAll('.subject-card, .feature-card').forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = `all 0.6s ease ${index * 0.1}s`;
             observer.observe(el);
         });
-
-        // Scroll Progress Bar
-window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    document.getElementById('progressBar').style.width = scrolled + '%';
-});
-
- // Back to Top Button
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-});
-
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
     </script>
 </body>
 </html>
