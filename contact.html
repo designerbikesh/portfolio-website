@@ -3,960 +3,445 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plus 2 Guru </title>
-<!-- Favicon -->
+<title>Plus 2 Guru - Contact</title>
 <link rel="icon" type="image/png" href="favicon.png.png">
 <link rel="apple-touch-icon" href="favicon.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
-    --primary: #ff7200;
-    --primary-dark: #e56500;
-    --secondary: #1e3a8a;
-    --secondary-light: #2563eb;
-    --accent: #08dcd1;
-    --accent-hover: #06b8b0;
-    --bg: #f4f7ff;
-    --card-bg: #ffffff;
-    --text-dark: #1a1a2e;
-    --text-medium: #4a5568;
-    --text-light: #718096;
-    --border: #e2e8f0;
+    --primary: #ff7200; --primary-dark: #e56500; --secondary: #1e3a8a; --secondary-light: #2563eb;
+    --accent: #08dcd1; --accent-hover: #06b8b0; --bg: #f4f7ff; --card-bg: #ffffff;
+    --text-dark: #1a1a2e; --text-medium: #4a5568; --text-light: #718096; --border: #e2e8f0;
     --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
     --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-    --radius: 16px;
-    --radius-sm: 12px;
+    --radius: 16px; --radius-sm: 12px;
+    --danger: #e53e3e; --danger-light: #fed7d7; --success: #38a169; --success-light: #c6f6d5;
+    --warning: #d69e2e; --warning-light: #fefcbf;
 }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text-dark);
-    overflow-x: hidden;
-    line-height: 1.6;
+    background: var(--bg); color: var(--text-dark); overflow-x: hidden; line-height: 1.6;
 }
-
-/* Scroll Progress Bar */
 .progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
+    position: fixed; top: 0; left: 0; height: 3px;
     background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-    z-index: 10001;
-    width: 0%;
-    transition: width 0.1s linear;
+    z-index: 10001; width: 0%; transition: width 0.1s linear;
 }
-
-/* Navigation - Exact from about.html */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 1000;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); z-index: 1000; box-shadow: var(--shadow); transition: all 0.3s ease;
 }
-
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 70px;
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between; height: 70px;
 }
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-}
-
-.logo img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 8px;
-}
-
-.logo-text {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--primary);
-    letter-spacing: -0.5px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 8px;
-    list-style: none;
-}
-
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+.logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
 .nav-links a {
-    text-decoration: none;
-    color: var(--text-medium);
-    font-weight: 600;
-    font-size: 14px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    position: relative;
+    text-decoration: none; color: var(--text-medium); font-weight: 600; font-size: 14px;
+    padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; position: relative;
 }
-
-.nav-links a:hover {
-    color: var(--primary);
-    background: rgba(255, 114, 0, 0.1);
+.nav-links a:hover { color: var(--primary); background: rgba(255,114,0,0.1); }
+.nav-links a.active { color: var(--primary); background: rgba(255,114,0,0.15); }
+.admin-nav-btn {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light)) !important;
+    color: white !important; padding: 8px 18px !important; border-radius: 50px !important;
+    font-size: 13px !important; margin-left: 8px;
 }
-
-.nav-links a.active {
-    color: var(--primary);
-    background: rgba(255, 114, 0, 0.15);
+.admin-nav-btn:hover {
+    background: linear-gradient(135deg, var(--secondary-light), var(--secondary)) !important;
+    color: white !important; transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(30,58,138,0.3);
 }
-
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: var(--text-dark);
-    cursor: pointer;
-    padding: 8px;
-}
-
-/* Mobile Navigation */
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-dark); cursor: pointer; padding: 8px; }
 .mobile-nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
-    backdrop-filter: blur(4px);
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5); z-index: 999; backdrop-filter: blur(4px);
 }
-
-.mobile-nav.active {
-    display: block;
-}
-
+.mobile-nav.active { display: block; }
 .mobile-nav-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 280px;
-    height: 100%;
-    background: white;
-    padding: 80px 24px 24px;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
+    position: absolute; top: 0; right: 0; width: 280px; height: 100%;
+    background: white; padding: 80px 24px 24px;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease;
 }
-
-.mobile-nav.active .mobile-nav-content {
-    transform: translateX(0);
-}
-
-.mobile-nav-links {
-    list-style: none;
-}
-
+.mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+.mobile-nav-links { list-style: none; }
 .mobile-nav-links a {
-    display: block;
-    padding: 14px 0;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    border-bottom: 1px solid var(--border);
-    transition: color 0.3s ease;
+    display: block; padding: 14px 0; color: var(--text-dark); text-decoration: none;
+    font-weight: 600; font-size: 16px; border-bottom: 1px solid var(--border); transition: color 0.3s ease;
 }
-
-.mobile-nav-links a:hover,
-.mobile-nav-links a.active {
-    color: var(--primary);
-}
-
-.close-mobile-nav {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: var(--text-dark);
-}
-
-/* Hero Section */
+.mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+.close-mobile-nav { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-dark); }
 .hero {
-    padding: 140px 20px 80px;
-    text-align: center;
+    padding: 140px 20px 80px; text-align: center;
     background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
 }
-
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     opacity: 0.5;
 }
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
 .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
-    padding: 8px 20px;
-    border-radius: 50px;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 24px;
-    border: 1px solid rgba(255,255,255,0.3);
-    animation: fadeInUp 1s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+    padding: 8px 20px; border-radius: 50px; color: white; font-size: 14px; font-weight: 500;
+    margin-bottom: 24px; border: 1px solid rgba(255,255,255,0.3); animation: fadeInUp 1s ease;
 }
-
-.hero h1 {
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 800;
-    color: white;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    animation: fadeInUp 1s ease 0.2s both;
-}
-
-.hero-subtitle {
-    font-size: clamp(18px, 3vw, 20px);
-    color: rgba(255,255,255,0.9);
-    font-weight: 500;
-    margin-bottom: 32px;
-    animation: fadeInUp 1s ease 0.4s both;
-}
-
-/* Contact Section */
-.contact-section {
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 40px;
-    align-items: start;
-}
-
-/* Contact Info Cards */
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
+.hero h1 { font-size: clamp(32px,5vw,56px); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); animation: fadeInUp 1s ease 0.2s both; }
+.hero-subtitle { font-size: clamp(18px,3vw,20px); color: rgba(255,255,255,0.9); font-weight: 500; margin-bottom: 32px; animation: fadeInUp 1s ease 0.4s both; }
+.contact-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 20px; }
 .bikesh-card {
-  background-image:url("bikesh.png.jpeg"); /* Your image path */
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    transition: all 0.4s ease;
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
-      background-size:cover;
-       object-fit: cover;  /* Crop to fill without distortion */
-    display: block;
-      width: 100%;
-    height: 220px;  
-  
+    background-image: url("bikesh.png.jpeg"); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; transition: all 0.4s ease; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    background-size: cover; object-fit: cover; display: block; width: 100%; height: 220px;
 }
-   /* bikesh hover effect */
-
-
-
-
 .bikesh-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
     background: linear-gradient(180deg, var(--primary), var(--secondary-light));
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.4s ease;
+    transform: scaleY(0); transform-origin: top; transition: transform 0.4s ease;
 }
-
-.bikesh-card:hover::before {
-    transform: scaleY(1);
-}
-
-.bikesh-card:hover {
-    transform: translateX(8px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(255, 114, 0, 0.2);
-}
-
-
-
-
+.bikesh-card:hover::before { transform: scaleY(1); }
+.bikesh-card:hover { transform: translateX(8px); box-shadow: var(--shadow-lg); border-color: rgba(255,114,0,0.2); }
 .info-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    transition: all 0.4s ease;
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; transition: all 0.4s ease; box-shadow: var(--shadow); position: relative; overflow: hidden;
 }
-
 .info-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
     background: linear-gradient(180deg, var(--primary), var(--secondary-light));
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.4s ease;
+    transform: scaleY(0); transform-origin: top; transition: transform 0.4s ease;
 }
-
-.info-card:hover::before {
-    transform: scaleY(1);
-}
-
-.info-card:hover {
-    transform: translateX(8px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(255, 114, 0, 0.2);
-}
-
+.info-card:hover::before { transform: scaleY(1); }
+.info-card:hover { transform: translateX(8px); box-shadow: var(--shadow-lg); border-color: rgba(255,114,0,0.2); }
 .info-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    margin-bottom: 16px;
-    transition: all 0.3s ease;
+    width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 20px; margin-bottom: 16px; transition: all 0.3s ease;
 }
-
-.info-card:hover .info-icon {
-    transform: scale(1.1) rotate(-5deg);
-}
-
-.info-card h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text-dark);
-}
-
-.info-card p {
-    color: var(--text-medium);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.info-card a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.info-card a:hover {
-    color: var(--primary-dark);
-}
-
-/* Social Links */
-.social-links {
-    display: flex;
-    gap: 12px;
-    margin-top: 12px;
-}
-
+.info-card:hover .info-icon { transform: scale(1.1) rotate(-5deg); }
+.info-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-dark); }
+.info-card p { color: var(--text-medium); font-size: 0.95rem; line-height: 1.6; }
+.info-card a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
+.info-card a:hover { color: var(--primary-dark); }
+.social-links { display: flex; gap: 12px; margin-top: 12px; }
 .social-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px;
+    border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    transition: all 0.3s ease; border: none; cursor: pointer;
 }
-
-.social-btn.whatsapp {
-    background: #25D366;
-    color: white;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-}
-
-.social-btn.whatsapp:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-}
-
-.social-btn.facebook {
-    background: #1877F2;
-    color: white;
-    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
-}
-
-.social-btn.facebook:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(24, 119, 242, 0.4);
-}
-
-/* Contact Form */
+.social-btn.whatsapp { background: #25D366; color: white; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
+.social-btn.whatsapp:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37,211,102,0.4); }
+.social-btn.facebook { background: #1877F2; color: white; box-shadow: 0 4px 15px rgba(24,119,242,0.3); }
+.social-btn.facebook:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(24,119,242,0.4); }
 .form-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px;
-    box-shadow: var(--shadow-lg);
-    position: relative;
-    overflow: hidden;
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 40px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
 }
-
-.form-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary-light));
+.form-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary-light)); }
+.form-card h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-dark); }
+.form-card .subtitle { color: var(--text-medium); font-size: 0.95rem; margin-bottom: 28px; }
+.form-group { margin-bottom: 20px; position: relative; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+.form-group label i { color: var(--primary); margin-right: 6px; }
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.95rem; color: var(--text-dark); background: var(--bg); transition: all 0.3s ease;
 }
-
-.form-card h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text-dark);
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(255,114,0,0.1);
 }
-
-.form-card .subtitle {
-    color: var(--text-medium);
-    font-size: 0.95rem;
-    margin-bottom: 28px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 8px;
-}
-
-.form-group label i {
-    color: var(--primary);
-    margin-right: 6px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 0.95rem;
-    color: var(--text-dark);
-    background: var(--bg);
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--primary);
-    background: white;
-    box-shadow: 0 0 0 4px rgba(255, 114, 0, 0.1);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .submit-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
-    position: relative;
-    overflow: hidden;
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+    padding: 16px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border: none; border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,114,0,0.3); position: relative; overflow: hidden;
 }
+.submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+.submit-btn:hover::before { left: 100%; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,114,0,0.4); }
+.submit-btn:active { transform: translateY(0); }
+.submit-btn i { transition: transform 0.3s ease; }
+.submit-btn:hover i { transform: translateX(4px); }
+.msg { display: none; padding: 16px; border-radius: var(--radius-sm); font-weight: 600; margin-top: 16px; text-align: center; animation: fadeInUp 0.5s ease; }
+.msg.show { display: block; }
+.msg.success { background: var(--success-light); border: 1px solid var(--success); color: #22543d; }
+.msg.error { background: var(--danger-light); border: 1px solid var(--danger); color: #742a2a; }
 
-.submit-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
+/* Admin header actions */
+.admin-header-actions { display: flex; gap: 10px; align-items: center; }
+.logout-btn {
+    background: rgba(255,255,255,0.2); border: none; color: white;
+    padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
 }
+.logout-btn:hover { background: rgba(255,255,255,0.3); }
 
-.submit-btn:hover::before {
-    left: 100%;
+/* Change Password Section */
+.change-password-section {
+    background: var(--bg); border-radius: var(--radius-sm); padding: 20px;
+    margin-bottom: 24px; border: 1px solid var(--border); display: none;
 }
+.change-password-section.active { display: block; animation: fadeInUp 0.4s ease; }
+.change-password-section h4 {
+    font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+}
+.change-password-section h4 i { color: var(--secondary-light); }
+.change-password-section .form-row { margin-bottom: 12px; }
+.change-password-section input {
+    width: 100%; padding: 12px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 0.95rem; transition: all 0.3s ease;
+}
+.change-password-section input:focus {
+    outline: none; border-color: var(--secondary-light); box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.change-password-actions { display: flex; gap: 10px; margin-top: 12px; }
+.change-password-actions button {
+    padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; border: none; transition: all 0.3s ease;
+}
+.change-password-actions .save-btn {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); color: white;
+}
+.change-password-actions .save-btn:hover { box-shadow: 0 4px 15px rgba(30,58,138,0.3); }
+.change-password-actions .cancel-btn { background: var(--border); color: var(--text-medium); }
+.change-password-actions .cancel-btn:hover { background: #cbd5e0; }
+.pw-change-msg {
+    font-size: 0.85rem; margin-top: 10px; padding: 8px 12px; border-radius: 8px; display: none;
+}
+.pw-change-msg.show { display: block; }
+.pw-change-msg.success { background: var(--success-light); color: #22543d; }
+.pw-change-msg.error { background: var(--danger-light); color: #742a2a; }
+.settings-toggle {
+    background: rgba(255,255,255,0.15); border: none; color: white; width: 36px; height: 36px;
+    border-radius: 8px; cursor: pointer; font-size: 16px; transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
+}
+.settings-toggle:hover { background: rgba(255,255,255,0.3); }
 
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
+/* Admin Panel Styles */
+.admin-overlay {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 10000;
+    align-items: center; justify-content: center; padding: 20px;
 }
-
-.submit-btn:active {
-    transform: translateY(0);
+.admin-overlay.active { display: flex; }
+.admin-panel {
+    background: var(--card-bg); border-radius: var(--radius); width: 100%; max-width: 1100px;
+    max-height: 90vh; overflow: hidden; box-shadow: var(--shadow-lg);
+    display: flex; flex-direction: column; animation: slideUp 0.4s ease;
 }
-
-.submit-btn i {
-    transition: transform 0.3s ease;
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+.admin-header {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); color: white;
+    padding: 20px 28px; display: flex; align-items: center; justify-content: space-between;
 }
-
-.submit-btn:hover i {
-    transform: translateX(4px);
+.admin-header h2 { font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+.admin-header h2 i { font-size: 1.2rem; }
+.admin-close {
+    background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px;
+    border-radius: 50%; cursor: pointer; font-size: 16px; transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
 }
-
-/* Success Message */
-.success-msg {
-    display: none;
-    padding: 16px;
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
-    border-radius: var(--radius-sm);
-    color: #155724;
-    font-weight: 600;
-    margin-top: 16px;
-    text-align: center;
-    animation: fadeInUp 0.5s ease;
+.admin-close:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+.admin-body { padding: 24px 28px; overflow-y: auto; flex: 1; }
+.admin-login { max-width: 400px; margin: 0 auto; text-align: center; padding: 40px 20px; }
+.admin-login .lock-icon {
+    width: 80px; height: 80px; background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px; color: white; font-size: 32px;
 }
-
-.success-msg.show {
-    display: block;
+.admin-login h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--text-dark); }
+.admin-login p { color: var(--text-medium); margin-bottom: 24px; font-size: 0.9rem; }
+.admin-login input {
+    width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 1rem; margin-bottom: 16px; transition: all 0.3s ease;
 }
-
-/* FAQ Section */
-.faq-section {
-    padding: 60px 20px;
-    max-width: 800px;
-    margin: 0 auto;
+.admin-login input:focus { outline: none; border-color: var(--secondary-light); box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
+.login-btn {
+    width: 100%; padding: 14px; background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    color: white; border: none; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all 0.3s ease;
 }
-
-.faq-header {
-    text-align: center;
-    margin-bottom: 40px;
+.login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(30,58,138,0.3); }
+.login-error { color: var(--danger); font-size: 0.85rem; margin-top: 12px; display: none; }
+.login-error.show { display: block; }
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: var(--bg); border-radius: var(--radius-sm); padding: 20px; text-align: center; border: 1px solid var(--border); transition: all 0.3s ease; }
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.stat-card .stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 20px; }
+.stat-card.total .stat-icon { background: rgba(37,99,235,0.1); color: var(--secondary-light); }
+.stat-card.today .stat-icon { background: rgba(255,114,0,0.1); color: var(--primary); }
+.stat-card.unread .stat-icon { background: rgba(229,62,62,0.1); color: var(--danger); }
+.stat-card.subjects .stat-icon { background: rgba(8,220,209,0.1); color: var(--accent-hover); }
+.stat-card .stat-number { font-size: 1.8rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+.stat-card .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 6px; font-weight: 500; }
+.admin-toolbar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.admin-toolbar input[type="search"] { flex: 1; min-width: 200px; padding: 10px 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; transition: all 0.3s ease; }
+.admin-toolbar input[type="search"]:focus { outline: none; border-color: var(--secondary-light); }
+.admin-toolbar select { padding: 10px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; background: white; cursor: pointer; }
+.toolbar-btn { padding: 10px 18px; border: none; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px; }
+.toolbar-btn.export { background: var(--success-light); color: #22543d; }
+.toolbar-btn.export:hover { background: var(--success); color: white; }
+.toolbar-btn.clear { background: var(--danger-light); color: #742a2a; }
+.toolbar-btn.clear:hover { background: var(--danger); color: white; }
+.messages-table-wrap { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.messages-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.messages-table th { background: var(--bg); padding: 14px 16px; text-align: left; font-weight: 700; color: var(--text-dark); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border); white-space: nowrap; }
+.messages-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text-medium); vertical-align: top; }
+.messages-table tr:hover td { background: rgba(244,247,255,0.5); }
+.messages-table tr.unread td { background: rgba(255,114,0,0.04); font-weight: 600; color: var(--text-dark); }
+.msg-name { font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+.msg-name .new-badge { background: var(--primary); color: white; font-size: 0.65rem; padding: 2px 8px; border-radius: 50px; font-weight: 700; text-transform: uppercase; }
+.msg-email { font-size: 0.8rem; color: var(--secondary-light); }
+.msg-subject { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; text-transform: capitalize; }
+.msg-subject.notes { background: #ebf8ff; color: #2b6cb0; }
+.msg-subject.past-papers { background: #faf5ff; color: #6b46c1; }
+.msg-subject.lab { background: #f0fff4; color: #276749; }
+.msg-subject.model { background: #fffaf0; color: #c05621; }
+.msg-subject.study-tips { background: #e6fffa; color: #234e52; }
+.msg-subject.other { background: #f7fafc; color: #4a5568; border: 1px solid var(--border); }
+.msg-text { max-width: 280px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.5; }
+.msg-date { font-size: 0.8rem; color: var(--text-light); white-space: nowrap; }
+.msg-actions { display: flex; gap: 6px; white-space: nowrap; }
+.action-btn { width: 32px; height: 32px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+.action-btn.view { background: rgba(37,99,235,0.1); color: var(--secondary-light); }
+.action-btn.view:hover { background: var(--secondary-light); color: white; }
+.action-btn.delete { background: rgba(229,62,62,0.1); color: var(--danger); }
+.action-btn.delete:hover { background: var(--danger); color: white; }
+.action-btn.mark { background: rgba(56,161,105,0.1); color: var(--success); }
+.action-btn.mark:hover { background: var(--success); color: white; }
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-light); }
+.empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+.empty-state h4 { color: var(--text-dark); margin-bottom: 8px; }
+.msg-detail-overlay {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 10001;
+    align-items: center; justify-content: center; padding: 20px;
 }
-
-.faq-header h2 {
-    font-size: clamp(24px, 3vw, 32px);
-    font-weight: 800;
-    margin-bottom: 12px;
+.msg-detail-overlay.active { display: flex; }
+.msg-detail {
+    background: white; border-radius: var(--radius); width: 100%; max-width: 600px;
+    max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow-lg); animation: slideUp 0.3s ease;
 }
-
-.faq-header h2 .highlight {
-    color: var(--primary);
-}
-
-.faq-header p {
-    color: var(--text-medium);
-}
-
-.faq-item {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    margin-bottom: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-}
-
-.faq-item:hover {
-    border-color: rgba(255, 114, 0, 0.2);
-}
-
-.faq-question {
-    padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-dark);
-    transition: all 0.3s ease;
-}
-
-.faq-question:hover {
-    color: var(--primary);
-}
-
-.faq-question i {
-    color: var(--primary);
-    transition: transform 0.3s ease;
-}
-
-.faq-item.active .faq-question i {
-    transform: rotate(180deg);
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    padding: 0 24px;
-    color: var(--text-medium);
-    font-size: 0.95rem;
-    line-height: 1.7;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 300px;
-    padding: 0 24px 20px;
-}
-
-/* Map Section */
-.map-section {
-    padding: 60px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.map-container {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
-}
-
-.map-container iframe {
-    width: 100%;
-    height: 400px;
-    border: none;
-    display: block;
-}
-
-.map-info {
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.map-info i {
-    font-size: 24px;
-    color: var(--primary);
-}
-
-.map-info h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-dark);
-}
-
-.map-info p {
-    color: var(--text-medium);
-    font-size: 0.9rem;
-}
-
-/* Footer - Exact from about.html */
-footer {
-    background: var(--secondary);
-    color: white;
-    padding: 50px 20px 20px;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    margin-bottom: 40px;
-}
-
-.footer-brand {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-}
-
-.footer-brand img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    border-radius: 8px;
-}
-
-.footer-brand h3 {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 8px;
-}
-
-.footer-brand p {
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.footer-links h4 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: white;
-}
-
-.footer-links ul {
-    list-style: none;
-}
-
-.footer-links a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 2.2;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--primary);
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 20px;
-    text-align: center;
-    color: rgba(255,255,255,0.6);
-    font-size: 14px;
-}
-
-.footer-bottom .flag {
-    font-size: 18px;
-    margin-left: 4px;
-}
-
-.footer-bottom .designer {
-    color: var(--accent);
-    font-weight: 600;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-dark);
-}
-
-/* Back to Top Button */
+.msg-detail-header { padding: 24px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.msg-detail-header h3 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 4px; }
+.msg-detail-header .detail-meta { font-size: 0.85rem; color: var(--text-light); }
+.msg-detail-body { padding: 24px 28px; }
+.msg-detail-body .detail-row { display: flex; margin-bottom: 16px; gap: 12px; }
+.msg-detail-body .detail-label { width: 80px; flex-shrink: 0; font-weight: 700; font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; }
+.msg-detail-body .detail-value { flex: 1; color: var(--text-dark); font-size: 0.95rem; }
+.msg-detail-body .detail-message { background: var(--bg); border-radius: var(--radius-sm); padding: 20px; margin-top: 8px; line-height: 1.8; color: var(--text-dark); white-space: pre-wrap; }
+.msg-detail-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+.detail-btn { padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+.detail-btn.reply { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.detail-btn.reply:hover { box-shadow: 0 4px 15px rgba(255,114,0,0.3); }
+.detail-btn.close { background: var(--bg); color: var(--text-medium); }
+.detail-btn.close:hover { background: var(--border); }
+.pagination { display: flex; justify-content: center; gap: 6px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.pagination button { width: 36px; height: 36px; border: 1px solid var(--border); background: white; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--text-medium); transition: all 0.2s ease; }
+.pagination button:hover { border-color: var(--secondary-light); color: var(--secondary-light); }
+.pagination button.active { background: var(--secondary-light); color: white; border-color: var(--secondary-light); }
+.pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+.faq-section { padding: 60px 20px; max-width: 800px; margin: 0 auto; }
+.faq-header { text-align: center; margin-bottom: 40px; }
+.faq-header h2 { font-size: clamp(24px,3vw,32px); font-weight: 800; margin-bottom: 12px; }
+.faq-header h2 .highlight { color: var(--primary); }
+.faq-header p { color: var(--text-medium); }
+.faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow); transition: all 0.3s ease; }
+.faq-item:hover { border-color: rgba(255,114,0,0.2); }
+.faq-question { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--text-dark); transition: all 0.3s ease; }
+.faq-question:hover { color: var(--primary); }
+.faq-question i { color: var(--primary); transition: transform 0.3s ease; }
+.faq-item.active .faq-question i { transform: rotate(180deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 24px; color: var(--text-medium); font-size: 0.95rem; line-height: 1.7; }
+.faq-item.active .faq-answer { max-height: 300px; padding: 0 24px 20px; }
+.map-section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+.map-container { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+.map-container iframe { width: 100%; height: 400px; border: none; display: block; }
+.map-info { padding: 24px; display: flex; align-items: center; gap: 16px; }
+.map-info i { font-size: 24px; color: var(--primary); }
+.map-info h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+.map-info p { color: var(--text-medium); font-size: 0.9rem; }
+footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
+.footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+.footer-brand img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; }
+.footer-brand h3 { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+.footer-brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
+.footer-links h4 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white; }
+.footer-links ul { list-style: none; }
+.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; line-height: 2.2; transition: color 0.3s ease; }
+.footer-links a:hover { color: var(--primary); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; }
+.footer-bottom .flag { font-size: 18px; margin-left: 4px; }
+.footer-bottom .designer { color: var(--accent); font-weight: 600; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
 .back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: var(--primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    box-shadow: 0 5px 20px rgba(255, 114, 0, 0.3);
-    z-index: 999;
-    border: none;
+    position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+    background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 20px; cursor: pointer; opacity: 0; visibility: hidden;
+    transition: all 0.4s ease; box-shadow: 0 5px 20px rgba(255,114,0,0.3); z-index: 999; border: none;
 }
-
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-to-top:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 114, 0, 0.4);
-}
-
-/* Responsive */
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,114,0,0.4); }
 @media (max-width: 1024px) {
-    .nav-links {
-        gap: 4px;
-    }
-    .nav-links a {
-        padding: 6px 12px;
-        font-size: 13px;
-    }
+    .nav-links { gap: 4px; }
+    .nav-links a { padding: 6px 12px; font-size: 13px; }
 }
-
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    .mobile-menu-btn {
-        display: block;
-    }
-    .hero {
-        padding: 120px 16px 60px;
-    }
-    .contact-section {
-        padding: 60px 16px;
-    }
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    .form-card {
-        padding: 28px 20px;
-    }
-    .social-links {
-        flex-direction: column;
-    }
-    .social-btn {
-        justify-content: center;
-    }
-    .map-container iframe {
-        height: 280px;
-    }
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
-    }
-    .footer-brand {
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .hero { padding: 120px 16px 60px; }
+    .contact-section { padding: 60px 16px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 28px 20px; }
+    .social-links { flex-direction: column; }
+    .social-btn { justify-content: center; }
+    .map-container iframe { height: 280px; }
+    .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .footer-brand { justify-content: center; flex-direction: column; align-items: center; }
+    .admin-panel { max-height: 95vh; border-radius: var(--radius-sm); }
+    .admin-header, .admin-body { padding: 16px 20px; }
+    .messages-table th, .messages-table td { padding: 10px 12px; }
+    .msg-text { max-width: 150px; }
+    .admin-stats { grid-template-columns: repeat(2, 1fr); }
+    .admin-header h2 { font-size: 1.1rem; }
+    .admin-header-actions { gap: 6px; }
+    .logout-btn { padding: 6px 12px; font-size: 0.75rem; }
+    .settings-toggle { width: 32px; height: 32px; }
 }
-
 @media (max-width: 480px) {
-    .logo-text {
-        font-size: 18px;
-    }
-    .hero h1 {
-        font-size: 28px;
-    }
-    .info-card {
-        padding: 20px;
-    }
-    .faq-question {
-        padding: 16px 20px;
-        font-size: 0.9rem;
-    }
-    .faq-item.active .faq-answer {
-        padding: 0 20px 16px;
-    }
+    .logo-text { font-size: 18px; }
+    .hero h1 { font-size: 28px; }
+    .info-card { padding: 20px; }
+    .faq-question { padding: 16px 20px; font-size: 0.9rem; }
+    .faq-item.active .faq-answer { padding: 0 20px 16px; }
+    .admin-stats { grid-template-columns: 1fr 1fr; }
+    .stat-card .stat-number { font-size: 1.4rem; }
 }
 </style>
 </head>
 <body>
-
 <div class="progress-bar" id="progressBar"></div>
-
-<!-- Navigation - Exact from about.html -->
 <nav class="navbar" id="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
@@ -972,19 +457,14 @@ footer {
             <li><a href="blo.html">Blog</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="#" class="admin-nav-btn" onclick="openAdminPanel(); return false;"><i class="fas fa-shield-alt"></i> Admin</a></li>
         </ul>
-        <button class="mobile-menu-btn" onclick="toggleMobileNav()">
-            <i class="fas fa-bars"></i>
-        </button>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
     </div>
 </nav>
-
-<!-- Mobile Navigation -->
 <div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
     <div class="mobile-nav-content">
-        <button class="close-mobile-nav" onclick="toggleMobileNav()">
-            <i class="fas fa-times"></i>
-        </button>
+        <button class="close-mobile-nav" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
         <ul class="mobile-nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="note.html">Notes</a></li>
@@ -994,330 +474,608 @@ footer {
             <li><a href="blo.html">Blog</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="#" onclick="openAdminPanel(); toggleMobileNav(); return false;"><i class="fas fa-shield-alt"></i> Admin Panel</a></li>
         </ul>
     </div>
 </div>
-
-<!-- Hero Section -->
 <section class="hero">
     <div class="hero-content">
-        <div class="hero-badge">
-            <i class="fas fa-envelope"></i>
-            <span>Get in Touch</span>
-        </div>
-        <h1>Contact <span style="color: #ff7200;">Plus 2 Guru</span></h1>
-        <p class="hero-subtitle">Have questions? <br>We are here to help you with notes, exams, and study guidance.</p>
+        <div class="hero-badge"><i class="fas fa-envelope"></i><span>Get in Touch</span></div>
+        <h1>Contact <span style="color:#ff7200;">Plus 2 Guru</span></h1>
+        <p class="hero-subtitle">Have questions?<br>We are here to help you with notes, exams, and study guidance.</p>
     </div>
 </section>
-
-<!-- Contact Section -->
 <section class="contact-section">
     <div class="contact-grid">
-        <!-- Contact Info -->
         <div class="contact-info">
-
- <div class="bikesh-card">
-                <div class="">
-                    <i class=""></i>
-                </div>
-                <h3></h3>
-                <p><a href="mailto:plus2guru1@gmail.com"></a></p>
-                <p style="margin-top: 4px; font-size: 0.85rem;"></p>
-            </div>
-
-
+            <div class="bikesh-card"><div class=""><i class=""></i></div><h3></h3><p><a href="mailto:plus2guru1@gmail.com"></a></p><p style="margin-top:4px;font-size:0.85rem;"></p></div>
             <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
+                <div class="info-icon"><i class="fas fa-envelope"></i></div>
                 <h3>Email Us</h3>
                 <p><a href="mailto:plus2guru1@gmail.com">plus2guru1@gmail.com</a></p>
-                <p style="margin-top: 4px; font-size: 0.85rem;">We reply within 24 hours</p>
+                <p style="margin-top:4px;font-size:0.85rem;">We reply within 24 hours</p>
             </div>
-
             <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-phone"></i>
-                </div>
+                <div class="info-icon"><i class="fas fa-phone"></i></div>
                 <h3>Call Us</h3>
                 <p><a href="tel:+977-**********">+977-**********</a></p>
-                <p style="margin-top: 4px; font-size: 0.85rem;"></p>
+                <p style="margin-top:4px;font-size:0.85rem;"></p>
             </div>
-
             <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                 <h3>Visit Us</h3>
                 <p>Kathmandu, Nepal</p>
-                <p style="margin-top: 4px; font-size: 0.85rem;">Subidhanagar-32, Tinkune</p>
+                <p style="margin-top:4px;font-size:0.85rem;">Subidhanagar-32, Tinkune</p>
             </div>
-
             <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
+                <div class="info-icon"><i class="fas fa-comments"></i></div>
                 <h3>Quick Chat</h3>
                 <p>Connect with us instantly</p>
-                <div class="social-links" style="margin-top: 12px;">
-                    <a href="https://wa.me/qr/UBMUKFYBUD6YO1" target="_blank" class="social-btn whatsapp">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="https://www.facebook.com/share/1CfCZMFxrh/" target="_blank" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
+                <div class="social-links" style="margin-top:12px;">
+                    <a href="https://wa.me/qr/UBMUKFYBUD6YO1" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://www.facebook.com/share/1CfCZMFxrh/" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
                 </div>
             </div>
         </div>
-
-        <!-- Contact Form -->
         <div class="form-card">
-            <h2><i class="fas fa-paper-plane" style="color: var(--primary);"></i> Send Message</h2>
+            <h2><i class="fas fa-paper-plane" style="color:var(--primary);"></i> Send Message</h2>
             <p class="subtitle">Fill out the form below and we will get back to you as soon as possible.</p>
-
             <form id="contactForm">
                 <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-user"></i> Your Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-envelope"></i> Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email" required>
-                    </div>
+                    <div class="form-group"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="name" placeholder="Enter your full name" required></div>
+                    <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="email" placeholder="Enter your email" required></div>
                 </div>
-
                 <div class="form-row">
-                    <div class="form-group">
-                        <label><i class="fas fa-phone"></i> Phone (Optional)</label>
-                        <input type="tel" id="phone" placeholder="+977-0000000000">
-                    </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-book"></i> Subject</label>
-                        <select id="subject">
-                            <option value="">Select a topic</option>
-                            <option value="notes">Subject Notes</option>
-                            <option value="past-papers">Past Papers</option>
-                            <option value="lab">Lab Practical</option>
-                            <option value="model">Model Questions</option>
-                            <option value="study-tips">Study Tips</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
+                    <div class="form-group"><label><i class="fas fa-phone"></i> Phone (Optional)</label><input type="tel" id="phone" placeholder="+977-0000000000"></div>
+                    <div class="form-group"><label><i class="fas fa-book"></i> Subject</label><select id="subject"><option value="">Select a topic</option><option value="notes">Subject Notes</option><option value="past-papers">Past Papers</option><option value="lab">Lab Practical</option><option value="model">Model Questions</option><option value="study-tips">Study Tips</option><option value="other">Other</option></select></div>
                 </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-comment"></i> Your Message</label>
-                    <textarea id="message" placeholder="Tell us how we can help you..." required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    <span>Send Message</span>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-
-                <div class="success-msg" id="successMsg">
-                    <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.
-                </div>
+                <div class="form-group"><label><i class="fas fa-comment"></i> Your Message</label><textarea id="message" placeholder="Tell us how we can help you..." required></textarea></div>
+                <button type="submit" class="submit-btn"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
+                <div class="msg success" id="successMsg"><i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.</div>
+                <div class="msg error" id="errorMsg"><i class="fas fa-exclamation-circle"></i> Something went wrong. Please try again.</div>
             </form>
         </div>
     </div>
 </section>
-
-<!-- FAQ Section -->
 <section class="faq-section">
     <div class="faq-header">
         <h2>Frequently Asked <span class="highlight">Questions</span></h2>
         <p>Quick answers to common questions</p>
     </div>
-
     <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Are all resources on Plus 2 Guru free?</span>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="faq-answer">
-            Yes! All notes, past papers, lab files, and model questions are completely free. We believe education should be accessible to every student in Nepal.
-        </div>
+        <div class="faq-question" onclick="toggleFaq(this)"><span>Are all resources on Plus 2 Guru free?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer">Yes! All notes, past papers, lab files, and model questions are completely free. We believe education should be accessible to every student in Nepal.</div>
     </div>
-
     <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Which subjects do you cover?</span>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="faq-answer">
-            We cover all major +2 subjects including Physics, Chemistry, Mathematics, Biology, English, and Nepali for Science, Management, and Humanities streams.
-        </div>
+        <div class="faq-question" onclick="toggleFaq(this)"><span>Which subjects do you cover?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer">We cover all major +2 subjects including Physics, Chemistry, Mathematics, Biology, English, and Nepali for Science, Management, and Humanities streams.</div>
     </div>
-
-   
-
     <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-            <span>Can I request specific study materials?</span>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="faq-answer">
-            Absolutely! Use the contact form above or message us on WhatsApp. We regularly update our content based on student requests and feedback.
-        </div>
+        <div class="faq-question" onclick="toggleFaq(this)"><span>Can I request specific study materials?</span><i class="fas fa-chevron-down"></i></div>
+        <div class="faq-answer">Absolutely! Use the contact form above or message us on WhatsApp. We regularly update our content based on student requests and feedback.</div>
     </div>
 </section>
-
-<!-- Map Section -->
 <section class="map-section">
     <div class="map-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.31606823054!2d85.28493305!3d27.70896095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <div class="map-info">
-            <i class="fas fa-map-pin"></i>
-            <div>
-                <h3>Kathmandu, Nepal</h3>
-                <p>We are based in the heart of Nepal, serving +2 students nationwide.</p>
-            </div>
-        </div>
+        <div class="map-info"><i class="fas fa-map-pin"></i><div><h3>Kathmandu, Nepal</h3><p>We are based in the heart of Nepal, serving +2 students nationwide.</p></div></div>
     </div>
 </section>
 
-<!-- Footer - Exact from about.html -->
+<!-- Admin Panel Overlay -->
+<div class="admin-overlay" id="adminOverlay" onclick="closeAdminOnBackdrop(event)">
+    <div class="admin-panel" onclick="event.stopPropagation()">
+        <div class="admin-header">
+            <h2><i class="fas fa-shield-alt"></i> Admin Panel &mdash; Plus 2 Guru</h2>
+            <div class="admin-header-actions" id="adminHeaderActions" style="display:none;">
+                <button class="settings-toggle" onclick="toggleChangePassword()" title="Change Password"><i class="fas fa-cog"></i></button>
+                <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button class="admin-close" onclick="closeAdminPanel()" title="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <button class="admin-close" id="adminCloseLogin" onclick="closeAdminPanel()" title="Close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="admin-body" id="adminBody">
+            <!-- Login View -->
+            <div class="admin-login" id="adminLogin">
+                <div class="lock-icon"><i class="fas fa-lock"></i></div>
+                <h3>Admin Access</h3>
+                <p>Only for Owner</p>
+                <input type="password" id="adminPassword" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')loginAdmin()">
+                <button class="login-btn" onclick="loginAdmin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <div class="login-error" id="loginError"><i class="fas fa-exclamation-triangle"></i> Incorrect password. Please try again.</div>
+            </div>
+            <!-- Dashboard View -->
+            <div id="adminDashboard" style="display:none;">
+                <!-- Change Password Section -->
+                <div class="change-password-section" id="changePasswordSection">
+                    <h4><i class="fas fa-key"></i> Change Admin Password</h4>
+                    <div class="form-row">
+                        <input type="password" id="currentPassword" placeholder="Current password">
+                    </div>
+                    <div class="form-row">
+                        <input type="password" id="newPassword" placeholder="New password">
+                    </div>
+                    <div class="form-row">
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                    </div>
+                    <div class="change-password-actions">
+                        <button class="save-btn" onclick="changePassword()"><i class="fas fa-save"></i> Save</button>
+                        <button class="cancel-btn" onclick="toggleChangePassword()">Cancel</button>
+                    </div>
+                    <div class="pw-change-msg" id="pwChangeMsg"></div>
+                </div>
+
+                <div class="admin-stats" id="adminStats"></div>
+                <div class="admin-toolbar">
+                    <input type="search" id="msgSearch" placeholder="Search messages..." oninput="renderMessages()">
+                    <select id="msgFilter" onchange="renderMessages()">
+                        <option value="all">All Messages</option>
+                        <option value="unread">Unread Only</option>
+                        <option value="read">Read Only</option>
+                        <option value="notes">Notes</option>
+                        <option value="past-papers">Past Papers</option>
+                        <option value="lab">Lab Practical</option>
+                        <option value="model">Model Questions</option>
+                        <option value="study-tips">Study Tips</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <button class="toolbar-btn export" onclick="exportMessages()"><i class="fas fa-download"></i> Export CSV</button>
+                    <button class="toolbar-btn clear" onclick="clearAllMessages()"><i class="fas fa-trash-alt"></i> Clear All</button>
+                </div>
+                <div class="messages-table-wrap">
+                    <table class="messages-table" id="messagesTable">
+                        <thead><tr><th>Name</th><th>Subject</th><th>Message</th><th>Date</th><th>Actions</th></tr></thead>
+                        <tbody id="messagesTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Message Detail Modal -->
+<div class="msg-detail-overlay" id="msgDetailOverlay" onclick="closeMsgDetail()">
+    <div class="msg-detail" onclick="event.stopPropagation()">
+        <div class="msg-detail-header">
+            <div><h3 id="detailName">Name</h3><div class="detail-meta" id="detailMeta">Email &bull; Date</div></div>
+            <button class="admin-close" onclick="closeMsgDetail()" style="position:static;background:var(--bg);color:var(--text-dark);"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="msg-detail-body">
+            <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value" id="detailEmail">-</div></div>
+            <div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value" id="detailPhone">-</div></div>
+            <div class="detail-row"><div class="detail-label">Subject</div><div class="detail-value" id="detailSubject">-</div></div>
+            <div class="detail-row" style="flex-direction:column;gap:8px;"><div class="detail-label" style="width:auto;">Message</div><div class="detail-message" id="detailMessage">-</div></div>
+        </div>
+        <div class="msg-detail-footer">
+            <button class="detail-btn close" onclick="closeMsgDetail()">Close</button>
+            <a id="detailReplyLink" href="#" target="_blank" class="detail-btn reply" style="text-decoration:none;"><i class="fas fa-reply"></i> Reply via Email</a>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
 <footer>
     <div class="footer-content">
         <div class="footer-brand">
             <img src="logo.png.png" alt="Plus 2 Guru Logo">
-            <div>
-                <h3>Plus 2 Guru</h3>
-                <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
-            </div>
+            <div><h3>Plus 2 Guru</h3><p>Empowering +2 students across Nepal with free, high-quality educational resources.</p></div>
         </div>
         <div class="footer-links">
             <h4>Quick Links</h4>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="note.html">Notes</a></li>
-                <li><a href="labclass.html">Lab Practical</a></li>
-                <li><a href="modelclass.html">Model Questions</a></li>
-            </ul>
+            <ul><li><a href="index.html">Home</a></li><li><a href="note.html">Notes</a></li><li><a href="labclass.html">Lab Practical</a></li><li><a href="modelclass.html">Model Questions</a></li></ul>
         </div>
         <div class="footer-links">
             <h4>Resources</h4>
-            <ul>
-                <li><a href="past1.html">Past Papers</a></li>
-                <li><a href="blo.html">Blog</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+            <ul><li><a href="past1.html">Past Papers</a></li><li><a href="blo.html">Blog</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul>
         </div>
         <div class="footer-links">
             <h4>Videos</h4>
-            <ul>
-                <li><a href="video1.html">Class 11 Nepali</a></li>
-                <li><a href="video21.html">Class 12 Nepali</a></li>
-                <li><a href="blo.html">More Content</a></li>
-            </ul>
+            <ul><li><a href="video1.html">Class 11 Nepali</a></li><li><a href="video21.html">Class 12 Nepali</a></li><li><a href="blo.html">More Content</a></li></ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+        <p>&copy; 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">&#127475;&#127477;</span> | Developer &amp; Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
     </div>
 </footer>
-
-<!-- Back to Top Button -->
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
-</button>
-
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
 <script>
-// Mobile Navigation
+// ========================
+// CONFIGURATION
+// ========================
+const DEFAULT_PASSWORD = '';
+const PASSWORD_KEY = 'p2g_admin_password';
+const STORAGE_KEY = 'p2g_contact_messages';
+const ITEMS_PER_PAGE = 10;
+let currentPage = 1;
+let isAdminLoggedIn = false;
+
+function getAdminPassword() {
+    const stored = localStorage.getItem(PASSWORD_KEY);
+    return stored || DEFAULT_PASSWORD;
+}
+
+function setAdminPassword(pw) {
+    localStorage.setItem(PASSWORD_KEY, pw);
+}
+
+// ========================
+// MOBILE NAVIGATION
+// ========================
 function toggleMobileNav() {
     const nav = document.getElementById('mobileNav');
     nav.classList.toggle('active');
     document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
 }
-
 function closeMobileNav(event) {
-    if (event.target === document.getElementById('mobileNav')) {
-        toggleMobileNav();
-    }
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
 }
 
-// Scroll Progress Bar
+// ========================
+// SCROLL EFFECTS
+// ========================
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    document.getElementById('progressBar').style.width = scrolled + '%';
-});
-
-// Navbar scroll effect
-window.addEventListener('scroll', function() {
+    document.getElementById('progressBar').style.width = (winScroll / height * 100) + '%';
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-    } else {
-        navbar.style.boxShadow = 'var(--shadow)';
-    }
+    navbar.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : 'var(--shadow)';
+    const backToTop = document.getElementById('backToTop');
+    backToTop.classList.toggle('visible', window.scrollY > 500);
 });
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// Back to Top Button
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-});
-
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// FAQ Toggle
+// ========================
+// FAQ TOGGLE
+// ========================
 function toggleFaq(element) {
     const faqItem = element.parentElement;
     const isActive = faqItem.classList.contains('active');
-
-    // Close all FAQ items
-    document.querySelectorAll('.faq-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Open clicked item if it was not active
-    if (!isActive) {
-        faqItem.classList.add('active');
-    }
+    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+    if (!isActive) faqItem.classList.add('active');
 }
 
-// Form Submission
+// ========================
+// FORM SUBMISSION & STORAGE
+// ========================
 const contactForm = document.getElementById('contactForm');
 const successMsg = document.getElementById('successMsg');
+const errorMsg = document.getElementById('errorMsg');
 
 contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value.trim();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+    if (!name || !email || !message) {
+        showMsg(errorMsg);
+        return;
+    }
 
-    if (name && email && message) {
-        // Show success message
-        successMsg.classList.add('show');
+    const entry = {
+        id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+        name, email, phone, subject, message,
+        date: new Date().toISOString(),
+        read: false
+    };
 
-        // Reset form
+    try {
+        const messages = getMessages();
+        messages.unshift(entry);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
         contactForm.reset();
-
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-            successMsg.classList.remove('show');
-        }, 5000);
+        showMsg(successMsg);
+    } catch (err) {
+        console.error(err);
+        showMsg(errorMsg);
     }
 });
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+function showMsg(el) {
+    document.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 5000);
+}
 
+function getMessages() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    } catch { return []; }
+}
+
+function saveMessages(messages) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+}
+
+// ========================
+// ADMIN PANEL
+// ========================
+function openAdminPanel() {
+    document.getElementById('adminOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (isAdminLoggedIn) {
+        showDashboard();
+    } else {
+        showLogin();
+    }
+}
+
+function closeAdminPanel() {
+    document.getElementById('adminOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function closeAdminOnBackdrop(event) {
+    if (event.target === document.getElementById('adminOverlay')) closeAdminPanel();
+}
+
+function showLogin() {
+    document.getElementById('adminLogin').style.display = 'block';
+    document.getElementById('adminDashboard').style.display = 'none';
+    document.getElementById('adminHeaderActions').style.display = 'none';
+    document.getElementById('adminCloseLogin').style.display = 'flex';
+    document.getElementById('adminPassword').value = '';
+    document.getElementById('loginError').classList.remove('show');
+    setTimeout(() => document.getElementById('adminPassword').focus(), 100);
+}
+
+function showDashboard() {
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminDashboard').style.display = 'block';
+    document.getElementById('adminHeaderActions').style.display = 'flex';
+    document.getElementById('adminCloseLogin').style.display = 'none';
+    renderStats();
+    renderMessages();
+}
+
+function loginAdmin() {
+    const pw = document.getElementById('adminPassword').value;
+    if (pw === getAdminPassword()) {
+        isAdminLoggedIn = true;
+        document.getElementById('loginError').classList.remove('show');
+        showDashboard();
+    } else {
+        document.getElementById('loginError').classList.add('show');
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminPassword').focus();
+    }
+}
+
+function logoutAdmin() {
+    isAdminLoggedIn = false;
+    document.getElementById('changePasswordSection').classList.remove('active');
+    showLogin();
+}
+
+function toggleChangePassword() {
+    const section = document.getElementById('changePasswordSection');
+    section.classList.toggle('active');
+    if (section.classList.contains('active')) {
+        setTimeout(() => document.getElementById('currentPassword').focus(), 100);
+    }
+    // Clear fields
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
+    document.getElementById('pwChangeMsg').classList.remove('show');
+}
+
+function changePassword() {
+    const current = document.getElementById('currentPassword').value;
+    const newPw = document.getElementById('newPassword').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    const msgEl = document.getElementById('pwChangeMsg');
+
+    if (!current || !newPw || !confirm) {
+        showPwMsg(msgEl, 'Please fill in all fields.', 'error');
+        return;
+    }
+    if (current !== getAdminPassword()) {
+        showPwMsg(msgEl, 'Current password is incorrect.', 'error');
+        return;
+    }
+    if (newPw.length < 6) {
+        showPwMsg(msgEl, 'New password must be at least 6 characters.', 'error');
+        return;
+    }
+    if (newPw !== confirm) {
+        showPwMsg(msgEl, 'New passwords do not match.', 'error');
+        return;
+    }
+
+    setAdminPassword(newPw);
+    showPwMsg(msgEl, 'Password changed successfully!', 'success');
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
+    setTimeout(() => {
+        document.getElementById('changePasswordSection').classList.remove('active');
+        msgEl.classList.remove('show');
+    }, 2000);
+}
+
+function showPwMsg(el, text, type) {
+    el.textContent = text;
+    el.className = 'pw-change-msg show ' + type;
+}
+
+// ========================
+// STATS
+// ========================
+function renderStats() {
+    const messages = getMessages();
+    const today = new Date().toDateString();
+    const todayCount = messages.filter(m => new Date(m.date).toDateString() === today).length;
+    const unreadCount = messages.filter(m => !m.read).length;
+    const subjects = [...new Set(messages.map(m => m.subject).filter(Boolean))].length;
+
+    document.getElementById('adminStats').innerHTML = `
+        <div class="stat-card total"><div class="stat-icon"><i class="fas fa-inbox"></i></div><div class="stat-number">${messages.length}</div><div class="stat-label">Total Messages</div></div>
+        <div class="stat-card today"><div class="stat-icon"><i class="fas fa-calendar-day"></i></div><div class="stat-number">${todayCount}</div><div class="stat-label">Today</div></div>
+        <div class="stat-card unread"><div class="stat-icon"><i class="fas fa-envelope-open-text"></i></div><div class="stat-number">${unreadCount}</div><div class="stat-label">Unread</div></div>
+        <div class="stat-card subjects"><div class="stat-icon"><i class="fas fa-tags"></i></div><div class="stat-number">${subjects}</div><div class="stat-label">Categories</div></div>
+    `;
+}
+
+// ========================
+// MESSAGES TABLE
+// ========================
+function renderMessages() {
+    let messages = getMessages();
+    const search = document.getElementById('msgSearch').value.toLowerCase();
+    const filter = document.getElementById('msgFilter').value;
+
+    if (search) {
+        messages = messages.filter(m =>
+            (m.name || '').toLowerCase().includes(search) ||
+            (m.email || '').toLowerCase().includes(search) ||
+            (m.message || '').toLowerCase().includes(search)
+        );
+    }
+    if (filter === 'unread') messages = messages.filter(m => !m.read);
+    else if (filter === 'read') messages = messages.filter(m => m.read);
+    else if (filter !== 'all') messages = messages.filter(m => m.subject === filter);
+
+    const totalPages = Math.max(1, Math.ceil(messages.length / ITEMS_PER_PAGE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const pageItems = messages.slice(start, start + ITEMS_PER_PAGE);
+
+    const tbody = document.getElementById('messagesTableBody');
+    if (pageItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><i class="fas fa-inbox"></i><h4>No messages found</h4><p>Messages will appear here once students submit the contact form.</p></div></td></tr>`;
+        document.getElementById('pagination').innerHTML = '';
+        return;
+    }
+
+    tbody.innerHTML = pageItems.map(m => {
+        const d = new Date(m.date);
+        const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        const subj = m.subject || 'other';
+        const subjLabel = subj.replace(/-/g, ' ');
+        return `<tr class="${m.read ? '' : 'unread'}" data-id="${m.id}">
+            <td><div class="msg-name">${escapeHtml(m.name)}${m.read ? '' : '<span class="new-badge">New</span>'}</div><div class="msg-email">${escapeHtml(m.email)}</div></td>
+            <td><span class="msg-subject ${subj}">${subjLabel}</span></td>
+            <td><div class="msg-text">${escapeHtml(m.message)}</div></td>
+            <td><div class="msg-date">${dateStr}</div></td>
+            <td><div class="msg-actions">
+                <button class="action-btn view" onclick="viewMessage('${m.id}')" title="View"><i class="fas fa-eye"></i></button>
+                <button class="action-btn mark" onclick="toggleRead('${m.id}')" title="${m.read ? 'Mark Unread' : 'Mark Read'}"><i class="fas fa-${m.read ? 'envelope' : 'envelope-open'}"></i></button>
+                <button class="action-btn delete" onclick="deleteMessage('${m.id}')" title="Delete"><i class="fas fa-trash"></i></button>
+            </div></td>
+        </tr>`;
+    }).join('');
+
+    renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+    let html = '';
+    html += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            html += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+        } else if (i === currentPage - 2 || i === currentPage + 2) {
+            html += `<span style="padding:8px;color:var(--text-light);">...</span>`;
+        }
+    }
+    html += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+    document.getElementById('pagination').innerHTML = html;
+}
+
+function changePage(page) {
+    currentPage = page;
+    renderMessages();
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// ========================
+// MESSAGE ACTIONS
+// ========================
+function viewMessage(id) {
+    const messages = getMessages();
+    const m = messages.find(x => x.id === id);
+    if (!m) return;
+
+    if (!m.read) {
+        m.read = true;
+        saveMessages(messages);
+        renderMessages();
+        renderStats();
+    }
+
+    const d = new Date(m.date);
+    document.getElementById('detailName').textContent = m.name;
+    document.getElementById('detailMeta').innerHTML = `${escapeHtml(m.email)} &bull; ${d.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })} at ${d.toLocaleTimeString('en-GB')}`;
+    document.getElementById('detailEmail').textContent = m.email;
+    document.getElementById('detailPhone').textContent = m.phone || 'Not provided';
+    document.getElementById('detailSubject').innerHTML = `<span class="msg-subject ${m.subject || 'other'}">${(m.subject || 'other').replace(/-/g, ' ')}</span>`;
+    document.getElementById('detailMessage').textContent = m.message;
+    document.getElementById('detailReplyLink').href = `mailto:${m.email}?subject=Re: Your message to Plus 2 Guru`;
+    document.getElementById('msgDetailOverlay').classList.add('active');
+}
+
+function closeMsgDetail() {
+    document.getElementById('msgDetailOverlay').classList.remove('active');
+}
+
+function toggleRead(id) {
+    const messages = getMessages();
+    const m = messages.find(x => x.id === id);
+    if (m) { m.read = !m.read; saveMessages(messages); renderMessages(); renderStats(); }
+}
+
+function deleteMessage(id) {
+    if (!confirm('Are you sure you want to delete this message?')) return;
+    let messages = getMessages();
+    messages = messages.filter(x => x.id !== id);
+    saveMessages(messages);
+    renderMessages();
+    renderStats();
+}
+
+function clearAllMessages() {
+    const messages = getMessages();
+    if (messages.length === 0) { alert('No messages to clear.'); return; }
+    if (!confirm(`Delete all ${messages.length} messages? This cannot be undone.`)) return;
+    localStorage.removeItem(STORAGE_KEY);
+    currentPage = 1;
+    renderMessages();
+    renderStats();
+}
+
+// ========================
+// EXPORT CSV
+// ========================
+function exportMessages() {
+    const messages = getMessages();
+    if (messages.length === 0) { alert('No messages to export.'); return; }
+    const headers = ['ID', 'Name', 'Email', 'Phone', 'Subject', 'Message', 'Date', 'Read'];
+    const rows = messages.map(m => [
+        m.id, m.name, m.email, m.phone || '', m.subject || 'other', m.message, m.date, m.read ? 'Yes' : 'No'
+    ]);
+    const csv = [headers, ...rows].map(r => r.map(f => '"' + String(f).replace(/"/g, '""') + '"').join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'plus2guru_messages_' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// ========================
+// SCROLL ANIMATIONS
+// ========================
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1325,16 +1083,22 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.style.transform = 'translateY(0)';
         }
     });
-}, observerOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-// Observe elements
 document.querySelectorAll('.info-card, .form-card, .faq-item').forEach((el, index) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = `all 0.6s ease ${index * 0.08}s`;
     observer.observe(el);
 });
-</script>
 
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (document.getElementById('msgDetailOverlay').classList.contains('active')) closeMsgDetail();
+        else if (document.getElementById('adminOverlay').classList.contains('active')) closeAdminPanel();
+    }
+});
+</script>
 </body>
 </html>
