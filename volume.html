@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plus 2 Guru</title>
+<title> Plus 2 Guru</title>
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png.png">
 <link rel="apple-touch-icon" href="favicon.png.png">
@@ -93,7 +93,7 @@
 
     /* Hero Section */
     .hero {
-        padding: 140px 20px 80px;
+        padding: 140px 20px 60px;
         text-align: center;
         background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
         position: relative;
@@ -138,141 +138,190 @@
         font-size: clamp(16px, 2vw, 18px);
         color: rgba(255,255,255,0.9);
         max-width: 600px;
-        margin: 0 auto 32px;
+        margin: 0 auto 24px;
     }
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 10px 24px;
+        border-radius: 50px;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero-tag i { color: #fbbf24; margin-right: 4px; }
 
-    /* Subject Cards Section */
-    .section {
+    /* PDF Section */
+    .content-section {
         padding: 60px 20px;
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
     }
-    .section-header {
-        text-align: center;
-        margin-bottom: 40px;
+    .paper-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 40px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
     }
-    .section-header h2 {
-        font-size: clamp(24px, 3vw, 32px);
-        font-weight: 800;
+    .paper-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--border);
+    }
+    .paper-header h2 {
+        font-size: 24px;
+        font-weight: 700;
         color: var(--text-dark);
         margin-bottom: 8px;
     }
-    .section-header p {
-        color: var(--text-medium);
-        font-size: 16px;
+    .paper-header p {
+        color: var(--text-light);
+        font-size: 14px;
+    }
+    .paper-header .subject-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #fef3c7;
+        color: #d97706;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 12px;
     }
 
-    .cards-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 24px;
-    }
-    .subject-card {
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        padding: 32px;
-        text-align: center;
-        box-shadow: var(--shadow);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid var(--border);
+    /* PDF Viewer */
+    .pdf-container {
         position: relative;
+        width: 100%;
+        border-radius: var(--radius-sm);
         overflow: hidden;
+        background: #f8fafc;
+        border: 2px solid var(--border);
     }
-    .subject-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
-        background: var(--primary);
-        transform: scaleX(0);
-        transition: transform 0.4s ease;
+    .pdf-container iframe {
+        width: 100%;
+        height: 800px;
+        border: none;
+        display: block;
     }
-    .subject-card:hover::before { transform: scaleX(1); }
-    .subject-card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-lg);
+    .pdf-fallback {
+        display: none;
+        padding: 60px 20px;
+        text-align: center;
+        background: #f8fafc;
     }
-    .subject-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 28px;
-        transition: transform 0.3s ease;
+    .pdf-fallback i {
+        font-size: 48px;
+        color: var(--primary);
+        margin-bottom: 16px;
     }
-    .subject-card:hover .subject-icon { transform: scale(1.1) rotate(5deg); }
-    .physics .subject-icon { background: #fef3c7; color: #d97706; }
-    .chemistry .subject-icon { background: #dbeafe; color: #2563eb; }
-    .math .subject-icon { background: #fce7f3; color: #db2777; }
-    .biology .subject-icon { background: #d1fae5; color: #059669; }
-    .subject-card h3 {
-        font-size: 22px;
+    .pdf-fallback h3 {
+        font-size: 20px;
         font-weight: 700;
         margin-bottom: 8px;
         color: var(--text-dark);
     }
-    .subject-card p {
-        color: var(--text-light);
-        font-size: 14px;
-        margin-bottom: 20px;
+    .pdf-fallback p {
+        color: var(--text-medium);
+        margin-bottom: 24px;
+        font-size: 15px;
     }
-    .subject-btn {
+    .btn-download {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 10px 24px;
-        background: var(--bg);
-        color: var(--primary);
-        border-radius: 8px;
+        gap: 8px;
+        padding: 12px 28px;
+        background: var(--primary);
+        color: white;
+        border-radius: var(--radius-sm);
         text-decoration: none;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 15px;
         transition: all 0.3s ease;
-        border: 1px solid var(--border);
+        box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
     }
-    .subject-btn:hover {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-        transform: translateX(4px);
+    .btn-download:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
     }
 
-    /* Features Section */
-    .features {
-        background: white;
-        padding: 80px 20px;
-    }
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
+    /* Related Section */
+    .related-section {
+        padding: 40px 20px 80px;
+        max-width: 1000px;
         margin: 0 auto;
     }
-    .feature-card {
-        padding: 30px;
-        border-radius: var(--radius-sm);
-        background: var(--bg);
-        transition: all 0.3s ease;
+    .related-header {
         text-align: center;
+        margin-bottom: 30px;
     }
-    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .feature-icon {
-        width: 60px; height: 60px;
-        border-radius: 16px;
-        background: var(--primary);
-        color: white;
+    .related-header h3 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+    }
+    .related-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+    }
+    .related-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary);
+    }
+    .related-card .subject-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
-        margin: 0 auto 16px;
+        margin-bottom: 10px;
+        font-size: 18px;
     }
-    .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { color: var(--text-medium); font-size: 15px; line-height: 1.6; }
+    .related-card.chemistry .subject-icon { background: #dbeafe; color: #2563eb; }
+    .related-card.math .subject-icon { background: #fce7f3; color: #db2777; }
+    .related-card.biology .subject-icon { background: #d1fae5; color: #059669; }
+    .related-card h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 4px;
+    }
+    .related-card p {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+    .related-card .arrow {
+        float: right;
+        color: var(--primary);
+        margin-top: -30px;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+    }
+    .related-card:hover .arrow {
+        transform: translateX(4px);
+    }
 
     /* Footer */
     footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
@@ -356,18 +405,17 @@
     @media (max-width: 768px) {
         .nav-links { display: none; }
         .mobile-menu-btn { display: block; }
-        .hero { padding: 120px 16px 60px; }
-        .section { padding: 40px 16px; }
-        .cards-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-        .features { padding: 60px 16px; }
-        .features-grid { grid-template-columns: 1fr; }
+        .hero { padding: 120px 16px 40px; }
+        .paper-card { padding: 24px; }
+        .pdf-container iframe { height: 500px; }
+        .related-grid { grid-template-columns: 1fr; }
+        .content-section { padding: 40px 16px; }
+        .related-section { padding: 30px 16px 60px; }
     }
     @media (max-width: 480px) {
         .hero h1 { font-size: 26px; }
-        .cards-grid { grid-template-columns: 1fr; }
-        .subject-card { padding: 24px; }
-        .subject-icon { width: 60px; height: 60px; font-size: 24px; }
-        .subject-card h3 { font-size: 20px; }
+        .pdf-container iframe { height: 400px; }
+        .paper-header h2 { font-size: 20px; }
     }
 </style>
 </head>
@@ -382,7 +430,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="note.html"  class="active">Notes</a></li>
+                <li><a href="note.html" class="active">Notes</a></li>
                 <li><a href="labclass.html">Lab Practical</a></li>
                 <li><a href="modelclass.html">Model Questions</a></li>
                 <li><a href="past1.html">Past Papers</a></li>
@@ -415,85 +463,71 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Class 12 Subject Notes</span>
+                <i class="fas fa-graduation-cap"></i>
+                <span>Class 12 &middot; Notes</span>
             </div>
-           <h1>"Notes That Make  <span style="color: #ffd700;">Learning Easy"</span></h1>
-             <p>Subject Notes • Exam Preparation for +2 Students</p>
+            <h1>"Notes That Make  <span style="color: #ffd700;">Learning Easy"</span></h1>
+            <p>Physics Notes • Exam Preparation for +2 Students</p>
+            <div class="hero-tag">
+                <i class="fas fa-atom"></i>
+          1.Volumetric Analysis
+            </div>
         </div>
     </section>
 
-    <!-- Subject Cards -->
-    <section class="section">
-        <div class="section-header">
-            <h2>Choose Your Subject</h2>
-            <p>Select a subject to access Subject Notes</p>
+    <!-- PDF Section -->
+    <section class="content-section">
+        <div class="paper-card">           
+            <div class="paper-header">           
+                <h2>  1.Volumetric Analysis</h2>    
+                <p>Class 12 &middot; Notes</p>
+                <span class="subject-tag">
+                    <i class="fas fa-vial"></i>  1.Volumetric Analysis
+                </span>
+            </div> 
+            <div class="pdf-container">
+                <iframe 
+                    src="  https://drive.google.com/file/d/1bOxWw_bdKPL2-zialb-dcnJ-T3e1GYpi/preview" 
+                    allow="autoplay"
+                    title="Physics Model Questions">
+                </iframe>
+                <div class="pdf-fallback" id="pdfFallback">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>Unable to Load PDF</h3>
+                    <p>The PDF viewer may not be available on your device. You can download the file directly.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=14JS5xaUjtjvz9apWgf2syoJjOxkCGFxu" class="btn-download" target="_blank">
+                        <i class="fas fa-download"></i>
+                        
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="cards-grid">
-            <div class="subject-card physics">
-                <div class="subject-icon"><i class="fas fa-atom"></i></div>
-                <h3>Physics</h3>
-                <p>Notes with solutions for Physics</p>
-                <a href="notephysics12.html" class="subject-btn">Start Learning <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="subject-card chemistry">
-                <div class="subject-icon"><i class="fas fa-flask"></i></div>
-                <h3>Chemistry</h3>
-                <p>Notes with solutions for Chemistry</p>
-                <a href="notechemistry12.html" class="subject-btn" >Start Learning <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="subject-card math">
-                <div class="subject-icon"><i class="fas fa-square-root-alt"></i></div>
-                <h3>Mathematics</h3>
-                <p>Notes with solutions for Mathematics</p>
-                <a href="" class="subject-btn" onclick="alert('Comming Soon !')">Start Learning <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="subject-card biology">
+    </section>
+
+    <!-- Related Model Questions -->
+    <section class="related-section">
+        <div class="related-header">
+            <h3>More Notes</h3>
+        </div>
+        <div class="related-grid">
+            <a href="notechemistry.html" class="related-card chemistry">
+                <div class="subject-icon"><i class="fas fa-vial"></i></div>
+                <h4>Chemistry</h4>
+                <p>Class 11 &middot; Notes</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
+            <a href="notecomputer.html" class="related-card math">
+                <div class="subject-icon"><i class="fas fa-computer"></i></div>
+                <h4>Computer</h4>
+                <p>Class 11 &middot; Notes</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
+            <a href="notebiology.html" class="related-card biology">
                 <div class="subject-icon"><i class="fas fa-dna"></i></div>
-                <h3>Biology</h3>
-                <p>Notes with solutions for Biology</p>
-                <a href="" class="subject-btn" onclick="alert('Comming Soon !')">Start Learning <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="section-header">
-            <h2>Why writing Subject notes?</h2>
-            <x>Everything you need to excel in your examinations</x>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-brain"></i></div>
-                <h3>Better Understanding</h3>
-                <p>Notes help students understand important concepts in a simple way.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
-                <h3>Easy Revision</h3>
-                <p>Short notes make exam preparation faster and more effective.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                <h3>Improves Memory</h3>
-                <p>Writing notes helps retain information for a longer time.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
-                <h3>Highlights Key Points</h3>
-                <p>Important formulas, definitions, and facts can be quickly identified.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-clock"></i></div>
-                <h3>Saves Time</h3>
-                <p>Students do not need to read the entire textbook again before exams.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Increases Academic Performance</h3>
-                <p>Well-organized notes help students answer questions more accurately and confidently.</p>
-            </div>
+                <h4>Biology</h4>
+                <p>Class 11 &middot; Notes</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
         </div>
     </section>
 
@@ -501,7 +535,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <img src="logo.png.png" alt="Plus2 Guru Logo">
+                <img src="logo.png.png" alt="Plus 2 Guru Logo">
                 <div>
                     <h3>Plus 2 Guru</h3>
                     <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
@@ -559,21 +593,8 @@
             }
         });
 
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.subject-card, .feature-card').forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(el);
+        document.querySelector('.pdf-container iframe').addEventListener('error', function() {
+            document.getElementById('pdfFallback').style.display = 'block';
         });
     </script>
 </body>
