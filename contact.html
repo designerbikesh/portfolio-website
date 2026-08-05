@@ -566,7 +566,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 <div class="admin-overlay" id="adminOverlay" onclick="closeAdminOnBackdrop(event)">
     <div class="admin-panel" onclick="event.stopPropagation()">
         <div class="admin-header">
-            <h2><i class="fas fa-shield-alt"></i> Admin Panel &mdash; Plus 2 Guru</h2>
+            <h2><i class="fas fa-shield-alt"></i> Admin Panel &mdash; Contact Messages</h2>
             <div class="admin-header-actions" id="adminHeaderActions" style="display:none;">
                 <button class="settings-toggle" onclick="toggleChangePassword()" title="Change Password"><i class="fas fa-cog"></i></button>
                 <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -579,7 +579,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
             <div class="admin-login" id="adminLogin">
                 <div class="lock-icon"><i class="fas fa-lock"></i></div>
                 <h3>Admin Access</h3>
-                <p>Only for Owner</p>
+                <p>Enter your password to view and manage contact messages.</p>
                 <input type="password" id="adminPassword" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')loginAdmin()">
                 <button class="login-btn" onclick="loginAdmin()"><i class="fas fa-sign-in-alt"></i> Login</button>
                 <div class="login-error" id="loginError"><i class="fas fa-exclamation-triangle"></i> Incorrect password. Please try again.</div>
@@ -681,12 +681,19 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 // ========================
 // CONFIGURATION
 // ========================
-const DEFAULT_PASSWORD = '';
+const DEFAULT_PASSWORD = 'Plus2Guru@2026';
 const PASSWORD_KEY = 'p2g_admin_password';
 const STORAGE_KEY = 'p2g_contact_messages';
 const ITEMS_PER_PAGE = 10;
 let currentPage = 1;
 let isAdminLoggedIn = false;
+
+// ---- EMAIL NOTIFICATION SETUP ----
+// 1. Go to https://formspree.io/register
+// 2. Create a new form
+// 3. Add "plus2guru1@gmail.com" as the notification email
+// 4. Copy your Form ID and replace YOUR_FORMSPREE_ID below
+const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
 
 function getAdminPassword() {
     const stored = localStorage.getItem(PASSWORD_KEY);
@@ -734,13 +741,13 @@ function toggleFaq(element) {
 }
 
 // ========================
-// FORM SUBMISSION & STORAGE
+// FORM SUBMISSION, STORAGE & EMAIL
 // ========================
 const contactForm = document.getElementById('contactForm');
 const successMsg = document.getElementById('successMsg');
 const errorMsg = document.getElementById('errorMsg');
 
-contactForm.addEventListener('submit', function(e) {
+contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -760,16 +767,40 @@ contactForm.addEventListener('submit', function(e) {
         read: false
     };
 
+    // 1. Save to localStorage (Admin Panel)
     try {
         const messages = getMessages();
         messages.unshift(entry);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-        contactForm.reset();
-        showMsg(successMsg);
     } catch (err) {
-        console.error(err);
-        showMsg(errorMsg);
+        console.error('localStorage save failed', err);
     }
+
+    // 2. Send email notification via Formspree
+    if (FORMSPREE_ID && FORMSPREE_ID !== 'YOUR_FORMSPREE_ID') {
+        try {
+            await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    phone: phone || 'Not provided',
+                    subject: (subject || 'other').replace(/-/g, ' '),
+                    message: message,
+                    _replyto: email
+                })
+            });
+        } catch (err) {
+            console.log('Email notification failed (Formspree)', err);
+        }
+    }
+
+    contactForm.reset();
+    showMsg(successMsg);
 });
 
 function showMsg(el) {
@@ -855,7 +886,6 @@ function toggleChangePassword() {
     if (section.classList.contains('active')) {
         setTimeout(() => document.getElementById('currentPassword').focus(), 100);
     }
-    // Clear fields
     document.getElementById('currentPassword').value = '';
     document.getElementById('newPassword').value = '';
     document.getElementById('confirmPassword').value = '';
