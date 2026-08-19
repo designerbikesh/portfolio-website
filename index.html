@@ -40,26 +40,6 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-
-            
-             
-            <div class="nr">
-  <div class="vcount" title="Total Website Visits"><i class="fas fa-eye"></i><span id="vcnum">0</span></div>
-  <div class="hbg" id="hbg" onclick="(function(){var m=document.getElementById('mnav');var h=document.getElementById('hbg');if(m){m.classList.toggle('open');if(h)h.classList.toggle('open');}})()"><span></span><span></span><span></span></div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
             <button class="mobile-menu-btn" onclick="toggleMobileNav()">
                 <i class="fas-fa-bars"></i>
             </button>
@@ -372,7 +352,6 @@
             </div>
         </div>
     </section>
-    
 
     <!-- Footer -->
     <footer>
@@ -508,37 +487,6 @@ window.addEventListener("scroll", () => {
         indicator.style.pointerEvents = "auto";
     }
 });
-
-
-function trackVisit() {
-  document.addEventListener('DOMContentLoaded', function() {
-  mkParts();
-  rTeam();
-  rNotice();
-  rGallery();
-  trackVisit(); // <-- ADD THIS
-  document.querySelectorAll('.rv').forEach(function(el) {
-    obs.observe(el);
-  });
-});
-}
-
-
-function trackVisit() {
-  var visits = parseInt(localStorage.getItem('sf_visits') || '0');
-  visits++;
-  localStorage.setItem('sf_visits', visits);
-  var el = document.getElementById('vcnum');
-  if (el) el.textContent = visits.toLocaleString('ne-NP');
-}
-
-
-
-
-
-
-
-
 
 
 
