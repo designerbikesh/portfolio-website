@@ -93,7 +93,7 @@
 
     /* Hero Section */
     .hero {
-        padding: 140px 20px 80px;
+        padding: 140px 20px 60px;
         text-align: center;
         background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
         position: relative;
@@ -127,8 +127,8 @@
         border: 1px solid rgba(255,255,255,0.3);
     }
     .hero h1 {
-        font-size: clamp(28px, 5vw, 35px);
-        font-weight: 800;
+        font-size: clamp(28px, 5vw, 48px);
+        font-weight: 600;
         color: white;
         line-height: 1.2;
         margin-bottom: 16px;
@@ -138,99 +138,103 @@
         font-size: clamp(16px, 2vw, 18px);
         color: rgba(255,255,255,0.9);
         max-width: 600px;
-        margin: 0 auto 32px;
+        margin: 0 auto 24px;
     }
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 10px 24px;
+        border-radius: 50px;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero-tag i { color: #fbbf24; margin-right: 4px; }
 
-    /* Subject Cards Section */
-    .section {
+    /* PDF Section */
+    .content-section {
         padding: 60px 20px;
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
     }
-    .section-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    .section-header h2 {
-        font-size: clamp(24px, 3vw, 32px);
-        font-weight: 800;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-    }
-    .section-header p {
-        color: var(--text-medium);
-        font-size: 16px;
-    }
-
-    .cards-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 24px;
-    }
-    .subject-card {
+    .paper-card {
         background: var(--card-bg);
         border-radius: var(--radius);
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid var(--border);
-        position: relative;
-    }
-    .subject-card:hover {
-        transform: translateY(-8px);
+        padding: 40px;
         box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
     }
-    .card-image {
+    .paper-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--border);
+    }
+    .paper-header h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+    .paper-header p {
+        color: var(--text-light);
+        font-size: 14px;
+    }
+    .paper-header .subject-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #dbeafe;
+        color: #2563eb;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 12px;
+    }
+
+    /* PDF Viewer */
+    .pdf-container {
         position: relative;
         width: 100%;
-        aspect-ratio: 4/3;
+        border-radius: var(--radius-sm);
         overflow: hidden;
-        background: var(--bg);
+        background: #f8fafc;
+        border: 2px solid var(--border);
     }
-    .card-image img {
+    .pdf-container iframe {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
+        height: 800px;
+        border: none;
+        display: block;
     }
-    .subject-card:hover .card-image img {
-        transform: scale(1.05);
+    .pdf-fallback {
+        display: none;
+        padding: 60px 20px;
+        text-align: center;
+        background: #f8fafc;
     }
-    .card-overlay {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    .pdf-fallback i {
+        font-size: 48px;
+        color: var(--primary);
+        margin-bottom: 16px;
     }
-    .card-badge {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-        color: white;
-    }
-    .physics .card-badge { background: #d97706; }
-    .chemistry .card-badge { background: #2563eb; }
-    .biology .card-badge { background: #059669; }
-    .card-content {
-        padding: 24px;
-    }
-    .card-content h3 {
-        font-size: 22px;
+    .pdf-fallback h3 {
+        font-size: 20px;
         font-weight: 700;
         margin-bottom: 8px;
         color: var(--text-dark);
-        text-align: center;
     }
-    .card-content p {
-        color: var(--text-light);
-        font-size: 14px;
-        margin-bottom: 20px;
-        line-height: 1.5;
+    .pdf-fallback p {
+        color: var(--text-medium);
+        margin-bottom: 24px;
+        font-size: 15px;
     }
-    .card-btn {
+    .btn-download {
         display: inline-flex;
         align-items: center;
         gap: 8px;
@@ -242,53 +246,80 @@
         font-weight: 600;
         font-size: 15px;
         transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        font-family: inherit;
-        width: 100%;
-        justify-content: center;
-    }
-    .card-btn:hover {
-        background: var(--primary-dark);
-        transform: translateX(4px);
         box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
     }
-    .card-btn i { font-size: 14px; }
-
-    /* Tips Section */
-    .tips {
-        background: white;
-        padding: 60px 20px;
+    .btn-download:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
     }
-    .tips-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 24px;
-        max-width: 1200px;
+
+    /* Related Section */
+    .related-section {
+        padding: 40px 20px 80px;
+        max-width: 1000px;
         margin: 0 auto;
     }
-    .tip-card {
-        padding: 24px;
-        border-radius: var(--radius-sm);
-        background: var(--bg);
-        transition: all 0.3s ease;
-        border-left: 4px solid var(--primary);
+    .related-header {
+        text-align: center;
+        margin-bottom: 30px;
     }
-    .tip-card:hover { transform: translateX(4px); box-shadow: var(--shadow); }
-    .tip-card h4 {
+    .related-header h3 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+    }
+    .related-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+    }
+    .related-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary);
+    }
+    .related-card .subject-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    .related-card.physics .subject-icon { background: #fef3c7; color: #d97706; }
+    .related-card.biology .subject-icon { background: #d1fae5; color: #059669; }
+    .related-card h4 {
         font-size: 16px;
         font-weight: 700;
         color: var(--text-dark);
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        margin-bottom: 4px;
     }
-    .tip-card h4 i { color: var(--primary); }
-    .tip-card p {
-        color: var(--text-medium);
-        font-size: 14px;
-        line-height: 1.6;
+    .related-card p {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+    .related-card .arrow {
+        float: right;
+        color: var(--primary);
+        margin-top: -30px;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+    }
+    .related-card:hover .arrow {
+        transform: translateX(4px);
     }
 
     /* Footer */
@@ -373,17 +404,17 @@
     @media (max-width: 768px) {
         .nav-links { display: none; }
         .mobile-menu-btn { display: block; }
-        .hero { padding: 120px 16px 60px; }
-        .section { padding: 40px 16px; }
-        .cards-grid { grid-template-columns: 1fr; }
-        .tips { padding: 40px 16px; }
-        .tips-grid { grid-template-columns: 1fr; }
+        .hero { padding: 120px 16px 40px; }
+        .paper-card { padding: 24px; }
+        .pdf-container iframe { height: 500px; }
+        .related-grid { grid-template-columns: 1fr; }
+        .content-section { padding: 40px 16px; }
+        .related-section { padding: 30px 16px 60px; }
     }
     @media (max-width: 480px) {
         .hero h1 { font-size: 26px; }
-        .card-content { padding: 20px; }
-        .card-content h3 { font-size: 20px; }
-        .card-image { aspect-ratio: 16/10; }
+        .pdf-container iframe { height: 400px; }
+        .paper-header h2 { font-size: 20px; }
     }
 </style>
 </head>
@@ -431,91 +462,65 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
-                <i class="fas fa-flask"></i>
-                <span>Class 12 Lab Practical</span>
+                <i class="fas fa-graduation-cap"></i>
+                <span>Class 12 &middot; Lab Practical</span>
             </div>
-            <h1>"Revise Smart With Lab Practical Files"</h1>
-            <p>Write before read • Class 12 • Exam Preparation for +2 Students</p>
+            <h1>"From Observation To Innovation"</h1>
+            <p>Exam Preparation for +2 Students</p>
+            <div class="hero-tag">
+                <i class="fas fa-vial"></i>
+                Chemistry Lab File
+            </div>
         </div>
     </section>
 
-    <!-- Subject Cards -->
-    <section class="section">
-        <div class="section-header">
-            <h2>Choose Your Subject</h2>
-            <p>Select a subject to access lab practical files and experiment guides</p>
-        </div>
-        <div class="cards-grid">
-            <div class="subject-card physics">
-                <div class="card-image">
-                    <img src="labphysicstest12.png.jpg" alt="Physics Lab">
-                    <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-atom"></i> Physics</span>
-                </div>
-                <div class="card-content">
-                    <h3>Physics Lab</h3>
-                    <p>Complete physics experiment guides with diagrams, observations, calculations, and viva questions.</p>
-                    <a href="labphysics12.html" class="card-btn"><i class="fas fa-arrow-right"></i> Start Learning</a>
-                </div>
+    <!-- PDF Section -->             
+    <section class="content-section">              
+        <div class="paper-card">
+            <div class="paper-header">
+                <h2>Chemistry Lab Practical File</h2>
+                <p>Class 12 Complete Lab Guide</p>
+                <span class="subject-tag">
+                    <i class="fas fa-vial"></i> Chemistry
+                </span>
             </div>
-            <div class="subject-card chemistry">
-                <div class="card-image">
-                    <img src="che.png.jpeg" alt="Chemistry Lab">
-                    <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-vial"></i> Chemistry</span>
-                </div>
-                <div class="card-content">
-                    <h3>Chemistry Lab</h3>
-                    <p>Step-by-step chemical experiment procedures with safety guidelines, results, and observations.</p>
-                    <a href="labchemistry12.html" class="card-btn"><i class="fas fa-arrow-right"></i> Start Learning</a>
-                </div>
-            </div>
-            <div class="subject-card biology">
-                <div class="card-image">
-                    <img src="labbio.png.jpeg" alt="Biology Lab">
-                    <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-dna"></i> Biology</span>
-                </div>
-                <div class="card-content">
-                    <h3>Biology Lab</h3>
-                    <p>Biological specimen observations, dissection guides, microscope techniques, and practical files.</p>
-                    <a href=" " class="card-btn" onclick="alert('Class 12 Lab Files coming soon!')"><i class="fas fa-arrow-right"></i> Start Learning</a>
+            <div class="pdf-container">
+                <iframe 
+                    src=" https://drive.google.com/file/d/1nY_e6HomowkdNXuDhPH_z4FFS1b7diDG/preview" 
+                    allow="autoplay"
+                    title="Chemistry Lab Practical File">
+                </iframe>
+                <div class="pdf-fallback" id="pdfFallback">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>Unable to Load PDF</h3>
+                    <p>The PDF viewer may not be available on your device. You can download the file directly.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=19k19jLBAnpyqwNHUZ4DRiyt6otYhP1PO" class="btn-download" target="_blank">
+                        <i class="fas fa-download"></i>
+                        Download PDF
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tips Section -->
-    <section class="tips">
-        <div class="section-header">
-            <h2>Lab Practical Tips</h2>
-            <p>Essential guidelines for your practical examinations</p>
+    <!-- Related Labs -->
+    <section class="related-section">
+        <div class="related-header">
+            <h3>More Lab Files</h3>
         </div>
-        <div class="tips-grid">
-            <div class="tip-card">
-                <h4><i class="fas fa-pen"></i> Write Before Read</h4>
-                <p>Always attempt to write the procedure yourself before reading the solution. This builds better understanding.</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-shield-alt"></i> Safety First</h4>
-                <p>Follow all safety guidelines in the lab. Wear proper gear and handle chemicals with care.</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-eye"></i> Observation Skills</h4>
-                <p>Record observations accurately and immediately. Don't rely on memory for lab readings.</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-calculator"></i> Calculations</h4>
-                <p>Double-check all calculations. Show your work step-by-step for full marks.</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-comments"></i> Viva Preparation</h4>
-                <p>Study the theory behind each experiment thoroughly. Viva questions often test conceptual understanding.</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-file-alt"></i> File Format</h4>
-                <p>Follow the proper format: Aim, Apparatus, Procedure, Observation, Calculation, Result, Precaution.</p>
-            </div>
+        <div class="related-grid">
+            <a href="labphysics12.html" class="related-card physics">
+                <div class="subject-icon"><i class="fas fa-atom"></i></div>
+                <h4>Physics Lab</h4>
+                <p>Class 12 &middot; Practical File</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
+            <a href="labbiology.html" class="related-card biology">
+                <div class="subject-icon"><i class="fas fa-dna"></i></div>
+                <h4>Biology Lab</h4>
+                <p>Class 12 &middot; Practical File</p>
+                <i class="fas fa-arrow-right arrow"></i>
+            </a>
         </div>
     </section>
 
@@ -580,21 +585,8 @@
             }
         });
 
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.subject-card, .tip-card').forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(el);
+        document.querySelector('.pdf-container iframe').addEventListener('error', function() {
+            document.getElementById('pdfFallback').style.display = 'block';
         });
     </script>
 </body>
