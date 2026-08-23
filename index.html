@@ -102,6 +102,8 @@
                     <i class="fas fa-sticky-note"></i>
                     class 12 Nepali Notes
                 </a>
+
+                
                 
             </div>
         </div>
@@ -400,14 +402,16 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
-
 <!-- Scroll Down Indicator -->
 <div class="scroll-indicator" id="scrollIndicator">
-    <span>Scroll Down</span>
-    <div class="fas fa-chevron-down">
-        
+    <span>SCROLL DOWN</span>
+
+    <div class="scroll-icon">
+        <i class="fas fa-chevron-down"></i>
+        <i class="fas fa-chevron-down"></i>
     </div>
 </div>
+
 
     <script>
         function toggleMobileNav() {
@@ -487,6 +491,37 @@ window.addEventListener("scroll", () => {
         indicator.style.pointerEvents = "auto";
     }
 });
+
+
+
+
+/* Click indicator to scroll down */
+
+const scrollIndicator = document.getElementById("scrollIndicator");
+
+
+/* Hide indicator when user scrolls */
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 100) {
+        scrollIndicator.classList.add("hide");
+    } else {
+        scrollIndicator.classList.remove("hide");
+    }
+
+});
+
+
+/* Click indicator to scroll down */
+scrollIndicator.addEventListener("click", () => {
+
+    window.scrollTo({
+        top: window.innerHeight,
+        behavior: "smooth"
+    });
+
+});
+
 
 
 
