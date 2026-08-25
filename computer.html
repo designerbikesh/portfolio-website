@@ -107,7 +107,7 @@
 
     /* Hero Section */
     .hero1 {
-        padding: 140px 20px 80px;
+        padding: 100px 20px 20px;
         text-align: center;
         background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
         position: relative;
@@ -536,8 +536,10 @@ h3{
 }
 
 .hero h1 {
-    font-size: 42px;
+    font-size: 34px;
     margin-bottom: 15px;
+    margin-top: -55px;
+    color: #ff7700;
 }
 
 .hero p {
@@ -545,19 +547,456 @@ h3{
     font-size: 18px;
 }
 
-.search-box {
-    max-width: 650px;
-    margin: 30px auto;
-    display: flex;
+/* =====================================
+   UNIQUE SEARCH UI
+===================================== */
+
+.search-wrapper {
+    width: 100%;
+    max-width: 720px;
+    margin: 32px auto 10px;
+    position: relative;
 }
 
-.search-box input {
+
+/* Main Search Box */
+
+.search-box {
     width: 100%;
-    padding: 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    font-size: 16px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 2px solid #e5e7eb;
+
+    border-radius: 20px;
+
+    padding: 0 14px 0 20px;
+
+    box-shadow:
+        0 10px 30px rgba(30, 58, 138, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* Hover */
+
+.search-box:hover {
+    border-color: #cbd5e1;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 35px rgba(30, 58, 138, 0.12),
+        0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+/* Focus */
+
+.search-box:focus-within {
+
+    border-color: #2563eb;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 0 5px rgba(37, 99, 235, 0.10),
+        0 15px 40px rgba(37, 99, 235, 0.15);
+}
+
+
+/* Search Icon */
+
+.search-icon {
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1e3a8a
+        );
+
+    color: white;
+
+    font-size: 17px;
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.25);
+
+    transition: transform 0.3s ease;
+}
+
+
+.search-box:focus-within .search-icon {
+
+    transform:
+        rotate(-8deg)
+        scale(1.05);
+
+}
+
+
+/* Input */
+
+.search-box input {
+
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
     outline: none;
+
+    background: transparent;
+
+    padding: 0 15px;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    color: #1a1a2e;
+}
+
+
+.search-box input::placeholder {
+
+    color: #9ca3af;
+
+    font-weight: 400;
+
+}
+
+
+/* Keyboard Shortcut */
+
+.search-shortcut {
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 6px 9px;
+
+    background: #f3f4f6;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    transition: 0.3s ease;
+
+}
+
+
+.search-shortcut span {
+
+    padding: 2px 5px;
+
+    background: white;
+
+    border-radius: 5px;
+
+    border: 1px solid #d1d5db;
+
+}
+
+
+.search-box:focus-within .search-shortcut {
+
+    opacity: 0;
+
+    transform: translateX(10px);
+
+    pointer-events: none;
+
+}
+
+
+/* Clear Button */
+
+.clear-search {
+
+    width: 38px;
+    height: 38px;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition: all 0.3s ease;
+
+}
+
+
+.clear-search:hover {
+
+    background: #fee2e2;
+
+    color: #ef4444;
+
+    transform: rotate(90deg);
+
+}
+
+
+/* Search Information */
+
+.search-info {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    padding: 0 8px;
+
+    font-size: 13px;
+
+    color: #64748b;
+
+}
+
+
+.search-info i {
+
+    color: #ff7200;
+
+    margin-right: 5px;
+
+}
+
+
+/* Program Count */
+
+.program-count {
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+/* =====================================
+   NO RESULTS
+===================================== */
+
+.no-results {
+
+    display: none;
+
+    max-width: 720px;
+
+    margin: 30px auto;
+
+    padding: 45px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+
+.no-results-icon {
+
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 18px;
+
+    background: #f1f5f9;
+
+    color: #94a3b8;
+
+    font-size: 25px;
+}
+
+
+.no-results h3 {
+
+    margin-bottom: 6px;
+
+    color: #1e293b;
+
+    font-size: 20px;
+
+}
+
+
+.no-results p {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================
+   SEARCH RESULT ANIMATION
+===================================== */
+
+.program.search-hidden {
+
+    opacity: 0;
+
+    transform: translateY(10px) scale(0.98);
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+
+    .search-wrapper {
+
+        margin-top: 25px;
+
+    }
+
+
+    .search-box {
+
+        height: 58px;
+
+        border-radius: 16px;
+
+        padding-left: 12px;
+
+        padding-right: 10px;
+
+    }
+
+
+    .search-icon {
+
+        width: 38px;
+        height: 38px;
+
+        border-radius: 11px;
+
+        font-size: 15px;
+
+    }
+
+
+    .search-box input {
+
+        font-size: 14px;
+
+        padding: 0 10px;
+
+    }
+
+
+    .search-shortcut {
+
+        display: none;
+
+    }
+
+
+    .search-info {
+
+        font-size: 11px;
+
+    }
+
+
+    .program-count {
+
+        font-size: 10px;
+
+        padding: 4px 8px;
+
+    }
+
+
+    .no-results {
+
+        padding: 35px 15px;
+
+    }
+
 }
 
 .container {
@@ -629,19 +1068,410 @@ pre {
     line-height: 1.6;
 }
 
-.copy-btn {
+/* Code Action Buttons */
+.code-actions {
     position: absolute;
     top: 12px;
     right: 12px;
-    background: #2563eb;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 5px;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    z-index: 5;
+}
+
+/* Common Button */
+.run-btn,
+.copy-btn {
+    height: 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 0 13px;
+
     color: white;
-    padding: 8px 14px;
-    border-radius: 7px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* Run Button */
+.run-btn {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+
+    box-shadow:
+        0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+.run-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(34, 197, 94, 0.4);
+}
+
+.run-btn:active {
+    transform: scale(0.94);
+}
+
+/* Copy Button */
+.copy-btn {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .copy-btn:hover {
-    background: #1d4ed8;
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(37, 99, 235, 0.4);
 }
+
+.copy-btn:active {
+    transform: scale(0.94);
+}
+
+/* Icons */
+.run-btn i,
+.copy-btn i {
+    font-size: 12px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .code-actions {
+        top: 8px;
+        right: 8px;
+        gap: 5px;
+        padding: 4px;
+    }
+
+    .run-btn,
+    .copy-btn {
+        height: 32px;
+        padding: 0 9px;
+        font-size: 11px;
+        gap: 5px;
+    }
+
+}
+
+
+
+
+
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,0.55);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.3s;
+
+    z-index: 1998;
+
+    pointer-events: none;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================
+   CENTER PANEL
+========================= */
+
+.compiler-panel {
+
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    width: 90%;
+    max-width: 1200px;
+
+    height: 90vh;
+    max-height: 900px;
+
+    background: white;
+
+    z-index: 1999;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.35);
+
+    /* CLOSED */
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.92);
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* OPEN */
+
+.compiler-panel.active {
+
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.panel-header {
+
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    background: #0051ff;
+
+    color: white;
+}
+
+.panel-title {
+
+    min-width: 0;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.panel-title span {
+    color: #ff7200;
+}
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-btn {
+
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ff0505;
+
+    color: white;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+
+    background: #dc2626;
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================
+   VIEWER
+========================= */
+
+.viewer {
+
+    position: relative;
+
+    width: 100%;
+
+    height: calc(100% - 60px);
+
+    overflow: hidden;
+
+    background: white;
+}
+
+
+/* ==================================================
+   SAME CROP ON ALL DEVICES
+================================================== */
+
+.viewer iframe {
+
+    position: absolute;
+
+    top: -180px;
+
+    left: -60px;
+
+    width: calc(100% + 80px);
+
+    height: calc(100% + 160px);
+
+    border: none;
+
+    display: block;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+    .compiler-panel {
+
+        width: 94%;
+
+        height: 90vh;
+
+    }
+
+    .panel-header {
+
+        height: 58px;
+
+        padding: 0 14px;
+    }
+
+    .panel-title {
+
+        font-size: 16px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .open-btn {
+
+        top: 12px;
+
+        right: 12px;
+
+        padding: 11px 14px;
+
+        font-size: 14px;
+    }
+
+    .compiler-panel {
+
+        width: 96%;
+
+        height: 90vh;
+
+        border-radius: 10px;
+    }
+
+    .panel-header {
+
+        height: 56px;
+
+        padding: 0 10px;
+    }
+
+    .panel-title {
+
+        font-size: 14px;
+    }
+
+    .close-btn {
+
+        width: 35px;
+
+        height: 35px;
+
+        font-size: 21px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -707,13 +1537,72 @@ pre {
     <h1>C Programming Practice</h1>
     <p>Simple and useful C programs for students</p>
 
+   <!-- Unique Search Box -->
+<div class="search-wrapper">
+
     <div class="search-box">
+
+        <div class="search-icon">
+            <i class="fas fa-search"></i>
+        </div>
+
         <input
             type="text"
             id="search"
-            placeholder="Search programs..."
-            onkeyup="searchPrograms()">
+            placeholder="Search C programs, structures, arrays..."
+            autocomplete="off"
+        >
+
+        <div class="search-shortcut">
+            <span>Ctrl</span> K
+        </div>
+
+        <button
+            class="clear-search"
+            id="clearSearch"
+            type="button"
+            aria-label="Clear search">
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
     </div>
+
+    <div class="search-info">
+
+        <span id="searchStatus">
+            <i class="fas fa-lightbulb"></i>
+            Search by program name, topic or keyword
+        </span>
+
+        <span
+            class="program-count"
+            id="programCount">
+
+            3 Programs
+
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- No Results -->
+<div class="no-results" id="noResults">
+
+    <div class="no-results-icon">
+        <i class="fas fa-magnifying-glass"></i>
+    </div>
+
+    <h3>No Programs Found</h3>
+
+    <p>
+        Try searching with another keyword or program name.
+    </p>
+
+</div>
 </section>
 
 <div class="container">
@@ -727,7 +1616,7 @@ pre {
             Structure
         </button>
 
-        <button class="category" onclick="filterPrograms('array', this)">
+        <button class="category" onclick="filterPrograms('function', this)">
             Function
         </button>
 
@@ -735,6 +1624,83 @@ pre {
             Array
         </button>
     </div>
+
+
+
+
+<!-- =========================
+     OVERLAY
+========================= -->
+
+<div
+    class="overlay"
+    id="overlay">
+</div>
+
+
+<!-- =========================
+     CENTER COMPILER PANEL
+========================= -->
+
+<div
+    class="compiler-panel"
+    id="compilerPanel">
+
+
+    <!-- HEADER -->
+
+    <div class="panel-header">
+
+        <div class="panel-title">
+              <span>Plus 2 Guru</span>
+            C Programming Online Compiler
+
+        </div>
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="close-btn"
+            onclick="closeCompiler()"
+            aria-label="Close">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <!-- WEBSITE -->
+
+    <div class="viewer">
+
+        <iframe
+            src="https://www.programiz.com/c-programming/online-compiler/"
+            title="Programiz C Online Compiler">
+        </iframe>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- PROGRAM 1 -->
@@ -748,7 +1714,21 @@ pre {
 
         <div class="code-container">
 
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<div class="code-actions">
+
+    <!-- Run Button -->
+    <button class="run-btn" onclick="openCompiler()">
+        <i class="fas fa-play"></i>
+        <span>Run</span>
+    </button>
+
+    <!-- Copy Button -->
+    <button class="copy-btn" onclick="copyCode(this)">
+        <i class="fas fa-copy"></i>
+        <span>Copy</span>
+    </button>
+
+</div>
 
  <pre><code>#include &lt;stdio.h&gt;
 
@@ -810,7 +1790,20 @@ int main() {
 
         <div class="code-container">
 
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<div class="code-actions">
+
+    <!-- Run Button -->
+    <button class="run-btn" onclick="runCode(this)">
+        <i class="fas fa-play"></i>
+        <span>Run</span>
+    </button>
+
+    <!-- Copy Button -->
+    <button class="copy-btn" onclick="copyCode(this)">
+        <i class="fas fa-copy"></i>
+        <span>Copy</span>
+    </button>
+</div>
 
 <pre><code>#include &lt;stdio.h&gt;
 
@@ -867,16 +1860,29 @@ int main() {
 
     <!-- PROGRAM 3 -->
 
-    <div class="card program" data-category="array">
+    <div class="card program" data-category="structure">
 
         <div class="card-header">
             <h2>3.WAP in C that stores name and marks Secured by 10 Students in math, physics and chemistry in a structure and displays record of all  Students along with obtained marks and percentage and also remarks Showing student  is pass or fail. Assume 40 pass mark for each subject.</h2>
-            <span class="badge">Array</span>
+            <span class="badge">Structure</span>
         </div>
 
         <div class="code-container">
 
-<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<div class="code-actions">
+
+    <!-- Run Button -->
+    <button class="run-btn" onclick="runCode(this)">
+        <i class="fas fa-play"></i>
+        <span>Run</span>
+    </button>
+
+    <!-- Copy Button -->
+    <button class="copy-btn" onclick="copyCode(this)">
+        <i class="fas fa-copy"></i>
+        <span>Copy</span>
+    </button>
+</div>
 
 <pre> <code>#include &lt;stdio.h&gt;
 
@@ -941,39 +1947,39 @@ int main() {
     <!-- Features Section -->
     <section class="features">
         <div class="section-header">
-            <h2>Why Practice Model Questions?</h2>
-            <x>Everything you need to excel in your examinations</x>
+            <h2>Why Practice Computer Programming Model Questions?</h2>
+            <x>Everything you need to strengthen your programming skills and excel in your examinations.</x>
         </div>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
-                <h3>Exam Pattern</h3>
-                <p>Model questions follow the exact exam pattern and marking scheme of +2 board exams.</p>
+                <div class="feature-icon"><i class="fas fa-code"></i></div>
+                <h3> Programming Concepts</h3>
+                <p>Practice model questions to strengthen your understanding of programming concepts, syntax, and logic.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-clock"></i></div>
-                <h3>Time Management</h3>
-                <p>Practice solving questions within the time limit to improve your speed and accuracy.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                <h3>Self Assessment</h3>
-                <p>Evaluate your preparation level and identify weak areas before the actual exam.</p>
+                <h3>Problem-Solving Speed</h3>
+                <p>Solve programming problems within the exam time limit to improve coding speed and accuracy.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-brain"></i></div>
-                <h3>Concept Clarity</h3>
-                <p>Revised model questions help reinforce concepts and improve problem-solving skills.</p>
+                <h3>Logic Building</h3>
+                <p>Develop logical thinking and learn how to approach programming problems step by step.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
-                <h3>Answer Formatting</h3>
-                <p>Learn proper answer formatting and presentation for maximum marks.</p>
+                <div class="feature-icon"><i class="fas fa-file-code"></i></div>
+                <h3>Code Writing Practice</h3>
+                <p>Practice writing correct, clean, and well-structured programs according to examination requirements.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bug"></i></div>
+                <h3>Debugging Skills</h3>
+                <p>Identify and correct errors in programs to improve your understanding of common programming mistakes.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                 <h3>Progress Tracking</h3>
-                <p>Track your improvement over time with regular practice and revision.</p>
+                <p>Track your practice results, identify weak programming topics, and improve through regular revision.</p>
             </div>
         </div>
     </section>
@@ -1084,39 +2090,60 @@ function scrollToTop() {
 }
 
 
-
+///// copy button///////////
 
 function copyCode(button) {
 
     const code =
-        button.parentElement.querySelector("code").innerText;
+        button.closest(".code-container")
+              .querySelector("code")
+              .innerText;
 
-    navigator.clipboard.writeText(code);
+    navigator.clipboard.writeText(code).then(() => {
 
-    button.innerText = "Copied!";
+        const icon = button.querySelector("i");
+        const text = button.querySelector("span");
 
-    setTimeout(() => {
-        button.innerText = "Copy";
-    }, 1500);
+        icon.className = "fas fa-check";
+        text.innerText = "Copied!";
+
+        setTimeout(() => {
+            icon.className = "fas fa-copy";
+            text.innerText = "Copy";
+        }, 1500);
+
+    });
+
 }
 
 
-function toggleTheme() {
+ ////run button////
 
-    document.body.classList.toggle("dark");
+ function runCode(button) {
 
-    const button =
-        document.getElementById("themeBtn");
+    const code =
+        button.closest(".code-container")
+              .querySelector("code")
+              .innerText;
 
-    if(document.body.classList.contains("dark")) {
+    const encodedCode = encodeURIComponent(code);
 
-        button.innerText = "☀️ Light";
+    const compilerURL =
+        "https://www.onlinegdb.com/online_c_compiler";
 
-    } else {
+    window.open(compilerURL, "_blank");
 
-        button.innerText = "🌙 Dark";
-    }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 function filterPrograms(category, button) {
@@ -1144,30 +2171,298 @@ function filterPrograms(category, button) {
 }
 
 
+///search button//////
+
+
+/* =====================================
+   C PROGRAM SEARCH
+===================================== */
+
+const searchInput = document.getElementById("search");
+const clearSearch = document.getElementById("clearSearch");
+const searchStatus = document.getElementById("searchStatus");
+const programCount = document.getElementById("programCount");
+const noResults = document.getElementById("noResults");
+
+
+/* Search Programs */
+
 function searchPrograms() {
 
-    const search =
-        document.getElementById("search")
-        .value.toLowerCase();
+    const keyword =
+        searchInput.value
+        .toLowerCase()
+        .trim();
 
     const programs =
         document.querySelectorAll(".program");
 
+    let visibleCount = 0;
+
+
     programs.forEach(program => {
 
-        const text =
+        const content =
             program.innerText.toLowerCase();
 
-        if(text.includes(search)) {
+
+        if (content.includes(keyword)) {
 
             program.style.display = "block";
 
-        } else {
+            program.classList.remove(
+                "search-hidden"
+            );
 
-            program.style.display = "none";
+            visibleCount++;
+
         }
+
+        else {
+
+            program.classList.add(
+                "search-hidden"
+            );
+
+            setTimeout(() => {
+
+                if (
+                    !program.innerText
+                    .toLowerCase()
+                    .includes(
+                        searchInput.value
+                        .toLowerCase()
+                        .trim()
+                    )
+                ) {
+
+                    program.style.display = "none";
+
+                }
+
+            }, 250);
+
+        }
+
     });
+
+
+    /* Clear button */
+
+    if (keyword.length > 0) {
+
+        clearSearch.style.display = "flex";
+
+    }
+
+    else {
+
+        clearSearch.style.display = "none";
+
+    }
+
+
+    /* Result Count */
+
+    programCount.textContent =
+        visibleCount +
+        " Program" +
+        (visibleCount !== 1 ? "s" : "");
+
+
+    /* Search Status */
+
+    if (keyword === "") {
+
+        searchStatus.innerHTML =
+            '<i class="fas fa-lightbulb"></i> ' +
+            'Search by program name, topic or keyword';
+
+    }
+
+    else if (visibleCount > 0) {
+
+        searchStatus.innerHTML =
+            '<i class="fas fa-check-circle"></i> ' +
+            visibleCount +
+            ' matching program' +
+            (visibleCount !== 1 ? "s" : "") +
+            ' found';
+
+    }
+
+    else {
+
+        searchStatus.innerHTML =
+            '<i class="fas fa-circle-exclamation"></i> ' +
+            'No programs found';
+
+    }
+
+
+    /* No Results */
+
+    if (visibleCount === 0) {
+
+        noResults.style.display = "block";
+
+    }
+
+    else {
+
+        noResults.style.display = "none";
+
+    }
+
 }
+
+
+/* =====================================
+   CLEAR SEARCH
+===================================== */
+
+clearSearch.addEventListener(
+    "click",
+    function() {
+
+        searchInput.value = "";
+
+        searchPrograms();
+
+        searchInput.focus();
+
+    }
+);
+
+
+/* =====================================
+   KEYBOARD SHORTCUT
+   CTRL + K
+===================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            (event.ctrlKey || event.metaKey) &&
+            event.key.toLowerCase() === "k"
+        ) {
+
+            event.preventDefault();
+
+            searchInput.focus();
+
+        }
+
+
+        /* ESCAPE TO CLEAR */
+
+        if (
+            event.key === "Escape" &&
+            document.activeElement === searchInput
+        ) {
+
+            searchInput.value = "";
+
+            searchPrograms();
+
+        }
+
+    }
+);
+
+
+/* =====================================
+   LIVE SEARCH
+===================================== */
+
+searchInput.addEventListener(
+    "input",
+    searchPrograms
+);
+
+
+/* =====================================
+   INITIAL COUNT
+===================================== */
+
+searchPrograms();
+
+
+
+
+
+
+
+const panel =
+    document.getElementById("compilerPanel");
+
+const overlay =
+    document.getElementById("overlay");
+
+
+/* =========================
+   OPEN
+========================= */
+
+function openCompiler() {
+
+    panel.classList.add("active");
+
+    overlay.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* =========================
+   CLOSE
+========================= */
+
+function closeCompiler() {
+
+    panel.classList.remove("active");
+
+    overlay.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+
+/* =========================
+   ESC CLOSE
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeCompiler();
+
+        }
+
+    }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
