@@ -40,6 +40,179 @@
         overflow-x: hidden;
     }
 
+
+
+
+
+/* =====================================================
+   PROGRAMMING BACKGROUND
+===================================================== */
+
+.programming-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -5;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 140, 255, .18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(130, 60, 255, .18),
+            transparent 30%
+        ),
+        #050b16;
+}
+
+.programming-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+}
+
+.programming-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle,
+            transparent 10%,
+            rgba(3,8,18,.25) 50%,
+            rgba(3,8,18,.85) 100%
+        );
+}
+
+.code-symbol {
+    position: absolute;
+
+    color: rgba(0, 200, 255, .25);
+
+    font-family: Consolas, monospace;
+    font-size: 16px;
+    font-weight: bold;
+
+    white-space: nowrap;
+    pointer-events: none;
+
+    text-shadow:
+        0 0 8px rgba(0,200,255,.5);
+
+    animation: codeFloat linear infinite;
+}
+
+@keyframes codeFloat {
+
+    0% {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-150px);
+        opacity: 0;
+    }
+}
+
+.bg-particle {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #00c8ff;
+
+    box-shadow:
+        0 0 8px #00c8ff,
+        0 0 20px rgba(0,200,255,.7);
+
+    animation: particleMove linear infinite;
+}
+
+@keyframes particleMove {
+
+    from {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-20vh);
+        opacity: 0;
+    }
+}
+
+.binary {
+    position: absolute;
+
+    color: rgba(0,255,170,.12);
+
+    font-family: monospace;
+    font-size: 12px;
+
+    animation: binaryMove linear infinite;
+}
+
+@keyframes binaryMove {
+
+    from {
+        transform: translateY(100vh);
+    }
+
+    to {
+        transform: translateY(-120vh);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
     
     /* Scroll Progress Bar */
 .progress-bar {
@@ -568,7 +741,8 @@ h3{
     display: flex;
     align-items: center;
 
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(27, 26, 106, 0.96);
+    background: transparent;
 
     border: 2px solid #e5e7eb;
 
@@ -702,7 +876,7 @@ h3{
 
     padding: 6px 9px;
 
-    background: #f3f4f6;
+    background: #ffffff;
 
     border: 1px solid #e5e7eb;
 
@@ -1309,6 +1483,8 @@ pre {
 
 .panel-title span {
     color: #ff7200;
+    font-weight:bold;
+    font-size: 20px;
 }
 
 
@@ -1360,7 +1536,7 @@ pre {
 
     overflow: hidden;
 
-    background: white;
+    background: #0051ff;
 }
 
 
@@ -1482,6 +1658,14 @@ pre {
 </style>
 </head>
 <body>
+
+    
+<!-- =====================================================
+     PROGRAMMING BACKGROUND
+===================================================== -->
+
+<div class="programming-bg" id="programmingBg"></div>  
+ 
      <div class="progress-bar" id="progressBar"></div>
 
 
@@ -1612,16 +1796,16 @@ pre {
             All
         </button>
 
-        <button class="category" onclick="filterPrograms('structure', this)">
-            Structure
-        </button>
-
         <button class="category" onclick="filterPrograms('function', this)">
             Function
         </button>
 
+        <button class="category" onclick="filterPrograms('structure', this)">
+            Structure
+        </button>
+
         <button class="category" onclick="filterPrograms('pointer', this)">
-            Array
+            Pointer
         </button>
     </div>
 
@@ -1653,7 +1837,7 @@ pre {
 
         <div class="panel-title">
               <span>Plus 2 Guru</span>
-            C Programming Online Compiler
+                       C Programming Online Compiler
 
         </div>
 
@@ -2446,6 +2630,192 @@ document.addEventListener(
 
     }
 );
+
+
+
+
+
+
+
+
+/* =====================================================
+   PROGRAMMING BACKGROUND
+===================================================== */
+
+const background =
+    document.getElementById("programmingBg");
+
+
+const codeList = [
+
+    "#include <stdio.h>",
+
+    "int main() { }",
+
+    "printf();",
+
+    "return 0;",
+
+    "scanf();",
+
+    "if(condition)",
+
+    "else { }",
+
+    "for(i=0;i<10;i++)",
+
+    "while(true)",
+
+    "function() { }",
+
+    "console.log();",
+
+    "const app = {}",
+
+    "{ }",
+
+    "[ ]",
+
+    "< / >",
+
+    "010101",
+
+    "C Programming",
+
+    "HTML",
+
+    "CSS",
+
+    "JavaScript",
+
+    "Compiler",
+
+    "Algorithm",
+
+    "Developer",
+
+    "Code"
+
+];
+
+
+function createCode() {
+
+    const code =
+        document.createElement("div");
+
+    code.className = "code-symbol";
+
+    code.textContent =
+        codeList[
+            Math.floor(
+                Math.random() * codeList.length
+            )
+        ];
+
+    code.style.left =
+        Math.random() * 100 + "%";
+
+    code.style.animationDuration =
+        12 + Math.random() * 18 + "s";
+
+    code.style.fontSize =
+        12 + Math.random() * 12 + "px";
+
+    background.appendChild(code);
+
+    setTimeout(() => {
+
+        code.remove();
+
+    }, 30000);
+
+}
+
+
+function createParticle() {
+
+    const particle =
+        document.createElement("div");
+
+    particle.className =
+        "bg-particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+        6 + Math.random() * 10 + "s";
+
+    background.appendChild(particle);
+
+    setTimeout(() => {
+
+        particle.remove();
+
+    }, 20000);
+
+}
+
+
+function createBinary() {
+
+    const binary =
+        document.createElement("div");
+
+    binary.className =
+        "binary";
+
+    binary.textContent =
+        Array.from(
+            { length: 25 },
+            () =>
+                Math.random() > .5
+                    ? "1"
+                    : "0"
+        ).join("\n");
+
+    binary.style.left =
+        Math.random() * 100 + "%";
+
+    binary.style.animationDuration =
+        15 + Math.random() * 20 + "s";
+
+    background.appendChild(binary);
+
+    setTimeout(() => {
+
+        binary.remove();
+
+    }, 40000);
+
+}
+
+
+
+
+/* Initial background */
+
+for (let i = 0; i < 25; i++) {
+    createCode();
+}
+
+for (let i = 0; i < 35; i++) {
+    createParticle();
+}
+
+for (let i = 0; i < 12; i++) {
+    createBinary();
+}
+
+
+/* Continuous */
+
+setInterval(createCode, 1200);
+
+setInterval(createParticle, 500);
+
+setInterval(createBinary, 2500);
 
 
 
