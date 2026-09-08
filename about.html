@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plus 2 Guru </title>
+<title>About Plus 2 Guru | Free +2 Learning Resources for Nepal</title>
+<meta name="description" content="Learn about Plus 2 Guru, a student-focused educational platform providing study notes, practical resources, model questions, past papers, programming tutorials, and exam-preparation guidance for +2 students in Nepal.">
+<meta name="robots" content="index, follow">
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png.png">
 <link rel="apple-touch-icon" href="favicon.png.png">
@@ -893,16 +895,16 @@ footer {
         <p class="hero-subtitle">Plus 2 Guru is an educational platform built to support +2 students across Nepal with quality resources and exam strategies.</p>
         <div class="hero-stats">
             <div class="stat-item">
-                <span class="stat-number" data-count="50">0+</span>
-                <div class="stat-label">Students Helped</div>
+                <span class="stat-number">11–12</span>
+                <div class="stat-label">Class Levels</div>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-count="50">0+</span>
-                <div class="stat-label">Study Resources</div>
+                <span class="stat-number">NEB</span>
+                <div class="stat-label">Curriculum Focus</div>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-count="24">0+</span>
-                <div class="stat-label">Past Papers</div>
+                <span class="stat-number">Free</span>
+                <div class="stat-label">Student Access</div>
             </div>
         </div>
     </div>
@@ -946,6 +948,29 @@ footer {
             <p>Designed specifically for Nepali +2 students following the NEB curriculum. Our content is tailored to help you understand concepts better and score higher in board exams.</p>
         </div>
     </div>
+
+    <div class="about-card" style="margin-top:24px;">
+        <div class="card-icon">
+            <i class="fas fa-layer-group"></i>
+        </div>
+        <h3>How We Prepare Learning Resources</h3>
+        <p>Plus 2 Guru is designed around a simple learning flow: understand the concept, study an example, practise questions, and revise before the examination. Resources are organized by subject and topic so students can move from basic concepts to practice without searching through unrelated material.</p>
+        <p style="margin-top:14px;">We aim to keep explanations student-friendly and useful for learners following the Nepal +2 and NEB curriculum. When a resource contains an example, program, question set, or practical procedure, the surrounding explanation is intended to help students understand how and why the solution works rather than simply copy an answer.</p>
+    </div>
+
+    <div class="about-card" style="margin-top:24px;">
+        <div class="card-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Our Content Principles</h3>
+        <ul class="feature-list">
+            <li><span class="icon"><i class="fas fa-check"></i></span> Explain concepts in clear, student-friendly language.</li>
+            <li><span class="icon"><i class="fas fa-check"></i></span> Organize resources by class, subject, and topic where possible.</li>
+            <li><span class="icon"><i class="fas fa-check"></i></span> Provide examples and practice opportunities alongside explanations.</li>
+            <li><span class="icon"><i class="fas fa-check"></i></span> Correct unclear, outdated, or inaccurate information when identified.</li>
+            <li><span class="icon"><i class="fas fa-check"></i></span> Keep the platform focused on useful learning rather than unnecessary content.</li>
+        </ul>
+    </div>
 </section>
 
 <!-- Mission Statement -->
@@ -979,7 +1004,7 @@ footer {
         <div class="feature-card">
             <span class="emoji">📊</span>
             <h4>Model Questions</h4>
-            <p>Curated model question sets designed by subject experts to help you practice and prepare effectively.</p>
+            <p>Practice-oriented model question sets organized to help students revise concepts and prepare for examinations.</p>
         </div>
 
         <div class="feature-card">
@@ -991,7 +1016,7 @@ footer {
         <div class="feature-card">
             <span class="emoji">🎓</span>
             <h4>Study Tips</h4>
-            <p>Expert-curated study strategies, time management techniques, and exam preparation guides for +2 students.</p>
+            <p>Practical study strategies, time-management ideas, and exam-preparation guidance for +2 students.</p>
         </div>
 
         <div class="feature-card">
@@ -1143,23 +1168,6 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Animated Counter
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-
-    function update() {
-        start += increment;
-        if (start < target) {
-            element.textContent = Math.floor(start).toLocaleString() + '+';
-            requestAnimationFrame(update);
-        } else {
-            element.textContent = target.toLocaleString() + '+';
-        }
-    }
-    update();
-}
-
 // Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
@@ -1183,22 +1191,7 @@ document.querySelectorAll('.about-card, .feature-card, .section-header, .mission
     observer.observe(el);
 });
 
-// Observe hero stats for counter animation
-const heroStats = document.querySelector('.hero-stats');
-if (heroStats) {
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('[data-count]').forEach(counter => {
-                    const target = parseInt(counter.getAttribute('data-count'));
-                    animateCounter(counter, target);
-                });
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    statsObserver.observe(heroStats);
-}
+
 </script>
 
 </body>
