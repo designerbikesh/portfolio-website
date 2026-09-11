@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Plus 2 Guru - Terms & Conditions </title>
+    <link rel="icon" type="image/png" href="favicon.png.png">
+    <link rel="apple-touch-icon" href="favicon.png.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #ff7200;
+            --primary-dark: #e56500;
+            --secondary: #1e3a8a;
+            --secondary-light: #2563eb;
+            --accent: #08dcd1;
+            --bg: #f4f7ff;
+            --card-bg: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-medium: #4a5568;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    z-index: 10001;
+    width: 0%;
+    transition: width 0.1s linear;
+        }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px; margin: auto; padding: 0 20px;
+            height: 70px; display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo img { width: 68px; height: 68px; object-fit: contain; border-radius: 8px; }
+        .logo-text { color: var(--primary); font-size: 22px; font-weight: 800; }
+
+        .nav-links { display: flex; gap: 6px; list-style: none; }
+        .nav-links a {
+            color: var(--text-medium); text-decoration: none; font-weight: 600;
+            font-size: 14px; padding: 8px 13px; border-radius: 8px; transition: .25s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary); background: rgba(255,114,0,.1);
+        }
+
+        .mobile-menu-btn {
+            display: none; border: 0; background: none; color: var(--text-dark);
+            font-size: 24px; cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+            z-index: 2000; backdrop-filter: blur(4px);
+        }
+        .mobile-nav.active { display: block; }
+        .mobile-nav-content {
+            position: absolute; top: 0; right: 0; width: min(300px, 85%);
+            height: 100%; background: white; padding: 80px 24px 24px;
+            transform: translateX(100%); transition: transform .3s ease;
+        }
+        .mobile-nav.active .mobile-nav-content { transform: translateX(0); }
+        .mobile-nav-links { list-style: none; }
+        .mobile-nav-links a {
+            display: block; padding: 13px 0; color: var(--text-dark);
+            text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--border);
+        }
+        .mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--primary); }
+        .close-mobile-nav {
+            position: absolute; top: 20px; right: 20px; border: 0;
+            background: none; font-size: 24px; cursor: pointer;
+        }
+
+        .hero {
+            padding: 140px 20px 80px;
+    text-align: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #08dcd1 100%);
+    position: relative;
+    overflow: hidden;
+        }
+        .hero:before {
+            content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+        }
+        .hero-content {  position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto; }
+        .hero-badge {
+             display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.3);
+    animation: fadeInUp 1s ease;
+        }
+        .hero h1 {  font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    animation: fadeInUp 1s ease 0.2s both; }
+        .hero p {   font-size: clamp(18px, 3vw, 20px);
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    margin-bottom: 32px;
+    animation: fadeInUp 1s ease 0.4s both; }
+
+        .container { max-width: 1000px; margin: auto; padding: 0 20px; }
+        .terms-wrapper { padding: 55px 0 80px; }
+
+        .terms-card {
+            background: rgba(255,255,255,.97); border: 1px solid var(--border);
+            border-radius: var(--radius); box-shadow: var(--shadow-lg);
+            padding: clamp(24px, 5vw, 52px);
+        }
+
+        .meta {
+            display: flex; flex-wrap: wrap; gap: 10px 24px; padding-bottom: 25px;
+            margin-bottom: 30px; border-bottom: 1px solid var(--border);
+            color: var(--text-medium); font-size: 14px;
+        }
+        .meta strong { color: var(--text-dark); }
+
+        .terms-section { margin-bottom: 34px; }
+        .terms-section:last-child { margin-bottom: 0; }
+        .terms-section h2 {
+            color: var(--secondary); font-size: clamp(21px, 3vw, 27px);
+            margin-bottom: 12px; line-height: 1.3;
+        }
+        .terms-section p { color: var(--text-medium); margin-bottom: 12px; }
+        .terms-section ul { padding-left: 23px; color: var(--text-medium); }
+        .terms-section li { margin: 7px 0; }
+
+        .notice {
+            margin-top: 15px; padding: 17px 19px; border-left: 4px solid var(--primary);
+            background: rgba(255,114,0,.07); border-radius: 10px; color: var(--text-medium);
+        }
+
+        footer {
+            background: var(--secondary); color: white; padding: 50px 20px 20px;
+        }
+        .footer-content {
+            max-width: 1200px; margin: auto; display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 35px; margin-bottom: 35px;
+        }
+        .footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+        .footer-brand img { width: 50px; height: 50px; object-fit: contain; }
+        .footer-brand h3 { color: var(--primary); font-size: 23px; margin-bottom: 7px; }
+        .footer-brand p, .footer-links a { color: rgba(255,255,255,.7); font-size: 14px; }
+        .footer-brand p { line-height: 1.6; }
+        .footer-links h4 { margin-bottom: 12px; }
+        .footer-links ul { list-style: none; }
+        .footer-links a { text-decoration: none; line-height: 2.1; transition: .2s; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom {
+            max-width: 1200px; margin: auto; padding-top: 18px;
+            border-top: 1px solid rgba(6, 233, 112, 0.12);
+            text-align: center; color: rgba(255,255,255,.6); font-size: 13px;
+        }
+        .designer { color: var(--accent); font-weight: 600; }
+
+        .back-to-top {
+            position: fixed; right: 25px; bottom: 25px; width: 48px; height: 48px;
+            border: 0; border-radius: 50%; background: var(--primary); color: white;
+            cursor: pointer; opacity: 0; visibility: hidden; transition: .3s; z-index: 900;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { transform: translateY(-4px); }
+
+        @keyframes gradientShift {
+            0%,100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+        @media (max-width: 600px) {
+            .nav-container { padding: 0 14px; }
+            .logo img { width: 58px; height: 58px; }
+            .logo-text { font-size: 18px; }
+            .hero { padding: 65px 16px 55px; }
+            .hero p { font-size: 15px; }
+            .terms-wrapper { padding: 30px 0 55px; }
+            .container { padding: 0 12px; }
+            .terms-card { padding: 23px 18px; border-radius: 13px; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-brand { justify-content: center; flex-direction: column; align-items: center; }
+        }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff7200;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e56500;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <span class="logo-text">Plus 2 Guru</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab Practical</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html">Past Papers</a></li>
+            <li><a href="blo.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav" onclick="closeMobileNav(event)">
+    <div class="mobile-nav-content">
+        <button class="close-mobile-nav" onclick="toggleMobileNav()" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="note.html">Notes</a></li>
+            <li><a href="labclass.html">Lab Practical</a></li>
+            <li><a href="modelclass.html">Model Questions</a></li>
+            <li><a href="past1.html">Past Papers</a></li>
+            <li><a href="blo.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<header class="hero">
+    <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-file-contract"></i> Website Terms</div>
+        <h1>Terms &amp; Conditions</h1>
+        <p>Please read these terms carefully before using Plus 2 Guru.</p>
+    </div>
+</header>
+
+<main class="terms-wrapper">
+    <div class="container">
+        <article class="terms-card">
+            <div class="meta">
+                <span><strong>Website:</strong> www.bikeshyadav11.com.np</span>
+                <span><strong>Website Name:</strong> Plus 2 Guru</span>
+                <span><strong>Owner & Founder:</strong> Bikesh Kumar Yadav</span>
+                <span><strong>Last Updated:</strong> September 12, 2026</span>
+            </div>
+
+            <section class="terms-section">
+                <h2>1. Introduction</h2>
+                <p>Welcome to Plus 2 Guru (“Website”, “we”, “our”, or “us”). Plus 2 Guru is an educational platform designed to provide learning resources and academic materials, particularly for NEB Class 11 and Class 12 students in Nepal.</p>
+                <p>By accessing or using this website, you agree to comply with these Terms &amp; Conditions. If you do not agree with any part of these terms, please discontinue use of the Website.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>2. Purpose of the Website</h2>
+                <p>The primary purpose of Plus 2 Guru is to make educational resources easier to access and use for students and learners.</p>
+                <ul>
+                    <li>Chapter-wise academic notes and study materials</li>
+                    <li>Model questions and exam-focused resources</li>
+                    <li>Previous-year question papers and past examination materials</li>
+                    <li>Multiple-choice questions (MCQs)</li>
+                    <li>Practice tests and learning activities</li>
+                    <li>Programming and computer science learning resources</li>
+                    <li>Practical files, examples, and solutions</li>
+                    <li>Educational articles, study guides, and videos</li>
+                    <li>Resources for NEB Class 11 and Class 12</li>
+                </ul>
+                <div class="notice">Plus 2 Guru is an educational resource platform and is not a replacement for schools, colleges, teachers, official textbooks, or official educational authorities.</div>
+            </section>
+
+            <section class="terms-section">
+                <h2>3. Educational Content and Accuracy</h2>
+                <p>We make reasonable efforts to provide useful, understandable, and accurate educational content. However, educational content may contain typographical, formatting, or factual errors, and curriculum, examination patterns, syllabuses, and policies may change.</p>
+                <p>Users should verify important academic information with official sources, teachers, textbooks, or relevant educational authorities before relying on it for examinations, assignments, projects, publications, or other important academic purposes.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>4. Intellectual Property and Copyright</h2>
+                <p>Unless otherwise stated, original content, website design, graphics, logos, text, educational materials, and other original resources created for Plus 2 Guru are protected by applicable intellectual property and copyright laws.</p>
+                <ul>
+                    <li>Do not republish substantial original content as your own.</li>
+                    <li>Do not sell or commercially distribute original materials without permission.</li>
+                    <li>Do not modify content and present it as another person's original work.</li>
+                    <li>Personal, educational, and non-commercial use is permitted where no specific restriction is stated.</li>
+                    <li>Please provide appropriate credit when referencing or sharing our original content.</li>
+                </ul>
+            </section>
+
+            <section class="terms-section">
+                <h2>5. Third-Party Content and Resources</h2>
+                <p>Some pages may contain links, embedded content, educational resources, videos, tools, or materials provided by third parties. Third-party content remains subject to its respective owner's terms and copyright policies.</p>
+                <p>Plus 2 Guru does not necessarily own or control third-party content and is not responsible for changes, availability, accuracy, or policies of external websites.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>6. Website Usage</h2>
+                <p>Users agree to use Plus 2 Guru responsibly and lawfully.</p>
+                <ul>
+                    <li>Do not use the Website for illegal or harmful purposes.</li>
+                    <li>Do not attempt to damage, disrupt, or interfere with the Website.</li>
+                    <li>Do not attempt unauthorized access to Website systems or accounts.</li>
+                    <li>Do not upload or distribute malicious software.</li>
+                    <li>Do not use Website content in a misleading or unlawful manner.</li>
+                    <li>Do not interfere with the Website's security or functionality.</li>
+                </ul>
+            </section>
+
+            <section class="terms-section">
+                <h2>7. Downloads and Educational Materials</h2>
+                <p>Plus 2 Guru may provide downloadable notes, PDFs, worksheets, question papers, templates, practical materials, and other educational resources. Downloads are provided primarily for educational and personal use.</p>
+                <p>Users are responsible for ensuring that downloaded materials are used in accordance with applicable copyright laws and any specific usage instructions associated with the material. Where a resource belongs to another individual, institution, publisher, or organization, ownership remains with the respective copyright holder.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>8. Examination and Academic Responsibility</h2>
+                <p>Plus 2 Guru provides resources intended to help students understand academic subjects and prepare for examinations. We do not guarantee a particular examination result, grade, percentage, specific examination question, or academic success based solely on the use of this Website.</p>
+                <p>Students should use multiple reliable learning sources and follow guidance from their teachers and educational institutions.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>9. User Contributions</h2>
+                <p>If the Website allows users to submit comments, suggestions, questions, or educational materials, users are responsible for ensuring that their submissions do not violate copyright, privacy, or applicable laws and do not contain unlawful, abusive, defamatory, harmful, or malicious material.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>10. External Links</h2>
+                <p>The Website may contain links to external websites, educational platforms, video platforms, social media pages, or other online services. These links are provided for convenience or additional educational information. Users access external websites at their own discretion.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>11. Disclaimer and Limitation of Liability</h2>
+                <p>The information and educational resources provided on Plus 2 Guru are offered for general educational and informational purposes. We do not guarantee that the Website or its content will always be completely accurate, error-free, current, available without interruption, or suitable for every academic requirement.</p>
+                <p>To the extent permitted by applicable law, Plus 2 Guru and its owner shall not be responsible for losses or damages resulting from reliance on information provided through the Website.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>12. Privacy</h2>
+                <p>Your use of the Website may also be subject to our Privacy Policy, which explains how information may be collected, used, and protected. Please review the Privacy Policy for more information.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>13. Advertising</h2>
+                <p>Plus 2 Guru may display advertisements from third-party advertising providers. Advertisements may help support the operation and maintenance of the Website. Third-party advertisers may have their own policies and technologies for delivering advertisements.</p>
+                <p>The presence of an advertisement does not necessarily mean that Plus 2 Guru endorses the advertised product or service.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>14. Changes to the Website</h2>
+                <p>Plus 2 Guru reserves the right to add, modify, remove, or update educational resources and Website features, or temporarily suspend services for maintenance, technical, security, or operational reasons.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>15. Changes to These Terms</h2>
+                <p>These Terms &amp; Conditions may be updated periodically to reflect changes in the Website, educational resources, applicable laws, or operational practices. The “Last Updated” date at the beginning of this page indicates when the terms were most recently revised.</p>
+                <p>Continued use of the Website after changes are published constitutes acceptance of the updated Terms &amp; Conditions.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>16. Governing Law</h2>
+                <p>These Terms &amp; Conditions shall be governed by and interpreted in accordance with the applicable laws of Nepal.</p>
+                <p>Any dispute or legal matter arising from the use of Plus 2 Guru or its services shall be subject to the jurisdiction of the competent courts of Nepal, to the extent permitted by applicable law.</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>17. Contact Us</h2>
+                <p>If you have questions about these Terms &amp; Conditions, copyright, educational resources, content corrections, permissions, or other matters related to Plus 2 Guru, please visit our Contact page.</p>
+                <p><strong>Website:</strong> www.bikeshyadav11.com.np<br>
+                <strong>Website Name:</strong> Plus 2 Guru<br>
+                <strong>Owner:</strong> Bikesh Kumar Yadav</p>
+            </section>
+
+            <section class="terms-section">
+                <h2>18. Acceptance of Terms</h2>
+                <p>By accessing and using www.bikeshyadav11.com.np, you acknowledge that you have read, understood, and agreed to these Terms &amp; Conditions.</p>
+                <p>If you do not agree with these terms, please do not use the Website.</p>
+            </section>
+        </article>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <img src="logo.png.png" alt="Plus 2 Guru Logo">
+            <div>
+                <h3>Plus 2 Guru</h3>
+                <p>Empowering +2 students across Nepal with free, high-quality educational resources.</p>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="note.html">Notes</a></li>
+                <li><a href="labclass.html">Lab Practical</a></li>
+                <li><a href="modelclass.html">Model Questions</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="past1.html">Past Papers</a></li>
+                <li><a href="blo.html">Blog</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links">
+            <h4>Legal &amp; Information</h4>
+            <ul>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="terms.html" class="active">Terms &amp; Conditions</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Plus 2 Guru | Made for Students of Nepal 🇳🇵 | Developer &amp; Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
+    </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+function toggleMobileNav() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav(event) {
+    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
+}
+
+window.addEventListener('scroll', () => {
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = height > 0 ? (window.scrollY / height) * 100 : 0;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+
+    const btn = document.getElementById('backToTop');
+    btn.classList.toggle('visible', window.scrollY > 500);
+});
+
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
