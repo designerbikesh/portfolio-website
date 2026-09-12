@@ -836,6 +836,379 @@ footer {
         font-size: 1.8rem;
     }
 }
+
+
+
+
+
+/* ================================
+   About Plus 2 Guru - Detailed Section
+================================ */
+
+.about-platform-section {
+    padding: 20px 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-platform-wrapper {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 55px 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-platform-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary-light),
+        var(--accent)
+    );
+}
+
+.about-platform-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.about-platform-header .platform-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 10px 25px rgba(255, 114, 0, 0.25);
+}
+
+.about-platform-header h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.about-platform-header h2 span {
+    color: var(--primary);
+}
+
+.platform-tagline {
+    font-size: 18px;
+    color: var(--secondary-light);
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.platform-intro {
+    max-width: 900px;
+    margin: 0 auto 45px;
+    text-align: center;
+    color: var(--text-medium);
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.platform-content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.platform-info-box {
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f8faff
+    );
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 30px;
+    transition: all 0.35s ease;
+}
+
+.platform-info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 114, 0, 0.35);
+}
+
+.platform-info-box.full-width {
+    grid-column: 1 / -1;
+}
+
+.platform-info-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.platform-info-title .info-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(255, 114, 0, 0.1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.platform-info-title h3 {
+    font-size: 20px;
+    font-weight: 750;
+    color: var(--text-dark);
+}
+
+.platform-info-box p {
+    color: var(--text-medium);
+    line-height: 1.85;
+    font-size: 15px;
+}
+
+.platform-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+    margin-top: 15px;
+}
+
+.platform-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text-medium);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.platform-list li i {
+    color: var(--primary);
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.creator-box {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: linear-gradient(
+        135deg,
+        rgba(30, 58, 138, 0.06),
+        rgba(8, 220, 209, 0.06)
+    );
+}
+.creator-avatar {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        var(--secondary),
+        var(--secondary-light)
+    );
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.25);
+    border: 3px solid white;
+}
+
+.creator-avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.creator-avatar:hover img {
+    transform: scale(1.08);
+}
+
+
+@media (max-width: 768px) {
+    .creator-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .creator-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .creator-box .platform-info-title {
+        justify-content: center;
+    }
+}
+
+
+
+
+
+.commitment-box {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 114, 0, 0.06),
+        rgba(255, 114, 0, 0.02)
+    );
+}
+
+.contact-highlight {
+    background: linear-gradient(
+        135deg,
+        var(--secondary),
+        var(--secondary-light)
+    );
+    color: white;
+}
+
+.contact-highlight .platform-info-title h3,
+.contact-highlight p {
+    color: white;
+}
+
+.contact-highlight .info-icon {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 11px 18px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.14);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    word-break: break-word;
+}
+
+.contact-link:hover {
+    background: rgba(255,255,255,0.24);
+    transform: translateY(-2px);
+}
+
+.platform-ending {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.platform-ending h3 {
+    color: var(--primary);
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.platform-ending .slogan {
+    color: var(--text-medium);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.platform-ending .copyright {
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* Responsive About Platform */
+@media (max-width: 768px) {
+    .about-platform-section {
+        padding: 10px 16px 60px;
+    }
+
+    .about-platform-wrapper {
+        padding: 40px 24px;
+    }
+
+    .platform-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .platform-info-box.full-width {
+        grid-column: auto;
+    }
+
+    .platform-list {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-platform-wrapper {
+        padding: 35px 18px;
+        border-radius: 14px;
+    }
+
+    .about-platform-header {
+        margin-bottom: 35px;
+    }
+
+    .about-platform-header .platform-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .platform-info-box {
+        padding: 24px 20px;
+    }
+
+    .platform-info-title h3 {
+        font-size: 18px;
+    }
+
+    .platform-intro {
+        font-size: 14px;
+    }
+
+    .platform-info-box p {
+        font-size: 14px;
+    }
+
+    .contact-link {
+        width: 100%;
+        justify-content: center;
+        font-size: 13px;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -910,6 +1283,345 @@ footer {
     </div>
 </section>
 
+
+
+<!-- ================================
+     About Plus 2 Guru
+================================= -->
+<section class="about-platform-section" id="about-platform">
+    <div class="about-platform-wrapper">
+
+        <!-- Header -->
+        <div class="about-platform-header">
+
+            <div class="platform-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+
+            <h2>About <span>Plus 2 Guru</span></h2>
+
+            <div class="platform-tagline">
+                Smart Learning. Better Preparation.
+            </div>
+
+        </div>
+
+        <!-- Introduction -->
+        <p class="platform-intro">
+            Welcome to <strong>Plus 2 Guru</strong>, an educational resource
+            platform created to make learning resources more accessible,
+            organized, and useful for <strong>NEB Class 11 and Class 12
+            students in Nepal</strong>.
+            <br><br>
+            Plus 2 Guru brings together study materials and
+            exam-preparation resources in one convenient place so that
+            students can spend less time searching for resources and
+            more time learning.
+        </p>
+
+        <div class="platform-content-grid">
+
+            <!-- What We Provide -->
+            <div class="platform-info-box full-width">
+
+                <div class="platform-info-title">
+                    <div class="info-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+
+                    <h3>What We Provide</h3>
+                </div>
+
+                <p>
+                    Plus 2 Guru focuses on providing practical and
+                    student-friendly educational resources, including:
+                </p>
+
+                <ul class="platform-list">
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Chapter-wise notes</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Model questions</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Previous-year question papers</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>MCQs and practice questions</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Practice tests</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Practical files and solutions</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Computer science and programming resources</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Educational articles and study guides</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Learning videos and digital resources</span>
+                    </li>
+
+                </ul>
+
+                <p style="margin-top: 22px;">
+                    Our resources are designed to support students with
+                    revision, concept understanding, practice, and
+                    examination preparation.
+                </p>
+
+            </div>
+
+
+            <!-- Our Mission -->
+            <div class="platform-info-box">
+
+                <div class="platform-info-title">
+
+                    <div class="info-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+
+                    <h3>Our Mission</h3>
+
+                </div>
+
+                <p>
+                    Our mission is to make quality educational resources
+                    easier to discover and access.
+                    <br><br>
+                    We believe digital technology can make education more
+                    convenient and engaging. Through Plus 2 Guru, we aim
+                    to organize useful learning materials in a simple
+                    format that students can access from computers,
+                    tablets, and mobile devices.
+                </p>
+
+            </div>
+
+
+            <!-- Our Vision -->
+            <div class="platform-info-box">
+
+                <div class="platform-info-title">
+
+                    <div class="info-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+
+                    <h3>Our Vision</h3>
+
+                </div>
+
+                <p>
+                    Our vision is to build a useful digital learning
+                    platform for Nepalese students where educational
+                    resources are organized, accessible, and easy to
+                    understand.
+                </p>
+
+                <ul class="platform-list">
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Smart learning</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Digital literacy</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Independent study</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Practical learning</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Better exam preparation</span>
+                    </li>
+
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Responsible use of technology</span>
+                    </li>
+
+                </ul>
+
+            </div>
+
+<!-- About Creator -->
+<div class="platform-info-box full-width creator-box">
+
+    <div class="creator-avatar">
+        <img src="bikeshyadav.jpg" alt="Bikesh Kumar Yadav">
+    </div>
+
+    <div>
+        <div class="platform-info-title">
+            <div class="info-icon">
+                <i class="fas fa-user"></i>
+            </div>
+
+            <h3>About the Creator</h3>
+        </div>
+
+        <p>
+            Plus 2 Guru is created and maintained by
+            <strong>Bikesh Kumar Yadav</strong>, a student and
+            technology enthusiast interested in web development,
+            graphic design, programming, and digital learning.
+            <br><br>
+            The project combines technology and education to
+            create a useful online learning environment for
+            +2 students.
+        </p>
+    </div>
+
+</div>
+            <!-- Our Commitment -->
+            <div class="platform-info-box commitment-box full-width">
+
+                <div class="platform-info-title">
+
+                    <div class="info-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+
+                    <h3>Our Commitment</h3>
+
+                </div>
+
+                <p>
+                    We continuously work to improve the quality,
+                    organization, accessibility, and usability of the
+                    resources available on Plus 2 Guru.
+                    <br><br>
+                    If you notice an error, outdated information,
+                    broken link, or have a useful suggestion, we
+                    welcome your feedback.
+                </p>
+
+            </div>
+
+
+            <!-- Contact -->
+            <div class="platform-info-box contact-highlight full-width">
+
+                <div class="platform-info-title">
+
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+
+                    <h3>Contact Us</h3>
+
+                </div>
+
+                <p>
+                    For questions, suggestions, corrections,
+                    collaboration, or other inquiries, please visit
+                    our Contact Us page.
+                </p>
+
+                <a href="contact.html" class="contact-link">
+                    <i class="fas fa-arrow-right"></i>
+                    Visit Contact Us
+                </a>
+
+                <br>
+
+                <a
+                    href="https://www.bikeshyadav11.com.np/"
+                    class="contact-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fas fa-globe"></i>
+                    www.bikeshyadav11.com.np
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Ending -->
+        <div class="platform-ending">
+
+            <h3>Plus 2 Guru</h3>
+
+            <p class="slogan">
+                पढाइलाई बनाऔं स्मार्ट, सफलतालाई बनाऔं निश्चित।
+            </p>
+
+            <p class="copyright">
+                © Plus 2 Guru — All Rights Reserved.
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- About Section -->
 <section class="section" id="about">
     <div class="section-header">
@@ -948,29 +1660,6 @@ footer {
             <p>Designed specifically for Nepali +2 students following the NEB curriculum. Our content is tailored to help you understand concepts better and score higher in board exams.</p>
         </div>
     </div>
-
-    <div class="about-card" style="margin-top:24px;">
-        <div class="card-icon">
-            <i class="fas fa-layer-group"></i>
-        </div>
-        <h3>How We Prepare Learning Resources</h3>
-        <p>Plus 2 Guru is designed around a simple learning flow: understand the concept, study an example, practise questions, and revise before the examination. Resources are organized by subject and topic so students can move from basic concepts to practice without searching through unrelated material.</p>
-        <p style="margin-top:14px;">We aim to keep explanations student-friendly and useful for learners following the Nepal +2 and NEB curriculum. When a resource contains an example, program, question set, or practical procedure, the surrounding explanation is intended to help students understand how and why the solution works rather than simply copy an answer.</p>
-    </div>
-
-    <div class="about-card" style="margin-top:24px;">
-        <div class="card-icon">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <h3>Our Content Principles</h3>
-        <ul class="feature-list">
-            <li><span class="icon"><i class="fas fa-check"></i></span> Explain concepts in clear, student-friendly language.</li>
-            <li><span class="icon"><i class="fas fa-check"></i></span> Organize resources by class, subject, and topic where possible.</li>
-            <li><span class="icon"><i class="fas fa-check"></i></span> Provide examples and practice opportunities alongside explanations.</li>
-            <li><span class="icon"><i class="fas fa-check"></i></span> Correct unclear, outdated, or inaccurate information when identified.</li>
-            <li><span class="icon"><i class="fas fa-check"></i></span> Keep the platform focused on useful learning rather than unnecessary content.</li>
-        </ul>
-    </div>
 </section>
 
 <!-- Mission Statement -->
@@ -1004,7 +1693,7 @@ footer {
         <div class="feature-card">
             <span class="emoji">📊</span>
             <h4>Model Questions</h4>
-            <p>Practice-oriented model question sets organized to help students revise concepts and prepare for examinations.</p>
+            <p>Curated model question sets designed by subject experts to help you practice and prepare effectively.</p>
         </div>
 
         <div class="feature-card">
@@ -1016,7 +1705,7 @@ footer {
         <div class="feature-card">
             <span class="emoji">🎓</span>
             <h4>Study Tips</h4>
-            <p>Practical study strategies, time-management ideas, and exam-preparation guidance for +2 students.</p>
+            <p>Expert-curated study strategies, time management techniques, and exam preparation guides for +2 students.</p>
         </div>
 
         <div class="feature-card">
@@ -1168,6 +1857,23 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// Animated Counter
+function animateCounter(element, target, duration = 2000) {
+    let start = 0;
+    const increment = target / (duration / 16);
+
+    function update() {
+        start += increment;
+        if (start < target) {
+            element.textContent = Math.floor(start).toLocaleString() + '+';
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = target.toLocaleString() + '+';
+        }
+    }
+    update();
+}
+
 // Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
@@ -1191,7 +1897,22 @@ document.querySelectorAll('.about-card, .feature-card, .section-header, .mission
     observer.observe(el);
 });
 
-
+// Observe hero stats for counter animation
+const heroStats = document.querySelector('.hero-stats');
+if (heroStats) {
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('[data-count]').forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    animateCounter(counter, target);
+                });
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    statsObserver.observe(heroStats);
+}
 </script>
 
 </body>
