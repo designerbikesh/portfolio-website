@@ -792,6 +792,347 @@ footer {
         padding: 20px;
     }
 }
+
+
+
+
+
+
+/* ================================
+BLOG INTRODUCTION SECTION
+================================ */
+
+.blog-intro-section {
+padding: 80px 20px 30px;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.blog-intro-wrapper {
+background: var(--card-bg);
+border: 1px solid var(--border);
+border-radius: var(--radius);
+padding: 50px;
+box-shadow: var(--shadow);
+position: relative;
+overflow: hidden;
+}
+
+.blog-intro-wrapper::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 5px;
+background: linear-gradient(
+90deg,
+var(--primary),
+var(--secondary-light),
+var(--accent)
+);
+}
+
+.blog-intro-header {
+text-align: center;
+max-width: 850px;
+margin: 0 auto 45px;
+}
+
+.blog-intro-badge {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+background: rgba(255, 114, 0, 0.1);
+color: var(--primary);
+padding: 8px 18px;
+border-radius: 50px;
+font-size: 13px;
+font-weight: 700;
+margin-bottom: 18px;
+}
+
+.blog-intro-header h2 {
+font-size: clamp(28px, 4vw, 42px);
+font-weight: 800;
+line-height: 1.2;
+color: var(--text-dark);
+margin-bottom: 10px;
+}
+
+.blog-intro-header h2 span {
+color: var(--primary);
+}
+
+.blog-tagline {
+font-size: 18px;
+font-weight: 700;
+color: var(--secondary-light);
+margin-bottom: 20px;
+}
+
+.blog-intro-header p {
+color: var(--text-medium);
+font-size: 16px;
+line-height: 1.9;
+}
+
+.blog-intro-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 22px;
+}
+
+.blog-info-card {
+background: #f8faff;
+border: 1px solid var(--border);
+border-radius: var(--radius-sm);
+padding: 28px;
+transition: all 0.35s ease;
+position: relative;
+}
+
+.blog-info-card:hover {
+transform: translateY(-6px);
+box-shadow: var(--shadow-lg);
+border-color: rgba(255, 114, 0, 0.25);
+}
+
+.blog-info-icon {
+width: 52px;
+height: 52px;
+border-radius: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(255, 114, 0, 0.1);
+color: var(--primary);
+font-size: 22px;
+margin-bottom: 18px;
+}
+
+.blog-info-card h3 {
+font-size: 19px;
+font-weight: 750;
+margin-bottom: 10px;
+color: var(--text-dark);
+}
+
+.blog-info-card p {
+color: var(--text-medium);
+font-size: 14px;
+line-height: 1.8;
+}
+
+.blog-mission {
+margin-top: 30px;
+padding: 32px;
+border-radius: var(--radius-sm);
+background: linear-gradient(
+135deg,
+rgba(30, 58, 138, 0.06),
+rgba(8, 220, 209, 0.08)
+);
+border: 1px solid rgba(37, 99, 235, 0.12);
+}
+
+.blog-mission h3 {
+display: flex;
+align-items: center;
+gap: 10px;
+color: var(--secondary);
+font-size: 22px;
+margin-bottom: 12px;
+}
+
+.blog-mission p {
+color: var(--text-medium);
+line-height: 1.8;
+font-size: 15px;
+}
+
+/* Popular Topics */
+
+.popular-topics {
+margin-top: 35px;
+}
+
+.popular-topics h3 {
+text-align: center;
+font-size: 24px;
+color: var(--text-dark);
+margin-bottom: 22px;
+}
+
+.topic-list {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 10px;
+list-style: none;
+}
+
+.topic-list li {
+background: white;
+border: 1px solid var(--border);
+color: var(--text-medium);
+padding: 9px 15px;
+border-radius: 50px;
+font-size: 13px;
+transition: all 0.3s ease;
+}
+
+.topic-list li:hover {
+color: white;
+background: var(--primary);
+border-color: var(--primary);
+transform: translateY(-2px);
+}
+
+/* Creator */
+
+.blog-creator {
+margin-top: 35px;
+display: flex;
+align-items: center;
+gap: 20px;
+padding: 25px;
+background: #fff;
+border: 1px solid var(--border);
+border-radius: var(--radius-sm);
+}
+
+.blog-creator-avatar {
+width: 72px;
+height: 72px;
+min-width: 72px;
+border-radius: 50%;
+background: linear-gradient(
+135deg,
+var(--secondary),
+var(--secondary-light)
+);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 24px;
+font-weight: 800;
+overflow: hidden;
+}
+
+.blog-creator-avatar img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.blog-creator h3 {
+font-size: 20px;
+margin-bottom: 6px;
+}
+
+.blog-creator p {
+color: var(--text-medium);
+font-size: 14px;
+line-height: 1.7;
+}
+
+.blog-ending {
+text-align: center;
+margin-top: 40px;
+padding-top: 30px;
+border-top: 1px solid var(--border);
+}
+
+.blog-ending h3 {
+font-size: 22px;
+color: var(--secondary);
+margin-bottom: 8px;
+}
+
+.blog-ending p {
+color: var(--text-medium);
+margin-bottom: 6px;
+}
+
+.blog-slogan {
+color: var(--primary) !important;
+font-weight: 700;
+font-size: 16px !important;
+}
+
+/* Blog Intro Responsive */
+
+@media (max-width: 900px) {
+.blog-intro-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (max-width: 768px) {
+.blog-intro-section {
+padding: 60px 16px 20px;
+}
+
+
+.blog-intro-wrapper {
+    padding: 35px 22px;
+}
+
+.blog-intro-grid {
+    grid-template-columns: 1fr;
+}
+
+.blog-creator {
+    align-items: flex-start;
+}
+
+
+}
+
+@media (max-width: 480px) {
+.blog-intro-wrapper {
+padding: 30px 18px;
+}
+
+
+.blog-intro-header h2 {
+    font-size: 28px;
+}
+
+.blog-intro-header p {
+    font-size: 14px;
+}
+
+.blog-info-card {
+    padding: 22px;
+}
+
+.blog-mission {
+    padding: 24px 20px;
+}
+
+.blog-creator {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -851,6 +1192,273 @@ footer {
         <p class="hero-subtitle">Expert study tips, subject guides, and exam strategies for Nepali +2 students</p>
     </div>
 </section>
+
+
+
+
+
+<!-- ================================
+     BLOG INTRODUCTION SECTION
+================================ -->
+
+<section class="blog-intro-section">
+
+<div class="blog-intro-wrapper">
+
+    <div class="blog-intro-header">
+
+        <div class="blog-intro-badge">
+            <i class="fas fa-book-open"></i>
+            Plus 2 Guru Blog
+        </div>
+
+        <h2>
+            Plus 2 Guru <span>Blog</span>
+        </h2>
+
+        <div class="blog-tagline">
+            Smart Learning. Better Preparation.
+        </div>
+
+        <p>
+            Welcome to the <strong>Plus 2 Guru Blog</strong>, where students
+            can find useful educational articles, study tips, exam
+            preparation strategies, programming guides, academic resources,
+            and helpful information for
+            <strong>NEB Class 11 and Class 12 students in Nepal.</strong>
+        </p>
+
+        <p style="margin-top: 12px;">
+            Our goal is to make learning easier by providing practical and
+            easy-to-understand educational content in one place.
+        </p>
+
+    </div>
+
+
+    <!-- What You'll Find -->
+    <div class="section-header" style="margin-bottom: 30px;">
+        <h2>
+            📚 What You'll Find on Our <span class="highlight">Blog</span>
+        </h2>
+    </div>
+
+    <div class="blog-intro-grid">
+
+        <div class="blog-info-card">
+            <div class="blog-info-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+
+            <h3>Exam Preparation Tips</h3>
+
+            <p>
+                Learn effective ways to prepare for school and NEB
+                examinations, manage revision, practice questions,
+                and improve your study routine.
+            </p>
+        </div>
+
+
+        <div class="blog-info-card">
+            <div class="blog-info-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+
+            <h3>Study Tips & Techniques</h3>
+
+            <p>
+                Discover simple study techniques that can help you
+                understand difficult topics, remember important concepts,
+                and use your study time effectively.
+            </p>
+        </div>
+
+
+        <div class="blog-info-card">
+            <div class="blog-info-icon">
+                <i class="fas fa-book"></i>
+            </div>
+
+            <h3>Class 11 & 12 Resources</h3>
+
+            <p>
+                Find useful information related to Class 11 and Class 12
+                subjects, notes, model questions, past papers, MCQs,
+                practical work, and examination preparation.
+            </p>
+        </div>
+
+
+        <div class="blog-info-card">
+            <div class="blog-info-icon">
+                <i class="fas fa-code"></i>
+            </div>
+
+            <h3>Computer Science & Programming</h3>
+
+            <p>
+                Explore beginner-friendly articles about programming,
+                C programming, web development, computer fundamentals,
+                algorithms, and other technology-related topics.
+            </p>
+        </div>
+
+
+        <div class="blog-info-card">
+            <div class="blog-info-icon">
+                <i class="fas fa-flask"></i>
+            </div>
+
+            <h3>Practical & Lab Guides</h3>
+
+            <p>
+                Get helpful information for practical subjects, laboratory
+                preparation, project work, and practical examinations.
+            </p>
+        </div>
+
+
+        <div class="blog-info-card">
+            <div class="blog-info-icon">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+
+            <h3>Educational Technology</h3>
+
+            <p>
+                Learn how digital tools, websites, applications, and
+                technology can support students in their learning journey.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Mission -->
+    <div class="blog-mission">
+
+        <h3>
+            <i class="fas fa-bullseye"></i>
+            Our Mission
+        </h3>
+
+        <p>
+            The mission of Plus 2 Guru is to help students access useful
+            educational resources in a simple and organized format.
+        </p>
+
+        <p style="margin-top: 10px;">
+            We believe that students should be able to find study materials,
+            preparation guidance, and educational information without
+            unnecessary difficulty.
+        </p>
+
+    </div>
+
+
+    <!-- Popular Topics -->
+    <div class="popular-topics">
+
+        <h3>
+            💡 Popular Blog Topics
+        </h3>
+
+        <ul class="topic-list">
+
+            <li>Class 12 Examination Preparation</li>
+            <li>Effective Study Techniques</li>
+            <li>Study Timetable</li>
+            <li>MCQ Solving Tips</li>
+            <li>Practical Examination Preparation</li>
+            <li>Previous-Year Question Papers</li>
+            <li>Programming Skills</li>
+            <li>C Programming</li>
+            <li>Web Development</li>
+            <li>Computer Science</li>
+            <li>Exam Revision Strategies</li>
+            <li>Common Examination Mistakes</li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- Creator -->
+    <div class="blog-creator">
+
+        <div class="blog-creator-avatar">
+            <span>BY</span>
+        </div>
+
+        <div>
+
+            <h3>
+                👨‍💻 About the Creator
+            </h3>
+
+            <p>
+                <strong>Plus 2 Guru</strong> is maintained by
+                <strong>Bikesh Kumar Yadav</strong>, a student and
+                technology enthusiast interested in web development,
+                graphic design, programming, and digital learning.
+            </p>
+
+            <p style="margin-top: 8px;">
+                The platform was created with the goal of organizing useful
+                educational resources for +2 students and presenting them
+                in a simple and accessible format.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Ending -->
+    <div class="blog-ending">
+
+        <h3>
+            📖 Learn. Practice. Improve.
+        </h3>
+
+        <p>
+            Whether you are studying for your next examination, looking
+            for subject resources, learning programming, or searching for
+            better study techniques, the Plus 2 Guru Blog aims to provide
+            useful and practical educational information.
+        </p>
+
+        <p>
+            Keep learning, keep practicing, and keep improving.
+        </p>
+
+        <p style="margin-top: 18px; font-weight: 700;">
+            Plus 2 Guru — Educational Resources for NEB Class 11 & 12 Students
+        </p>
+
+        <p class="blog-slogan">
+            पढाइलाई बनाऔं स्मार्ट, सफलतालाई बनाऔं निश्चित।
+        </p>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- Study Tips Section -->
+
+
+
+
+
+
+
+
+
+
 
 <!-- Study Tips Section -->
 <section class="section">
@@ -1003,11 +1611,11 @@ footer {
             </ul>
         </div>
         <div class="footer-links">
-            <h4>Videos</h4>
+           <h4>Legal &amp; Information</h4>
             <ul>
-                <li><a href="video1.html" target="_blank">Class 11 Nepali</a></li>
-                <li><a href="video21.html" target="_blank">Class 12 Nepali</a></li>
-                <li><a href="blo.html">More Content</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="termandcondition.html" class="active">Terms &amp; Conditions</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
             </ul>
         </div>
     </div>
