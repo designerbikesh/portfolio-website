@@ -781,6 +781,64 @@ window.addEventListener('resize', () => {
         }
     }, 250);
 });
+
+
+
+  /* ================================
+           WEBSITE RIGHT-CLICK PROTECTION
+           ================================ */
+
+        // Disable the browser's webpage right-click context menu.
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+            return false;
+        });
+
+        // Disable common browser/dev-tool shortcuts on the webpage.
+        document.addEventListener('keydown', function (event) {
+            const key = event.key.toLowerCase();
+
+            // F12
+            if (event.key === 'F12') {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + Shift + I / J / C
+            if (event.ctrlKey && event.shiftKey && ['i', 'j', 'c'].includes(key)) {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + U (View Source)
+            if (event.ctrlKey && key === 'u') {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + S (Save Page)
+            if (event.ctrlKey && key === 's') {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + P (Print)
+            if (event.ctrlKey && key === 'p') {
+                event.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable text selection and dragging where possible.
+        document.addEventListener('dragstart', function (event) {
+            event.preventDefault();
+        });
+
+        // Disable selecting page text with the mouse.
+        document.addEventListener('selectstart', function (event) {
+            event.preventDefault();
+        });
+
 </script>
 
 </body>
