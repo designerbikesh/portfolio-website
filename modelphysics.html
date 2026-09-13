@@ -197,63 +197,24 @@
         margin-top: 12px;
     }
 
-    /* PDF Viewer */
-    .pdf-container {
-        position: relative;
+ /* Image Note Viewer */
+    .note-viewer {
         width: 100%;
         border-radius: var(--radius-sm);
         overflow: hidden;
         background: #f8fafc;
         border: 2px solid var(--border);
-    }
-    .pdf-container iframe {
-        width: 100%;
-        height: 800px;
-        border: none;
-        display: block;
-    }
-    .pdf-fallback {
-        display: none;
-        padding: 60px 20px;
         text-align: center;
-        background: #f8fafc;
-    }
-    .pdf-fallback i {
-        font-size: 48px;
-        color: var(--primary);
-        margin-bottom: 16px;
-    }
-    .pdf-fallback h3 {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        color: var(--text-dark);
-    }
-    .pdf-fallback p {
-        color: var(--text-medium);
-        margin-bottom: 24px;
-        font-size: 15px;
-    }
-    .btn-download {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 28px;
-        background: var(--primary);
-        color: white;
-        border-radius: var(--radius-sm);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 15px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(255, 114, 0, 0.3);
-    }
-    .btn-download:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 114, 0, 0.4);
     }
 
+    .note-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        margin: 0 auto;
+    }
     /* Related Section */
     .related-section {
         padding: 40px 20px 80px;
@@ -474,8 +435,7 @@
             </div>
         </div>
     </section>
-
-    <!-- PDF Section -->
+  <!-- PDF Section -->
     <section class="content-section">
         <div class="paper-card">
             <div class="paper-header">
@@ -485,21 +445,123 @@
                     <i class="fas fa-atom"></i> Physics
                 </span>
             </div>
-            <div class="pdf-container">
-                <iframe 
-                    src="https://drive.google.com/file/d/14JS5xaUjtjvz9apWgf2syoJjOxkCGFxu/preview" 
-                    allow="autoplay"
-                    title="Physics Model Questions">
-                </iframe>
-                <div class="pdf-fallback" id="pdfFallback">
-                    <i class="fas fa-file-pdf"></i>
-                    <h3>Unable to Load PDF</h3>
-                    <p>The PDF viewer may not be available on your device. You can download the file directly.</p>
-                    <a href="https://drive.google.com/uc?export=download&id=14JS5xaUjtjvz9apWgf2syoJjOxkCGFxu" class="btn-download" target="_blank">
-                        <i class="fas fa-download"></i>
-                        Download PDF
-                    </a>
-                </div>
+            <div class="note-viewer">
+                <img 
+                    src="physicslab12/physicsmodel11/model1.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+                    <img 
+                    src="physicslab12/physicsmodel11/model2.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model3.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model4.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model5.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model6.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model7.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+                     <img 
+                    src="physicslab12/physicsmodel11/model8.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+                     <img 
+                    src="physicslab12/physicsmodel11/model9.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model10.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model11.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model12.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model13.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model14.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model15.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model16.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model17.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model18.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model19.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
+
+                     <img 
+                    src="physicslab12/physicsmodel11/model20.jpg" 
+                    alt="Mercury Chemistry Notes - Plus 2 Guru"
+                    class="note-image"
+                    loading="lazy"  draggable="false">
             </div>
         </div>
     </section>
@@ -559,15 +621,14 @@
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>Subjects</h4>
-                <ul>
-                    <li><a href="modelphysics.html">Physics</a></li>
-                    <li><a href="modelchemistry.html">Chemistry</a></li>
-                    <li><a href="modelmath.html">Mathematics</a></li>
-                    <li><a href="modelbiology.html">Biology</a></li>
-                </ul>
-            </div>
+           <div class="footer-links">
+            <h4>Legal &amp; Information</h4>
+            <ul>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="termandcondition.html" class="active">Terms &amp; Conditions</a></li>
+                <li><a href="disclaimer.html">Disclaimer</a></li>
+            </ul>
+        </div>
         </div>
         <div class="footer-bottom">
             <p>© 2026 Plus 2 Guru | Made for Students of Nepal <span class="flag">🇳🇵</span> | Developer & Designed by <span class="designer">Bikesh Kumar Yadav</span></p>
@@ -596,6 +657,64 @@
         document.querySelector('.pdf-container iframe').addEventListener('error', function() {
             document.getElementById('pdfFallback').style.display = 'block';
         });
+
+
+
+          /* ================================
+           WEBSITE RIGHT-CLICK PROTECTION
+           ================================ */
+
+        // Disable the browser's webpage right-click context menu.
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+            return false;
+        });
+
+        // Disable common browser/dev-tool shortcuts on the webpage.
+        document.addEventListener('keydown', function (event) {
+            const key = event.key.toLowerCase();
+
+            // F12
+            if (event.key === 'F12') {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + Shift + I / J / C
+            if (event.ctrlKey && event.shiftKey && ['i', 'j', 'c'].includes(key)) {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + U (View Source)
+            if (event.ctrlKey && key === 'u') {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + S (Save Page)
+            if (event.ctrlKey && key === 's') {
+                event.preventDefault();
+                return false;
+            }
+
+            // Ctrl + P (Print)
+            if (event.ctrlKey && key === 'p') {
+                event.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable text selection and dragging where possible.
+        document.addEventListener('dragstart', function (event) {
+            event.preventDefault();
+        });
+
+        // Disable selecting page text with the mouse.
+        document.addEventListener('selectstart', function (event) {
+            event.preventDefault();
+        });
+
     </script>
 </body>
 </html>
