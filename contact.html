@@ -162,19 +162,19 @@ body {
 }
 .form-group textarea { resize: vertical; min-height: 120px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.submit-btn {
+.submit_btn {
     display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
     padding: 16px; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white; border: none; border-radius: var(--radius-sm); font-family: inherit;
     font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255,114,0,0.3); position: relative; overflow: hidden;
 }
-.submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
-.submit-btn:hover::before { left: 100%; }
-.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,114,0,0.4); }
-.submit-btn:active { transform: translateY(0); }
-.submit-btn i { transition: transform 0.3s ease; }
-.submit-btn:hover i { transform: translateX(4px); }
+.submit_btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+.submit_btn:hover::before { left: 100%; }
+.submit_btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,114,0,0.4); }
+.submit_btn:active { transform: translateY(0); }
+.submit_btn i { transition: transform 0.3s ease; }
+.submit_btn:hover i { transform: translateX(4px); }
 .msg { display: none; padding: 16px; border-radius: var(--radius-sm); font-weight: 600; margin-top: 16px; text-align: center; animation: fadeInUp 0.5s ease; }
 .msg.show { display: block; }
 .msg.success { background: var(--success-light); border: 1px solid var(--success); color: #22543d; }
@@ -1198,6 +1198,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
             </div>
         </div>
         <div class="form-card">
+            <span id="notification"></span>
             <h2><i class="fas fa-paper-plane" style="color:var(--primary);"></i> Send Message</h2>
             <p class="subtitle">Fill out the form below and we will get back to you as soon as possible.</p>
             <form id="contactForm">
@@ -1210,9 +1211,10 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
                     <div class="form-group"><label><i class="fas fa-book"></i> Subject</label><select id="subject"><option value="">Select a topic</option><option value="notes">Subject Notes</option><option value="past-papers">Past Papers</option><option value="lab">Lab Practical</option><option value="model">Model Questions</option><option value="study-tips">Study Tips</option><option value="other">Other</option></select></div>
                 </div>
                 <div class="form-group"><label><i class="fas fa-comment"></i> Your Message</label><textarea id="message" placeholder="Tell us how we can help you..." required></textarea></div>
-                <button type="submit" class="submit-btn"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
+                <button type="submit" id="submit_btn" class="submit_btn"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
                 <div class="msg success" id="successMsg"><i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.</div>
                 <div class="msg error" id="errorMsg"><i class="fas fa-exclamation-circle"></i> Something went wrong. Please try again.</div>
+             
             </form>
         </div>
     </div>
@@ -1259,10 +1261,11 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
             <div class="admin-login" id="adminLogin">
                 <div class="lock-icon"><i class="fas fa-lock"></i></div>
                 <h3>Admin Access</h3>
-                <p>Enter your password to view and manage contact messages.</p>
+                <p>Authorized administrators can sign in to securely access.</p>
                 <input type="password" id="adminPassword" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')loginAdmin()">
                 <button class="login-btn" onclick="loginAdmin()"><i class="fas fa-sign-in-alt"></i> Login</button>
                 <div class="login-error" id="loginError"><i class="fas fa-exclamation-triangle"></i> Incorrect password. Please try again.</div>
+        
             </div>
             <!-- Dashboard View -->
             <div id="adminDashboard" style="display:none;">
@@ -1407,7 +1410,7 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 const DEFAULT_PASSWORD = 'Plus2Guru@2026';
 const PASSWORD_KEY = 'p2g_admin_password';
 const STORAGE_KEY = 'p2g_contact_messages';
-const ITEMS_PER_PAGE = 1000000;
+const ITEMS_PER_PAGE = 10;
 let currentPage = 1;
 let isAdminLoggedIn = false;
 
@@ -1784,16 +1787,48 @@ function toggleRead(id) {
     const m = messages.find(x => x.id === id);
     if (m) { m.read = !m.read; saveMessages(messages); renderMessages(); renderStats(); }
 }
+async function deleteMessage(id) {
+    if (!id) {
+        console.error("❌ Message ID not found");
+        return;
+    }
 
-function deleteMessage(id) {
-    if (!confirm('Are you sure you want to delete this message?')) return;
-    let messages = getMessages();
-    messages = messages.filter(x => x.id !== id);
-    saveMessages(messages);
-    renderMessages();
-    renderStats();
+    const confirmed = confirm(
+        "Are you sure you want to delete this message?\n\nThis action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        console.log("🗑️ Deleting Firebase message:", id);
+
+        // Delete from Firebase Realtime Database
+        await remove(ref(db, `students/${id}`));
+
+        console.log("✅ Message deleted successfully");
+
+        // Close detail modal if open
+        const modal = document.getElementById('msgDetailOverlay');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+
+        // Remove from localStorage too
+        let messages = getMessages();
+        messages = messages.filter(x => x.id !== id);
+        saveMessages(messages);
+
+        // Refresh admin panel
+        renderMessages();
+        renderStats();
+
+        alert("Message deleted successfully.");
+
+    } catch (error) {
+        console.error("❌ Firebase delete error:", error);
+        alert("Failed to delete message: " + error.message);
+    }
 }
-
 function clearAllMessages() {
     const messages = getMessages();
     if (messages.length === 0) { alert('No messages to clear.'); return; }
@@ -1852,68 +1887,8 @@ document.addEventListener('keydown', (e) => {
         else if (document.getElementById('adminOverlay').classList.contains('active')) closeAdminPanel();
     }
 });
-
-
-
-  /* ================================
-           WEBSITE RIGHT-CLICK PROTECTION
-           ================================ */
-
-        // Disable the browser's webpage right-click context menu.
-        document.addEventListener('contextmenu', function (event) {
-            event.preventDefault();
-            return false;
-        });
-
-        // Disable common browser/dev-tool shortcuts on the webpage.
-        document.addEventListener('keydown', function (event) {
-            const key = event.key.toLowerCase();
-
-            // F12
-            if (event.key === 'F12') {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + Shift + I / J / C
-            if (event.ctrlKey && event.shiftKey && ['i', 'j', 'c'].includes(key)) {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + U (View Source)
-            if (event.ctrlKey && key === 'u') {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + S (Save Page)
-            if (event.ctrlKey && key === 's') {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + P (Print)
-            if (event.ctrlKey && key === 'p') {
-                event.preventDefault();
-                return false;
-            }
-        });
-
-        // Disable text selection and dragging where possible.
-        document.addEventListener('dragstart', function (event) {
-            event.preventDefault();
-        });
-
-        // Disable selecting page text with the mouse.
-        document.addEventListener('selectstart', function (event) {
-            event.preventDefault();
-        });
-
-
-
-
-
 </script>
+
+<script type="module" src="admin.js"></script>
 </body>
 </html>
