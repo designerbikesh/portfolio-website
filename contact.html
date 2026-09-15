@@ -921,6 +921,94 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
 
 
 
+.admin-login-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(
+        135deg,
+        var(--secondary),
+        var(--secondary-light)
+    );
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: white;
+    font-size: 32px;
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.25);
+}
+
+.admin-login h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.admin-login-form {
+    width: 100%;
+    margin-top: 24px;
+}
+
+.admin-login-form input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+    transition: all 0.3s ease;
+}
+
+.admin-login-form input:focus {
+    outline: none;
+    border-color: var(--secondary-light);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.admin-login-form button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(
+        135deg,
+        var(--secondary),
+        var(--secondary-light)
+    );
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-login-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+}
+
+.admin-login-form button i {
+    margin-right: 7px;
+}
+
+.login-error {
+    color: var(--danger);
+    background: var(--danger-light);
+    border: 1px solid var(--danger);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-top: 14px;
+    display: none;
+}
+
+.login-error.show {
+    display: block;
+}
 
 
 
@@ -1203,14 +1291,14 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
             <p class="subtitle">Fill out the form below and we will get back to you as soon as possible.</p>
             <form id="contactForm">
                 <div class="form-row">
-                    <div class="form-group"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="name" placeholder="Enter your full name" required></div>
-                    <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="email" placeholder="Enter your email" required></div>
+                    <div class="form-group"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="name" name="name" placeholder="Enter your full name" autocomplete="name" required></div>
+                    <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required></div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group"><label><i class="fas fa-phone"></i> Phone (Optional)</label><input type="tel" id="phone" placeholder="+977-0000000000"></div>
-                    <div class="form-group"><label><i class="fas fa-book"></i> Subject</label><select id="subject"><option value="">Select a topic</option><option value="notes">Subject Notes</option><option value="past-papers">Past Papers</option><option value="lab">Lab Practical</option><option value="model">Model Questions</option><option value="study-tips">Study Tips</option><option value="other">Other</option></select></div>
+                    <div class="form-group"><label><i class="fas fa-phone"></i> Phone (Optional)</label><input type="tel" id="phone" name="phone" placeholder="+977-0000000000" autocomplete="tel"></div>
+                    <div class="form-group"><label><i class="fas fa-book"></i> Subject</label><select id="subject" name="subject" required><option value="">Select a topic</option><option value="notes">Subject Notes</option><option value="past-papers">Past Papers</option><option value="lab">Lab Practical</option><option value="model">Model Questions</option><option value="study-tips">Study Tips</option><option value="other">Other</option></select></div>
                 </div>
-                <div class="form-group"><label><i class="fas fa-comment"></i> Your Message</label><textarea id="message" placeholder="Tell us how we can help you..." required></textarea></div>
+                <div class="form-group"><label><i class="fas fa-comment"></i> Your Message</label><textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea></div>
                 <button type="submit" id="submit_btn" class="submit_btn"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
                 <div class="msg success" id="successMsg"><i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.</div>
                 <div class="msg error" id="errorMsg"><i class="fas fa-exclamation-circle"></i> Something went wrong. Please try again.</div>
@@ -1258,15 +1346,53 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
         </div>
         <div class="admin-body" id="adminBody">
             <!-- Login View -->
-            <div class="admin-login" id="adminLogin">
-                <div class="lock-icon"><i class="fas fa-lock"></i></div>
-                <h3>Admin Access</h3>
-                <p>Authorized administrators can sign in to securely access.</p>
-                <input type="password" id="adminPassword" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')loginAdmin()">
-                <button class="login-btn" onclick="loginAdmin()"><i class="fas fa-sign-in-alt"></i> Login</button>
-                <div class="login-error" id="loginError"><i class="fas fa-exclamation-triangle"></i> Incorrect password. Please try again.</div>
         
-            </div>
+<!-- Admin Login View -->
+<div class="admin-login" id="adminLogin">
+
+    <div class="admin-login-icon">
+        <i class="fas fa-lock"></i>
+    </div>
+
+    <h2>Admin Access</h2>
+
+    <p>
+        Authorized administrators can sign in to securely access
+        the Plus 2 Guru dashboard.
+    </p>
+
+    <div class="admin-login-form">
+
+        <input
+            type="email"
+            id="adminEmail"
+            placeholder="Enter admin email"
+            autocomplete="username"
+        >
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Enter admin password"
+            autocomplete="current-password"
+        >
+
+        <button
+            type="button"
+            onclick="loginAdmin()"
+        >
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+        </button>
+
+        <div id="loginError" class="login-error">
+            Incorrect email or password.
+        </div>
+
+    </div>
+
+</div>
+
             <!-- Dashboard View -->
             <div id="adminDashboard" style="display:none;">
                 <!-- Change Password Section -->
@@ -1403,492 +1529,6 @@ footer { background: var(--secondary); color: white; padding: 50px 20px 20px; }
     </div>
 </footer>
 <button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
-<script>
-// ========================
-// CONFIGURATION
-// ========================
-const DEFAULT_PASSWORD = 'Plus2Guru@2026';
-const PASSWORD_KEY = 'p2g_admin_password';
-const STORAGE_KEY = 'p2g_contact_messages';
-const ITEMS_PER_PAGE = 10;
-let currentPage = 1;
-let isAdminLoggedIn = false;
-
-// ---- EMAIL NOTIFICATION SETUP ----
-// 1. Go to https://formspree.io/register
-// 2. Create a new form
-// 3. Add "plus2guru1@gmail.com" as the notification email
-// 4. Copy your Form ID and replace YOUR_FORMSPREE_ID below
-const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
-
-function getAdminPassword() {
-    const stored = localStorage.getItem(PASSWORD_KEY);
-    return stored || DEFAULT_PASSWORD;
-}
-
-function setAdminPassword(pw) {
-    localStorage.setItem(PASSWORD_KEY, pw);
-}
-
-// ========================
-// MOBILE NAVIGATION
-// ========================
-function toggleMobileNav() {
-    const nav = document.getElementById('mobileNav');
-    nav.classList.toggle('active');
-    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-}
-function closeMobileNav(event) {
-    if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
-}
-
-// ========================
-// SCROLL EFFECTS
-// ========================
-window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    document.getElementById('progressBar').style.width = (winScroll / height * 100) + '%';
-    const navbar = document.querySelector('.navbar');
-    navbar.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : 'var(--shadow)';
-    const backToTop = document.getElementById('backToTop');
-    backToTop.classList.toggle('visible', window.scrollY > 500);
-});
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-// ========================
-// FAQ TOGGLE
-// ========================
-function toggleFaq(element) {
-    const faqItem = element.parentElement;
-    const isActive = faqItem.classList.contains('active');
-    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-    if (!isActive) faqItem.classList.add('active');
-}
-
-// ========================
-// FORM SUBMISSION, STORAGE & EMAIL
-// ========================
-const contactForm = document.getElementById('contactForm');
-const successMsg = document.getElementById('successMsg');
-const errorMsg = document.getElementById('errorMsg');
-
-contactForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value.trim();
-
-    if (!name || !email || !message) {
-        showMsg(errorMsg);
-        return;
-    }
-
-    const entry = {
-        id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
-        name, email, phone, subject, message,
-        date: new Date().toISOString(),
-        read: false
-    };
-
-    // 1. Save to localStorage (Admin Panel)
-    try {
-        const messages = getMessages();
-        messages.unshift(entry);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-    } catch (err) {
-        console.error('localStorage save failed', err);
-    }
-
-    // 2. Send email notification via Formspree
-    if (FORMSPREE_ID && FORMSPREE_ID !== 'YOUR_FORMSPREE_ID') {
-        try {
-            await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    phone: phone || 'Not provided',
-                    subject: (subject || 'other').replace(/-/g, ' '),
-                    message: message,
-                    _replyto: email
-                })
-            });
-        } catch (err) {
-            console.log('Email notification failed (Formspree)', err);
-        }
-    }
-
-    contactForm.reset();
-    showMsg(successMsg);
-});
-
-function showMsg(el) {
-    document.querySelectorAll('.msg').forEach(m => m.classList.remove('show'));
-    el.classList.add('show');
-    setTimeout(() => el.classList.remove('show'), 5000);
-}
-
-function getMessages() {
-    try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-    } catch { return []; }
-}
-
-function saveMessages(messages) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-}
-
-// ========================
-// ADMIN PANEL
-// ========================
-function openAdminPanel() {
-    document.getElementById('adminOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (isAdminLoggedIn) {
-        showDashboard();
-    } else {
-        showLogin();
-    }
-}
-
-function closeAdminPanel() {
-    document.getElementById('adminOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function closeAdminOnBackdrop(event) {
-    if (event.target === document.getElementById('adminOverlay')) closeAdminPanel();
-}
-
-function showLogin() {
-    document.getElementById('adminLogin').style.display = 'block';
-    document.getElementById('adminDashboard').style.display = 'none';
-    document.getElementById('adminHeaderActions').style.display = 'none';
-    document.getElementById('adminCloseLogin').style.display = 'flex';
-    document.getElementById('adminPassword').value = '';
-    document.getElementById('loginError').classList.remove('show');
-    setTimeout(() => document.getElementById('adminPassword').focus(), 100);
-}
-
-function showDashboard() {
-    document.getElementById('adminLogin').style.display = 'none';
-    document.getElementById('adminDashboard').style.display = 'block';
-    document.getElementById('adminHeaderActions').style.display = 'flex';
-    document.getElementById('adminCloseLogin').style.display = 'none';
-    renderStats();
-    renderMessages();
-}
-
-function loginAdmin() {
-    const pw = document.getElementById('adminPassword').value;
-    if (pw === getAdminPassword()) {
-        isAdminLoggedIn = true;
-        document.getElementById('loginError').classList.remove('show');
-        showDashboard();
-    } else {
-        document.getElementById('loginError').classList.add('show');
-        document.getElementById('adminPassword').value = '';
-        document.getElementById('adminPassword').focus();
-    }
-}
-
-function logoutAdmin() {
-    isAdminLoggedIn = false;
-    document.getElementById('changePasswordSection').classList.remove('active');
-    showLogin();
-}
-
-function toggleChangePassword() {
-    const section = document.getElementById('changePasswordSection');
-    section.classList.toggle('active');
-    if (section.classList.contains('active')) {
-        setTimeout(() => document.getElementById('currentPassword').focus(), 100);
-    }
-    document.getElementById('currentPassword').value = '';
-    document.getElementById('newPassword').value = '';
-    document.getElementById('confirmPassword').value = '';
-    document.getElementById('pwChangeMsg').classList.remove('show');
-}
-
-function changePassword() {
-    const current = document.getElementById('currentPassword').value;
-    const newPw = document.getElementById('newPassword').value;
-    const confirm = document.getElementById('confirmPassword').value;
-    const msgEl = document.getElementById('pwChangeMsg');
-
-    if (!current || !newPw || !confirm) {
-        showPwMsg(msgEl, 'Please fill in all fields.', 'error');
-        return;
-    }
-    if (current !== getAdminPassword()) {
-        showPwMsg(msgEl, 'Current password is incorrect.', 'error');
-        return;
-    }
-    if (newPw.length < 6) {
-        showPwMsg(msgEl, 'New password must be at least 6 characters.', 'error');
-        return;
-    }
-    if (newPw !== confirm) {
-        showPwMsg(msgEl, 'New passwords do not match.', 'error');
-        return;
-    }
-
-    setAdminPassword(newPw);
-    showPwMsg(msgEl, 'Password changed successfully!', 'success');
-    document.getElementById('currentPassword').value = '';
-    document.getElementById('newPassword').value = '';
-    document.getElementById('confirmPassword').value = '';
-    setTimeout(() => {
-        document.getElementById('changePasswordSection').classList.remove('active');
-        msgEl.classList.remove('show');
-    }, 2000);
-}
-
-function showPwMsg(el, text, type) {
-    el.textContent = text;
-    el.className = 'pw-change-msg show ' + type;
-}
-
-// ========================
-// STATS
-// ========================
-function renderStats() {
-    const messages = getMessages();
-    const today = new Date().toDateString();
-    const todayCount = messages.filter(m => new Date(m.date).toDateString() === today).length;
-    const unreadCount = messages.filter(m => !m.read).length;
-    const subjects = [...new Set(messages.map(m => m.subject).filter(Boolean))].length;
-
-    document.getElementById('adminStats').innerHTML = `
-        <div class="stat-card total"><div class="stat-icon"><i class="fas fa-inbox"></i></div><div class="stat-number">${messages.length}</div><div class="stat-label">Total Messages</div></div>
-        <div class="stat-card today"><div class="stat-icon"><i class="fas fa-calendar-day"></i></div><div class="stat-number">${todayCount}</div><div class="stat-label">Today</div></div>
-        <div class="stat-card unread"><div class="stat-icon"><i class="fas fa-envelope-open-text"></i></div><div class="stat-number">${unreadCount}</div><div class="stat-label">Unread</div></div>
-        <div class="stat-card subjects"><div class="stat-icon"><i class="fas fa-tags"></i></div><div class="stat-number">${subjects}</div><div class="stat-label">Categories</div></div>
-    `;
-}
-
-// ========================
-// MESSAGES TABLE
-// ========================
-function renderMessages() {
-    let messages = getMessages();
-    const search = document.getElementById('msgSearch').value.toLowerCase();
-    const filter = document.getElementById('msgFilter').value;
-
-    if (search) {
-        messages = messages.filter(m =>
-            (m.name || '').toLowerCase().includes(search) ||
-            (m.email || '').toLowerCase().includes(search) ||
-            (m.message || '').toLowerCase().includes(search)
-        );
-    }
-    if (filter === 'unread') messages = messages.filter(m => !m.read);
-    else if (filter === 'read') messages = messages.filter(m => m.read);
-    else if (filter !== 'all') messages = messages.filter(m => m.subject === filter);
-
-    const totalPages = Math.max(1, Math.ceil(messages.length / ITEMS_PER_PAGE));
-    if (currentPage > totalPages) currentPage = totalPages;
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const pageItems = messages.slice(start, start + ITEMS_PER_PAGE);
-
-    const tbody = document.getElementById('messagesTableBody');
-    if (pageItems.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><i class="fas fa-inbox"></i><h4>No messages found</h4><p>Messages will appear here once students submit the contact form.</p></div></td></tr>`;
-        document.getElementById('pagination').innerHTML = '';
-        return;
-    }
-
-    tbody.innerHTML = pageItems.map(m => {
-        const d = new Date(m.date);
-        const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        const subj = m.subject || 'other';
-        const subjLabel = subj.replace(/-/g, ' ');
-        return `<tr class="${m.read ? '' : 'unread'}" data-id="${m.id}">
-            <td><div class="msg-name">${escapeHtml(m.name)}${m.read ? '' : '<span class="new-badge">New</span>'}</div><div class="msg-email">${escapeHtml(m.email)}</div></td>
-            <td><span class="msg-subject ${subj}">${subjLabel}</span></td>
-            <td><div class="msg-text">${escapeHtml(m.message)}</div></td>
-            <td><div class="msg-date">${dateStr}</div></td>
-            <td><div class="msg-actions">
-                <button class="action-btn view" onclick="viewMessage('${m.id}')" title="View"><i class="fas fa-eye"></i></button>
-                <button class="action-btn mark" onclick="toggleRead('${m.id}')" title="${m.read ? 'Mark Unread' : 'Mark Read'}"><i class="fas fa-${m.read ? 'envelope' : 'envelope-open'}"></i></button>
-                <button class="action-btn delete" onclick="deleteMessage('${m.id}')" title="Delete"><i class="fas fa-trash"></i></button>
-            </div></td>
-        </tr>`;
-    }).join('');
-
-    renderPagination(totalPages);
-}
-
-function renderPagination(totalPages) {
-    let html = '';
-    html += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
-    for (let i = 1; i <= totalPages; i++) {
-        if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-            html += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-        } else if (i === currentPage - 2 || i === currentPage + 2) {
-            html += `<span style="padding:8px;color:var(--text-light);">...</span>`;
-        }
-    }
-    html += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
-    document.getElementById('pagination').innerHTML = html;
-}
-
-function changePage(page) {
-    currentPage = page;
-    renderMessages();
-}
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// ========================
-// MESSAGE ACTIONS
-// ========================
-function viewMessage(id) {
-    const messages = getMessages();
-    const m = messages.find(x => x.id === id);
-    if (!m) return;
-
-    if (!m.read) {
-        m.read = true;
-        saveMessages(messages);
-        renderMessages();
-        renderStats();
-    }
-
-    const d = new Date(m.date);
-    document.getElementById('detailName').textContent = m.name;
-    document.getElementById('detailMeta').innerHTML = `${escapeHtml(m.email)} &bull; ${d.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })} at ${d.toLocaleTimeString('en-GB')}`;
-    document.getElementById('detailEmail').textContent = m.email;
-    document.getElementById('detailPhone').textContent = m.phone || 'Not provided';
-    document.getElementById('detailSubject').innerHTML = `<span class="msg-subject ${m.subject || 'other'}">${(m.subject || 'other').replace(/-/g, ' ')}</span>`;
-    document.getElementById('detailMessage').textContent = m.message;
-    document.getElementById('detailReplyLink').href = `mailto:${m.email}?subject=Re: Your message to Plus 2 Guru`;
-    document.getElementById('msgDetailOverlay').classList.add('active');
-}
-
-function closeMsgDetail() {
-    document.getElementById('msgDetailOverlay').classList.remove('active');
-}
-
-function toggleRead(id) {
-    const messages = getMessages();
-    const m = messages.find(x => x.id === id);
-    if (m) { m.read = !m.read; saveMessages(messages); renderMessages(); renderStats(); }
-}
-async function deleteMessage(id) {
-    if (!id) {
-        console.error("❌ Message ID not found");
-        return;
-    }
-
-    const confirmed = confirm(
-        "Are you sure you want to delete this message?\n\nThis action cannot be undone."
-    );
-
-    if (!confirmed) return;
-
-    try {
-        console.log("🗑️ Deleting Firebase message:", id);
-
-        // Delete from Firebase Realtime Database
-        await remove(ref(db, `students/${id}`));
-
-        console.log("✅ Message deleted successfully");
-
-        // Close detail modal if open
-        const modal = document.getElementById('msgDetailOverlay');
-        if (modal) {
-            modal.classList.remove('active');
-        }
-
-        // Remove from localStorage too
-        let messages = getMessages();
-        messages = messages.filter(x => x.id !== id);
-        saveMessages(messages);
-
-        // Refresh admin panel
-        renderMessages();
-        renderStats();
-
-        alert("Message deleted successfully.");
-
-    } catch (error) {
-        console.error("❌ Firebase delete error:", error);
-        alert("Failed to delete message: " + error.message);
-    }
-}
-function clearAllMessages() {
-    const messages = getMessages();
-    if (messages.length === 0) { alert('No messages to clear.'); return; }
-    if (!confirm(`Delete all ${messages.length} messages? This cannot be undone.`)) return;
-    localStorage.removeItem(STORAGE_KEY);
-    currentPage = 1;
-    renderMessages();
-    renderStats();
-}
-
-// ========================
-// EXPORT CSV
-// ========================
-function exportMessages() {
-    const messages = getMessages();
-    if (messages.length === 0) { alert('No messages to export.'); return; }
-    const headers = ['ID', 'Name', 'Email', 'Phone', 'Subject', 'Message', 'Date', 'Read'];
-    const rows = messages.map(m => [
-        m.id, m.name, m.email, m.phone || '', m.subject || 'other', m.message, m.date, m.read ? 'Yes' : 'No'
-    ]);
-    const csv = [headers, ...rows].map(r => r.map(f => '"' + String(f).replace(/"/g, '""') + '"').join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'plus2guru_messages_' + new Date().toISOString().slice(0, 10) + '.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// ========================
-// SCROLL ANIMATIONS
-// ========================
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.info-card, .form-card, .faq-item').forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = `all 0.6s ease ${index * 0.08}s`;
-    observer.observe(el);
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (document.getElementById('msgDetailOverlay').classList.contains('active')) closeMsgDetail();
-        else if (document.getElementById('adminOverlay').classList.contains('active')) closeAdminPanel();
-    }
-});
-</script>
-
 <script type="module" src="admin.js"></script>
 </body>
 </html>

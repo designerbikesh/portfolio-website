@@ -1,14 +1,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
-  getDatabase,
-  ref,
-  push,
-  set,
-  onValue,
-  remove,
-  update
+    getDatabase,
+    ref,
+    push,
+    set,
+    onValue,
+    remove,
+    update
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    updatePassword
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 
 /* =========================================================
@@ -16,13 +24,15 @@ import {
 ========================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBkyOg675arXH3DW3I8yqjW9dHi-lOcHJc",
+  apiKey: "AIzaSyBkyOg675arxH3DW3I8yqjW9dHi-lOcHJc",
   authDomain: "plus-2-guru.firebaseapp.com",
+  databaseURL: "https://plus-2-guru-default-rtdb.firebaseio.com",
   projectId: "plus-2-guru",
   storageBucket: "plus-2-guru.firebasestorage.app",
   messagingSenderId: "632910641461",
   appId: "1:632910641461:web:beac522e9a3121666e347c"
 };
+
 
 
 /* =========================================================
@@ -31,20 +41,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
-console.log("🔥 Firebase initialized");
-console.log("🔥 Database:", db);
-console.log("🔥 Reading path: students");
+let isAdminLoggedIn = false;
 
 
 /* =========================================================
-   GLOBAL VARIABLES
+   GLOBAL DATA
 ========================================================= */
 
 let studentsData = [];
-
 let currentPage = 1;
-
 const messagesPerPage = 10;
 
 
@@ -52,23 +59,49 @@ const messagesPerPage = 10;
    DOM ELEMENTS
 ========================================================= */
 
-const submitBtn =
-  document.getElementById("submit_btn");
+const submitBtn = document.getElementById("submit_btn");
 
 const notification =
-  document.getElementById("notification");
+    document.getElementById("notification");
 
 const messagesTableBody =
-  document.getElementById("messagesTableBody");
+    document.getElementById("messagesTableBody");
 
 const pagination =
-  document.getElementById("pagination");
+    document.getElementById("pagination");
 
 const searchInput =
-  document.getElementById("msgSearch");
+    document.getElementById("msgSearch");
 
 const filterSelect =
-  document.getElementById("msgFilter");
+    document.getElementById("msgFilter");
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(auth, (user) => {
+
+    if (user) {
+
+        console.log("✅ Admin authenticated:", user.email);
+        console.log("Admin UID:", user.uid);
+
+        isAdminLoggedIn = true;
+
+        setAdminView(true);
+
+    } else {
+
+        console.log("🔒 No admin authenticated");
+
+        isAdminLoggedIn = false;
+
+        setAdminView(false);
+    }
+
+});
 
 
 /* =========================================================
@@ -77,165 +110,174 @@ const filterSelect =
 
 async function AddStudents(event) {
 
-  if (event) {
-    event.preventDefault();
-  }
-
-  console.log("📤 Sending data to Firebase...");
-
-
-  const name =
-    document.getElementById("name")?.value.trim();
-
-  const email =
-    document.getElementById("email")?.value.trim();
-
-  const phone =
-    document.getElementById("phone")?.value.trim();
-
-  const subject =
-    document.getElementById("subject")?.value.trim();
-
-  const message =
-    document.getElementById("message")?.value.trim();
-
-
-  console.log({
-    name,
-    email,
-    phone,
-    subject,
-    message
-  });
-
-
-  /* Validation */
-
-  if (
-    !name ||
-    !email ||
-    !phone ||
-    !subject ||
-    !message
-  ) {
-
-    console.error(
-      "❌ Please fill all fields."
-    );
-
-    if (notification) {
-      notification.innerText =
-        "Please fill in all fields.";
+    if (event) {
+        event.preventDefault();
     }
 
-    return;
-  }
+    console.log("📤 Sending contact message to Firebase...");
 
 
-  try {
+    const name =
+        document.getElementById("name")?.value.trim();
 
-    /* Create unique Firebase ID */
+    const email =
+        document.getElementById("email")?.value.trim();
 
-    const studentRef =
-      push(ref(db, "students"));
+    const phone =
+        document.getElementById("phone")?.value.trim();
+
+    const subject =
+        document.getElementById("subject")?.value.trim();
+
+    const message =
+        document.getElementById("message")?.value.trim();
 
 
-    /* Save */
-
-    await set(studentRef, {
-
-      name: name,
-
-      email: email,
-
-      phone: phone,
-
-      subject: subject,
-
-      message: message,
-
-      createdAt:
-        new Date().toISOString(),
-
-      read: false
-
+    console.log({
+        name,
+        email,
+        phone,
+        subject,
+        message
     });
 
 
-    console.log(
-      "✅ Data successfully saved!"
-    );
+    /* -----------------------------------------
+       VALIDATION
+    ----------------------------------------- */
 
+    if (!name || !email || !subject || !message) {
 
-    if (notification) {
+        console.error("❌ Required fields are missing.");
 
-      notification.innerText =
-        "Message sent successfully!";
+        if (notification) {
 
+            notification.innerText =
+                "Please fill in all required fields.";
+
+            notification.style.display = "block";
+
+        }
+
+        return;
     }
 
 
-    /* Clear form */
+    /* -----------------------------------------
+       EMAIL VALIDATION
+    ----------------------------------------- */
 
-    const nameInput =
-      document.getElementById("name");
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const emailInput =
-      document.getElementById("email");
+    if (!emailPattern.test(email)) {
 
-    const phoneInput =
-      document.getElementById("phone");
+        if (notification) {
 
-    const subjectInput =
-      document.getElementById("subject");
+            notification.innerText =
+                "Please enter a valid email address.";
 
-    const messageInput =
-      document.getElementById("message");
+            notification.style.display = "block";
 
+        }
 
-    if (nameInput)
-      nameInput.value = "";
-
-    if (emailInput)
-      emailInput.value = "";
-
-    if (phoneInput)
-      phoneInput.value = "";
-
-    if (subjectInput)
-      subjectInput.value = "";
-
-    if (messageInput)
-      messageInput.value = "";
-
-
-  } catch (error) {
-
-    console.error(
-      "❌ Firebase error:",
-      error
-    );
-
-    console.error(
-      "Error code:",
-      error.code
-    );
-
-    console.error(
-      "Error message:",
-      error.message
-    );
-
-
-    if (notification) {
-
-      notification.innerText =
-        "Failed to save: " +
-        error.message;
-
+        return;
     }
 
-  }
+
+    try {
+
+        /* -----------------------------------------
+           CREATE FIREBASE MESSAGE
+        ----------------------------------------- */
+
+        const studentRef =
+            push(ref(db, "students"));
+
+
+        /* -----------------------------------------
+           SAVE MESSAGE
+        ----------------------------------------- */
+
+        await set(studentRef, {
+
+            name: name,
+
+            email: email,
+
+            phone: phone || "",
+
+            subject: subject,
+
+            message: message,
+
+            createdAt:
+                new Date().toISOString(),
+
+            read: false
+
+        });
+
+
+        console.log(
+            "✅ Message successfully saved!"
+        );
+
+
+        /* -----------------------------------------
+           SUCCESS MESSAGE
+        ----------------------------------------- */
+
+        if (notification) {
+
+            notification.innerText =
+                "Message sent successfully!";
+
+            notification.style.display = "block";
+
+        }
+
+
+        /* -----------------------------------------
+           CLEAR FORM
+        ----------------------------------------- */
+
+        const contactForm =
+            document.getElementById("contactForm");
+
+        if (contactForm) {
+            contactForm.reset();
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Firebase save error:",
+            error
+        );
+
+        console.error(
+            "Error code:",
+            error.code
+        );
+
+        console.error(
+            "Error message:",
+            error.message
+        );
+
+
+        if (notification) {
+
+            notification.innerText =
+                "Failed to send message. Please try again.";
+
+            notification.style.display = "block";
+
+        }
+
+    }
 
 }
 
@@ -244,195 +286,181 @@ async function AddStudents(event) {
    CONTACT FORM EVENT
 ========================================================= */
 
-if (submitBtn) {
+const contactForm =
+    document.getElementById("contactForm");
 
-  submitBtn.addEventListener(
-    "click",
-    AddStudents
-  );
+if (contactForm) {
 
-  console.log(
-    "✅ Submit button event listener added"
-  );
+    contactForm.addEventListener(
+        "submit",
+        AddStudents
+    );
+
+    console.log(
+        "✅ Contact form listener connected"
+    );
 
 }
 
 
 /* =========================================================
-   LOAD STUDENTS FROM FIREBASE
+   LOAD STUDENTS / CONTACT MESSAGES
 ========================================================= */
 
 function loadStudents() {
 
-  console.log(
-    "📥 Starting Firebase read..."
-  );
+    console.log(
+        "📥 Starting Firebase message listener..."
+    );
 
 
-  const studentsRef =
-    ref(db, "students");
+    const studentsRef =
+        ref(db, "students");
 
 
-  onValue(
+    onValue(
 
-    studentsRef,
+        studentsRef,
 
-    (snapshot) => {
+        (snapshot) => {
 
-      console.log(
-        "📦 Snapshot received"
-      );
-
-      console.log(
-        "Exists:",
-        snapshot.exists()
-      );
-
-      console.log(
-        "Data:",
-        snapshot.val()
-      );
+            console.log(
+                "📦 Firebase snapshot received"
+            );
 
 
-      studentsData = [];
+            studentsData = [];
 
 
-      /* No data */
+            /* -----------------------------------------
+               NO DATA
+            ----------------------------------------- */
 
-      if (!snapshot.exists()) {
+            if (!snapshot.exists()) {
 
-        console.log(
-          "⚠️ No students found"
-        );
+                console.log(
+                    "⚠️ No messages found."
+                );
 
-        renderMessages();
+                renderMessages();
+                updateStats();
 
-        updateStats();
-
-        return;
-
-      }
-
-
-      /* Convert Firebase object → array */
-
-      snapshot.forEach(
-        (childSnapshot) => {
-
-          const data =
-            childSnapshot.val();
+                return;
+            }
 
 
-          studentsData.push({
+            /* -----------------------------------------
+               CONVERT FIREBASE DATA TO ARRAY
+            ----------------------------------------- */
 
-            id:
-              childSnapshot.key,
+            snapshot.forEach(
+                (childSnapshot) => {
 
-            name:
-              data.name || "",
+                    const data =
+                        childSnapshot.val();
 
-            email:
-              data.email || "",
 
-            phone:
-              data.phone || "",
+                    studentsData.push({
 
-            subject:
-              data.subject || "",
+                        id:
+                            childSnapshot.key,
 
-            message:
-              data.message || "",
+                        name:
+                            data.name || "",
 
-            createdAt:
-              data.createdAt || "",
+                        email:
+                            data.email || "",
 
-            read:
-              data.read === true
+                        phone:
+                            data.phone || "",
 
-          });
+                        subject:
+                            data.subject || "",
+
+                        message:
+                            data.message || "",
+
+                        createdAt:
+                            data.createdAt || "",
+
+                        read:
+                            data.read === true
+
+                    });
+
+                }
+            );
+
+
+            /* -----------------------------------------
+               NEWEST MESSAGE FIRST
+            ----------------------------------------- */
+
+            studentsData.sort(
+                (a, b) => {
+
+                    return (
+                        new Date(b.createdAt || 0) -
+                        new Date(a.createdAt || 0)
+                    );
+
+                }
+            );
+
+
+            console.log(
+                "✅ Messages loaded:",
+                studentsData
+            );
+
+
+            /* -----------------------------------------
+               UPDATE ADMIN PANEL
+            ----------------------------------------- */
+
+            updateStats();
+
+            renderMessages();
+
+        },
+
+
+        (error) => {
+
+            console.error(
+                "❌ Firebase read error:",
+                error
+            );
+
+
+            if (messagesTableBody) {
+
+                messagesTableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            style="
+                                text-align:center;
+                                padding:40px;
+                                color:#dc2626;
+                            "
+                        >
+
+                            Failed to load messages.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
 
         }
-      );
 
-
-      /* Newest first */
-
-      studentsData.sort(
-        (a, b) => {
-
-          return (
-            new Date(b.createdAt || 0) -
-            new Date(a.createdAt || 0)
-          );
-
-        }
-      );
-
-
-      console.log(
-        "✅ Firebase messages:",
-        studentsData
-      );
-
-      console.log(
-        "📊 Total:",
-        studentsData.length
-      );
-
-
-      /* IMPORTANT */
-
-      renderMessages();
-
-      updateStats();
-
-    },
-
-
-    /* Firebase error */
-
-    (error) => {
-
-      console.error(
-        "❌ Firebase read error:",
-        error
-      );
-
-
-      if (messagesTableBody) {
-
-        messagesTableBody.innerHTML = `
-
-          <tr>
-
-            <td
-              colspan="5"
-              style="
-                text-align:center;
-                padding:40px;
-                color:#dc2626;
-              "
-            >
-
-              ❌ Failed to load messages.
-
-              <br>
-
-              <small>
-                ${escapeHTML(error.message)}
-              </small>
-
-            </td>
-
-          </tr>
-
-        `;
-
-      }
-
-    }
-
-  );
+    );
 
 }
 
@@ -443,91 +471,122 @@ function loadStudents() {
 
 function getFilteredMessages() {
 
-  let data =
-    [...studentsData];
+    let data =
+        [...studentsData];
 
 
-  /* Search */
+    /* -----------------------------------------
+       SEARCH
+    ----------------------------------------- */
 
-  const search =
-    searchInput?.value
-      ?.trim()
-      .toLowerCase() || "";
-
-
-  if (search) {
-
-    data =
-      data.filter(
-        (student) => {
-
-          return (
-
-            String(student.name || "")
-              .toLowerCase()
-              .includes(search)
-
-            ||
-
-            String(student.email || "")
-              .toLowerCase()
-              .includes(search)
-
-            ||
-
-            String(student.phone || "")
-              .toLowerCase()
-              .includes(search)
-
-            ||
-
-            String(student.subject || "")
-              .toLowerCase()
-              .includes(search)
-
-            ||
-
-            String(student.message || "")
-              .toLowerCase()
-              .includes(search)
-
-          );
-
-        }
-      );
-
-  }
+    const search =
+        searchInput?.value
+            ?.trim()
+            .toLowerCase() || "";
 
 
-  /* Filter */
+    if (search) {
 
-  const filter =
-    filterSelect?.value || "all";
+        data =
+            data.filter((student) => {
+
+                return (
+
+                    String(student.name)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.email)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.phone)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.subject)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(student.message)
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            });
+
+    }
 
 
-  if (filter === "unread") {
+    /* -----------------------------------------
+       FILTER
+    ----------------------------------------- */
 
-    data =
-      data.filter(
-        student =>
-          student.read !== true
-      );
-
-  }
+    const filter =
+        filterSelect?.value || "all";
 
 
-  if (filter === "read") {
+    if (filter === "unread") {
 
-    data =
-      data.filter(
-        student =>
-          student.read === true
-      );
+        data =
+            data.filter(
+                student => !student.read
+            );
 
-  }
+    }
 
 
-  return data;
+    if (filter === "read") {
+
+        data =
+            data.filter(
+                student => student.read
+            );
+
+    }
+
+
+    /* -----------------------------------------
+       SUBJECT FILTERS
+    ----------------------------------------- */
+
+    const subjectFilters = [
+
+        "notes",
+        "past-papers",
+        "lab",
+        "model",
+        "study-tips",
+        "other"
+
+    ];
+
+
+    if (
+        subjectFilters.includes(filter)
+    ) {
+
+        data =
+            data.filter(
+                student =>
+                    String(
+                        student.subject || ""
+                    ) === filter
+            );
+
+    }
+
+
+    return data;
 
 }
 
@@ -538,886 +597,341 @@ function getFilteredMessages() {
 
 function renderMessages() {
 
-  if (!messagesTableBody) {
+    if (!messagesTableBody) {
 
-    console.error(
-      "❌ messagesTableBody not found"
-    );
+        console.error(
+            "❌ messagesTableBody not found."
+        );
 
-    return;
+        return;
 
-  }
-
-
-  const filteredMessages =
-    getFilteredMessages();
-
-
-  /* No messages */
-
-  if (
-    filteredMessages.length === 0
-  ) {
-
-    messagesTableBody.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="5"
-          style="
-            text-align:center;
-            padding:40px;
-          "
-        >
-
-          <div
-            style="
-              font-size:40px;
-              margin-bottom:10px;
-              opacity:.5;
-            "
-          >
-            📥
-          </div>
-
-          <strong>
-            No messages found
-          </strong>
-
-          <div
-            style="
-              margin-top:8px;
-              color:#718096;
-            "
-          >
-            Messages will appear here
-            once students submit the contact form.
-          </div>
-
-        </td>
-
-      </tr>
-
-    `;
-
-
-    if (pagination) {
-      pagination.innerHTML = "";
     }
 
 
-    return;
+    const filteredMessages =
+        getFilteredMessages();
 
-  }
 
+    /* -----------------------------------------
+       NO MESSAGES
+    ----------------------------------------- */
 
-  /* Total pages */
+    if (
+        filteredMessages.length === 0
+    ) {
 
-  const totalPages =
-    Math.ceil(
-      filteredMessages.length /
-      messagesPerPage
-    );
+        messagesTableBody.innerHTML = `
 
+            <tr>
 
-  /* Keep current page valid */
-
-  if (currentPage > totalPages) {
-
-    currentPage =
-      totalPages;
-
-  }
-
-
-  if (currentPage < 1) {
-
-    currentPage = 1;
-
-  }
-
-
-  const start =
-    (currentPage - 1) *
-    messagesPerPage;
-
-
-  const end =
-    start +
-    messagesPerPage;
-
-
-  const pageMessages =
-    filteredMessages.slice(
-      start,
-      end
-    );
-
-
-  /* Table */
-
-  messagesTableBody.innerHTML =
-    pageMessages.map(
-      (student) => {
-
-        const name =
-          escapeHTML(
-            student.name ||
-            "Unknown"
-          );
-
-
-        const email =
-          escapeHTML(
-            student.email ||
-            ""
-          );
-
-
-        const subject =
-          escapeHTML(
-            student.subject ||
-            "-"
-          );
-
-
-        const fullMessage =
-          escapeHTML(
-            student.message ||
-            "-"
-          );
-
-
-        const preview =
-          fullMessage.length > 80
-            ? fullMessage.substring(
-                0,
-                80
-              ) + "..."
-            : fullMessage;
-
-
-        const date =
-          formatDate(
-            student.createdAt
-          );
-
-
-        /* New badge */
-
-        const newBadge =
-          student.read !== true
-            ? `
-              <span
-                style="
-                  display:inline-block;
-                  margin-left:6px;
-                  padding:3px 8px;
-                  border-radius:20px;
-                  background:#ff7a00;
-                  color:white;
-                  font-size:11px;
-                  font-weight:700;
-                "
-              >
-                NEW
-              </span>
-            `
-            : "";
-
-
-        return `
-
-          <tr
-            class="${
-              student.read
-                ? ""
-                : "unread"
-            }"
-          >
-
-            <!-- NAME -->
-
-            <td>
-
-              <strong>
-                ${name}
-              </strong>
-
-              ${newBadge}
-
-              <div
-                style="
-                  font-size:12px;
-                  color:#2563eb;
-                  margin-top:4px;
-                "
-              >
-
-                ${email}
-
-              </div>
-
-            </td>
-
-
-            <!-- SUBJECT -->
-
-            <td>
-
-              ${subject}
-
-            </td>
-
-
-            <!-- MESSAGE -->
-
-            <td>
-
-              <div
-                class="message-preview"
-                title="${fullMessage}"
-              >
-
-                ${preview}
-
-              </div>
-
-            </td>
-
-
-            <!-- DATE -->
-
-            <td>
-
-              ${date}
-
-            </td>
-
-
-            <!-- ACTIONS -->
-
-            <td>
-
-              <div
-                class="message-actions"
-                style="
-                  display:flex;
-                  gap:8px;
-                "
-              >
-
-                <!-- VIEW -->
-
-                <button
-                  class="action-btn view"
-                  onclick="viewMessage('${student.id}')"
-                  title="View Message"
-                  type="button"
+                <td
+                    colspan="5"
+                    style="
+                        text-align:center;
+                        padding:40px;
+                    "
                 >
 
-                  <i
-                    class="fas fa-eye"
-                  ></i>
+                    <div
+                        style="
+                            font-size:40px;
+                            margin-bottom:10px;
+                            opacity:.5;
+                        "
+                    >
+                        📥
+                    </div>
 
-                </button>
+                    <strong>
+                        No messages found
+                    </strong>
 
+                </td>
 
-                <!-- READ / UNREAD -->
-
-                <button
-                  class="action-btn mark"
-                  onclick="toggleRead('${student.id}')"
-                  title="${
-                    student.read
-                      ? "Mark unread"
-                      : "Mark as read"
-                  }"
-                  type="button"
-                >
-
-                  <i
-                    class="fas ${
-                      student.read
-                        ? "fa-envelope"
-                        : "fa-envelope-open"
-                    }"
-                  ></i>
-
-                </button>
-
-
-                <!-- DELETE -->
-
-                <button
-                  class="action-btn delete"
-                  onclick="deleteMessage('${student.id}')"
-                  title="Delete Message"
-                  type="button"
-                >
-
-                  <i
-                    class="fas fa-trash"
-                  ></i>
-
-                </button>
-
-              </div>
-
-            </td>
-
-          </tr>
+            </tr>
 
         `;
 
-      }
-    ).join("");
 
-
-  /* Pagination */
-
-  updatePagination(
-    filteredMessages.length,
-    totalPages
-  );
-
-
-  console.log(
-    "✅ Table rendered:",
-    pageMessages.length,
-    "of",
-    filteredMessages.length
-  );
-
-}
-
-
-/* =========================================================
-   VIEW MESSAGE
-========================================================= */
-
-window.viewMessage =
-  async function(id) {
-
-    const student =
-      studentsData.find(
-        item =>
-          item.id === id
-      );
-
-
-    if (!student) {
-
-      console.error(
-        "❌ Message not found:",
-        id
-      );
-
-      return;
-
-    }
-
-
-    /* Name */
-
-    const detailName =
-      document.getElementById(
-        "detailName"
-      );
-
-
-    if (detailName) {
-
-      detailName.innerText =
-        student.name ||
-        "Unknown";
-
-    }
-
-
-    /* Meta */
-
-    const detailMeta =
-      document.getElementById(
-        "detailMeta"
-      );
-
-
-    if (detailMeta) {
-
-      detailMeta.innerText =
-        `${
-          student.email ||
-          "No email"
-        } • ${
-          formatDate(
-            student.createdAt
-          )
-        }`;
-
-    }
-
-
-    /* Email */
-
-    const detailEmail =
-      document.getElementById(
-        "detailEmail"
-      );
-
-
-    if (detailEmail) {
-
-      detailEmail.innerText =
-        student.email ||
-        "-";
-
-    }
-
-
-    /* Phone */
-
-    const detailPhone =
-      document.getElementById(
-        "detailPhone"
-      );
-
-
-    if (detailPhone) {
-
-      detailPhone.innerText =
-        student.phone ||
-        "-";
-
-    }
-
-
-    /* Subject */
-
-    const detailSubject =
-      document.getElementById(
-        "detailSubject"
-      );
-
-
-    if (detailSubject) {
-
-      detailSubject.innerText =
-        student.subject ||
-        "-";
-
-    }
-
-
-    /* Message */
-
-    const detailMessage =
-      document.getElementById(
-        "detailMessage"
-      );
-
-
-    if (detailMessage) {
-
-      detailMessage.innerText =
-        student.message ||
-        "-";
-
-    }
-
-
-    /* Reply */
-
-    const replyLink =
-      document.getElementById(
-        "detailReplyLink"
-      );
-
-
-    if (replyLink) {
-
-      if (student.email) {
-
-        replyLink.href =
-          `mailto:${encodeURIComponent(
-            student.email
-          )}?subject=${encodeURIComponent(
-            "Re: " +
-            (
-              student.subject ||
-              "Your Message"
-            )
-          )}`;
-
-      } else {
-
-        replyLink.href = "#";
-
-      }
-
-    }
-
-
-    /* Open modal */
-
-    const overlay =
-      document.getElementById(
-        "msgDetailOverlay"
-      );
-
-
-    if (overlay) {
-
-      overlay.classList.add(
-        "active"
-      );
-
-    }
-
-
-    /* Automatically mark as read */
-
-    if (!student.read) {
-
-      try {
-
-        await update(
-          ref(
-            db,
-            `students/${id}`
-          ),
-          {
-            read: true
-          }
+        updatePagination(
+            0,
+            0
         );
 
+        return;
 
-        console.log(
-          "✅ Message marked as read"
+    }
+
+
+    /* -----------------------------------------
+       PAGINATION
+    ----------------------------------------- */
+
+    const totalItems =
+        filteredMessages.length;
+
+
+    const totalPages =
+        Math.ceil(
+            totalItems /
+            messagesPerPage
         );
 
-
-      } catch (error) {
-
-        console.error(
-          "❌ Failed to mark as read:",
-          error
-        );
-
-      }
-
-    }
-
-  };
-
-
-/* =========================================================
-   CLOSE MESSAGE MODAL
-========================================================= */
-
-window.closeMsgDetail =
-  function() {
-
-    const overlay =
-      document.getElementById(
-        "msgDetailOverlay"
-      );
-
-
-    if (overlay) {
-
-      overlay.classList.remove(
-        "active"
-      );
-
-    }
-
-  };
-
-
-window.closeMessageDetail =
-  window.closeMsgDetail;
-
-
-/* =========================================================
-   DELETE ONE MESSAGE
-========================================================= */
-
-window.deleteMessage =
-  async function(id) {
-
-    if (!id) {
-
-      console.error(
-        "❌ No Firebase ID supplied"
-      );
-
-      return;
-
-    }
-
-
-    const confirmed =
-      confirm(
-        "Are you sure you want to delete this message?"
-      );
-
-
-    if (!confirmed) {
-      return;
-    }
-
-
-    try {
-
-      console.log(
-        "🗑️ Deleting Firebase message:",
-        id
-      );
-
-
-      await remove(
-        ref(
-          db,
-          `students/${id}`
-        )
-      );
-
-
-      console.log(
-        "✅ Message deleted successfully:",
-        id
-      );
-
-
-      /*
-        onValue() automatically runs again,
-        so table and statistics update automatically.
-      */
-
-
-    } catch (error) {
-
-      console.error(
-        "❌ Delete failed:",
-        error
-      );
-
-
-      alert(
-        "Failed to delete message:\n\n" +
-        error.message
-      );
-
-    }
-
-  };
-
-
-/* =========================================================
-   MARK READ / UNREAD
-========================================================= */
-
-window.toggleRead =
-  async function(id) {
-
-    const student =
-      studentsData.find(
-        item =>
-          item.id === id
-      );
-
-
-    if (!student) {
-
-      console.error(
-        "❌ Student not found:",
-        id
-      );
-
-      return;
-
-    }
-
-
-    try {
-
-      await update(
-        ref(
-          db,
-          `students/${id}`
-        ),
-        {
-          read:
-            !student.read
-        }
-      );
-
-
-      console.log(
-        "✅ Read status updated"
-      );
-
-
-    } catch (error) {
-
-      console.error(
-        "❌ Read status update failed:",
-        error
-      );
-
-
-      alert(
-        "Failed to update read status:\n\n" +
-        error.message
-      );
-
-    }
-
-  };
-
-
-/* =========================================================
-   CLEAR ALL MESSAGES
-========================================================= */
-
-window.clearAllMessages =
-  async function() {
 
     if (
-      studentsData.length === 0
+        currentPage > totalPages
     ) {
 
-      alert(
-        "There are no messages to delete."
-      );
-
-      return;
+        currentPage =
+            totalPages;
 
     }
 
 
-    const confirmed =
-      confirm(
-        `Are you sure you want to delete ALL ${studentsData.length} messages?\n\nThis cannot be undone.`
-      );
+    const start =
+        (
+            currentPage - 1
+        ) *
+        messagesPerPage;
 
 
-    if (!confirmed) {
-      return;
-    }
+    const end =
+        start +
+        messagesPerPage;
 
 
-    try {
-
-      console.log(
-        "🗑️ Deleting all Firebase messages..."
-      );
-
-
-      await remove(
-        ref(
-          db,
-          "students"
-        )
-      );
+    const pageMessages =
+        filteredMessages.slice(
+            start,
+            end
+        );
 
 
-      console.log(
-        "✅ All messages deleted"
-      );
+    /* -----------------------------------------
+       TABLE HTML
+    ----------------------------------------- */
+
+    messagesTableBody.innerHTML =
+        pageMessages.map(
+            (student) => {
+
+                const readClass =
+                    student.read
+                        ? "read"
+                        : "unread";
 
 
-    } catch (error) {
-
-      console.error(
-        "❌ Clear all failed:",
-        error
-      );
+                const readText =
+                    student.read
+                        ? "Read"
+                        : "Unread";
 
 
-      alert(
-        "Failed to delete all messages:\n\n" +
-        error.message
-      );
+                return `
 
-    }
+                    <tr
+                        class="${readClass}"
+                        data-id="${escapeHTML(student.id)}"
+                    >
 
-  };
+                        <td>
 
+                            <strong>
+                                ${escapeHTML(student.name)}
+                            </strong>
 
-/* =========================================================
-   DATE FORMAT
-========================================================= */
+                            <br>
 
-function formatDate(dateString) {
+                            <small>
+                                ${escapeHTML(student.email)}
+                            </small>
 
-  if (!dateString) {
-    return "-";
-  }
-
-
-  const date =
-    new Date(dateString);
+                        </td>
 
 
-  if (
-    isNaN(
-      date.getTime()
-    )
-  ) {
+                        <td>
 
-    return "-";
+                            ${escapeHTML(
+                                student.phone || "-"
+                            )}
 
-  }
+                        </td>
 
 
-  return date.toLocaleString(
-    "en-NP",
-    {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    }
-  );
+                        <td>
+
+                            ${escapeHTML(
+                                student.subject
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <div
+                                style="
+                                    max-width:350px;
+                                    white-space:normal;
+                                    word-break:break-word;
+                                "
+                            >
+
+                                ${escapeHTML(
+                                    student.message
+                                )}
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            ${formatDate(
+                                student.createdAt
+                            )}
+
+                            <br>
+
+                            <span
+                                style="
+                                    font-size:12px;
+                                    opacity:.7;
+                                "
+                            >
+                                ${readText}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div
+                                style="
+                                    display:flex;
+                                    gap:5px;
+                                    flex-wrap:wrap;
+                                "
+                            >
+
+                                <button
+                                    type="button"
+                                    onclick="toggleMessageRead('${escapeHTML(student.id)}', ${!student.read})"
+                                    title="Mark ${student.read ? "unread" : "read"}"
+                                >
+
+                                    <i class="fas ${
+                                        student.read
+                                            ? "fa-envelope"
+                                            : "fa-envelope-open"
+                                    }"></i>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    onclick="deleteMessage('${escapeHTML(student.id)}')"
+                                    title="Delete message"
+                                >
+
+                                    <i class="fas fa-trash"></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+
+    updatePagination(
+        totalItems,
+        totalPages
+    );
 
 }
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHTML(value) {
 
-  return String(value)
+    return String(value)
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-    .replace(
-      /'/g,
-      "&#039;"
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "-";
+
+    }
+
+
+    return date.toLocaleString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
     );
 
 }
@@ -1428,102 +942,108 @@ function escapeHTML(value) {
 ========================================================= */
 
 function updatePagination(
-  totalItems,
-  totalPages
+    totalItems,
+    totalPages
 ) {
 
-  if (!pagination) {
-    return;
-  }
+    if (!pagination) {
+        return;
+    }
 
 
-  if (totalItems === 0) {
+    if (totalItems === 0) {
 
-    pagination.innerHTML =
-      "";
+        pagination.innerHTML =
+            "";
 
-    return;
+        return;
 
-  }
-
-
-  const firstItem =
-    ((currentPage - 1) *
-      messagesPerPage) + 1;
+    }
 
 
-  const lastItem =
-    Math.min(
-      currentPage *
-        messagesPerPage,
-      totalItems
-    );
-
-
-  let html = `
-
-    <span>
-      Showing
-      ${firstItem}–${lastItem}
-      of ${totalItems}
-    </span>
-
-  `;
-
-
-  if (totalPages > 1) {
-
-    html += `
-
-      <div
-        style="
-          display:flex;
-          gap:8px;
-          align-items:center;
-          margin-left:15px;
-        "
-      >
-
-        <button
-          type="button"
-          onclick="changePage(${currentPage - 1})"
-          ${
-            currentPage === 1
-              ? "disabled"
-              : ""
-          }
-        >
-          ‹
-        </button>
-
+    let html = `
 
         <span>
-          Page ${currentPage}
-          of ${totalPages}
+
+            Showing ${
+                (
+                    (
+                        currentPage - 1
+                    ) *
+                    messagesPerPage
+                ) + 1
+            }
+
+            –
+
+            ${
+                Math.min(
+                    currentPage *
+                    messagesPerPage,
+                    totalItems
+                )
+            }
+
+            of ${totalItems}
+
         </span>
-
-
-        <button
-          type="button"
-          onclick="changePage(${currentPage + 1})"
-          ${
-            currentPage === totalPages
-              ? "disabled"
-              : ""
-          }
-        >
-          ›
-        </button>
-
-      </div>
 
     `;
 
-  }
+
+    if (totalPages > 1) {
+
+        html += `
+
+            <div
+                style="
+                    display:flex;
+                    gap:6px;
+                    align-items:center;
+                    margin-left:15px;
+                "
+            >
+
+                <button
+                    type="button"
+                    onclick="changePage(${currentPage - 1})"
+                    ${currentPage === 1 ? "disabled" : ""}
+                >
+                    ‹
+                </button>
 
 
-  pagination.innerHTML =
-    html;
+                <span>
+
+                    Page
+                    ${currentPage}
+                    of
+                    ${totalPages}
+
+                </span>
+
+
+                <button
+                    type="button"
+                    onclick="changePage(${currentPage + 1})"
+                    ${
+                        currentPage === totalPages
+                            ? "disabled"
+                            : ""
+                    }
+                >
+                    ›
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    pagination.innerHTML =
+        html;
 
 }
 
@@ -1533,39 +1053,28 @@ function updatePagination(
 ========================================================= */
 
 window.changePage =
-  function(page) {
+    function(page) {
 
-    if (page < 1) {
-      return;
-    }
+        if (
+            page < 1 ||
+            page > Math.ceil(
+                getFilteredMessages().length /
+                messagesPerPage
+            )
+        ) {
 
+            return;
 
-    const filteredMessages =
-      getFilteredMessages();
-
-
-    const totalPages =
-      Math.max(
-        1,
-        Math.ceil(
-          filteredMessages.length /
-          messagesPerPage
-        )
-      );
+        }
 
 
-    if (page > totalPages) {
-      return;
-    }
+        currentPage =
+            page;
 
 
-    currentPage =
-      page;
+        renderMessages();
 
-
-    renderMessages();
-
-  };
+    };
 
 
 /* =========================================================
@@ -1574,16 +1083,16 @@ window.changePage =
 
 if (searchInput) {
 
-  searchInput.addEventListener(
-    "input",
-    () => {
+    searchInput.addEventListener(
+        "input",
+        () => {
 
-      currentPage = 1;
+            currentPage = 1;
 
-      renderMessages();
+            renderMessages();
 
-    }
-  );
+        }
+    );
 
 }
 
@@ -1594,18 +1103,121 @@ if (searchInput) {
 
 if (filterSelect) {
 
-  filterSelect.addEventListener(
-    "change",
-    () => {
+    filterSelect.addEventListener(
+        "change",
+        () => {
 
-      currentPage = 1;
+            currentPage = 1;
 
-      renderMessages();
+            renderMessages();
 
-    }
-  );
+        }
+    );
 
 }
+
+
+/* =========================================================
+   MARK MESSAGE READ / UNREAD
+========================================================= */
+
+window.toggleMessageRead =
+    async function(
+        messageId,
+        readStatus
+    ) {
+
+        if (!messageId) {
+            return;
+        }
+
+
+        try {
+
+            await update(
+                ref(
+                    db,
+                    `students/${messageId}`
+                ),
+                {
+                    read: readStatus
+                }
+            );
+
+
+            console.log(
+                "✅ Message status updated."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Failed to update message:",
+                error
+            );
+
+            alert(
+                "Failed to update message."
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   DELETE MESSAGE
+========================================================= */
+
+window.deleteMessage =
+    async function(messageId) {
+
+        if (!messageId) {
+            return;
+        }
+
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this message?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            await remove(
+                ref(
+                    db,
+                    `students/${messageId}`
+                )
+            );
+
+
+            console.log(
+                "✅ Message deleted."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Delete failed:",
+                error
+            );
+
+            alert(
+                "Failed to delete message."
+            );
+
+        }
+
+    };
 
 
 /* =========================================================
@@ -1614,253 +1226,961 @@ if (filterSelect) {
 
 function updateStats() {
 
-  const total =
-    studentsData.length;
+    const total =
+        studentsData.length;
 
 
-  const unread =
-    studentsData.filter(
-      student =>
-        student.read !== true
-    ).length;
+    const unread =
+        studentsData.filter(
+            student =>
+                !student.read
+        ).length;
 
 
-  const today =
-    new Date();
+    const today =
+        new Date();
 
 
-  const todayCount =
-    studentsData.filter(
-      student => {
+    const todayCount =
+        studentsData.filter(
+            student => {
 
-        if (!student.createdAt) {
-          return false;
+                if (!student.createdAt) {
+                    return false;
+                }
+
+
+                const date =
+                    new Date(
+                        student.createdAt
+                    );
+
+
+                return (
+
+                    date.getDate() ===
+                        today.getDate()
+
+                    &&
+
+                    date.getMonth() ===
+                        today.getMonth()
+
+                    &&
+
+                    date.getFullYear() ===
+                        today.getFullYear()
+
+                );
+
+            }
+        ).length;
+
+
+    const categories =
+        new Set(
+            studentsData
+
+                .map(
+                    student =>
+                        student.subject
+                )
+
+                .filter(Boolean)
+
+        ).size;
+
+
+    console.log(
+        "📊 Statistics:",
+        {
+            total,
+            today: todayCount,
+            unread,
+            categories
         }
+    );
 
 
-        const date =
-          new Date(
-            student.createdAt
-          );
-
-
-        return (
-
-          date.getDate() ===
-          today.getDate()
-
-          &&
-
-          date.getMonth() ===
-          today.getMonth()
-
-          &&
-
-          date.getFullYear() ===
-          today.getFullYear()
-
+    const statsContainer =
+        document.getElementById(
+            "adminStats"
         );
 
-      }
-    ).length;
+
+    if (statsContainer) {
+
+        statsContainer.innerHTML = `
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+
+                <div class="stat-number">
+                    ${total}
+                </div>
+
+                <div class="stat-label">
+                    Total Messages
+                </div>
+
+            </div>
 
 
-  const categories =
-    new Set(
+            <div class="stat-card">
 
-      studentsData
-        .map(
-          student =>
-            String(
-              student.subject || ""
-            )
-            .trim()
-            .toLowerCase()
-        )
-        .filter(Boolean)
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
 
-    ).size;
+                <div class="stat-number">
+                    ${todayCount}
+                </div>
 
+                <div class="stat-label">
+                    Today
+                </div>
 
-  console.log(
-    "📊 Firebase Stats:",
-    {
-      total,
-      today: todayCount,
-      unread,
-      categories
-    }
-  );
+            </div>
 
 
-  /*
-  =========================================================
-  METHOD 1
-  If your cards have IDs
-  =========================================================
-  */
+            <div class="stat-card">
 
-  const totalElement =
-    document.getElementById(
-      "totalMessages"
-    );
+                <div class="stat-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
 
+                <div class="stat-number">
+                    ${unread}
+                </div>
 
-  const todayElement =
-    document.getElementById(
-      "todayMessages"
-    );
+                <div class="stat-label">
+                    Unread
+                </div>
+
+            </div>
 
 
-  const unreadElement =
-    document.getElementById(
-      "unreadMessages"
-    );
+            <div class="stat-card">
 
+                <div class="stat-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
 
-  const categoryElement =
-    document.getElementById(
-      "categoryCount"
-    );
+                <div class="stat-number">
+                    ${categories}
+                </div>
 
+                <div class="stat-label">
+                    Subjects
+                </div>
 
-  if (totalElement) {
+            </div>
 
-    totalElement.innerText =
-      total;
-
-  }
-
-
-  if (todayElement) {
-
-    todayElement.innerText =
-      todayCount;
-
-  }
-
-
-  if (unreadElement) {
-
-    unreadElement.innerText =
-      unread;
-
-  }
-
-
-  if (categoryElement) {
-
-    categoryElement.innerText =
-      categories;
-
-  }
-
-
-  /*
-  =========================================================
-  METHOD 2
-  Your existing .stat-card design
-  =========================================================
-
-  This is the important fix for your screenshot.
-  */
-
-  const statCards =
-    document.querySelectorAll(
-      ".stat-card"
-    );
-
-
-  if (statCards.length >= 4) {
-
-
-    /* TOTAL */
-
-    const totalNumber =
-      statCards[0].querySelector(
-        ".stat-number, .number, h1, h2, h3, .value"
-      );
-
-
-    if (
-      totalNumber &&
-      !totalElement
-    ) {
-
-      totalNumber.innerText =
-        total;
+        `;
 
     }
 
 
-    /* TODAY */
-
-    const todayNumber =
-      statCards[1].querySelector(
-        ".stat-number, .number, h1, h2, h3, .value"
-      );
+    const totalElement =
+        document.getElementById(
+            "totalMessages"
+        );
 
 
-    if (
-      todayNumber &&
-      !todayElement
-    ) {
-
-      todayNumber.innerText =
-        todayCount;
-
-    }
+    const todayElement =
+        document.getElementById(
+            "todayMessages"
+        );
 
 
-    /* UNREAD */
-
-    const unreadNumber =
-      statCards[2].querySelector(
-        ".stat-number, .number, h1, h2, h3, .value"
-      );
+    const unreadElement =
+        document.getElementById(
+            "unreadMessages"
+        );
 
 
-    if (
-      unreadNumber &&
-      !unreadElement
-    ) {
+    const categoryElement =
+        document.getElementById(
+            "categoryCount"
+        );
 
-      unreadNumber.innerText =
-        unread;
+
+    if (totalElement) {
+
+        totalElement.innerText =
+            total;
 
     }
 
 
-    /* CATEGORIES */
+    if (todayElement) {
 
-    const categoryNumber =
-      statCards[3].querySelector(
-        ".stat-number, .number, h1, h2, h3, .value"
-      );
-
-
-    if (
-      categoryNumber &&
-      !categoryElement
-    ) {
-
-      categoryNumber.innerText =
-        categories;
+        todayElement.innerText =
+            todayCount;
 
     }
 
-  }
+
+    if (unreadElement) {
+
+        unreadElement.innerText =
+            unread;
+
+    }
+
+
+    if (categoryElement) {
+
+        categoryElement.innerText =
+            categories;
+
+    }
 
 }
 
 
 /* =========================================================
-   START
+   ADMIN PANEL VIEW
+========================================================= */
+
+function setAdminView(loggedIn) {
+
+    const login =
+        document.getElementById(
+            "adminLogin"
+        );
+
+
+    const dashboard =
+        document.getElementById(
+            "adminDashboard"
+        );
+
+
+    const actions =
+        document.getElementById(
+            "adminHeaderActions"
+        );
+
+
+    const closeLogin =
+        document.getElementById(
+            "adminCloseLogin"
+        );
+
+
+    if (login) {
+
+        login.style.display =
+            loggedIn
+                ? "none"
+                : "block";
+
+    }
+
+
+    if (dashboard) {
+
+        dashboard.style.display =
+            loggedIn
+                ? "block"
+                : "none";
+
+    }
+
+
+    if (actions) {
+
+        actions.style.display =
+            loggedIn
+                ? "flex"
+                : "none";
+
+    }
+
+
+    if (closeLogin) {
+
+        closeLogin.style.display =
+            loggedIn
+                ? "none"
+                : "flex";
+
+    }
+
+
+    if (loggedIn) {
+
+        updateStats();
+
+        renderMessages();
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN ADMIN PANEL
+========================================================= */
+
+window.openAdminPanel =
+    function() {
+
+        const overlay =
+            document.getElementById(
+                "adminOverlay"
+            );
+
+
+        if (!overlay) {
+
+            console.error(
+                "❌ adminOverlay not found."
+            );
+
+            return;
+
+        }
+
+
+        overlay.classList.add(
+            "active"
+        );
+
+
+        setAdminView(
+            isAdminLoggedIn
+        );
+
+
+        if (!isAdminLoggedIn) {
+
+            document
+                .getElementById(
+                    "adminEmail"
+                )
+                ?.focus();
+
+        }
+
+    };
+
+
+/* =========================================================
+   CLOSE ADMIN PANEL
+========================================================= */
+
+window.closeAdminPanel =
+    function() {
+
+        const overlay =
+            document.getElementById(
+                "adminOverlay"
+            );
+
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        const passwordSection =
+            document.getElementById(
+                "changePasswordSection"
+            );
+
+
+        if (passwordSection) {
+
+            passwordSection.classList.remove(
+                "active"
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   CLOSE ON BACKDROP
+========================================================= */
+
+window.closeAdminOnBackdrop =
+    function(event) {
+
+        if (
+            event.target?.id ===
+            "adminOverlay"
+        ) {
+
+            window.closeAdminPanel();
+
+        }
+
+    };
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+window.loginAdmin =
+    async function() {
+
+        const email =
+            document
+                .getElementById(
+                    "adminEmail"
+                )
+                ?.value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById(
+                    "adminPassword"
+                )
+                ?.value || "";
+
+
+        const errorBox =
+            document.getElementById(
+                "loginError"
+            );
+
+
+        if (errorBox) {
+
+            errorBox.textContent =
+                "";
+
+            errorBox.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        if (!email || !password) {
+
+            if (errorBox) {
+
+                errorBox.textContent =
+                    "Enter your admin email and password.";
+
+                errorBox.classList.add(
+                    "show"
+                );
+
+            }
+
+            return;
+
+        }
+
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            console.log(
+                "✅ Admin login successful."
+            );
+
+
+            setAdminView(
+                true
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Admin login failed:",
+                error
+            );
+
+
+            if (errorBox) {
+
+                errorBox.textContent =
+                    "Login failed. Check your email and password.";
+
+                errorBox.classList.add(
+                    "show"
+                );
+
+            }
+
+        }
+
+    };
+
+
+/* =========================================================
+   ADMIN LOGOUT
+========================================================= */
+
+window.logoutAdmin =
+    async function() {
+
+        try {
+
+            await signOut(
+                auth
+            );
+
+
+            console.log(
+                "✅ Admin logged out."
+            );
+
+
+            setAdminView(
+                false
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Logout failed:",
+                error
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   TOGGLE CHANGE PASSWORD
+========================================================= */
+
+window.toggleChangePassword =
+    function() {
+
+        const section =
+            document.getElementById(
+                "changePasswordSection"
+            );
+
+
+        if (section) {
+
+            section.classList.toggle(
+                "active"
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   CHANGE PASSWORD
+========================================================= */
+
+window.changePassword =
+    async function() {
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user || !user.email) {
+
+            return;
+
+        }
+
+
+        const current =
+            document
+                .getElementById(
+                    "currentPassword"
+                )
+                ?.value || "";
+
+
+        const next =
+            document
+                .getElementById(
+                    "newPassword"
+                )
+                ?.value || "";
+
+
+        const confirmNext =
+            document
+                .getElementById(
+                    "confirmPassword"
+                )
+                ?.value || "";
+
+
+        const msg =
+            document.getElementById(
+                "pwChangeMsg"
+            );
+
+
+        const showMessage =
+            (
+                text,
+                success = false
+            ) => {
+
+                if (!msg) {
+                    return;
+                }
+
+
+                msg.textContent =
+                    text;
+
+
+                msg.className =
+                    `pw-change-msg show ${
+                        success
+                            ? "success"
+                            : "error"
+                    }`;
+
+            };
+
+
+        if (
+            !current ||
+            !next ||
+            !confirmNext
+        ) {
+
+            showMessage(
+                "Fill in all password fields."
+            );
+
+            return;
+
+        }
+
+
+        if (next.length < 6) {
+
+            showMessage(
+                "New password must be at least 6 characters."
+            );
+
+            return;
+
+        }
+
+
+        if (next !== confirmNext) {
+
+            showMessage(
+                "New passwords do not match."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const credential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    user.email,
+                    current
+                );
+
+
+            await updatePassword(
+                credential.user,
+                next
+            );
+
+
+            showMessage(
+                "Password changed successfully.",
+                true
+            );
+
+
+            document.getElementById(
+                "currentPassword"
+            ).value = "";
+
+
+            document.getElementById(
+                "newPassword"
+            ).value = "";
+
+
+            document.getElementById(
+                "confirmPassword"
+            ).value = "";
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Password change failed:",
+                error
+            );
+
+
+            showMessage(
+                "Password change failed. Verify your current password and try again."
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   EXPORT MESSAGES
+========================================================= */
+
+window.exportMessages =
+    function() {
+
+        if (
+            studentsData.length === 0
+        ) {
+
+            alert(
+                "There are no messages to export."
+            );
+
+            return;
+
+        }
+
+
+        const headers = [
+
+            "Name",
+            "Email",
+            "Phone",
+            "Subject",
+            "Message",
+            "Date",
+            "Read"
+
+        ];
+
+
+        const rows =
+            studentsData.map(
+                student => [
+
+                    student.name,
+
+                    student.email,
+
+                    student.phone,
+
+                    student.subject,
+
+                    student.message,
+
+                    formatDate(
+                        student.createdAt
+                    ),
+
+                    student.read
+                        ? "Yes"
+                        : "No"
+
+                ]
+            );
+
+
+        const csv =
+            [
+                headers,
+                ...rows
+
+            ]
+
+                .map(
+                    row =>
+                        row
+                            .map(
+                                value =>
+                                    `"${String(
+                                        value ?? ""
+                                    ).replace(
+                                        /"/g,
+                                        '""'
+                                    )}"`
+                            )
+                            .join(",")
+                )
+
+                .join("\r\n");
+
+
+        const blob =
+            new Blob(
+                [
+                    "\uFEFF" + csv
+                ],
+                {
+                    type:
+                        "text/csv;charset=utf-8;"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            `plus-2-guru-messages-${
+                new Date()
+                    .toISOString()
+                    .slice(0, 10)
+            }.csv`;
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+
+        console.log(
+            "✅ Messages exported."
+        );
+
+    };
+
+
+/* =========================================================
+   CLEAR ALL MESSAGES
+========================================================= */
+
+window.clearAllMessages =
+    async function() {
+
+        if (
+            studentsData.length === 0
+        ) {
+
+            alert(
+                "There are no messages to delete."
+            );
+
+            return;
+
+        }
+
+
+        const confirmed =
+            confirm(
+                "WARNING: This will permanently delete ALL messages. Continue?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            await remove(
+                ref(
+                    db,
+                    "students"
+                )
+            );
+
+
+            console.log(
+                "✅ All messages deleted."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Failed to clear messages:",
+                error
+            );
+
+
+            alert(
+                "Failed to delete messages."
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   START FIREBASE LISTENER
 ========================================================= */
 
 console.log(
-  "🚀 Starting Firebase student loader..."
+    "🚀 Starting Plus 2 Guru Firebase..."
 );
 
 
 loadStudents();
+
+
+console.log(
+    "🔥 Firebase initialized."
+);
+
+console.log(
+    "🔥 Database path: students"
+);
+
+console.log(
+    "✅ Plus 2 Guru admin system ready."
+);
