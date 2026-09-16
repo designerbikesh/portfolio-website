@@ -1,7 +1,7 @@
 /* =========================================================
    PLUS 2 GURU - FIREBASE ADMIN SYSTEM
    Firebase Authentication + Realtime Database
-========================================================= */
+   ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
@@ -26,8 +26,7 @@ import {
 
 /* =========================================================
    FIREBASE CONFIG
-========================================================= */
-
+   ========================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyBkyOg675arxH3DW3I8yqjW9dHi-lOcHJc",
   authDomain: "plus-2-guru.firebaseapp.com",
@@ -39,23 +38,21 @@ const firebaseConfig = {
 };
 
 
-
 /* =========================================================
    INITIALIZE FIREBASE
-========================================================= */
+   ========================================================= */
 
 const app = initializeApp(firebaseConfig);
-
 const db = getDatabase(app);
 const auth = getAuth(app);
 
-let isAdminLoggedIn = false;
-let databaseListenerStarted = false;
-
 
 /* =========================================================
-   GLOBAL DATA
-========================================================= */
+   GLOBAL STATE
+   ========================================================= */
+
+let isAdminLoggedIn = false;
+let databaseListenerStarted = false;
 
 let studentsData = [];
 
@@ -66,7 +63,10 @@ const messagesPerPage = 10;
 
 /* =========================================================
    DOM ELEMENTS
-========================================================= */
+   ========================================================= */
+
+const contactForm =
+    document.getElementById("contactForm");
 
 const submitBtn =
     document.getElementById("submit_btn");
@@ -89,7 +89,7 @@ const filterSelect =
 
 /* =========================================================
    SUBJECT LABELS
-========================================================= */
+   ========================================================= */
 
 const subjectLabels = {
     "notes": "Notes",
@@ -102,63 +102,46 @@ const subjectLabels = {
 
 
 function getSubjectLabel(subject) {
-    return (
-        subjectLabels[subject] ||
-        subject ||
-        "Other"
-    );
+    return subjectLabels[subject] || subject || "Other";
 }
 
 
 /* =========================================================
    AUTH STATE
-========================================================= */
+   ========================================================= */
 
 onAuthStateChanged(auth, (user) => {
 
     if (user) {
 
-        console.log(
-            "✅ Admin authenticated:",
-            user.email
-        );
-
-        console.log(
-            "Admin UID:",
-            user.uid
-        );
+        console.log("Admin authenticated:", user.email);
+        console.log("Admin UID:", user.uid);
 
         isAdminLoggedIn = true;
 
         setAdminView(true);
 
-        /*
-           Start Firebase listener only after
-           authentication is confirmed.
-        */
         if (!databaseListenerStarted) {
+
             databaseListenerStarted = true;
+
             loadStudents();
         }
 
     } else {
 
-        console.log(
-            "🔒 No admin authenticated"
-        );
+        console.log("No admin authenticated");
 
         isAdminLoggedIn = false;
 
         setAdminView(false);
 
-        /*
-           Clear old data when logged out.
-        */
         studentsData = [];
 
         currentPage = 1;
 
         renderMessages();
+
         updateStats();
     }
 });
@@ -166,7 +149,7 @@ onAuthStateChanged(auth, (user) => {
 
 /* =========================================================
    CONTACT FORM → FIREBASE
-========================================================= */
+   ========================================================= */
 
 async function AddStudents(event) {
 
@@ -174,65 +157,25 @@ async function AddStudents(event) {
         event.preventDefault();
     }
 
-    console.log(
-        "📤 Sending contact message to Firebase..."
-    );
-
-
-    /* -----------------------------------------------------
-       GET FORM VALUES
-    ----------------------------------------------------- */
-
     const name =
-        document
-            .getElementById("name")
-            ?.value
-            .trim();
+        document.getElementById("name")?.value.trim();
 
     const email =
-        document
-            .getElementById("email")
-            ?.value
-            .trim();
+        document.getElementById("email")?.value.trim();
 
     const phone =
-        document
-            .getElementById("phone")
-            ?.value
-            .trim();
+        document.getElementById("phone")?.value.trim();
 
     const subject =
-        document
-            .getElementById("subject")
-            ?.value
-            .trim();
+        document.getElementById("subject")?.value.trim();
 
     const message =
-        document
-            .getElementById("message")
-            ?.value
-            .trim();
+        document.getElementById("message")?.value.trim();
 
 
-    console.log({
-        name,
-        email,
-        phone,
-        subject,
-        message
-    });
+    /* Validation */
 
-
-    /* -----------------------------------------------------
-       VALIDATION
-    ----------------------------------------------------- */
-
-    if (
-        !name ||
-        !email ||
-        !subject ||
-        !message
-    ) {
+    if (!name || !email || !subject || !message) {
 
         showNotification(
             "Please fill in all required fields.",
@@ -243,13 +186,10 @@ async function AddStudents(event) {
     }
 
 
-    /* -----------------------------------------------------
-       EMAIL VALIDATION
-    ----------------------------------------------------- */
+    /* Correct email regex */
 
     const emailPattern =
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 
     if (!emailPattern.test(email)) {
 
@@ -262,67 +202,54 @@ async function AddStudents(event) {
     }
 
 
-    /* -----------------------------------------------------
-       SAVE TO FIREBASE
-    ----------------------------------------------------- */
-
     try {
 
+        if (submitBtn) {
+
+            submitBtn.disabled = true;
+
+            submitBtn.dataset.originalText =
+                submitBtn.innerHTML;
+
+            submitBtn.innerHTML =
+                '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        }
+
+
         const studentRef =
-            push(
-                ref(
-                    db,
-                    "students"
-                )
-            );
+            push(ref(db, "students"));
 
 
-        await set(
-            studentRef,
-            {
+        await set(studentRef, {
 
-                name: name,
+            name: name,
 
-                email: email,
+            email: email,
 
-                phone: phone || "",
+            phone: phone || "",
 
-                subject: subject,
+            subject: subject,
 
-                message: message,
+            message: message,
 
-                createdAt:
-                    new Date().toISOString(),
+            createdAt:
+                new Date().toISOString(),
 
-                read: false
+            read: false
 
-            }
-        );
+        });
 
 
         console.log(
-            "✅ Message successfully saved!"
+            "Message successfully saved:",
+            studentRef.key
         );
 
-
-        /* -------------------------------------------------
-           SUCCESS
-        ------------------------------------------------- */
 
         showNotification(
             "Message sent successfully!",
             "success"
         );
-
-
-        /* -------------------------------------------------
-           RESET FORM
-        ------------------------------------------------- */
-
-        const contactForm =
-            document.getElementById(
-                "contactForm"
-            );
 
 
         if (contactForm) {
@@ -333,7 +260,7 @@ async function AddStudents(event) {
     } catch (error) {
 
         console.error(
-            "❌ Firebase save error:",
+            "Firebase save error:",
             error
         );
 
@@ -352,65 +279,24 @@ async function AddStudents(event) {
             "Failed to send message. Please try again.",
             "error"
         );
-    }
-}
 
+    } finally {
 
-/* =========================================================
-   NOTIFICATION
-========================================================= */
+        if (submitBtn) {
 
-function showNotification(
-    message,
-    type = "success"
-) {
+            submitBtn.disabled = false;
 
-    if (!notification) {
-        return;
-    }
-
-
-    notification.innerText =
-        message;
-
-
-    notification.style.display =
-        "block";
-
-
-    notification.classList.remove(
-        "success",
-        "error"
-    );
-
-
-    notification.classList.add(
-        type
-    );
-
-
-    setTimeout(() => {
-
-        if (notification) {
-
-            notification.style.display =
-                "none";
-
+            submitBtn.innerHTML =
+                submitBtn.dataset.originalText ||
+                "Send Message";
         }
-
-    }, 5000);
+    }
 }
 
 
 /* =========================================================
    CONTACT FORM EVENT
-========================================================= */
-
-const contactForm =
-    document.getElementById(
-        "contactForm"
-    );
-
+   ========================================================= */
 
 if (contactForm) {
 
@@ -420,53 +306,73 @@ if (contactForm) {
     );
 
     console.log(
-        "✅ Contact form listener connected"
+        "Contact form listener connected"
     );
 }
 
 
 /* =========================================================
-   LOAD STUDENTS / CONTACT MESSAGES
-========================================================= */
+   NOTIFICATION
+   ========================================================= */
+
+function showNotification(message, type = "success") {
+
+    if (!notification) {
+        return;
+    }
+
+    notification.textContent = message;
+
+    notification.style.display = "block";
+
+    notification.classList.remove(
+        "success",
+        "error"
+    );
+
+    notification.classList.add(type);
+
+
+    setTimeout(() => {
+
+        if (notification) {
+
+            notification.style.display =
+                "none";
+        }
+
+    }, 5000);
+}
+
+
+/* =========================================================
+   LOAD FIREBASE MESSAGES
+   ========================================================= */
 
 function loadStudents() {
 
     console.log(
-        "📥 Starting Firebase message listener..."
+        "Starting Firebase message listener..."
     );
 
 
     const studentsRef =
-        ref(
-            db,
-            "students"
-        );
+        ref(db, "students");
 
 
     onValue(
-
         studentsRef,
 
         (snapshot) => {
 
-            console.log(
-                "📦 Firebase snapshot received"
-            );
-
-
             studentsData = [];
 
-
-            /* -------------------------------------------------
-               NO DATA
-            ------------------------------------------------- */
 
             if (!snapshot.exists()) {
 
                 console.log(
-                    "⚠️ No messages found."
+                    "No messages found."
                 );
-
 
                 updateStats();
 
@@ -476,78 +382,61 @@ function loadStudents() {
             }
 
 
-            /* -------------------------------------------------
-               CONVERT FIREBASE DATA → ARRAY
-            ------------------------------------------------- */
+            snapshot.forEach((childSnapshot) => {
 
-            snapshot.forEach(
-                (childSnapshot) => {
-
-                    const data =
-                        childSnapshot.val();
+                const data =
+                    childSnapshot.val() || {};
 
 
-                    studentsData.push({
+                studentsData.push({
 
-                        id:
-                            childSnapshot.key,
+                    id:
+                        childSnapshot.key,
 
-                        name:
-                            data.name || "",
+                    name:
+                        data.name || "",
 
-                        email:
-                            data.email || "",
+                    email:
+                        data.email || "",
 
-                        phone:
-                            data.phone || "",
+                    phone:
+                        data.phone || "",
 
-                        subject:
-                            data.subject || "",
+                    subject:
+                        data.subject || "other",
 
-                        message:
-                            data.message || "",
+                    message:
+                        data.message || "",
 
-                        createdAt:
-                            data.createdAt || "",
+                    createdAt:
+                        data.createdAt || "",
 
-                        read:
-                            data.read === true
+                    read:
+                        data.read === true
+                });
 
-                    });
-
-                }
-            );
+            });
 
 
-            /* -------------------------------------------------
-               NEWEST MESSAGE FIRST
-            ------------------------------------------------- */
+            /* Newest first */
 
-            studentsData.sort(
-                (a, b) => {
+            studentsData.sort((a, b) => {
 
-                    return (
-                        new Date(
-                            b.createdAt || 0
-                        ) -
-                        new Date(
-                            a.createdAt || 0
-                        )
-                    );
+                const dateA =
+                    new Date(a.createdAt || 0).getTime();
 
-                }
-            );
+                const dateB =
+                    new Date(b.createdAt || 0).getTime();
+
+                return dateB - dateA;
+            });
 
 
             console.log(
-                "✅ Messages loaded:",
+                "Messages loaded:",
                 studentsData
             );
 
-
-            /* -------------------------------------------------
-               UPDATE DASHBOARD
-            ------------------------------------------------- */
 
             updateStats();
 
@@ -558,7 +447,7 @@ function loadStudents() {
         (error) => {
 
             console.error(
-                "❌ Firebase read error:",
+                "Firebase read error:",
                 error
             );
 
@@ -569,31 +458,20 @@ function loadStudents() {
 
                     <tr>
 
-                        <td
-                            colspan="6"
-                            style="
-                                text-align:center;
-                                padding:40px;
-                                color:#dc2626;
-                            "
-                        >
+                        <td colspan="6"
+                            class="admin-table-error">
 
-                            <div style="
-                                font-size:40px;
-                                margin-bottom:10px;
-                            ">
-                                ⚠️
+                            <div class="error-icon">
+                                <i class="fas fa-triangle-exclamation"></i>
                             </div>
 
                             <strong>
-                                Failed to load messages.
+                                Failed to load messages
                             </strong>
-
-                            <br>
 
                             <small>
                                 ${escapeHTML(
-                                    error.message || ""
+                                    error.message || "Unknown Firebase error"
                                 )}
                             </small>
 
@@ -603,7 +481,6 @@ function loadStudents() {
 
                 `;
             }
-
         }
     );
 }
@@ -611,7 +488,7 @@ function loadStudents() {
 
 /* =========================================================
    FILTER MESSAGES
-========================================================= */
+   ========================================================= */
 
 function getFilteredMessages() {
 
@@ -619,13 +496,8 @@ function getFilteredMessages() {
         [...studentsData];
 
 
-    /* -----------------------------------------------------
-       SEARCH
-    ----------------------------------------------------- */
-
     const search =
-        searchInput
-            ?.value
+        searchInput?.value
             ?.trim()
             .toLowerCase() || "";
 
@@ -633,73 +505,58 @@ function getFilteredMessages() {
     if (search) {
 
         data =
-            data.filter(
-                (student) => {
+            data.filter((student) => {
 
-                    return (
+                return (
 
-                        String(
-                            student.name
-                        )
-                            .toLowerCase()
-                            .includes(search)
+                    String(student.name)
+                        .toLowerCase()
+                        .includes(search)
 
-                        ||
+                    ||
 
-                        String(
-                            student.email
-                        )
-                            .toLowerCase()
-                            .includes(search)
+                    String(student.email)
+                        .toLowerCase()
+                        .includes(search)
 
-                        ||
+                    ||
 
-                        String(
-                            student.phone
-                        )
-                            .toLowerCase()
-                            .includes(search)
+                    String(student.phone)
+                        .toLowerCase()
+                        .includes(search)
 
-                        ||
+                    ||
 
-                        String(
-                            student.subject
-                        )
-                            .toLowerCase()
-                            .includes(search)
+                    String(student.subject)
+                        .toLowerCase()
+                        .includes(search)
 
-                        ||
+                    ||
 
-                        String(
-                            student.message
-                        )
-                            .toLowerCase()
-                            .includes(search)
+                    getSubjectLabel(student.subject)
+                        .toLowerCase()
+                        .includes(search)
 
-                    );
+                    ||
 
-                }
-            );
+                    String(student.message)
+                        .toLowerCase()
+                        .includes(search)
+                );
+            });
     }
 
 
-    /* -----------------------------------------------------
-       FILTER
-    ----------------------------------------------------- */
-
     const filter =
-        filterSelect?.value ||
-        "all";
+        filterSelect?.value || "all";
 
 
     if (filter === "unread") {
 
         data =
             data.filter(
-                student =>
-                    !student.read
+                student => !student.read
             );
-
     }
 
 
@@ -707,30 +564,23 @@ function getFilteredMessages() {
 
         data =
             data.filter(
-                student =>
-                    student.read
+                student => student.read
             );
-
     }
 
 
-    /* -----------------------------------------------------
-       SUBJECT FILTER
-    ----------------------------------------------------- */
-
     if (
-        Object.keys(subjectLabels)
-            .includes(filter)
+        Object.prototype.hasOwnProperty.call(
+            subjectLabels,
+            filter
+        )
     ) {
 
         data =
             data.filter(
                 student =>
-                    String(
-                        student.subject || ""
-                    ) === filter
+                    student.subject === filter
             );
-
     }
 
 
@@ -740,14 +590,14 @@ function getFilteredMessages() {
 
 /* =========================================================
    RENDER MESSAGES
-========================================================= */
+   ========================================================= */
 
 function renderMessages() {
 
     if (!messagesTableBody) {
 
         console.error(
-            "❌ messagesTableBody not found."
+            "messagesTableBody not found."
         );
 
         return;
@@ -758,45 +608,26 @@ function renderMessages() {
         getFilteredMessages();
 
 
-    /* -----------------------------------------------------
-       NO MESSAGES
-    ----------------------------------------------------- */
+    /* Empty state */
 
-    if (
-        filteredMessages.length === 0
-    ) {
+    if (filteredMessages.length === 0) {
 
         messagesTableBody.innerHTML = `
 
             <tr>
 
-                <td
-                    colspan="6"
-                    style="
-                        text-align:center;
-                        padding:50px 20px;
-                        color:#64748b;
-                    "
-                >
+                <td colspan="6"
+                    class="empty-messages">
 
-                    <div style="
-                        font-size:42px;
-                        margin-bottom:12px;
-                    ">
-                        📥
+                    <div class="empty-icon">
+                        <i class="fas fa-inbox"></i>
                     </div>
 
-                    <strong style="
-                        display:block;
-                        font-size:16px;
-                        margin-bottom:6px;
-                    ">
+                    <strong>
                         No messages found
                     </strong>
 
-                    <span style="
-                        font-size:13px;
-                    ">
+                    <span>
                         Contact form messages will appear here.
                     </span>
 
@@ -807,19 +638,11 @@ function renderMessages() {
         `;
 
 
-        updatePagination(
-            0,
-            0
-        );
-
+        updatePagination(0, 0);
 
         return;
     }
 
-
-    /* -----------------------------------------------------
-       PAGINATION
-    ----------------------------------------------------- */
 
     const totalItems =
         filteredMessages.length;
@@ -827,32 +650,27 @@ function renderMessages() {
 
     const totalPages =
         Math.ceil(
-            totalItems /
-            messagesPerPage
+            totalItems / messagesPerPage
         );
 
 
-    if (
-        currentPage >
-        totalPages
-    ) {
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
 
-        currentPage =
-            totalPages;
 
+    if (currentPage < 1) {
+        currentPage = 1;
     }
 
 
     const start =
-        (
-            currentPage - 1
-        ) *
+        (currentPage - 1) *
         messagesPerPage;
 
 
     const end =
-        start +
-        messagesPerPage;
+        start + messagesPerPage;
 
 
     const pageMessages =
@@ -862,277 +680,9 @@ function renderMessages() {
         );
 
 
-    /* -----------------------------------------------------
-       TABLE
-    ----------------------------------------------------- */
-
     messagesTableBody.innerHTML =
         pageMessages
-            .map(
-                (student) => {
-
-                    const readClass =
-                        student.read
-                            ? "read"
-                            : "unread";
-
-
-                    const readText =
-                        student.read
-                            ? "Read"
-                            : "Unread";
-
-
-                    const subjectLabel =
-                        getSubjectLabel(
-                            student.subject
-                        );
-
-
-                    const firstLetter =
-                        String(
-                            student.name ||
-                            "?"
-                        )
-                            .charAt(0)
-                            .toUpperCase();
-
-
-                    return `
-
-                        <tr
-                            class="${readClass}"
-                            data-id="${escapeHTML(
-                                student.id
-                            )}"
-                        >
-
-                            <!-- NAME -->
-
-                            <td>
-
-                                <div style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:10px;
-                                ">
-
-                                    <div style="
-                                        width:38px;
-                                        height:38px;
-                                        border-radius:50%;
-                                        display:flex;
-                                        align-items:center;
-                                        justify-content:center;
-                                        background:linear-gradient(
-                                            135deg,
-                                            #2563eb,
-                                            #06b6d4
-                                        );
-                                        color:white;
-                                        font-weight:700;
-                                        flex-shrink:0;
-                                    ">
-                                        ${escapeHTML(
-                                            firstLetter
-                                        )}
-                                    </div>
-
-
-                                    <div>
-
-                                        <strong>
-                                            ${escapeHTML(
-                                                student.name
-                                            )}
-                                        </strong>
-
-                                        <br>
-
-                                        <small style="
-                                            color:#64748b;
-                                        ">
-                                            ${escapeHTML(
-                                                student.email
-                                            )}
-                                        </small>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
-
-
-                            <!-- PHONE -->
-
-                            <td>
-
-                                ${escapeHTML(
-                                    student.phone ||
-                                    "-"
-                                )}
-
-                            </td>
-
-
-                            <!-- SUBJECT -->
-
-                            <td>
-
-                                <span
-                                    class="subject-badge"
-                                >
-                                    ${escapeHTML(
-                                        subjectLabel
-                                    )}
-                                </span>
-
-                            </td>
-
-
-                            <!-- MESSAGE -->
-
-                            <td>
-
-                                <div style="
-                                    max-width:320px;
-                                    white-space:normal;
-                                    word-break:break-word;
-                                    line-height:1.5;
-                                ">
-
-                                    ${escapeHTML(
-                                        student.message
-                                    )}
-
-                                </div>
-
-                            </td>
-
-
-                            <!-- DATE -->
-
-                            <td>
-
-                                <div>
-                                    ${formatDate(
-                                        student.createdAt
-                                    )}
-                                </div>
-
-
-                                <span
-                                    class="
-                                        message-status
-                                        ${
-                                            student.read
-                                                ? "status-read"
-                                                : "status-unread"
-                                        }
-                                    "
-                                >
-
-                                    <i
-                                        class="fas ${
-                                            student.read
-                                                ? "fa-check"
-                                                : "fa-envelope"
-                                        }"
-                                    ></i>
-
-                                    ${readText}
-
-                                </span>
-
-                            </td>
-
-
-                            <!-- ACTIONS -->
-
-                            <td>
-
-                                <div style="
-                                    display:flex;
-                                    gap:6px;
-                                    flex-wrap:wrap;
-                                ">
-
-
-                                    <!-- VIEW -->
-
-                                    <button
-                                        type="button"
-                                        class="message-action view-action"
-                                        onclick="viewMessage('${escapeHTML(
-                                            student.id
-                                        )}')"
-                                        title="View message"
-                                    >
-
-                                        <i
-                                            class="fas fa-eye"
-                                        ></i>
-
-                                    </button>
-
-
-                                    <!-- READ / UNREAD -->
-
-                                    <button
-                                        type="button"
-                                        class="message-action"
-                                        onclick="toggleMessageRead(
-                                            '${escapeHTML(
-                                                student.id
-                                            )}',
-                                            ${!student.read}
-                                        )"
-                                        title="${
-                                            student.read
-                                                ? "Mark unread"
-                                                : "Mark read"
-                                        }"
-                                    >
-
-                                        <i
-                                            class="fas ${
-                                                student.read
-                                                    ? "fa-envelope"
-                                                    : "fa-envelope-open"
-                                            }"
-                                        ></i>
-
-                                    </button>
-
-
-                                    <!-- DELETE -->
-
-                                    <button
-                                        type="button"
-                                        class="message-action delete-action"
-                                        onclick="deleteMessage('${escapeHTML(
-                                            student.id
-                                        )}')"
-                                        title="Delete message"
-                                    >
-
-                                        <i
-                                            class="fas fa-trash"
-                                        ></i>
-
-                                    </button>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-                    `;
-
-                }
-            )
+            .map(createMessageRow)
             .join("");
 
 
@@ -1144,82 +694,257 @@ function renderMessages() {
 
 
 /* =========================================================
+   CREATE TABLE ROW
+   ========================================================= */
+
+function createMessageRow(student) {
+
+    const firstLetter =
+        String(
+            student.name || "?"
+        )
+            .charAt(0)
+            .toUpperCase();
+
+
+    const subjectLabel =
+        getSubjectLabel(
+            student.subject
+        );
+
+
+    const statusClass =
+        student.read
+            ? "status-read"
+            : "status-unread";
+
+
+    const statusText =
+        student.read
+            ? "Read"
+            : "Unread";
+
+
+    const rowClass =
+        student.read
+            ? "message-row read-row"
+            : "message-row unread-row";
+
+
+    return `
+
+        <tr
+            class="${rowClass}"
+            data-message-id="${escapeHTML(student.id)}"
+        >
+
+            <!-- NAME -->
+
+            <td class="name-column">
+
+                <div class="user-cell">
+
+                    <div class="user-avatar">
+                        ${escapeHTML(firstLetter)}
+                    </div>
+
+                    <div class="user-details">
+
+                        <strong>
+                            ${escapeHTML(student.name || "Unknown")}
+                            ${!student.read ? '<span class="unread-mark">UNREAD</span>' : ''}
+                        </strong>
+
+                        <span>
+                            ${escapeHTML(student.email || "-")}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+
+            <!-- SUBJECT -->
+
+            <td class="subject-column">
+
+                <span class="subject-badge">
+
+                    <i class="fas fa-tag"></i>
+
+                    ${escapeHTML(subjectLabel)}
+
+                </span>
+
+            </td>
+
+
+            <!-- MESSAGE -->
+
+            <td class="message-column">
+
+                <div
+                    class="message-preview"
+                    title="${escapeHTML(student.message)}"
+                >
+
+                    ${escapeHTML(student.message || "-")}
+
+                </div>
+
+            </td>
+
+
+            <!-- DATE -->
+
+            <td class="date-column">
+
+                <div class="message-date">
+
+                    ${escapeHTML(
+                        formatDate(student.createdAt)
+                    )}
+
+                </div>
+
+                <span class="message-status ${statusClass}">
+
+                    <i class="fas ${
+                        student.read
+                            ? "fa-check-circle"
+                            : "fa-envelope"
+                    }"></i>
+
+                    ${statusText}
+
+                </span>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
+            <td class="actions-column">
+
+                <div class="message-actions">
+
+                    <button
+                        type="button"
+                        class="message-action view-action"
+                        onclick="viewMessage('${escapeJS(student.id)}')"
+                        title="View message"
+                        aria-label="View message"
+                    >
+
+                        <i class="fas fa-eye"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="message-action read-action"
+                        onclick="toggleMessageRead(
+                            '${escapeJS(student.id)}',
+                            ${!student.read}
+                        )"
+                        title="${
+                            student.read
+                                ? "Mark unread"
+                                : "Mark read"
+                        }"
+                        aria-label="${
+                            student.read
+                                ? "Mark unread"
+                                : "Mark read"
+                        }"
+                    >
+
+                        <i class="fas ${
+                            student.read ? "fa-envelope-open" : "fa-envelope"
+                        }"></i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="message-action delete-action"
+                        onclick="deleteMessage('${escapeJS(student.id)}')"
+                        title="Delete message"
+                        aria-label="Delete message"
+                    >
+
+                        <i class="fas fa-trash"></i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `;
+}
+
+
+/* =========================================================
    ESCAPE HTML
-========================================================= */
+   ========================================================= */
 
 function escapeHTML(value) {
 
     return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+/* =========================================================
+   ESCAPE JS STRING
+   ========================================================= */
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+function escapeJS(value) {
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\r/g, "\\r")
+        .replace(/\n/g, "\\n");
 }
 
 
 /* =========================================================
    FORMAT DATE
-========================================================= */
+   ========================================================= */
+function formatDate(dateValue) {
+    if (!dateValue) return "—";
 
-function formatDate(value) {
+    const date = new Date(dateValue);
 
-    if (!value) {
-        return "-";
+    if (isNaN(date.getTime())) {
+        return "Invalid date";
     }
 
-
-    const date =
-        new Date(value);
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return "-";
-
-    }
-
-
-    return date.toLocaleString(
-        "en-US",
-        {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    );
+    return date.toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 }
-
 
 /* =========================================================
    PAGINATION
-========================================================= */
+   ========================================================= */
 
 function updatePagination(
     totalItems,
@@ -1231,144 +956,192 @@ function updatePagination(
     }
 
 
-    if (totalItems === 0) {
+    if (
+        totalItems === 0 ||
+        totalPages === 0
+    ) {
 
-        pagination.innerHTML =
-            "";
+        pagination.innerHTML = "";
 
         return;
     }
 
 
+    const from =
+        (currentPage - 1) *
+            messagesPerPage +
+        1;
+
+
+    const to =
+        Math.min(
+            currentPage *
+                messagesPerPage,
+            totalItems
+        );
+
+
     let html = `
 
-        <span>
+        <div class="pagination-info">
+
             Showing
-            ${
-                (
-                    (
-                        currentPage - 1
-                    ) *
-                    messagesPerPage
-                ) + 1
-            }
-
+            <strong>${from}</strong>
             –
-
-            ${
-                Math.min(
-                    currentPage *
-                    messagesPerPage,
-                    totalItems
-                )
-            }
-
+            <strong>${to}</strong>
             of
-            ${totalItems}
+            <strong>${totalItems}</strong>
 
-        </span>
+        </div>
+
+        <div class="pagination-controls">
+
+            <button
+                type="button"
+                class="pagination-btn"
+                onclick="changePage(${currentPage - 1})"
+                ${currentPage === 1 ? "disabled" : ""}
+                aria-label="Previous page"
+            >
+
+                <i class="fas fa-chevron-left"></i>
+
+            </button>
 
     `;
 
 
-    if (totalPages > 1) {
+    /* Page numbers */
 
-        html += `
-
-            <div style="
-                display:flex;
-                gap:6px;
-                align-items:center;
-                margin-left:15px;
-            ">
-
-                <button
-                    type="button"
-                    onclick="changePage(${
-                        currentPage - 1
-                    })"
-                    ${
-                        currentPage === 1
-                            ? "disabled"
-                            : ""
-                    }
-                >
-                    ‹
-                </button>
+    const maxButtons = 5;
 
 
-                <span>
-
-                    Page
-                    ${currentPage}
-                    of
-                    ${totalPages}
-
-                </span>
+    let startPage =
+        Math.max(
+            1,
+            currentPage -
+                Math.floor(maxButtons / 2)
+        );
 
 
-                <button
-                    type="button"
-                    onclick="changePage(${
-                        currentPage + 1
-                    })"
-                    ${
-                        currentPage === totalPages
-                            ? "disabled"
-                            : ""
-                    }
-                >
-                    ›
+    let endPage =
+        Math.min(
+            totalPages,
+            startPage + maxButtons - 1
+        );
 
-                </button>
 
-            </div>
+    if (
+        endPage - startPage <
+        maxButtons - 1
+    ) {
 
-        `;
-
+        startPage =
+            Math.max(
+                1,
+                endPage - maxButtons + 1
+            );
     }
 
 
-    pagination.innerHTML =
-        html;
+    for (
+        let page = startPage;
+        page <= endPage;
+        page++
+    ) {
+
+        html += `
+
+            <button
+                type="button"
+                class="pagination-btn ${
+                    page === currentPage
+                        ? "active"
+                        : ""
+                }"
+                onclick="changePage(${page})"
+            >
+
+                ${page}
+
+            </button>
+
+        `;
+    }
+
+
+    html += `
+
+            <button
+                type="button"
+                class="pagination-btn"
+                onclick="changePage(${currentPage + 1})"
+                ${
+                    currentPage === totalPages
+                        ? "disabled"
+                        : ""
+                }
+                aria-label="Next page"
+            >
+
+                <i class="fas fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    pagination.innerHTML = html;
 }
 
 
 /* =========================================================
    CHANGE PAGE
-========================================================= */
+   ========================================================= */
 
-window.changePage =
-    function(page) {
+window.changePage = function(page) {
 
-        const totalPages =
-            Math.ceil(
-                getFilteredMessages().length /
-                messagesPerPage
-            );
-
-
-        if (
-            page < 1 ||
-            page > totalPages
-        ) {
-
-            return;
-
-        }
+    const totalPages =
+        Math.ceil(
+            getFilteredMessages().length /
+            messagesPerPage
+        );
 
 
-        currentPage =
-            page;
+    if (
+        page < 1 ||
+        page > totalPages
+    ) {
+        return;
+    }
 
 
-        renderMessages();
-    };
+    currentPage = page;
+
+    renderMessages();
+
+
+    const table =
+        document.querySelector(
+            ".messages-table"
+        );
+
+
+    if (table) {
+
+        table.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+};
 
 
 /* =========================================================
    SEARCH
-========================================================= */
+   ========================================================= */
 
 if (searchInput) {
 
@@ -1379,7 +1152,6 @@ if (searchInput) {
             currentPage = 1;
 
             renderMessages();
-
         }
     );
 }
@@ -1387,7 +1159,7 @@ if (searchInput) {
 
 /* =========================================================
    FILTER
-========================================================= */
+   ========================================================= */
 
 if (filterSelect) {
 
@@ -1398,7 +1170,6 @@ if (filterSelect) {
             currentPage = 1;
 
             renderMessages();
-
         }
     );
 }
@@ -1406,201 +1177,178 @@ if (filterSelect) {
 
 /* =========================================================
    VIEW MESSAGE
-========================================================= */
+   ========================================================= */
 
-window.viewMessage =
-    function(messageId) {
+window.viewMessage = function(messageId) {
 
-        const student =
-            studentsData.find(
-                item =>
-                    item.id === messageId
+    const student =
+        studentsData.find(
+            item =>
+                item.id === messageId
+        );
+
+
+    if (!student) {
+
+        console.error(
+            "Message not found:",
+            messageId
+        );
+
+        return;
+    }
+
+
+    const detailName =
+        document.getElementById(
+            "detailName"
+        );
+
+    const detailMeta =
+        document.getElementById(
+            "detailMeta"
+        );
+
+    const detailEmail =
+        document.getElementById(
+            "detailEmail"
+        );
+
+    const detailPhone =
+        document.getElementById(
+            "detailPhone"
+        );
+
+    const detailSubject =
+        document.getElementById(
+            "detailSubject"
+        );
+
+    const detailMessage =
+        document.getElementById(
+            "detailMessage"
+        );
+
+    const detailReplyLink =
+        document.getElementById(
+            "detailReplyLink"
+        );
+
+
+    if (detailName) {
+
+        detailName.textContent =
+            student.name || "-";
+    }
+
+
+    if (detailMeta) {
+
+        detailMeta.textContent =
+            formatDate(
+                student.createdAt
             );
+    }
 
 
-        if (!student) {
+    if (detailEmail) {
 
-            console.error(
-                "❌ Message not found:",
-                messageId
+        detailEmail.textContent =
+            student.email || "-";
+    }
+
+
+    if (detailPhone) {
+
+        detailPhone.textContent =
+            student.phone || "-";
+    }
+
+
+    if (detailSubject) {
+
+        detailSubject.textContent =
+            getSubjectLabel(
+                student.subject
             );
+    }
 
-            return;
+
+    if (detailMessage) {
+
+        detailMessage.textContent =
+            student.message || "";
+    }
+
+
+    if (detailReplyLink) {
+
+        if (student.email) {
+
+            detailReplyLink.href =
+                `mailto:${encodeURIComponent(student.email)}`;
+
+            detailReplyLink.style.display =
+                "inline-flex";
+
+        } else {
+
+            detailReplyLink.style.display =
+                "none";
         }
+    }
 
 
-        const detailName =
-            document.getElementById(
-                "detailName"
-            );
+    const overlay =
+        document.getElementById(
+            "msgDetailOverlay"
+        );
 
 
-        const detailMeta =
-            document.getElementById(
-                "detailMeta"
-            );
+    if (overlay) {
+
+        overlay.classList.add(
+            "active"
+        );
+    }
 
 
-        const detailEmail =
-            document.getElementById(
-                "detailEmail"
-            );
+    /* Automatically mark read */
 
+    if (!student.read) {
 
-        const detailPhone =
-            document.getElementById(
-                "detailPhone"
-            );
-
-
-        const detailSubject =
-            document.getElementById(
-                "detailSubject"
-            );
-
-
-        const detailMessage =
-            document.getElementById(
-                "detailMessage"
-            );
-
-
-        const detailReplyLink =
-            document.getElementById(
-                "detailReplyLink"
-            );
-
-
-        if (detailName) {
-
-            detailName.textContent =
-                student.name || "-";
-
-        }
-
-
-        if (detailMeta) {
-
-            detailMeta.textContent =
-                formatDate(
-                    student.createdAt
-                );
-
-        }
-
-
-        if (detailEmail) {
-
-            detailEmail.textContent =
-                student.email || "-";
-
-        }
-
-
-        if (detailPhone) {
-
-            detailPhone.textContent =
-                student.phone || "-";
-
-        }
-
-
-        if (detailSubject) {
-
-            detailSubject.textContent =
-                getSubjectLabel(
-                    student.subject
-                );
-
-        }
-
-
-        if (detailMessage) {
-
-            detailMessage.textContent =
-                student.message || "";
-
-        }
-
-
-        if (detailReplyLink) {
-
-            if (student.email) {
-
-                detailReplyLink.href =
-                    `mailto:${student.email}`;
-
-                detailReplyLink.style.display =
-                    "inline-flex";
-
-            } else {
-
-                detailReplyLink.style.display =
-                    "none";
-
-            }
-
-        }
-
-
-        const overlay =
-            document.getElementById(
-                "msgDetailOverlay"
-            );
-
-
-        if (overlay) {
-
-            overlay.classList.add(
-                "active"
-            );
-
-        }
-
-
-        /* ---------------------------------------------
-           MARK AS READ
-        --------------------------------------------- */
-
-        if (!student.read) {
-
-            toggleMessageRead(
-                student.id,
-                true
-            );
-
-        }
-
-    };
+        toggleMessageRead(
+            student.id,
+            true
+        );
+    }
+};
 
 
 /* =========================================================
    CLOSE MESSAGE DETAIL
-========================================================= */
+   ========================================================= */
 
-window.closeMsgDetail =
-    function() {
+window.closeMsgDetail = function() {
 
-        const overlay =
-            document.getElementById(
-                "msgDetailOverlay"
-            );
+    const overlay =
+        document.getElementById(
+            "msgDetailOverlay"
+        );
 
 
-        if (overlay) {
+    if (overlay) {
 
-            overlay.classList.remove(
-                "active"
-            );
-
-        }
-
-    };
+        overlay.classList.remove(
+            "active"
+        );
+    }
+};
 
 
 /* =========================================================
-   MARK MESSAGE READ / UNREAD
-========================================================= */
+   MARK READ / UNREAD
+   ========================================================= */
 
 window.toggleMessageRead =
     async function(
@@ -1616,28 +1364,24 @@ window.toggleMessageRead =
         try {
 
             await update(
-
                 ref(
                     db,
                     `students/${messageId}`
                 ),
-
                 {
-                    read: readStatus
+                    read: Boolean(readStatus)
                 }
-
             );
 
 
             console.log(
-                "✅ Message status updated."
+                "Message status updated."
             );
-
 
         } catch (error) {
 
             console.error(
-                "❌ Failed to update message:",
+                "Failed to update message:",
                 error
             );
 
@@ -1645,15 +1389,13 @@ window.toggleMessageRead =
             alert(
                 "Failed to update message."
             );
-
         }
-
     };
 
 
 /* =========================================================
    DELETE MESSAGE
-========================================================= */
+   ========================================================= */
 
 window.deleteMessage =
     async function(messageId) {
@@ -1677,24 +1419,21 @@ window.deleteMessage =
         try {
 
             await remove(
-
                 ref(
                     db,
                     `students/${messageId}`
                 )
-
             );
 
 
             console.log(
-                "✅ Message deleted."
+                "Message deleted."
             );
-
 
         } catch (error) {
 
             console.error(
-                "❌ Delete failed:",
+                "Delete failed:",
                 error
             );
 
@@ -1702,15 +1441,13 @@ window.deleteMessage =
             alert(
                 "Failed to delete message."
             );
-
         }
-
     };
 
 
 /* =========================================================
    DASHBOARD STATISTICS
-========================================================= */
+   ========================================================= */
 
 function updateStats() {
 
@@ -1720,8 +1457,7 @@ function updateStats() {
 
     const unread =
         studentsData.filter(
-            student =>
-                !student.read
+            student => !student.read
         ).length;
 
 
@@ -1758,127 +1494,23 @@ function updateStats() {
 
                     date.getFullYear() ===
                     today.getFullYear()
-
                 );
-
             }
         ).length;
 
 
     const categories =
         new Set(
-
             studentsData
-
                 .map(
                     student =>
                         student.subject
                 )
-
                 .filter(Boolean)
-
         ).size;
 
 
-    console.log(
-        "📊 Statistics:",
-        {
-            total,
-            today: todayCount,
-            unread,
-            categories
-        }
-    );
-
-
-    /* -----------------------------------------------------
-       STAT CARDS
-    ----------------------------------------------------- */
-
-    const statsContainer =
-        document.getElementById(
-            "adminStats"
-        );
-
-
-    if (statsContainer) {
-
-        statsContainer.innerHTML = `
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    <i class="fas fa-inbox"></i>
-                </div>
-
-                <div class="stat-number">
-                    ${total}
-                </div>
-
-                <div class="stat-label">
-                    Total Messages
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    <i class="fas fa-calendar-day"></i>
-                </div>
-
-                <div class="stat-number">
-                    ${todayCount}
-                </div>
-
-                <div class="stat-label">
-                    Today
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-
-                <div class="stat-number">
-                    ${unread}
-                </div>
-
-                <div class="stat-label">
-                    Unread
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    <i class="fas fa-tags"></i>
-                </div>
-
-                <div class="stat-number">
-                    ${categories}
-                </div>
-
-                <div class="stat-label">
-                    Subjects
-                </div>
-
-            </div>
-
-        `;
-    }
-
-
-    /* -----------------------------------------------------
-       EXISTING STAT IDS
-    ----------------------------------------------------- */
+    /* Existing IDs */
 
     const totalElement =
         document.getElementById(
@@ -1905,33 +1537,128 @@ function updateStats() {
 
 
     if (totalElement) {
-        totalElement.innerText =
-            total;
+        totalElement.textContent = total;
     }
 
 
     if (todayElement) {
-        todayElement.innerText =
-            todayCount;
+        todayElement.textContent = todayCount;
     }
 
 
     if (unreadElement) {
-        unreadElement.innerText =
-            unread;
+        unreadElement.textContent = unread;
     }
 
 
     if (categoryElement) {
-        categoryElement.innerText =
-            categories;
+        categoryElement.textContent = categories;
+    }
+
+
+    /* Modern generated stat cards */
+
+    const statsContainer =
+        document.getElementById(
+            "adminStats"
+        );
+
+
+    if (statsContainer) {
+
+        statsContainer.innerHTML = `
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-number">
+                        ${total}
+                    </div>
+
+                    <div class="stat-label">
+                        Total Messages
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-number">
+                        ${todayCount}
+                    </div>
+
+                    <div class="stat-label">
+                        Today
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-number">
+                        ${unread}
+                    </div>
+
+                    <div class="stat-label">
+                        Unread
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+
+                <div class="stat-content">
+
+                    <div class="stat-number">
+                        ${categories}
+                    </div>
+
+                    <div class="stat-label">
+                        Subjects
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
     }
 }
 
 
 /* =========================================================
    ADMIN PANEL VIEW
-========================================================= */
+   ========================================================= */
 
 function setAdminView(loggedIn) {
 
@@ -1965,7 +1692,6 @@ function setAdminView(loggedIn) {
             loggedIn
                 ? "none"
                 : "block";
-
     }
 
 
@@ -1975,7 +1701,6 @@ function setAdminView(loggedIn) {
             loggedIn
                 ? "block"
                 : "none";
-
     }
 
 
@@ -1985,7 +1710,6 @@ function setAdminView(loggedIn) {
             loggedIn
                 ? "flex"
                 : "none";
-
     }
 
 
@@ -1995,7 +1719,6 @@ function setAdminView(loggedIn) {
             loggedIn
                 ? "none"
                 : "flex";
-
     }
 
 
@@ -2004,100 +1727,91 @@ function setAdminView(loggedIn) {
         updateStats();
 
         renderMessages();
-
     }
-
 }
 
 
 /* =========================================================
    OPEN ADMIN PANEL
-========================================================= */
+   ========================================================= */
 
-window.openAdminPanel =
-    function() {
+window.openAdminPanel = function() {
 
-        const overlay =
-            document.getElementById(
-                "adminOverlay"
-            );
-
-
-        if (!overlay) {
-
-            console.error(
-                "❌ adminOverlay not found."
-            );
-
-            return;
-        }
-
-
-        overlay.classList.add(
-            "active"
+    const overlay =
+        document.getElementById(
+            "adminOverlay"
         );
 
 
-        setAdminView(
-            isAdminLoggedIn
+    if (!overlay) {
+
+        console.error(
+            "adminOverlay not found."
         );
 
+        return;
+    }
 
-        if (!isAdminLoggedIn) {
 
-            document
-                .getElementById(
-                    "adminEmail"
-                )
-                ?.focus();
+    overlay.classList.add(
+        "active"
+    );
 
-        }
 
-    };
+    setAdminView(
+        isAdminLoggedIn
+    );
+
+
+    if (!isAdminLoggedIn) {
+
+        document
+            .getElementById(
+                "adminEmail"
+            )
+            ?.focus();
+    }
+};
 
 
 /* =========================================================
    CLOSE ADMIN PANEL
-========================================================= */
+   ========================================================= */
 
-window.closeAdminPanel =
-    function() {
+window.closeAdminPanel = function() {
 
-        const overlay =
-            document.getElementById(
-                "adminOverlay"
-            );
-
-
-        if (overlay) {
-
-            overlay.classList.remove(
-                "active"
-            );
-
-        }
+    const overlay =
+        document.getElementById(
+            "adminOverlay"
+        );
 
 
-        const passwordSection =
-            document.getElementById(
-                "changePasswordSection"
-            );
+    if (overlay) {
+
+        overlay.classList.remove(
+            "active"
+        );
+    }
 
 
-        if (passwordSection) {
+    const passwordSection =
+        document.getElementById(
+            "changePasswordSection"
+        );
 
-            passwordSection.classList.remove(
-                "active"
-            );
 
-        }
+    if (passwordSection) {
 
-    };
+        passwordSection.classList.remove(
+            "active"
+        );
+    }
+};
 
 
 /* =========================================================
-   CLOSE ON BACKDROP
-========================================================= */
+   CLOSE BACKDROP
+   ========================================================= */
 
 window.closeAdminOnBackdrop =
     function(event) {
@@ -2108,208 +1822,178 @@ window.closeAdminOnBackdrop =
         ) {
 
             window.closeAdminPanel();
-
         }
-
     };
 
 
 /* =========================================================
    ADMIN LOGIN
-========================================================= */
+   ========================================================= */
 
-window.loginAdmin =
-    async function() {
+window.loginAdmin = async function() {
 
-        const email =
-            document
-                .getElementById(
-                    "adminEmail"
-                )
-                ?.value
-                .trim();
-
-
-        const password =
-            document
-                .getElementById(
-                    "adminPassword"
-                )
-                ?.value || "";
+    const email =
+        document
+            .getElementById(
+                "adminEmail"
+            )
+            ?.value
+            .trim();
 
 
-        const errorBox =
-            document.getElementById(
-                "loginError"
+    const password =
+        document
+            .getElementById(
+                "adminPassword"
+            )
+            ?.value || "";
+
+
+    const errorBox =
+        document.getElementById(
+            "loginError"
+        );
+
+
+    if (errorBox) {
+
+        errorBox.textContent = "";
+
+        errorBox.classList.remove(
+            "show"
+        );
+    }
+
+
+    if (!email || !password) {
+
+        if (errorBox) {
+
+            errorBox.textContent =
+                "Enter your admin email and password.";
+
+            errorBox.classList.add(
+                "show"
             );
+        }
+
+        return;
+    }
+
+
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        console.log(
+            "Admin login successful."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Admin login failed:",
+            error
+        );
+
+
+        let message =
+            "Login failed. Check your email and password.";
+
+
+        switch (error.code) {
+
+            case "auth/invalid-credential":
+
+                message =
+                    "Invalid email or password.";
+
+                break;
+
+
+            case "auth/user-not-found":
+
+                message =
+                    "No admin account found.";
+
+                break;
+
+
+            case "auth/wrong-password":
+
+                message =
+                    "Incorrect password.";
+
+                break;
+
+
+            case "auth/too-many-requests":
+
+                message =
+                    "Too many attempts. Please try again later.";
+
+                break;
+
+
+            case "auth/invalid-email":
+
+                message =
+                    "Please enter a valid email address.";
+
+                break;
+        }
 
 
         if (errorBox) {
 
             errorBox.textContent =
-                "";
+                message;
 
-            errorBox.classList.remove(
+            errorBox.classList.add(
                 "show"
             );
-
         }
-
-
-        if (
-            !email ||
-            !password
-        ) {
-
-            if (errorBox) {
-
-                errorBox.textContent =
-                    "Enter your admin email and password.";
-
-                errorBox.classList.add(
-                    "show"
-                );
-
-            }
-
-            return;
-        }
-
-
-        try {
-
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-
-            console.log(
-                "✅ Admin login successful."
-            );
-
-
-            /*
-               onAuthStateChanged()
-               will also call setAdminView().
-            */
-
-        } catch (error) {
-
-            console.error(
-                "❌ Admin login failed:",
-                error
-            );
-
-
-            let message =
-                "Login failed. Check your email and password.";
-
-
-            if (
-                error.code ===
-                "auth/invalid-credential"
-            ) {
-
-                message =
-                    "Invalid email or password.";
-
-            }
-
-
-            if (
-                error.code ===
-                "auth/user-not-found"
-            ) {
-
-                message =
-                    "No admin account found.";
-
-            }
-
-
-            if (
-                error.code ===
-                "auth/wrong-password"
-            ) {
-
-                message =
-                    "Incorrect password.";
-
-            }
-
-
-            if (
-                error.code ===
-                "auth/too-many-requests"
-            ) {
-
-                message =
-                    "Too many attempts. Please try again later.";
-
-            }
-
-
-            if (errorBox) {
-
-                errorBox.textContent =
-                    message;
-
-                errorBox.classList.add(
-                    "show"
-                );
-
-            }
-
-        }
-
-    };
+    }
+};
 
 
 /* =========================================================
-   ADMIN LOGOUT
-========================================================= */
+   LOGOUT
+   ========================================================= */
 
 window.logoutAdmin =
     async function() {
 
         try {
 
-            await signOut(
-                auth
-            );
-
+            await signOut(auth);
 
             console.log(
-                "✅ Admin logged out."
+                "Admin logged out."
             );
 
+            isAdminLoggedIn = false;
 
-            isAdminLoggedIn =
-                false;
-
-
-            setAdminView(
-                false
-            );
-
+            setAdminView(false);
 
         } catch (error) {
 
             console.error(
-                "❌ Logout failed:",
+                "Logout failed:",
                 error
             );
-
         }
-
     };
 
 
 /* =========================================================
    TOGGLE CHANGE PASSWORD
-========================================================= */
+   ========================================================= */
 
 window.toggleChangePassword =
     function() {
@@ -2325,15 +2009,13 @@ window.toggleChangePassword =
             section.classList.toggle(
                 "active"
             );
-
         }
-
     };
 
 
 /* =========================================================
    CHANGE PASSWORD
-========================================================= */
+   ========================================================= */
 
 window.changePassword =
     async function() {
@@ -2348,7 +2030,6 @@ window.changePassword =
         ) {
 
             return;
-
         }
 
 
@@ -2382,29 +2063,26 @@ window.changePassword =
             );
 
 
-        const showMessage =
-            (
-                text,
-                success = false
-            ) => {
+        function showMessage(
+            text,
+            success = false
+        ) {
 
-                if (!msg) {
-                    return;
-                }
-
-
-                msg.textContent =
-                    text;
+            if (!msg) {
+                return;
+            }
 
 
-                msg.className =
-                    `pw-change-msg show ${
-                        success
-                            ? "success"
-                            : "error"
-                    }`;
+            msg.textContent = text;
 
-            };
+
+            msg.className =
+                `pw-change-msg show ${
+                    success
+                        ? "success"
+                        : "error"
+                }`;
+        }
 
 
         if (
@@ -2431,10 +2109,7 @@ window.changePassword =
         }
 
 
-        if (
-            next !==
-            confirmNext
-        ) {
+        if (next !== confirmNext) {
 
             showMessage(
                 "New passwords do not match."
@@ -2446,13 +2121,7 @@ window.changePassword =
 
         try {
 
-            /*
-               Firebase requires a recent
-               authentication for sensitive
-               account changes.
-
-               Re-login with current password.
-            */
+            /* Re-authenticate */
 
             const credential =
                 await signInWithEmailAndPassword(
@@ -2492,7 +2161,7 @@ window.changePassword =
         } catch (error) {
 
             console.error(
-                "❌ Password change failed:",
+                "Password change failed:",
                 error
             );
 
@@ -2500,15 +2169,13 @@ window.changePassword =
             showMessage(
                 "Password change failed. Verify your current password and try again."
             );
-
         }
-
     };
 
 
 /* =========================================================
    EXPORT MESSAGES
-========================================================= */
+   ========================================================= */
 
 window.exportMessages =
     function() {
@@ -2526,21 +2193,13 @@ window.exportMessages =
 
 
         const headers = [
-
             "Name",
-
             "Email",
-
             "Phone",
-
             "Subject",
-
             "Message",
-
             "Date",
-
             "Read"
-
         ];
 
 
@@ -2567,41 +2226,29 @@ window.exportMessages =
                     student.read
                         ? "Yes"
                         : "No"
-
                 ]
             );
 
 
         const csv =
             [
-
                 headers,
-
                 ...rows
-
             ]
-
                 .map(
                     row =>
-
                         row
-
                             .map(
                                 value =>
-
                                     `"${String(
-                                        value ??
-                                        ""
+                                        value ?? ""
                                     ).replace(
                                         /"/g,
                                         '""'
                                     )}"`
                             )
-
                             .join(",")
-
                 )
-
                 .join("\r\n");
 
 
@@ -2630,8 +2277,7 @@ window.exportMessages =
             );
 
 
-        link.href =
-            url;
+        link.href = url;
 
 
         link.download =
@@ -2656,18 +2302,12 @@ window.exportMessages =
         URL.revokeObjectURL(
             url
         );
-
-
-        console.log(
-            "✅ Messages exported."
-        );
-
     };
 
 
 /* =========================================================
    CLEAR ALL MESSAGES
-========================================================= */
+   ========================================================= */
 
 window.clearAllMessages =
     async function() {
@@ -2706,14 +2346,13 @@ window.clearAllMessages =
 
 
             console.log(
-                "✅ All messages deleted."
+                "All messages deleted."
             );
-
 
         } catch (error) {
 
             console.error(
-                "❌ Failed to clear messages:",
+                "Failed to clear messages:",
                 error
             );
 
@@ -2721,28 +2360,73 @@ window.clearAllMessages =
             alert(
                 "Failed to delete messages."
             );
-
         }
-
     };
 
 
 /* =========================================================
+   KEYBOARD SUPPORT
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (event.key === "Escape") {
+
+            const detail =
+                document.getElementById(
+                    "msgDetailOverlay"
+                );
+
+
+            if (
+                detail?.classList.contains(
+                    "active"
+                )
+            ) {
+
+                window.closeMsgDetail();
+
+                return;
+            }
+
+
+            const admin =
+                document.getElementById(
+                    "adminOverlay"
+                );
+
+
+            if (
+                admin?.classList.contains(
+                    "active"
+                )
+            ) {
+
+                window.closeAdminPanel();
+            }
+        }
+    }
+);
+
+
+/* =========================================================
    START
-========================================================= */
+   ========================================================= */
 
 console.log(
-    "🚀 Starting Plus 2 Guru Firebase..."
+    "Starting Plus 2 Guru Firebase..."
 );
 
 console.log(
-    "🔥 Firebase initialized."
+    "Firebase initialized."
 );
 
 console.log(
-    "🔥 Database path: students"
+    "Database path: students"
 );
 
 console.log(
-    "✅ Plus 2 Guru admin system ready."
+    "Plus 2 Guru admin system ready."
 );
