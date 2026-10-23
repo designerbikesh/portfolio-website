@@ -461,6 +461,46 @@ body {
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
+/* Redesigned authentication experience */
+.auth-actions{display:flex;align-items:center;gap:9px;margin-left:8px}
+.auth-btn{border:1px solid var(--primary);border-radius:11px;padding:10px 16px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.auth-btn.login{background:#fff;color:var(--primary)}.auth-btn.signup{background:var(--primary);color:#fff;box-shadow:0 5px 12px #ff720033}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 7px 18px #0f172a12}
+.auth-user{display:none;align-items:center;gap:9px;color:var(--text-dark);font-size:13px;font-weight:700}.auth-user .avatar{width:34px;height:34px;border-radius:50%;background:#fff0e5;color:var(--primary);display:grid;place-items:center}
+.auth-modal{position:fixed;inset:0;z-index:2000;background:rgba(9,18,40,.72);backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:22px;overflow-y:auto}
+.auth-modal.open{display:flex}
+.auth-box{width:min(100%,900px);min-height:590px;display:grid;grid-template-columns: .92fr 1.08fr;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 30px 100px #0005;position:relative;animation:authIn .25s ease;margin:auto}
+@keyframes authIn{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.auth-visual{position:relative;isolation:isolate;overflow:hidden;padding:34px 34px 26px;background:linear-gradient(150deg,#10265f 0%,#1e3a8a 48%,#1768b7 100%);color:white;display:flex;flex-direction:column;justify-content:space-between;min-height:590px}
+.auth-visual:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.16;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:22px 22px}
+.auth-visual-brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:800;letter-spacing:-.4px}.auth-visual-brand img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:14px;padding:5px}
+.auth-visual-content{position:relative;z-index:1;margin:35px 0}.auth-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff45;background:#ffffff12;border-radius:99px;padding:8px 11px;font-size:10px;letter-spacing:1.2px;font-weight:800;color:#dbeafe}
+.auth-visual-content h2{font-size:clamp(30px,3.6vw,42px);line-height:1.13;letter-spacing:-1.4px;margin:22px 0 15px;font-weight:800}.auth-visual-content h2 span{color:#ffb36b}.auth-visual-content>p{font-size:13px;line-height:1.8;color:#dbeafe;max-width:300px}
+.auth-benefits{display:grid;gap:14px;margin-top:27px}.auth-benefits div{display:flex;align-items:center;gap:11px;font-size:12px;color:#f1f5f9}.auth-benefits i{display:grid;place-items:center;width:23px;height:23px;flex:0 0 23px;background:#ffffff18;border:1px solid #ffffff25;border-radius:50%;font-size:10px;color:#a7f3d0}
+.auth-visual-footer{display:flex;align-items:center;gap:9px;color:#dbeafe;font-size:11px}.auth-visual-footer i{color:#ffb36b}.auth-orbit{position:absolute;border:1px solid #ffffff18;border-radius:50%;pointer-events:none}.auth-orbit-one{width:300px;height:300px;right:-180px;top:90px}.auth-orbit-two{width:420px;height:420px;right:-230px;top:30px}
+.auth-main{position:relative;padding:43px clamp(26px,5vw,58px) 27px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.auth-close{position:absolute;right:18px;top:18px;border:0;background:#f1f5f9;color:#64748b;width:34px;height:34px;border-radius:11px;font-size:22px;cursor:pointer;transition:.2s}.auth-close:hover{background:#fee2e2;color:#b91c1c;transform:rotate(90deg)}
+.auth-brand{text-align:left;margin-bottom:21px;padding-right:22px}.auth-brand .auth-logo{display:none}.auth-kicker{font-size:10px;font-weight:800;letter-spacing:1.6px;color:var(--primary);margin-bottom:8px}.auth-brand h2{font-size:29px;line-height:1.2;letter-spacing:-.8px;margin:0 0 8px;color:#14213d}.auth-brand p{font-size:13px;line-height:1.6;color:#778198}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#f1f4f9;padding:5px;border-radius:13px;margin-bottom:21px}.auth-tab{border:0;border-radius:9px;padding:11px;background:transparent;font-size:13px;font-weight:700;font-family:inherit;color:#7b8498;cursor:pointer;transition:.2s}.auth-tab.active{background:#fff;color:#1e3a8a;box-shadow:0 3px 10px #14213d12}
+.auth-field{display:block;margin-bottom:15px}.auth-field>span{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#26334d}.auth-input-wrap{position:relative;display:flex;align-items:center}.auth-input-wrap>i{position:absolute;left:14px;color:#98a2b3;font-size:14px;pointer-events:none}.auth-input-wrap input,.auth-input-wrap select{width:100%;min-width:0;padding:13px 42px 13px 40px;border:1px solid #dce2ec;border-radius:12px;font:13px Inter,sans-serif;color:#1e293b;background:#fbfcff;outline:none;transition:border .2s,box-shadow .2s,background .2s}.auth-input-wrap input:focus,.auth-input-wrap select:focus{border-color:#5476e8;background:#fff;box-shadow:0 0 0 4px #5476e81a}.auth-input-wrap input::placeholder{color:#a4adbc}.auth-input-wrap select{appearance:auto;padding-right:12px}.password-toggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:#8994a7;cursor:pointer}.password-toggle:hover{background:#eef2f8;color:#1e3a8a}
+.auth-submit{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:12px;background:linear-gradient(105deg,#ff7200,#ff9138);color:white;padding:14px 17px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;margin-top:6px;box-shadow:0 8px 18px #ff720033;transition:transform .2s,box-shadow .2s}.auth-submit i{font-size:12px;transition:transform .2s}.auth-submit:hover{transform:translateY(-1px);box-shadow:0 11px 22px #ff720044}.auth-submit:hover i{transform:translateX(3px)}.auth-submit:disabled{opacity:.65;cursor:wait}
+.auth-message{display:none;margin-top:12px;padding:11px 12px;border-radius:10px;font-size:12px;line-height:1.5;overflow-wrap:anywhere}.auth-message.show{display:block}.auth-message.error{background:#fff1f2;color:#be123c;border:1px solid #ffe4e6}.auth-message.success{background:#ecfdf5;color:#047857;border:1px solid #d1fae5}
+.auth-switch{text-align:center;margin-top:18px;color:#7b8498;font-size:12px}.auth-switch button{border:0;background:none;color:#1e3a8a;font-weight:800;cursor:pointer;margin-left:3px}.auth-switch button:hover{text-decoration:underline}
+#authClass{width:100%;border:0;background:transparent;font:inherit;outline:none;color:#1e293b}.auth-forgot{display:block;text-align:right;margin:-5px 0 12px;font-size:12px}.auth-forgot button{border:0;background:none;color:#3159c9;font:inherit;font-weight:700;cursor:pointer}.auth-forgot button:hover{text-decoration:underline}
+.auth-divider{display:flex;align-items:center;gap:12px;color:#98a2b3;font-size:11px;margin:17px 0}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#e5e9f1;flex:1}.auth-socials{display:grid;grid-template-columns:1fr 1fr;gap:10px}.auth-social{display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid #dce2ec;border-radius:11px;background:#fff;padding:11px 8px;font:700 12px Inter,sans-serif;cursor:pointer;transition:.2s}.auth-social:hover{background:#f8fafc;border-color:#b8c5dc;transform:translateY(-1px)}.auth-social.google i{color:#4285f4}.auth-social.facebook i{color:#1877f2}
+.auth-password-rules{display:none;margin:-3px 0 13px;padding:12px;background:#f7f9fd;border:1px solid #e5eaf3;border-radius:11px;font-size:11px;color:#657089}.auth-password-rules.show{display:block}.auth-password-rules p{font-weight:800;margin-bottom:8px;color:#26334d}.auth-password-rules ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px}.auth-password-rules li{display:flex;gap:6px;align-items:center}.auth-password-rules li i{font-size:10px;color:#a0a9b8}.auth-password-rules li.valid{color:#059669}.auth-password-rules li.valid i{color:#059669}.auth-password-rules .count{margin-top:8px;color:#8490a4}.auth-password-rules .count strong{color:#26334d}.auth-social-area[hidden]{display:none!important}.auth-privacy{display:flex;justify-content:center;align-items:center;gap:6px;color:#9aa3b3;font-size:10px;margin-top:18px}.auth-privacy i{color:#10a579}
+
+/* Account settings */
+.profile-modal{display:none;position:fixed;inset:0;z-index:2200;background:rgba(9,18,40,.68);backdrop-filter:blur(7px);padding:18px;overflow:auto;align-items:center;justify-content:center}.profile-modal.open{display:flex}.profile-card{position:relative;width:min(100%,520px);margin:auto;background:#fff;border:1px solid #e7ebf3;border-radius:24px;padding:28px;box-shadow:0 25px 80px #0003;max-height:calc(100vh - 36px);overflow:auto;animation:authIn .2s ease}.profile-close{position:absolute;right:16px;top:16px;width:34px;height:34px;border:0;border-radius:10px;background:#f1f5f9;color:#64748b;font-size:23px;cursor:pointer}.profile-heading{display:flex;align-items:center;gap:14px;padding-right:35px;margin-bottom:22px}.profile-avatar{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:#fff;border:1px solid #e8edf4;padding:4px;overflow:hidden;flex-shrink:0}.profile-avatar img{width:100%;height:100%;object-fit:contain;border-radius:12px;display:block}.profile-heading span{font-size:10px;letter-spacing:1.5px;font-weight:800;color:#ff7200}.profile-heading h2{font-size:23px;line-height:1.2;margin:3px 0 5px;color:#14213d}.profile-heading p,.profile-section-note{font-size:12px;color:#778198;line-height:1.55}.profile-label{display:block;font-size:12px;font-weight:800;color:#26334d;margin:0 0 13px}.profile-input{position:relative;display:flex;align-items:center;margin-top:7px}.profile-input i{position:absolute;left:13px;color:#94a3b8;font-size:13px}.profile-input input{width:100%;border:1px solid #dce2ec;border-radius:11px;background:#fbfcff;padding:12px 13px 12px 38px;font:13px Inter,sans-serif;color:#1e293b;outline:none}.profile-input input:focus{border-color:#5476e8;box-shadow:0 0 0 3px #5476e81a;background:#fff}.profile-input input[readonly]{background:#f3f5f9;color:#68758a}.profile-note,.profile-password-hint{display:block;font-size:11px;line-height:1.5;color:#8290a5;margin-top:-7px;margin-bottom:13px}.profile-primary,.profile-secondary{width:100%;border:0;border-radius:11px;padding:12px 15px;font:800 13px Inter,sans-serif;cursor:pointer;transition:.2s}.profile-primary{background:linear-gradient(105deg,#ff7200,#ff9138);color:#fff;box-shadow:0 6px 16px #ff72002b}.profile-secondary{background:#1e3a8a;color:#fff}.profile-primary:hover,.profile-secondary:hover{transform:translateY(-1px);filter:brightness(1.04)}.profile-primary:disabled,.profile-secondary:disabled{opacity:.65;cursor:wait}.profile-divider{height:1px;background:#e8edf4;margin:22px 0}.profile-card h3{font-size:15px;color:#1e293b;margin-bottom:5px}.profile-card h3 i{color:#ff7200;margin-right:5px}.profile-password-hint{margin-top:-5px}.profile-message{display:none;margin-top:13px;border-radius:10px;padding:11px 12px;font-size:12px;line-height:1.5;overflow-wrap:anywhere}.profile-message.show{display:block}.profile-message.success{background:#ecfdf5;color:#047857;border:1px solid #d1fae5}.profile-message.error{background:#fff1f2;color:#be123c;border:1px solid #ffe4e6}.profile-security{display:flex;align-items:flex-start;gap:9px;margin-top:18px;padding:12px;background:#f5f8ff;border:1px solid #e6edfc;border-radius:12px;color:#68758a;font-size:10px;line-height:1.55}.profile-security i{color:#0f9f6e;margin-top:2px}.auth-user{flex-wrap:wrap}.auth-user .auth-btn{padding:8px 11px}
+@media(max-width:760px){.profile-card{padding:23px 19px;border-radius:20px}.profile-heading h2{font-size:21px}.auth-user{width:100%;justify-content:flex-start}.auth-user>span:nth-child(2){max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+
+body:not(.authenticated)>.navbar,body:not(.authenticated)>.mobile-nav,body:not(.authenticated)>.hero,body:not(.authenticated)>.subjects-section,body:not(.authenticated)>.features-section,body:not(.authenticated)>footer{display:none!important}
+@media(max-width:760px){.auth-box{width:min(100%,470px);min-height:0;display:block;border-radius:23px}.auth-visual{display:none}.auth-main{padding:35px 27px 23px}.auth-brand{text-align:center;padding:0 20px 0 0;margin-bottom:20px}.auth-brand .auth-logo{display:block;width:48px;height:48px;object-fit:contain;margin:0 auto 10px}.auth-brand h2{font-size:25px}.auth-kicker{margin-bottom:6px}.auth-privacy{margin-top:15px}.auth-actions{margin:12px 0 0;display:grid;grid-template-columns:1fr 1fr}.auth-user{margin-top:14px}.mobile-nav-content{overflow-y:auto}}
+@media(max-width:390px){.auth-modal{padding:10px}.auth-main{padding:32px 18px 20px}.auth-brand h2{font-size:23px}.auth-password-rules ul{grid-template-columns:1fr 1fr;gap:7px}.auth-socials{gap:7px}.auth-social{font-size:11px}}
+@media(max-height:720px) and (min-width:761px){.auth-box{min-height:0}.auth-visual{min-height:0;padding:24px 30px}.auth-visual-content{margin:22px 0}.auth-visual-content h2{font-size:32px;margin:15px 0 10px}.auth-benefits{gap:9px;margin-top:17px}.auth-main{padding-top:28px;padding-bottom:20px}.auth-brand{margin-bottom:14px}.auth-tabs{margin-bottom:14px}.auth-field{margin-bottom:11px}}
+
+
 </style>
 </head>
 <body>
@@ -481,6 +521,11 @@ body {
             <li><a href="bio.html">Biology</a></li>
             <li><a href="com.html">Computer</a></li>
         </ul>
+        <div class="auth-actions" id="navAuthActions">
+            <button class="auth-btn login" onclick="openAuth('login')">Log in</button>
+            <button class="auth-btn signup" onclick="openAuth('signup')">Sign up</button>
+        </div>
+        <div class="auth-user" id="navAuthUser"><span class="avatar"><i class="fas fa-user"></i></span><span id="navUserName">Student</span><button class="auth-btn login" onclick="openProfile()"><i class="fas fa-user-gear"></i> Account</button><button class="auth-btn login" onclick="logoutUser()">Log out</button></div>
         <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
     </div>
 </nav>
@@ -497,7 +542,99 @@ body {
             <li><a href="bio.html">Biology</a></li>
             <li><a href="com.html">Computer</a></li>
         </ul>
+        <div class="auth-actions" id="mobileAuthActions">
+            <button class="auth-btn login" onclick="openAuth('login')">Log in</button>
+            <button class="auth-btn signup" onclick="openAuth('signup')">Sign up</button>
+        </div>
+        <div class="auth-user" id="mobileAuthUser"><span class="avatar"><i class="fas fa-user"></i></span><span id="mobileUserName">Student</span><button class="auth-btn login" onclick="openProfile()"><i class="fas fa-user-gear"></i> Account</button><button class="auth-btn login" onclick="logoutUser()">Log out</button></div>
     </div>
+</div>
+
+<!-- Redesigned Login / Sign-up dialog -->
+<div class="auth-modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-box">
+    <aside class="auth-visual" aria-hidden="true">
+      <div class="auth-visual-brand"><img src="logo.png.png" alt=""><span>Plus 2 Guru</span></div>
+      <div class="auth-visual-content">
+        <span class="auth-eyebrow"><i class="fas fa-graduation-cap"></i> YOUR LEARNING SPACE</span>
+        <h2>Learn smarter.<br><span>Go further.</span></h2>
+        <p>Your notes, practice questions and study resources — all in one place, built for +2 students.</p>
+        <div class="auth-benefits">
+          <div><i class="fas fa-check"></i><span>Study resources for Class 11 &amp; 12</span></div>
+          <div><i class="fas fa-check"></i><span>Practice MCQs at your own pace</span></div>
+          <div><i class="fas fa-check"></i><span>Keep your learning journey together</span></div>
+        </div>
+      </div>
+      <div class="auth-visual-footer"><i class="fas fa-book-open"></i> Made for students of Nepal <span>🇳🇵</span></div>
+      <span class="auth-orbit auth-orbit-one"></span><span class="auth-orbit auth-orbit-two"></span>
+    </aside>
+    <div class="auth-main">
+      <button class="auth-close" aria-label="Close" onclick="closeAuth()">&times;</button>
+      <div class="auth-brand">
+        <img class="auth-logo" src="logo.png.png" alt="Plus 2 Guru">
+        <div class="auth-kicker">STUDENT ACCOUNT</div>
+        <h2 id="authTitle">Welcome back!</h2>
+        <p id="authSubtitle">Log in to continue your learning journey.</p>
+      </div>
+      <div class="auth-tabs" role="tablist" aria-label="Account options">
+        <button type="button" class="auth-tab active" id="loginTab" onclick="setAuthMode('login')">Log in</button>
+        <button type="button" class="auth-tab" id="signupTab" onclick="setAuthMode('signup')">Create account</button>
+      </div>
+      <form id="authForm">
+        <label class="auth-field"><span>Email address</span><div class="auth-input-wrap"><i class="far fa-envelope"></i><input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div></label>
+        <label class="auth-field"><span>Password</span><div class="auth-input-wrap"><i class="fas fa-lock"></i><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Enter your password"><button class="password-toggle" type="button" id="passwordToggle" aria-label="Show password" onclick="toggleAuthPassword()"><i class="far fa-eye"></i></button></div></label>
+        <div class="auth-password-rules" id="passwordRules" aria-live="polite">
+          <p>Password requirements</p>
+          <ul>
+            <li id="ruleLength"><i class="fas fa-circle"></i> 8+ characters</li>
+            <li id="ruleUpper"><i class="fas fa-circle"></i> Capital letter</li>
+            <li id="ruleLower"><i class="fas fa-circle"></i> Small letter</li>
+            <li id="ruleNumber"><i class="fas fa-circle"></i> Number (0–9)</li>
+            <li id="ruleSymbol"><i class="fas fa-circle"></i> Special symbol</li>
+          </ul>
+          <div class="count"><strong id="passwordCount">0</strong> characters</div>
+        </div>
+        <div class="auth-forgot" id="forgotWrap"><button type="button" onclick="resetPassword()">Forgot password?</button></div>
+        <button class="auth-submit" id="authSubmit" type="submit"><span>Log in</span><i class="fas fa-arrow-right"></i></button>
+        <div class="auth-message" id="authMessage" role="status" aria-live="polite"></div>
+      </form>
+      <div class="auth-social-area" id="authSocialArea" hidden>
+        <div class="auth-divider"><span>Or sign up with</span></div>
+        <div class="auth-socials">
+          <button type="button" class="auth-social google" onclick="socialLogin('google')"><i class="fab fa-google"></i> Google</button>
+          <button type="button" class="auth-social facebook" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+        </div>
+      </div>
+      <div class="auth-switch" id="authSwitch">New to Plus 2 Guru? <button type="button" onclick="setAuthMode('signup')">Create an account</button></div>
+      <p class="auth-privacy"><i class="fas fa-shield-alt"></i> Your account details are protected.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Student account settings -->
+<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle" onclick="if(event.target===this)closeProfile()">
+  <section class="profile-card">
+    <button type="button" class="profile-close" aria-label="Close account settings" onclick="closeProfile()">&times;</button>
+    <div class="profile-heading"><div class="profile-avatar"><img src="logo.png.png" alt="Plus 2 Guru logo"></div><div><span>PLUS 2 GURU</span><h2 id="profileTitle">Account settings</h2><p>Manage your student account securely.</p></div></div>
+    <form id="profileForm">
+      <label class="profile-label">Display name<div class="profile-input"><i class="fas fa-user"></i><input id="profileName" type="text" maxlength="60" placeholder="Enter a display name" required></div></label>
+      <label class="profile-label">Email address<div class="profile-input"><i class="far fa-envelope"></i><input id="profileEmail" type="email" readonly aria-describedby="profileEmailNote"></div></label>
+      <small class="profile-note" id="profileEmailNote">Your sign-in email is shown here and cannot be changed in this panel.</small>
+      <button class="profile-primary" id="saveProfileBtn" type="submit"><i class="fas fa-check"></i> Save profile</button>
+    </form>
+    <div class="profile-divider"></div>
+    <h3><i class="fas fa-lock"></i> Change password</h3>
+    <p class="profile-section-note">For your security, confirm your current password before choosing a new one.</p>
+    <form id="passwordChangeForm">
+      <label class="profile-label">Current password<div class="profile-input"><i class="fas fa-lock"></i><input id="currentPassword" type="password" autocomplete="current-password" required></div></label>
+      <label class="profile-label">New password<div class="profile-input"><i class="fas fa-key"></i><input id="newPassword" type="password" autocomplete="new-password" minlength="8" required></div></label>
+      <div class="profile-password-hint">Use at least 8 characters, including uppercase, lowercase, a number and a symbol.</div>
+      <button class="profile-secondary" id="changePasswordBtn" type="submit">Update password</button>
+    </form>
+    <div id="profileMessage" class="profile-message" role="status" aria-live="polite"></div>
+    <div class="profile-security"><i class="fas fa-shield-halved"></i><span>Never share your password.</span></div>
+  </section>
 </div>
 
 <section class="hero">
@@ -671,62 +808,290 @@ function closeMobileNav(event) {
 }
 
 
-
-  /* ================================
-           WEBSITE RIGHT-CLICK PROTECTION
-           ================================ */
-
-        // Disable the browser's webpage right-click context menu.
-        document.addEventListener('contextmenu', function (event) {
-            event.preventDefault();
-            return false;
-        });
-
-        // Disable common browser/dev-tool shortcuts on the webpage.
-        document.addEventListener('keydown', function (event) {
-            const key = event.key.toLowerCase();
-
-            // F12
-            if (event.key === 'F12') {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + Shift + I / J / C
-            if (event.ctrlKey && event.shiftKey && ['i', 'j', 'c'].includes(key)) {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + U (View Source)
-            if (event.ctrlKey && key === 'u') {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + S (Save Page)
-            if (event.ctrlKey && key === 's') {
-                event.preventDefault();
-                return false;
-            }
-
-            // Ctrl + P (Print)
-            if (event.ctrlKey && key === 'p') {
-                event.preventDefault();
-                return false;
-            }
-        });
-
-        // Disable text selection and dragging where possible.
-        document.addEventListener('dragstart', function (event) {
-            event.preventDefault();
-        });
-
-        // Disable selecting page text with the mouse.
-        document.addEventListener('selectstart', function (event) {
-            event.preventDefault();
-        });
-
 </script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut, sendPasswordResetEmail, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// Replace YOUR_FIREBASE_API_KEY and YOUR_FIREBASE_APP_ID with values from Firebase Console > Project settings > General.
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBkyOg675arxH3DW3I8yqjW9dHi-lOcHJc",
+  authDomain: "plus-2-guru.firebaseapp.com",
+  databaseURL: "https://plus-2-guru-default-rtdb.firebaseio.com",
+  projectId: "plus-2-guru",
+  storageBucket: "plus-2-guru.firebasestorage.app",
+  messagingSenderId: "632910641461",
+  appId: "1:632910641461:web:beac522e9a3121666e347c",
+  measurementId: "G-Q30TQBNFRE"
+};
+
+const modal = document.getElementById("authModal");
+const form = document.getElementById("authForm");
+const message = document.getElementById("authMessage");
+let mode = "login", auth = null;
+
+function showMessage(text, type = "error") {
+  message.textContent = text;
+  message.className = `auth-message show ${type}`;
+}
+function clearMessage() { message.textContent = ""; message.className = "auth-message"; }
+
+window.openAuth = modeValue => {
+  window.setAuthMode(modeValue || "login");
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => document.getElementById("authEmail").focus(), 80);
+};
+window.closeAuth = () => {
+  if (!auth?.currentUser) {
+    showMessage("Please log in or create an account to access the dashboard.");
+    return;
+  }
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+  clearMessage();
+};
+window.setAuthMode = value => {
+  mode = value === "signup" ? "signup" : "login";
+  const signup = mode === "signup";
+  document.getElementById("authTitle").textContent = signup ? "Create your account" : "Welcome back!";
+  document.getElementById("authSubtitle").textContent = signup ? "Join Plus 2 Guru and continue learning" : "Log in to your Plus 2 Guru student account";
+  document.getElementById("forgotWrap").style.display = signup ? "none" : "block";
+  document.getElementById("authPassword").autocomplete = signup ? "new-password" : "current-password";
+  document.getElementById("authPassword").placeholder = signup ? "Create a strong password" : "Enter your password";
+  document.getElementById("passwordRules").classList.toggle("show", signup);
+  document.getElementById("authSocialArea").hidden = !signup;
+  updatePasswordRules();
+  document.getElementById("authSubmit").textContent = signup ? "Create account" : "Log in";
+  document.getElementById("loginTab").classList.toggle("active", !signup);
+  document.getElementById("signupTab").classList.toggle("active", signup);
+  document.getElementById("authSwitch").innerHTML = signup
+    ? 'Already have an account? <button type="button" onclick="setAuthMode(\'login\')">Log in</button>'
+    : 'New to Plus 2 Guru? <button type="button" onclick="setAuthMode(\'signup\')">Create an account</button>';
+  clearMessage();
+};
+
+window.toggleAuthPassword = () => {
+  const input = document.getElementById("authPassword");
+  const button = document.getElementById("passwordToggle");
+  const visible = input.type === "password";
+  input.type = visible ? "text" : "password";
+  button.setAttribute("aria-label", visible ? "Hide password" : "Show password");
+  button.innerHTML = visible ? '<i class="far fa-eye-slash"></i>' : '<i class="far fa-eye"></i>';
+};
+
+function updatePasswordRules() {
+  const password = document.getElementById("authPassword").value;
+  const checks = {
+    ruleLength: password.length >= 8,
+    ruleUpper: /[A-Z]/.test(password),
+    ruleLower: /[a-z]/.test(password),
+    ruleNumber: /[0-9]/.test(password),
+    ruleSymbol: /[^A-Za-z0-9]/.test(password)
+  };
+  Object.entries(checks).forEach(([id, valid]) => {
+    const item = document.getElementById(id);
+    item.classList.toggle("valid", valid);
+    item.querySelector("i").className = valid ? "fas fa-check-circle" : "fas fa-circle";
+  });
+  document.getElementById("passwordCount").textContent = password.length;
+  return Object.values(checks).every(Boolean);
+}
+document.getElementById("authPassword").addEventListener("input", updatePasswordRules);
+
+function updateAuthUI(user) {
+  const signedIn = !!user;
+  document.body.classList.toggle("authenticated", signedIn);
+  if (!signedIn) {
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  document.getElementById("navAuthActions").style.display = signedIn ? "none" : "flex";
+  document.getElementById("mobileAuthActions").style.display = signedIn ? "none" : "grid";
+  document.getElementById("navAuthUser").style.display = signedIn ? "flex" : "none";
+  document.getElementById("mobileAuthUser").style.display = signedIn ? "flex" : "none";
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "Student";
+  document.getElementById("navUserName").textContent = displayName;
+  document.getElementById("mobileUserName").textContent = displayName;
+}
+window.openProfile = () => {
+  const user = auth?.currentUser;
+  if (!user) { window.openAuth('login'); return; }
+  const profileModal = document.getElementById('profileModal');
+  document.getElementById('profileName').value = user.displayName || user.email?.split('@')[0] || 'Student';
+  document.getElementById('profileEmail').value = user.email || '';
+  const hasPasswordProvider = user.providerData.some(provider => provider.providerId === 'password');
+  document.getElementById('passwordChangeForm').style.display = hasPasswordProvider ? 'block' : 'none';
+  document.getElementById('profileMessage').className = 'profile-message';
+  document.getElementById('profileMessage').textContent = '';
+  profileModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeProfile = () => {
+  document.getElementById('profileModal').classList.remove('open');
+  document.body.style.overflow = '';
+};
+function showProfileMessage(text, type = 'error') {
+  const el = document.getElementById('profileMessage');
+  el.textContent = text;
+  el.className = `profile-message show ${type}`;
+}
+document.getElementById('profileForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const user = auth?.currentUser;
+  if (!user) { showProfileMessage('Please log in again to update your profile.'); return; }
+  const displayName = document.getElementById('profileName').value.trim();
+  if (!displayName) { showProfileMessage('Please enter a display name.'); return; }
+  const button = document.getElementById('saveProfileBtn');
+  button.disabled = true; button.textContent = 'Saving…';
+  try {
+    await updateProfile(user, { displayName });
+    document.getElementById('navUserName').textContent = displayName;
+    document.getElementById('mobileUserName').textContent = displayName;
+    showProfileMessage('Your profile has been updated.', 'success');
+  } catch (error) {
+    showProfileMessage(error.message || 'Could not update your profile. Please try again.');
+  } finally { button.disabled = false; button.innerHTML = '<i class="fas fa-check"></i> Save profile'; }
+});
+document.getElementById('passwordChangeForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  const user = auth?.currentUser;
+  if (!user || !user.email) { showProfileMessage('Please log in again to change your password.'); return; }
+  const currentPassword = document.getElementById('currentPassword').value;
+  const newPassword = document.getElementById('newPassword').value;
+  const valid = newPassword.length >= 8 && /[A-Z]/.test(newPassword) && /[a-z]/.test(newPassword) && /[0-9]/.test(newPassword) && /[^A-Za-z0-9]/.test(newPassword);
+  if (!valid) { showProfileMessage('Your new password must have 8+ characters, uppercase and lowercase letters, a number and a symbol.'); return; }
+  const button = document.getElementById('changePasswordBtn');
+  button.disabled = true; button.textContent = 'Updating password…';
+  try {
+    const credential = EmailAuthProvider.credential(user.email, currentPassword);
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(user, newPassword);
+    document.getElementById('passwordChangeForm').reset();
+    showProfileMessage('Password updated successfully.', 'success');
+  } catch (error) {
+    const errors = {
+      'auth/invalid-credential': 'Current password is incorrect. Please try again.',
+      'auth/wrong-password': 'Current password is incorrect. Please try again.',
+      'auth/weak-password': 'Please choose a stronger password.',
+      'auth/requires-recent-login': 'Please log out and log in again, then retry.',
+      'auth/too-many-requests': 'Too many attempts. Please wait and try again.'
+    };
+    showProfileMessage(errors[error.code] || 'Could not update the password. Please check your current password and try again.');
+  } finally { button.disabled = false; button.textContent = 'Update password'; }
+});
+
+window.logoutUser = async () => {
+  if (!auth) return;
+  try { await signOut(auth); }
+  catch { alert("Could not log out. Please try again."); }
+};
+window.resetPassword = async () => {
+  clearMessage();
+  const email = document.getElementById("authEmail").value.trim();
+  if (!auth) { showMessage("Firebase is not configured yet. Add your Web App apiKey and appId first."); return; }
+  if (!email) { showMessage("Enter your email address above, then select Forgot password?"); document.getElementById("authEmail").focus(); return; }
+  try { await sendPasswordResetEmail(auth, email); showMessage("Password reset email sent. Check your inbox and spam folder.", "success"); }
+  catch (error) {
+    const errors = {"auth/invalid-email":"Please enter a valid email address.","auth/user-not-found":"No account was found with that email address.","auth/too-many-requests":"Too many attempts. Please wait and try again."};
+    showMessage(errors[error.code] || "Could not send the reset email. Please try again.");
+  }
+};
+window.socialLogin = async providerName => {
+  clearMessage();
+  if (!auth) { showMessage("Firebase is not configured yet. Add your Web App apiKey and appId first."); return; }
+  try {
+    const provider = providerName === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    if (result.user && !result.user.displayName) await updateProfile(result.user, {displayName: result.user.email?.split("@")[0] || "Student"});
+    showMessage("Signed in successfully. Welcome to Plus 2 Guru!", "success");
+  } catch (error) {
+    const errors = {"auth/popup-closed-by-user":"Sign-in was cancelled.","auth/account-exists-with-different-credential":"This email is already linked to another sign-in method. Please use that method.","auth/operation-not-allowed":"Enable this sign-in provider in Firebase Authentication settings.","auth/unauthorized-domain":"Add this website domain to Firebase Authentication > Settings > Authorized domains."};
+    showMessage(errors[error.code] || error.message || "Social sign-in failed. Please try again.");
+  }
+};
+
+try {
+  if (firebaseConfig.apiKey === "YOUR_FIREBASE_API_KEY" || firebaseConfig.appId === "YOUR_FIREBASE_APP_ID") {
+    throw new Error("Add your Firebase Web App apiKey and appId to enable login/signup.");
+  }
+  auth = getAuth(initializeApp(firebaseConfig));
+  // Keep the signed-in session across page refreshes using Firebase-managed persistence.
+  await setPersistence(auth, browserLocalPersistence);
+  onAuthStateChanged(auth, user => {
+    updateAuthUI(user);
+    if (user) {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+      clearMessage();
+    } else {
+      window.setAuthMode("login");
+    }
+  });
+} catch (error) {
+  console.warn("Plus 2 Guru authentication setup needed:", error.message);
+  updateAuthUI(null);
+  window.setAuthMode("login");
+}
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  clearMessage();
+  const button = document.getElementById("authSubmit");
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+
+  if (!auth) {
+    showMessage("Firebase is not configured yet. Add your Firebase Web App apiKey and appId, then enable Email/Password under Firebase Authentication > Sign-in method.");
+    return;
+  }
+  if (mode === "signup" && !updatePasswordRules()) {
+    showMessage("Create a stronger password using all five requirements shown below the password field.");
+    document.getElementById("authPassword").focus();
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = mode === "signup" ? "Creating account…" : "Logging in…";
+  try {
+    if (mode === "signup") {
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      showMessage("Account created successfully. Welcome to Plus 2 Guru!", "success");
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+      showMessage("Login successful. Welcome back!", "success");
+    }
+    setTimeout(() => {
+      const currentPath = window.location.pathname.toLowerCase();
+      if (!currentPath.endsWith('/dash.html') && !currentPath.endsWith('dash.html')) {
+        window.location.href = 'dash.html';
+      } else {
+        window.closeAuth();
+      }
+    }, 650);
+  } catch (error) {
+    const errors = {
+      "auth/email-already-in-use": "This email already has an account. Please log in instead.",
+      "auth/invalid-email": "Please enter a valid email address.",
+      "auth/weak-password": "Please use a stronger password with at least 8 characters, uppercase and lowercase letters, a number, and a symbol.",
+      "auth/invalid-credential": "Email or password is incorrect. Please check and try again.",
+      "auth/network-request-failed": "Network error. Check your connection and try again.",
+      "auth/too-many-requests": "Too many attempts. Please wait a while and try again."
+    };
+    showMessage(errors[error.code] || error.message || "Authentication failed. Please try again.");
+  } finally {
+    button.disabled = false;
+    button.textContent = mode === "signup" ? "Create account" : "Log in";
+  }
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && modal.classList.contains("open")) window.closeAuth();
+  if (event.key === "Escape" && document.getElementById("profileModal").classList.contains("open")) window.closeProfile();
+});
+</script>
+
 </body>
 </html>
