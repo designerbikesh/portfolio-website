@@ -495,57 +495,6 @@ body {
 .profile-modal{display:none;position:fixed;inset:0;z-index:2200;background:rgba(9,18,40,.68);backdrop-filter:blur(7px);padding:18px;overflow:auto;align-items:center;justify-content:center}.profile-modal.open{display:flex}.profile-card{position:relative;width:min(100%,520px);margin:auto;background:#fff;border:1px solid #e7ebf3;border-radius:24px;padding:28px;box-shadow:0 25px 80px #0003;max-height:calc(100vh - 36px);overflow:auto;animation:authIn .2s ease}.profile-close{position:absolute;right:16px;top:16px;width:34px;height:34px;border:0;border-radius:10px;background:#f1f5f9;color:#64748b;font-size:23px;cursor:pointer}.profile-heading{display:flex;align-items:center;gap:14px;padding-right:35px;margin-bottom:22px}.profile-avatar{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:#fff;border:1px solid #e8edf4;padding:4px;overflow:hidden;flex-shrink:0}.profile-avatar img{width:100%;height:100%;object-fit:contain;border-radius:12px;display:block}.profile-heading span{font-size:10px;letter-spacing:1.5px;font-weight:800;color:#ff7200}.profile-heading h2{font-size:23px;line-height:1.2;margin:3px 0 5px;color:#14213d}.profile-heading p,.profile-section-note{font-size:12px;color:#778198;line-height:1.55}.profile-label{display:block;font-size:12px;font-weight:800;color:#26334d;margin:0 0 13px}.profile-input{position:relative;display:flex;align-items:center;margin-top:7px}.profile-input i{position:absolute;left:13px;color:#94a3b8;font-size:13px}.profile-input input{width:100%;border:1px solid #dce2ec;border-radius:11px;background:#fbfcff;padding:12px 13px 12px 38px;font:13px Inter,sans-serif;color:#1e293b;outline:none}.profile-input input:focus{border-color:#5476e8;box-shadow:0 0 0 3px #5476e81a;background:#fff}.profile-input input[readonly]{background:#f3f5f9;color:#68758a}.profile-note,.profile-password-hint{display:block;font-size:11px;line-height:1.5;color:#8290a5;margin-top:-7px;margin-bottom:13px}.profile-primary,.profile-secondary{width:100%;border:0;border-radius:11px;padding:12px 15px;font:800 13px Inter,sans-serif;cursor:pointer;transition:.2s}.profile-primary{background:linear-gradient(105deg,#ff7200,#ff9138);color:#fff;box-shadow:0 6px 16px #ff72002b}.profile-secondary{background:#1e3a8a;color:#fff}.profile-primary:hover,.profile-secondary:hover{transform:translateY(-1px);filter:brightness(1.04)}.profile-primary:disabled,.profile-secondary:disabled{opacity:.65;cursor:wait}.profile-divider{height:1px;background:#e8edf4;margin:22px 0}.profile-card h3{font-size:15px;color:#1e293b;margin-bottom:5px}.profile-card h3 i{color:#ff7200;margin-right:5px}.profile-password-hint{margin-top:-5px}.profile-message{display:none;margin-top:13px;border-radius:10px;padding:11px 12px;font-size:12px;line-height:1.5;overflow-wrap:anywhere}.profile-message.show{display:block}.profile-message.success{background:#ecfdf5;color:#047857;border:1px solid #d1fae5}.profile-message.error{background:#fff1f2;color:#be123c;border:1px solid #ffe4e6}.profile-security{display:flex;align-items:flex-start;gap:9px;margin-top:18px;padding:12px;background:#f5f8ff;border:1px solid #e6edfc;border-radius:12px;color:#68758a;font-size:10px;line-height:1.55}.profile-security i{color:#0f9f6e;margin-top:2px}.auth-user{flex-wrap:wrap}.auth-user .auth-btn{padding:8px 11px}
 @media(max-width:760px){.profile-card{padding:23px 19px;border-radius:20px}.profile-heading h2{font-size:21px}.auth-user{width:100%;justify-content:flex-start}.auth-user>span:nth-child(2){max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 
-/* Mobile layout and account settings fixes */
-html,body{max-width:100%;overflow-x:hidden}
-.nav-container{gap:10px;min-width:0}
-.nav-container>.logo{min-width:0;flex:0 1 auto}
-.nav-container>.logo img{width:56px;height:56px;flex:0 0 auto}
-.nav-container>.logo .logo-text{font-size:clamp(16px,2vw,22px);white-space:nowrap}
-.nav-container>.auth-user{min-width:0;flex:0 1 auto}
-.profile-modal{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;align-items:flex-start;padding:12px}
-.profile-card{width:min(100%,520px);max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:24px}
-.profile-google-password-note{display:flex;gap:11px;align-items:flex-start;padding:13px;border-radius:12px;border:1px solid #dbeafe;background:#eff6ff;color:#334155;font-size:12px;line-height:1.55;margin:12px 0}
-.profile-google-password-note[hidden]{display:none!important}
-.profile-google-password-note>i{color:#4285f4;font-size:20px;margin-top:2px}
-.profile-google-password-note p{margin:4px 0 8px;color:#64748b}
-.profile-google-password-note a{color:#1d4ed8;font-weight:800;text-decoration:none}
-.profile-google-password-note a:hover{text-decoration:underline}
-@media(max-width:760px){
- .nav-container{height:62px!important;padding:0 12px;gap:7px}
- .nav-container>.logo{gap:5px}
- .nav-container>.logo img{width:43px;height:43px}
- .nav-container>.logo .logo-text{font-size:17px;letter-spacing:-.4px}
- .nav-container>.auth-actions#navAuthActions{display:none!important}
- .nav-container>.auth-user{display:none!important}
- .mobile-menu-btn{display:flex;align-items:center;justify-content:center;flex:0 0 40px;width:40px;height:40px;border-radius:10px;font-size:21px;background:#fff7ed;color:#e56500}
- .mobile-nav{z-index:1500}
- .mobile-nav-content{width:min(88vw,340px);max-width:100%;padding:78px 20px 24px;overflow-y:auto;overscroll-behavior:contain}
- .mobile-nav-links a{padding:12px 2px;font-size:15px}
- #mobileAuthActions{grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
- #mobileAuthActions .auth-btn{width:100%;padding:11px 8px}
- #mobileAuthUser{display:none;flex-direction:column;align-items:stretch;gap:10px;width:100%;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
- #mobileAuthUser .avatar{align-self:flex-start}
- #mobileAuthUser #mobileUserName{max-width:100%;overflow-wrap:anywhere;white-space:normal}
- #mobileAuthUser .auth-btn{width:100%;margin:0;text-align:center}
- .profile-modal{padding:8px;align-items:flex-start}
- .profile-card{width:100%;max-height:calc(100dvh - 16px);padding:21px 16px 22px;border-radius:17px;margin:0 auto}
- .profile-heading{gap:10px;padding-right:35px;margin-bottom:18px;align-items:center}
- .profile-avatar{width:45px;height:45px;border-radius:13px}
- .profile-heading h2{font-size:19px;overflow-wrap:anywhere}
- .profile-heading p{font-size:11px}
- .profile-card h3{font-size:15px}
- .profile-input input{font-size:16px;padding-top:13px;padding-bottom:13px}
- .profile-primary,.profile-secondary{min-height:44px}
- .profile-divider{margin:18px 0}
-}
-@media(max-width:380px){
- .nav-container>.logo img{width:36px;height:36px}
- .nav-container>.logo .logo-text{font-size:15px}
- .mobile-nav-content{width:90vw;padding-left:16px;padding-right:16px}
- .profile-card{padding:18px 13px}
- .profile-heading h2{font-size:18px}
-}
-
 body:not(.authenticated)>.navbar,body:not(.authenticated)>.mobile-nav,body:not(.authenticated)>.hero,body:not(.authenticated)>.subjects-section,body:not(.authenticated)>.features-section,body:not(.authenticated)>footer{display:none!important}
 @media(max-width:760px){.auth-box{width:min(100%,470px);min-height:0;display:block;border-radius:23px}.auth-visual{display:none}.auth-main{padding:35px 27px 23px}.auth-brand{text-align:center;padding:0 20px 0 0;margin-bottom:20px}.auth-brand .auth-logo{display:block;width:48px;height:48px;object-fit:contain;margin:0 auto 10px}.auth-brand h2{font-size:25px}.auth-kicker{margin-bottom:6px}.auth-privacy{margin-top:15px}.auth-actions{margin:12px 0 0;display:grid;grid-template-columns:1fr 1fr}.auth-user{margin-top:14px}.mobile-nav-content{overflow-y:auto}}
 @media(max-width:390px){.auth-modal{padding:10px}.auth-main{padding:32px 18px 20px}.auth-brand h2{font-size:23px}.auth-password-rules ul{grid-template-columns:1fr 1fr;gap:7px}.auth-socials{gap:7px}.auth-social{font-size:11px}}
@@ -676,8 +625,7 @@ body:not(.authenticated)>.navbar,body:not(.authenticated)>.mobile-nav,body:not(.
     </form>
     <div class="profile-divider"></div>
     <h3><i class="fas fa-lock"></i> Change password</h3>
-    <p class="profile-section-note" id="passwordProviderNote">For your security, confirm your current password before choosing a new one.</p>
-    <div class="profile-google-password-note" id="googlePasswordNote" hidden><i class="fab fa-google"></i><div><strong>Google account password</strong><p>You signed in with Google. Your password is managed by Google, so it cannot be changed here. To change it, visit your Google Account security settings.</p><a href="https://myaccount.google.com/security" target="_blank" rel="noopener noreferrer">Manage Google password <i class="fas fa-arrow-up-right-from-square"></i></a></div></div>
+    <p class="profile-section-note">For your security, confirm your current password before choosing a new one.</p>
     <form id="passwordChangeForm">
       <label class="profile-label">Current password<div class="profile-input"><i class="fas fa-lock"></i><input id="currentPassword" type="password" autocomplete="current-password" required></div></label>
       <label class="profile-label">New password<div class="profile-input"><i class="fas fa-key"></i><input id="newPassword" type="password" autocomplete="new-password" minlength="8" required></div></label>
@@ -858,13 +806,6 @@ function toggleMobileNav() {
 function closeMobileNav(event) {
     if (event.target === document.getElementById('mobileNav')) toggleMobileNav();
 }
-// Close the mobile drawer after selecting a destination or account action.
-document.querySelectorAll('#mobileNav .mobile-nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.getElementById('mobileNav').classList.remove('active');
-        document.body.style.overflow = '';
-    });
-});
 
 
 
@@ -941,6 +882,7 @@ const firebaseConfig = {
   appId: "1:632910641461:web:beac522e9a3121666e347c",
   measurementId: "G-Q30TQBNFRE"
 };
+
 const modal = document.getElementById("authModal");
 const form = document.getElementById("authForm");
 const message = document.getElementById("authMessage");
@@ -1034,16 +976,10 @@ window.openProfile = () => {
   const user = auth?.currentUser;
   if (!user) { window.openAuth('login'); return; }
   const profileModal = document.getElementById('profileModal');
-  document.getElementById('mobileNav')?.classList.remove('active');
   document.getElementById('profileName').value = user.displayName || user.email?.split('@')[0] || 'Student';
   document.getElementById('profileEmail').value = user.email || '';
   const hasPasswordProvider = user.providerData.some(provider => provider.providerId === 'password');
-  const passwordForm = document.getElementById('passwordChangeForm');
-  const googlePasswordNote = document.getElementById('googlePasswordNote');
-  const passwordProviderNote = document.getElementById('passwordProviderNote');
-  passwordForm.style.display = hasPasswordProvider ? 'block' : 'none';
-  googlePasswordNote.hidden = hasPasswordProvider;
-  passwordProviderNote.style.display = hasPasswordProvider ? 'block' : 'none';
+  document.getElementById('passwordChangeForm').style.display = hasPasswordProvider ? 'block' : 'none';
   document.getElementById('profileMessage').className = 'profile-message';
   document.getElementById('profileMessage').textContent = '';
   profileModal.classList.add('open');
